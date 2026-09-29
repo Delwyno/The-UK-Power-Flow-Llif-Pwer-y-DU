@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UK power, source to socket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#cbdadf; --land:#e4e8e3; --land-uk:#fbfcfa; --coast:#98acb3;
+  --ink:#1b282e; --muted:#5a6b71; --panel:#ffffff; --rule:#d6dee1; --soft:#eef2f3;
+  --grid:#52636a; --hub:#1b282e; --pyl:#8d9ba0; --warn:#d6333a;
+  --ow:#0f8b8d; --nw:#5b9a2e; --nu:#7a4fd1; --gas:#d2692a; --bio:#9a7b2c; --hy:#2f6fd0; --so:#d9a100; --ti:#0aa4c4; --bat:#607482; --ic:#c23b77;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --sea:#0e1b21; --land:#1a252a; --land-uk:#2a383e; --coast:#41565e;
+    --ink:#e6edef; --muted:#9fb1b7; --panel:#141f24; --rule:#2b3a40; --soft:#1c2a30;
+    --grid:#9fb1b7; --hub:#e6edef; --pyl:#5d7078; --bat:#8fa3b0;
+  }
+}
+:root[data-theme="dark"]{
+  --sea:#0e1b21; --land:#1a252a; --land-uk:#2a383e; --coast:#41565e;
+  --ink:#e6edef; --muted:#9fb1b7; --panel:#141f24; --rule:#2b3a40; --soft:#1c2a30;
+  --grid:#9fb1b7; --hub:#e6edef; --pyl:#5d7078; --bat:#8fa3b0;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;background:var(--panel);overflow:hidden;max-width:100vw}
+.app{max-width:100vw;overflow:hidden}
+.app{height:100%;display:flex;flex-direction:column}
+header{padding:10px 14px 8px;border-bottom:1px solid var(--rule);background:var(--panel)}
+.titlerow{display:flex;align-items:center;gap:8px;justify-content:space-between}
+h1{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.01em;margin:0;line-height:1.1;flex:1;min-width:0}
+h1 span{font-weight:500;color:var(--muted)}
+.tools{display:flex;gap:6px;align-items:center;flex:none}
+select,.tbtn{font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:5px 8px;max-width:100%}
+.tbtn{cursor:pointer;font-weight:600;white-space:nowrap}
+.tbtn[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+/* search */
+.search{position:relative;flex:1;min-width:0;max-width:340px}
+.search input{width:100%;font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:6px 9px 6px 28px}
+.search svg.mag{position:absolute;left:8px;top:50%;width:14px;height:14px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.results{position:absolute;top:calc(100% + 4px);left:0;right:0;min-width:260px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);list-style:none;margin:0;padding:4px;z-index:30;max-height:60vh;overflow:auto;display:none}
+.results.open{display:block}
+.results li{display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:.9rem}
+.results li[aria-selected="true"],.results li:hover{background:var(--soft)}
+.results .ri{width:20px;height:20px;border-radius:50%;background:var(--c,var(--muted));display:grid;place-items:center;flex:none}
+.results .ri svg{width:13px;height:13px;color:#fff}
+.results small{margin-left:auto;color:var(--muted);font-size:.78rem;white-space:nowrap}
+.results .none{color:var(--muted);cursor:default}
+/* header buttons */
+.tbtn svg{width:16px;height:16px;vertical-align:-3px}
+.tbtn .lab{margin-left:5px}
+/* overlays: layers, table, intro */
+.pop{position:fixed;z-index:40;background:var(--panel);border:1px solid var(--rule);border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.25);display:none}
+.pop.open{display:block}
+#layers{top:calc(env(safe-area-inset-top,0px) + 56px);right:14px;width:min(420px,calc(100vw - 20px));max-height:calc(100% - 80px);overflow:auto;padding:14px 16px}
+#layers h4{margin:12px 0 6px;font-size:.8rem;text-transform:none;color:var(--muted);font-weight:600}
+#layers h4:first-of-type{margin-top:0}
+.pophead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.pophead b{font-family:"Barlow Semi Condensed",sans-serif;font-size:1.15rem}
+.xbtn{font:inherit;font-size:1.2rem;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 6px}
+.linkbtn{font:inherit;font-size:.85rem;background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;margin-top:12px}
+.scrim{position:fixed;inset:0;background:rgba(10,20,25,.35);z-index:35;display:none}
+.scrim.open{display:block}
+#intro{left:50%;top:50%;transform:translate(-50%,-50%);width:min(420px,calc(100vw - 28px));padding:20px 22px}
+#intro h2{font-family:"Barlow Semi Condensed",sans-serif;margin:0 0 10px;font-size:1.4rem}
+#intro ol{margin:0 0 16px;padding-left:1.2em;line-height:1.5}
+#intro li{margin:6px 0}
+#tablev{inset:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 12px);display:none;flex-direction:column;padding:14px 16px}
+#tablev.open{display:flex}
+.tcontrols{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.tcontrols input[type=text]{flex:1;min-width:140px;font:inherit;padding:6px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--soft);color:var(--ink)}
+.tcontrols label{font-size:.85rem;display:flex;gap:5px;align-items:center}
+.twrap{flex:1;overflow:auto;border:1px solid var(--rule);border-radius:8px}
+table.sites{border-collapse:collapse;width:100%;font-size:.88rem}
+table.sites th{position:sticky;top:0;background:var(--soft);text-align:left;font-weight:600;padding:7px 8px;border-bottom:1px solid var(--rule);white-space:nowrap;cursor:pointer;user-select:none}
+table.sites th[aria-sort="ascending"]::after{content:" ▲";font-size:.7em}
+table.sites th[aria-sort="descending"]::after{content:" ▼";font-size:.7em}
+table.sites td{padding:6px 8px;border-bottom:1px solid var(--rule);white-space:nowrap}
+table.sites td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.sites tbody tr{cursor:pointer}
+table.sites tbody tr:hover{background:var(--soft)}
+table.sites .ti{display:inline-flex;align-items:center;gap:6px}
+table.sites .ti svg{width:14px;height:14px;color:var(--c)}
+.tcount{font-size:.8rem;color:var(--muted);margin-top:6px}
+/* hover tip */
+.tip{position:absolute;z-index:20;pointer-events:none;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.18);padding:7px 10px;font-size:.85rem;max-width:260px;display:none;line-height:1.35}
+.tip b{display:block;font-size:.92rem}
+.tip span{color:var(--muted);display:block}
+.tip em{font-style:normal;font-weight:600;display:block;margin-top:2px}
+/* credits */
+.attrib{position:absolute;right:6px;bottom:calc(var(--sheet,0px) + 2px);font:500 .66rem "Barlow",sans-serif;color:var(--muted);background:color-mix(in srgb,var(--panel) 80%,transparent);padding:1px 6px;border-radius:4px;z-index:3;max-width:calc(100% - 12px);text-align:right}
+.attrib a{color:inherit}
+/* compare */
+.cmprow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.cmprow select{font:inherit;padding:5px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--soft);color:var(--ink)}
+.ctab{width:100%;border-collapse:collapse;font-size:.88rem;margin:8px 0}
+.ctab th,.ctab td{padding:5px 4px;border-bottom:1px solid var(--rule);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ctab th:first-child,.ctab td:first-child{text-align:left}
+.ctab td:first-child{display:flex;gap:6px;align-items:center}
+.ctab td svg{width:14px;height:14px;color:var(--c)}
+.ctab .up{color:#2fa84f}.ctab .down{color:var(--warn)}
+.ctab tfoot td{font-weight:600;border-bottom:0}
+.mk.cmp-new .ring{display:block;stroke:#2fa84f;stroke-width:3}
+.mk.cmp-gone .dot{fill:var(--muted)!important}
+.mk.cmp-gone .ring{display:block;stroke:var(--warn);stroke-width:2.5;stroke-dasharray:3 2}
+/* bottom sheet (phones and small tablets) */
+.sheet{display:flex;flex-direction:column;min-height:0}
+.grab{display:none}
+.chip{flex:none;font:inherit;font-size:.85rem;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:4px 10px 4px 5px;display:flex;align-items:center;gap:6px;cursor:pointer}
+.chip i{width:10px;height:10px;border-radius:50%;background:var(--c);display:block;margin-left:3px}
+.chip .ib{width:18px;height:18px;border-radius:50%;background:var(--c);display:grid;place-items:center;flex:none}
+.chip .ib svg{width:12px;height:12px;color:#fff}
+.chip.livechip i{background:var(--ic);box-shadow:0 0 0 3px color-mix(in srgb,var(--ic) 30%,transparent)}
+.chip.ring i{background:transparent;border:1.5px dashed var(--ink)}
+.chip.line i{height:0;border-radius:0;width:14px;border-top:2px dashed var(--grid);background:none}
+.chip.pyl i{height:0;border-radius:0;width:14px;border-top:2px solid var(--pyl);background:none}
+.chip.dots i{background:radial-gradient(circle,var(--muted) 30%,transparent 32%) 0 0/5px 5px;border-radius:2px}
+.chip[aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+.chip:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,.mk:focus-visible{outline:2px solid var(--ic);outline-offset:2px}
+.stage{flex:1;min-height:0;display:flex;flex-direction:column}
+.mapwrap{position:relative;flex:1;min-height:0;background:var(--sea)}
+#base,#dots,#map{position:absolute;inset:0;width:100%;height:100%;display:block}
+#dots{pointer-events:none}
+#map{touch-action:none;cursor:grab;background:transparent}
+.moving .lbl{display:none}
+.moving .lf,.moving .flow{animation-play-state:paused}
+.moving .lf,.moving .link,.moving .flow,.moving .flowbase{vector-effect:non-scaling-stroke}
+.lf.still{animation:none;stroke-dasharray:none;opacity:.45}
+.mk.compact .ico{display:none}
+#map:active{cursor:grabbing}
+.land path{fill:var(--land);stroke:var(--coast);stroke-width:.6;vector-effect:non-scaling-stroke}
+.land path.uk{fill:var(--land-uk)}
+.pyl path{fill:none;stroke:var(--pyl);vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.pyl path.v400{stroke-width:1.1}
+.pyl path.v275{stroke-width:.7;stroke-dasharray:none;opacity:.8}
+.pyl path.vdc{stroke-width:.8;stroke-dasharray:3 3;opacity:.7}
+.pyl path.v220{stroke-width:.6;opacity:.7}
+.warea path{fill:#cfe6e2;stroke:#8fbdb5;stroke-width:.6;vector-effect:non-scaling-stroke;display:none}
+.infra .warea path{display:block}
+.infra .pyl path.v400{stroke:#4f5bd5;stroke-width:1.5;opacity:1}
+.infra .pyl path.v275{stroke:#d9453b;stroke-width:1.2;opacity:1}
+.infra .pyl path.v220{stroke:#39a7d8;stroke-width:1.1;opacity:1}
+.infra .pyl path.vdc{stroke:#b0407a;stroke-width:1.3;stroke-dasharray:5 4;opacity:1}
+.ilegend{position:absolute;right:54px;top:10px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;font:500 .78rem "Barlow",sans-serif;color:var(--ink);display:none;line-height:1.7}
+.infra-on .ilegend{display:block}
+.ilegend b{display:block;font-weight:600;margin-top:2px}
+.ilegend i{display:inline-block;width:18px;vertical-align:middle;margin-right:6px}
+.ilegend i.l{border-top:2px solid}.ilegend i.d{border-top:2px dashed #b0407a}
+.ilegend i.s{width:8px;height:8px;margin:0 11px 0 5px}
+.ilegend i.a{width:14px;height:10px;background:#cfe6e2;border:1px solid #8fbdb5;margin-right:10px}
+@media (max-width:599px){.ilegend{top:auto;bottom:calc(var(--sheet,0px) + 82px);right:10px}}
+.regdot{stroke:var(--panel);stroke-width:2}
+.rega path{fill-opacity:.38;stroke:var(--panel);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.regtxt{font:700 11px "Barlow Semi Condensed",sans-serif;fill:#fff;pointer-events:none;text-anchor:middle}
+.srcs{list-style:none;padding:0;margin:4px 0;font-size:.85rem}
+.srcs li{padding:3px 0;border-bottom:1px solid var(--rule);line-height:1.4}
+.srcs a{color:var(--ink)}
+.badge{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:999px;border:1px solid currentColor;margin-left:6px;vertical-align:1px}
+.badge.ok{color:#2fa84f}.badge.chk{color:#c77700}.badge.none{color:var(--muted)}
+.hbar{display:grid;grid-template-columns:8.5em 1fr auto;gap:4px 8px;align-items:center;font-size:.85rem;margin:6px 0}
+.hbar .b{height:12px;border-radius:2px;background:var(--c,var(--ink))}
+.hbar b{font-variant-numeric:tabular-nums;font-weight:600}
+.story{border-top:1px solid var(--rule);padding-top:10px;margin-top:14px}
+.story h3{margin-top:0;font-size:1.05rem}
+.ctl{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:4px}
+.ctl button{width:34px;height:34px;border-radius:6px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);font:600 1.1rem "Barlow",sans-serif;cursor:pointer;display:grid;place-items:center}
+.pills{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 64px)}
+.cipill{background:var(--panel);border:1px solid var(--rule);border-left:5px solid var(--cic,var(--muted));border-radius:999px;padding:3px 10px 3px 8px;font:500 .8rem "Barlow",sans-serif;color:var(--ink);cursor:pointer;display:flex;gap:5px;align-items:baseline}
+.cipill b{font:700 1rem "Barlow Semi Condensed",sans-serif}
+.status{background:var(--panel);border:1px solid var(--rule);border-radius:999px;padding:4px 10px 4px 8px;font:500 .8rem "Barlow",sans-serif;color:var(--ink);display:flex;gap:6px;align-items:center;cursor:pointer;max-width:100%}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
+.status.live i{background:#2fa84f;box-shadow:0 0 0 3px color-mix(in srgb,#2fa84f 30%,transparent)}
+.status span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yearbar{position:absolute;left:10px;right:54px;bottom:calc(var(--sheet,0px) + 18px);background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:6px 12px 8px;display:flex;align-items:center;gap:12px;max-width:460px}
+.yearbar label{font-family:"Barlow Semi Condensed",sans-serif;font-weight:700;font-size:1.25rem;min-width:4.6em;line-height:1}
+.yearbar label small{display:block;font:500 .72rem "Barlow",sans-serif;color:var(--muted)}
+input[type=range]{flex:1;accent-color:var(--ink);min-width:0}
+.panel{background:var(--panel);border-top:1px solid var(--rule);overflow-y:auto;max-height:44%;padding:14px 16px 18px;flex:none}
+.panel h2{font-family:"Barlow Semi Condensed",sans-serif;font-weight:700;font-size:1.35rem;margin:0;line-height:1.15}
+.panel p{margin:.5em 0;line-height:1.5;max-width:62ch}
+.meta{color:var(--muted);font-size:.9rem;margin-top:2px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--c)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:12px 0}
+.stats div{background:var(--panel);padding:8px 10px}
+.stats b{display:block;font-family:"Barlow Semi Condensed",sans-serif;font-size:1.2rem;font-weight:700;line-height:1.1}
+.stats span{font-size:.78rem;color:var(--muted)}
+.route{list-style:none;margin:8px 0 4px;padding:0}
+.route li{position:relative;padding:0 0 12px 22px;line-height:1.35}
+.route li::before{content:"";position:absolute;left:4px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--c,var(--ink))}
+.route li:not(:last-child)::after{content:"";position:absolute;left:7.5px;top:14px;bottom:0;width:1px;background:var(--rule)}
+.route li.sur{color:var(--muted)}
+.route li.sur::before{background:transparent;border:1.5px dashed var(--muted)}
+.route small{display:block;color:var(--muted);font-size:.82rem}
+h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
+.back{display:block;font:inherit;font-size:.9rem;color:var(--muted);background:none;border:0;padding:0;margin-bottom:8px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.bar{display:flex;height:14px;border-radius:3px;overflow:hidden;margin:10px 0 8px;background:var(--soft)}
+.bar div{height:100%}
+.legend{display:grid;grid-template-columns:1fr auto;gap:3px 12px;font-size:.9rem;max-width:380px}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend svg{width:14px;height:14px;color:var(--c);flex:none}
+.legend b{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.fine{font-size:.8rem;color:var(--muted);line-height:1.45;margin-top:14px}
+.chg{font-size:.9rem;padding-left:1.1em}
+.chg li{margin:2px 0}
+.livebox{border:1px solid var(--rule);border-left:4px solid var(--c,var(--ic));border-radius:6px;padding:8px 12px;margin:10px 0}
+.livebox b{font-family:"Barlow Semi Condensed",sans-serif;font-size:1.2rem}
+.livebox span{display:block;font-size:.85rem;color:var(--muted)}
+.livebox.warn{--c:var(--warn)}
+.livebox.warn b{color:var(--warn)}
+.hicon{width:26px;height:26px;border-radius:50%;background:var(--c);display:inline-grid;place-items:center;vertical-align:-6px;margin-right:6px}
+.hicon svg{width:16px;height:16px;color:#fff}
+.row{display:flex;gap:8px;align-items:center;margin:8px 0}
+.row input[type=text]{flex:1;min-width:0;font:inherit;font-size:.95rem;padding:6px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--soft);color:var(--ink);text-transform:uppercase}
+.row button,.pbtn{font:inherit;font-size:.9rem;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:var(--panel);cursor:pointer}
+.pbtn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.sitelist{list-style:none;padding:0;margin:6px 0;font-size:.92rem}
+.sitelist li{border-bottom:1px solid var(--rule)}
+.sitelist button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:center;width:100%;padding:6px 0}
+.sitelist button:focus-visible{outline:2px solid var(--ic)}
+.sitelist svg{width:14px;height:14px;color:var(--c);flex:none}
+.sitelist b{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}
+.feeds{list-style:none;padding:0;margin:6px 0;font-size:.85rem}
+.feeds li{display:flex;gap:8px;padding:2px 0;color:var(--muted)}
+.feeds li b{color:var(--ink);font-weight:600}
+.ok{color:#2fa84f}.bad{color:var(--warn)}
+.tabs{display:flex;gap:4px;margin:-4px 0 14px;border-bottom:1px solid var(--rule)}
+.tabs button{font:inherit;font-weight:600;font-size:.95rem;background:none;border:0;border-bottom:3px solid transparent;padding:6px 10px;color:var(--muted);cursor:pointer;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.cibig{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:10px 0}
+.cibig div{background:var(--panel);padding:10px}
+.cibig b{display:block;font:700 1.9rem/1 "Barlow Semi Condensed",sans-serif}
+.cibig small{display:block;font-size:.75rem;color:var(--muted);margin-top:2px}
+.cibig span{display:block;font-size:.82rem;font-weight:600;margin-top:6px}
+.chart{width:100%;margin:6px 0 2px}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart .ax text{font:500 10.5px "Barlow",sans-serif;fill:var(--muted)}
+.chart .ax line,.chart .ax path{stroke:var(--rule)}
+.chart .act{fill:none;stroke:var(--ink);stroke-width:2}
+.chart .fc{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-dasharray:4 3;opacity:.7}
+.chart .area{fill:var(--soft)}
+.chart .nowl{stroke:var(--warn);stroke-width:1.5}
+.chart .nowt{font:600 10.5px "Barlow",sans-serif;fill:var(--warn)}
+.chart .hist{fill:none;stroke:var(--ink);stroke-width:2}
+.chart .mon{fill:none;stroke:var(--muted);stroke-width:.8;opacity:.45}
+.chart .pt.ytd{stroke-dasharray:2 1.5}
+.chart .proj{fill:none;stroke:#2fa84f;stroke-width:2;stroke-dasharray:5 4}
+.chart .pt{fill:var(--panel);stroke:var(--ink);stroke-width:2}
+.chart .ptp{fill:var(--panel);stroke:#2fa84f;stroke-width:2}
+.chart .vl{font:600 10.5px "Barlow",sans-serif;fill:var(--ink)}
+.chart .vlp{font:600 10.5px "Barlow",sans-serif;fill:#2fa84f}
+.key{display:flex;gap:14px;font-size:.8rem;color:var(--muted);margin-bottom:4px}
+.key i{display:inline-block;width:16px;border-top:2px solid var(--ink);vertical-align:middle;margin-right:4px}
+.key i.d{border-top-style:dashed}.key i.g{border-top-color:#2fa84f;border-top-style:dashed}
+/* map overlay */
+.link{fill:none;stroke-width:2;stroke-linecap:round}
+.link.ic{stroke:var(--ic);opacity:.7;stroke-width:1.1}
+.link.grid{stroke:var(--grid);stroke-dasharray:5 4;opacity:.8}
+.link.fut{stroke-dasharray:2 5;opacity:.6}
+.hit{fill:none;stroke:transparent;stroke-width:16;cursor:pointer;pointer-events:stroke}
+.dim .link,.dim .mk,.dim .od{opacity:.28}
+.dim .link.on,.dim .mk.on{opacity:1}
+.mk{cursor:pointer;outline:none}
+.mk .dot{stroke:var(--panel);stroke-width:1.5}
+.mk .ico{color:#fff;pointer-events:none}
+.mk.fut .dot{fill:var(--panel)!important;stroke:var(--c);stroke-width:2;stroke-dasharray:3 2}
+.mk.fut .ico{color:var(--c)}
+.mk .ring{fill:none;stroke:var(--ink);stroke-width:2;display:none}
+.mk.on .ring{display:block}
+.mk .curt{fill:none;stroke:var(--warn);stroke-width:2.5;display:none;animation:pulse 1.4s ease-in-out infinite}
+.mk.curtailed .curt{display:block}
+@keyframes pulse{50%{stroke-opacity:.25}}
+.od{cursor:pointer;stroke:var(--panel);stroke-width:.8}
+.wview .od.nw{opacity:.35}
+.od.on{stroke:var(--ink);stroke-width:2}
+.lf{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 8;opacity:.8;animation:run linear infinite}
+.lf.rev{animation-direction:reverse}
+.dim .lf{opacity:.1}
+.flowbase{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.25}
+.flow{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 9;animation:run 1s linear infinite}
+.flow.sur{stroke-width:2.4;opacity:.7;animation-duration:1.6s}
+@keyframes run{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion:reduce){.flow,.lf{animation:none;stroke-dasharray:6 4}.mk .curt{animation:none}}
+.hubdot{fill:var(--hub);stroke:var(--panel);stroke-width:2}
+.stop{fill:var(--panel);stroke:var(--hub);stroke-width:1.6}
+.pcpin{fill:var(--warn);stroke:var(--panel);stroke-width:2}
+.lbl{font:600 11.5px "Barlow",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--land-uk);stroke-width:3.5px;stroke-linejoin:round;pointer-events:none}
+.lbl.hub{font-size:12.5px;font-weight:700}
+.lbl.site{font-weight:500;font-size:11px;fill:var(--muted)}
+@media (max-width:599px){
+  h1 span{display:none} h1{font-size:1.15rem;flex-basis:100%}
+  .titlerow{flex-wrap:wrap;gap:6px}
+  .tools{flex:1;min-width:0}
+  .search{max-width:none}
+  .tbtn .lab{display:none}
+  .tbtn.txt .lab{display:inline;margin:0}
+  #layers{top:auto;bottom:0;right:0;left:0;width:auto;border-radius:14px 14px 0 0;max-height:75%;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
+  #tablev{inset:calc(env(safe-area-inset-top,0px) + 6px) 6px calc(env(safe-area-inset-bottom,0px) + 6px)}
+}
+@media (max-width:899px){
+  .stage{position:relative;display:block}
+  .mapwrap{position:absolute;inset:0}
+  .sheet{position:absolute;left:0;right:0;bottom:0;height:var(--sheet,42%);z-index:6;background:var(--panel);border-radius:14px 14px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.15);transition:height .22s ease}
+  .sheet.dragging{transition:none}
+  .grab{display:flex;justify-content:center;align-items:center;height:22px;flex:none;cursor:grab;touch-action:none}
+  .grab::before{content:"";width:40px;height:5px;border-radius:3px;background:var(--rule)}
+  .panel{flex:1;max-height:none;border-top:0;padding-top:2px;overscroll-behavior:contain}
+}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+@media (min-width:900px){
+  .stage{flex-direction:row}
+  .sheet{width:390px;border-left:1px solid var(--rule)}
+  .panel{flex:1;max-height:none;border-top:0;padding:18px 22px}
+  header{padding:12px 20px 10px}
+  h1{font-size:1.5rem}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-nw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10v12M12 10 12 2.5M12 10l-6.5 3.8M12 10l6.5 3.8"/><circle cx="12" cy="10" r="1.4" fill="currentColor"/></symbol>
+<symbol id="i-ow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v9.5M12 9V2.5M12 9l-5.8 3.3M12 9l5.8 3.3M2.5 21.5c1.6-1.4 3.1-1.4 4.7 0s3.1 1.4 4.8 0 3.1-1.4 4.7 0 3.1 1.4 4.8 0"/></symbol>
+<symbol id="i-nu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-gas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5c1 4 5.5 5.7 5.5 11a5.5 5.5 0 0 1-11 0c0-2.8 1.6-4 2.7-5.6.3 1.7 1.1 2.8 2.2 2.8 0-2.8-.6-5.4.6-8.2z"/></symbol>
+<symbol id="i-bio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C4.5 11 9.5 5 20 4c-.8 10.5-6.5 15.5-15.5 15.5zM4.5 19.5l8-8"/></symbol>
+<symbol id="i-hy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5c3.2 4.7 6.5 8 6.5 12a6.5 6.5 0 0 1-13 0c0-4 3.3-7.3 6.5-12z"/></symbol>
+<symbol id="i-so" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6M4.8 4.8l1.8 1.8M17.4 17.4l1.8 1.8M4.8 19.2l1.8-1.8M17.4 6.6l1.8-1.8"/></symbol>
+<symbol id="i-ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 8c1.6-1.5 3.1-1.5 4.7 0s3.1 1.5 4.8 0 3.1-1.5 4.7 0 3.1 1.5 4.8 0M2.5 13c1.6-1.5 3.1-1.5 4.7 0s3.1 1.5 4.8 0 3.1-1.5 4.7 0 3.1 1.5 4.8 0M2.5 18c1.6-1.5 3.1-1.5 4.7 0s3.1 1.5 4.8 0 3.1-1.5 4.7 0 3.1 1.5 4.8 0"/></symbol>
+<symbol id="i-bat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21.5 10.5v3M9 12h4M11 10v4"/></symbol>
+<symbol id="i-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5h16l-3.5-3.5M20.5 15.5h-16l3.5 3.5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l-5 7h10zM12 9.5v12M8.5 21.5L12 13l3.5 8.5M5 13h14"/></symbol>
+</defs></svg>
+<div class="app">
+  <header>
+    <div class="titlerow">
+      <h1 id="title"></h1>
+      <div class="tools">
+        <div class="search" role="combobox" aria-haspopup="listbox" aria-owns="results">
+          <svg class="mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>
+          <input id="search" type="text" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-controls="results">
+          <ul class="results" id="results" role="listbox"></ul>
+        </div>
+        <select id="jump" hidden></select>
+        <button class="tbtn" id="layersbtn" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg><span class="lab"></span></button>
+        <button class="tbtn" id="tablebtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 9.5v10"/></svg><span class="lab"></span></button>
+        <button class="tbtn txt" id="walesbtn" aria-pressed="false"><span class="lab"></span></button>
+        <button class="tbtn txt" id="langbtn" lang="cy"><span class="lab"></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="stage">
+    <div class="mapwrap">
+      <svg id="base" aria-hidden="true"></svg>
+      <canvas id="dots" aria-hidden="true"></canvas>
+      <svg id="map" role="img"></svg>
+      <div class="ilegend" id="ilegend"></div>
+      <div class="pills"><button class="cipill" id="cipill"><b></b><span></span></button><button class="status" id="status"><i></i><span></span></button></div>
+      <div class="ctl">
+        <button id="zin">+</button>
+        <button id="zout">−</button>
+        <button id="zreset" style="font-size:.9rem">⟲</button>
+      </div>
+      <div class="tip" id="tip" role="tooltip"></div>
+      <div class="attrib">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · Contains BMRS data © Elexon Limited · NESO</div>
+      <div class="yearbar">
+        <label for="year"><span id="yv">2026</span><small id="ys"></small></label>
+        <input id="year" type="range" min="2026" max="2040" step="1" value="2026">
+      </div>
+    </div>
+    <div class="sheet" id="sheet"><div class="grab" id="grab" role="button" tabindex="0"></div><aside class="panel" id="panel" aria-live="polite"></aside></div>
+  </div>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="pop" id="layers" role="dialog" aria-modal="false"><div class="pophead"><b id="layers-t"></b><button class="xbtn" data-close="layers" aria-label="Close">×</button></div>
+  <h4 id="lg-ovl-t"></h4><div class="chips" id="lg-ovl"></div>
+  <h4 id="lg-gen-t"></h4><div class="chips" id="lg-gen"></div>
+  <h4 id="lg-net-t"></h4><div class="chips" id="lg-net"></div>
+  <button class="linkbtn" id="tipsagain"></button>
+</div>
+<div class="pop" id="tablev" role="dialog" aria-modal="true"><div class="pophead"><b id="tablev-t"></b><button class="xbtn" data-close="tablev" aria-label="Close">×</button></div>
+  <div class="tcontrols"><input type="text" id="tfilter"><select id="ttype"></select><label><input type="checkbox" id="tosm"><span id="tosm-l"></span></label></div>
+  <div class="twrap"><table class="sites" id="ttable"><thead></thead><tbody></tbody></table></div>
+  <div class="tcount" id="tcount"></div>
+</div>
+<div class="pop" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-t"><h2 id="intro-t"></h2><ol id="intro-l"></ol><button class="pbtn" id="intro-ok"></button></div>
+<script>
+const GEO = __GEO__;
+const PYL = __PYL__;
+const ROUTES = __ROUTES__;
+const OSMP = __PLANTS__;
+const SUBS = __SUBS__;   // [name, kV, lat, lon, operator, osm id]
+const WINDA = __WINDA__; // [name, rings, osm id]
+const XCHK = __XCHK__;
+const REGGEO = __REGGEO__;
+const SNAPSHOT = __SNAPSHOT__;  // offline fallback, refreshed daily by tools/update_snapshot.py
+const HISTORY = __HISTORY__;    // NESO historic generation mix, refreshed monthly by tools/update_history.py // NESO GSP regions grouped into the 14 Carbon Intensity regions   // site id -> [osm id, MW, OSM name]
+
+/* ---------------- words ---------------- */
+const I18N = {
+en:{title:'UK power, source to socket', tag:'· tap a site to trace its electricity', find:'Find a site…', wales:'Wales', other:'Cymraeg',
+ t_ow:'Offshore wind',t_nw:'Onshore wind',t_nu:'Nuclear',t_gas:'Gas',t_bio:'Biomass & waste',t_hy:'Hydro & pumped storage',t_so:'Solar',t_ti:'Tidal',t_bat:'Batteries',t_ic:'Interconnectors',t_grid:'Grid backbone',
+ c_live:'Live flows',c_future:'Future projects',c_grid:'Grid links',c_pyl:'Pylon lines',c_osm:'All other sites',
+ today:'today',projected:'projected',back:'Back to overview',
+ cap:'capacity',peryear:'est. per year',share:'of UK electricity use*',opened:'opened',target:'target',typflow:'typical flow',
+ into:'Mostly into GB',outof:'Mostly out of GB',both:'Both ways',ns:'North → south',atfull:'output at full power',storage:'Storage',notnet:'not a net generator',
+ op_since:'Operating since {y}',op_exp:'Operating (expected from {y})',con:'Under construction',dev:'In development',tgt:'target {y}',closed:'Closed ({y}, planned)',closure:'planned closure {y}',
+ where:'Where the electricity goes',gen_at:'Generated at {n}',gen_in:'Generated in {n}',from_grid:'From the GB grid around {n}',starts:'Starts here',
+ used:'Mostly used in {n}',used2:'Used in {n}',local1:'Joins the local distribution network',local2:'Connects to the local distribution network, so its power is mostly used nearby',
+ sea:'Crosses the sea by HVDC cable',arrive:'Arrives by HVDC cable and joins the GB grid',sur:'When output is high, surplus carries on to {n}',
+ sur_sc:'Scotland often generates more than it uses, so power flows south over the border.',sur_gen:'Power moves on through the transmission network to wherever demand is.',
+ realroute:'The line on the map follows real 400 kV and 275 kV pylon routes from OpenStreetMap.',
+ pool:'Electricity joins a shared pool once on the grid, so the route shows the typical direction of flow rather than a fixed destination.',
+ est_note:'*Estimated from typical output for this technology ({p}% of capacity on average) and UK electricity use of roughly 300 TWh a year.',
+ now_about:'About {v} right now',now_zero:'Near zero right now',now_idle:'Idle right now',now_actual:'{v} right now',now_pump:'Pumping: using {v}',
+ now_est:'{t} across GB was running at {p}% of capacity ({when}). Estimated for this site from that national figure.',
+ now_real:'Metered output from Elexon, {when}.',
+ now_notyet:'Not yet generating',
+ curt_b:'Being turned down by about {v}',curt_s:'The grid operator has paid this site to cut output, usually because the network can\'t carry its power to where it\'s needed.',
+ ic_now_in:'Importing {v} into GB',ic_now_out:'Exporting or idle',ic_now_s:'Elexon interconnector reading, {when}. Elexon reports exports as zero, so a zero here usually means power is flowing out of GB.',
+ ic_net:'GB importing {v} overall',ic_net_s:'Across all interconnectors, {when}. This feed doesn\'t split imports by link, so the line shows this link\'s usual direction.',
+ snap:'Latest snapshot',live:'Live now',gbelec:'GB electricity, {when}',
+ flows_note:'Moving lines show each site\'s output now: thicker and faster means more power. Where Elexon metering is available the figure is real; otherwise it\'s estimated from the national share for each technology.',
+ snap_note:'This copy can\'t reach live data feeds, so it shows the latest snapshot. Hosted on its own web address (for example GitHub Pages), it updates itself every five minutes.',
+ mapped_today:'The mapped grid today',mapped_y:'The mapped grid in {y}',sites_meta:'{n} major sites · {c} generating capacity · {i} of interconnectors',
+ plus_osm:'Plus {n} smaller sites from OpenStreetMap ({c} where capacity is recorded).',
+ change:'Change since 2026',new_:'New: {l}',closed_:'Closed: {l}',nochange:'No change among mapped sites.',
+ intro:'Tap any site, interconnector or grid link to follow where its power goes. Dashed rings are projects still being built or planned, such as Wylfa and Hinkley Point C. Drag the year to see what comes on and what closes; live flows show only for today.',
+ fine:'Shows the larger UK sites in detail, with smaller sites and pylon routes from OpenStreetMap. Capacities are rounded; future dates are developer or government targets as of September 2026 and often slip. Northern Ireland runs a separate grid shared with Ireland.',
+ replay:'Replay the last 24 hours',play:'Play',pause:'Pause',nowbtn:'Back to now',replay_at:'Showing {when}',
+ pc_h:'Check your area',pc_ph:'Postcode, e.g. LL77',pc_btn:'Check',pc_need:'Postcode lookup needs the hosted version of this map.',pc_bad:'Couldn\'t find that postcode. Try the first half, such as LL77.',
+ pc_res:'{r}: {g} gCO₂/kWh right now ({idx}).',pc_best:'Cleanest time in the next 24 hours: {t} (about {g} gCO₂/kWh).',pc_near:'Nearest mapped sites',
+ feeds:'Data sources',f_ok:'working',f_fail:'not reachable',f_na:'not tried',upd:'Updated {t}',snapshot_pill:'Snapshot · {when}',live_pill:'Live · updated {t}',
+ w_title:'Wales',w_meta:'Welsh generation on the map and the latest Welsh mix',w_mix:'Electricity used in Wales, {when}',w_ci:'Carbon intensity: {g} gCO₂/kWh ({idx})',
+ w_cap:'Mapped capacity in or connecting to Wales',w_now:'Estimated output of mapped Welsh sites now: {v}. Wales uses roughly 1.6 GW on average, so on most days it generates more than it uses and sends the rest into England and Ireland.',
+ w_links:'Links out of Wales',w_links_t:'400 kV lines at Deeside and across the Severn carry power to and from England. The Western HVDC Link lands at Deeside, EWIC runs to Dublin, and Greenlink runs from Pembroke to Wexford.',
+ w_sites:'Biggest mapped sites',w_osm:'{n} smaller Welsh sites are shown as small dots when you zoom in.',
+ osm_src:'From OpenStreetMap. Community-mapped, so details may be incomplete.',osm_cap:'Capacity not recorded',osm_unnamed:'Unnamed {t} site',osm_local:'Sites this size usually connect to the local distribution network, so their power is mostly used nearby.',operator:'Operator: {o}',
+ zin:'Zoom in',zout:'Zoom out',zreset:'Reset view',year:'Year',maplabel:'Map of UK power stations, interconnectors and grid lines',
+ fuel_wind:'Wind',fuel_solar:'Solar',fuel_nuclear:'Nuclear',fuel_gas:'Gas',fuel_biomass:'Biomass',fuel_hydro:'Hydro',fuel_imports:'Imports',fuel_other:'Other',
+ idx:{'very low':'very low','low':'low','moderate':'moderate','high':'high','very high':'very high'},
+ s_ph:'Search sites, places or postcodes…',s_place:'Place',s_region:'Region',s_pc:'Postcode',s_pc_go:'Check this postcode',s_none:'No matches',
+ layers:'Layers',g_ovl:'Overlays',g_gen:'Generation',g_net:'Network',tips_again:'Show the tips again',table:'Table',compare:'Compare',
+ in_t:'Welcome',in_1:'Tap any power station, interconnector or substation to see where its electricity goes.',in_2:'Drag the year slider to see what comes on and what closes, up to 2040.',in_3:'Open Layers to choose what’s shown, and try the Carbon, Stories and Compare tabs.',in_ok:'Got it',
+ t_title:'All sites',t_filter:'Filter by name…',t_all:'All types',t_osm:'Include smaller sites from OpenStreetMap',t_count:'{n} sites',
+ c_name:'Name',c_type:'Type',c_cap:'Capacity (MW)',c_status:'Status',c_on:'Opens',c_off:'Closes',c_wales:'Wales',c_now:'Output now (MW)',
+ st_op:'Operating',st_con:'Under construction',st_dev:'In development',st_closed:'Closed',yes:'Yes',
+ cm_h:'Compare two years',cm_from:'From',cm_to:'to',cm_hl:'Highlight changes on the map',cm_stop:'Stop highlighting',cm_new:'New by {y}',cm_gone:'Closed by {y}',cm_none:'None',cm_change:'Change',cm_total:'Total',
+ cm_key:'On the map: green ring = new, red dashed ring = closed.',cm_note:'Compares the mapped sites only, using developer and government target dates.',
+ tip_now:'About {v} now',tip_real:'{v} now (metered)',tip_click:'Click for details',
+ c_infra:'Grid infrastructure',c_reg:'Regional carbon',tab_st:'Stories',
+ lg_subs:'Substations',lg_lines:'Power lines',lg_wind:'Offshore wind areas',
+ sub_t:'Substation',sub_meta:'{v} kV',sub_through:'Power from these mapped sites passes through here',sub_none:'None of the mapped routes pass through this substation.',sub_near:'Mapped sites within 15 km',
+ src_h:'Sources and checks',src_curated:'Capacity and dates compiled for this map from public announcements; last checked September 2026.',
+ src_osm:'OpenStreetMap lists {mw} for “{n}”.',src_osm_diff:'This differs from the figure above, often because one figure covers a whole site or an older layout.',
+ src_none:'No independent cross-check available yet.',b_ok:'Cross-checked',b_chk:'Check',b_none:'Not cross-checked',
+ src_live_real:'Output right now: metered data from Elexon.',src_live_est:'Output right now: estimated from NESO’s national mix.',src_route:'Route: 400 kV and 275 kV lines from OpenStreetMap (extract of 28 September 2026).',
+ src_osmobj:'View this on OpenStreetMap',
+ methods_h:'Sources and methods',
+ imp_ci:'carbon of imports',imp_ci_na:'not in NESO’s factor list',imp_note:'Import carbon uses NESO’s Carbon Intensity API factor for power from this country. It is an average, not a live measure.',
+ imp_h:'Carbon of imported electricity',
+ st_reg_h:'Where is electricity cleanest right now?',st_reg_t:'NESO estimates the carbon intensity of electricity used in each of Britain’s 14 regions. Scotland and North Wales often run close to zero while South Wales and parts of England lean on gas.',st_reg_btn:'Shade the map',st_reg_hide:'Hide from the map',st_reg_when:'NESO regional estimate, {when}.',
+ st_q_h:'Why new projects wait years for a grid connection',st_q_t:'Before reform, projects queued first come, first served. The queue grew to more than 700 GW, around four times what Britain needs by 2030, clogged with projects that were never going to be built. NESO reordered it in December 2025 around projects that are ready and needed.',
+ st_q_a:'Queue before reform',st_q_b:'Prioritised pipeline (Dec 2025)',st_q_c:'Needed by 2030',st_q_d:'Transmission demand prioritised',st_q_note:'Generation and storage, GW. Demand, much of it data centres, is shown separately.',
+ st_p_h:'Clean hours are cheap hours',st_p_t:'When the wind blows, gas plants are pushed off the system and both carbon and wholesale prices fall. The chart compares the two over the last day.',st_p_need:'This comparison needs live prices from Elexon, so it appears on the hosted version of the map.',price:'Wholesale price, £/MWh',
+ st_c_h:'Wind that can’t get south',st_c_t:'Scotland often has more wind power than the lines to England can carry. When that happens the grid operator pays Scottish wind farms to turn down and gas plants further south to turn up. New subsea links such as Eastern Green Link 1 and 2 are being built to fix this.',st_c_live:'Right now about {v} of wind is being turned down.',st_c_none:'No wind farms on the map are being turned down right now.',st_c_need:'Live curtailment appears on the hosted version.',st_c_btn:'Show Eastern Green Link 2',
+ tab_map:'Map',tab_ci:'Carbon intensity',ci_now:'Right now',ci_today:'Today’s average',ci_year:'{y} average',ci_ytd:'{y} so far',ci_unit:'gCO₂/kWh',
+ ci_explain:'Carbon intensity is how much CO₂ is emitted for each kilowatt hour of electricity used in Great Britain. It falls when wind, solar, nuclear and imports are high, and rises when gas plants run harder.',
+ ci_short:'Today, half hour by half hour',ci_short_live:'Last 24 hours and next 48 hours',actual:'Actual',forecast:'Forecast',now:'now',
+ ci_best:'Cleanest time still to come: {t} (about {g} gCO₂/kWh).',
+ ci_snap:'Snapshot from NESO’s Carbon Intensity API for {d}. This copy can’t fetch newer data; the hosted version updates every five minutes.',
+ ci_long:'Since 2009, and the 2030 pathway',hist:'Recorded',path:'Target pathway',
+ ci_hist_note:'History from NESO’s historic generation mix for Great Britain: every half hour since January 2009, averaged by year (dots) and month (faint line). It measures the carbon of electricity generated, so it can differ slightly from the live figures above, which estimate electricity consumed. The dashed dot for {y} covers 1 January to {to}.',monthly:'Monthly',
+ ci_record:'Lowest half hour on record: {v} gCO₂/kWh, at {t}.',
+ st_h_h:'Hours at the 2030 clean power level',st_h_t:'NESO’s Clean Power 2030 pathways put average carbon intensity at around 50 gCO₂/kWh. Britain first touched that level for an hour in 2019. In 2024 it spent nearly 600 hours at or below it. To hit the target, it will need to be there most of the time.',st_h_note:'Hours at or below 50 gCO₂/kWh each year, from NESO’s historic generation mix. *{y} is 1 January to {to}.',
+ ci_proj_note:'Dashed line: NESO’s Clean Power 2030 pathways bring carbon intensity to around 50 gCO₂/kWh or lower by 2030. The 2035 point marks the earlier government ambition for a fully decarbonised grid. These are targets, not forecasts.',
+ ci_year_note:'The {y} figure is the average from 1 January to {to}, from NESO’s historic generation mix.'},
+cy:{title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i ddilyn ei drydan', find:'Chwilio am safle…', wales:'Cymru', other:'English',
+ t_ow:'Gwynt ar y môr',t_nw:'Gwynt ar y tir',t_nu:'Niwclear',t_gas:'Nwy',t_bio:'Biomas a gwastraff',t_hy:'Ynni dŵr a storfa bwmp',t_so:'Solar',t_ti:'Llanw',t_bat:'Batris',t_ic:'Rhyng-gysylltwyr',t_grid:'Asgwrn cefn y grid',
+ c_live:'Llif byw',c_future:'Prosiectau’r dyfodol',c_grid:'Cysylltiadau’r grid',c_pyl:'Llinellau peilonau',c_osm:'Pob safle arall',
+ today:'heddiw',projected:'rhagamcan',back:'Yn ôl i’r trosolwg',
+ cap:'capasiti',peryear:'amcangyfrif y flwyddyn',share:'o ddefnydd trydan y DU*',opened:'agorwyd',target:'targed',typflow:'llif arferol',
+ into:'I mewn i Brydain fel arfer',outof:'Allan o Brydain fel arfer',both:'Y ddwy ffordd',ns:'Gogledd → de',atfull:'allbwn ar bŵer llawn',storage:'Storfa',notnet:'nid cynhyrchydd net',
+ op_since:'Yn gweithredu ers {y}',op_exp:'Yn gweithredu (disgwylir o {y})',con:'Wrthi’n cael ei adeiladu',dev:'Yn cael ei ddatblygu',tgt:'targed {y}',closed:'Ar gau ({y}, wedi’i gynllunio)',closure:'cau arfaethedig {y}',
+ where:'I ble mae’r trydan yn mynd',gen_at:'Cynhyrchir yn {n}',gen_in:'Cynhyrchir yn {n}',from_grid:'O grid Prydain o gwmpas {n}',starts:'Yn dechrau yma',
+ used:'Defnyddir yn bennaf yn {n}',used2:'Defnyddir yn {n}',local1:'Yn ymuno â’r rhwydwaith dosbarthu lleol',local2:'Wedi’i gysylltu â’r rhwydwaith dosbarthu lleol, felly defnyddir y rhan fwyaf o’r pŵer gerllaw',
+ sea:'Yn croesi’r môr drwy gebl HVDC',arrive:'Yn cyrraedd drwy gebl HVDC ac yn ymuno â grid Prydain',sur:'Pan fo’r allbwn yn uchel, mae’r gwarged yn parhau i {n}',
+ sur_sc:'Mae’r Alban yn aml yn cynhyrchu mwy nag y mae’n ei ddefnyddio, felly mae pŵer yn llifo tua’r de dros y ffin.',sur_gen:'Mae’r pŵer yn symud ymlaen drwy’r rhwydwaith trawsyrru i ble bynnag mae’r galw.',
+ realroute:'Mae’r llinell ar y map yn dilyn llwybrau peilonau 400 kV a 275 kV go iawn o OpenStreetMap.',
+ pool:'Unwaith y mae ar y grid, mae trydan yn ymuno â chronfa gyffredin, felly mae’r llwybr yn dangos cyfeiriad arferol y llif yn hytrach na phen taith pendant.',
+ est_note:'*Amcangyfrif yn seiliedig ar allbwn arferol y dechnoleg hon ({p}% o’r capasiti ar gyfartaledd) a defnydd trydan y DU o tua 300 TWh y flwyddyn.',
+ now_about:'Tua {v} ar hyn o bryd',now_zero:'Bron dim ar hyn o bryd',now_idle:'Segur ar hyn o bryd',now_actual:'{v} ar hyn o bryd',now_pump:'Yn pwmpio: yn defnyddio {v}',
+ now_est:'Roedd {t} ar draws Prydain yn rhedeg ar {p}% o’r capasiti ({when}). Amcangyfrif ar gyfer y safle hwn o’r ffigur cenedlaethol hwnnw.',
+ now_real:'Allbwn wedi’i fesur gan Elexon, {when}.',
+ now_notyet:'Ddim yn cynhyrchu eto',
+ curt_b:'Yn cael ei droi i lawr tua {v}',curt_s:'Mae gweithredwr y grid wedi talu’r safle hwn i dorri ei allbwn, fel arfer am nad yw’r rhwydwaith yn gallu cludo’i bŵer i ble mae ei angen.',
+ ic_now_in:'Yn mewnforio {v} i Brydain',ic_now_out:'Yn allforio neu’n segur',ic_now_s:'Darlleniad rhyng-gysylltydd Elexon, {when}. Mae Elexon yn cofnodi allforion fel sero, felly mae sero yma fel arfer yn golygu bod pŵer yn llifo allan o Brydain.',
+ ic_net:'Prydain yn mewnforio {v} i gyd',ic_net_s:'Ar draws pob rhyng-gysylltydd, {when}. Nid yw’r ffrwd hon yn rhannu mewnforion fesul cysylltiad, felly mae’r llinell yn dangos cyfeiriad arferol y cysylltiad hwn.',
+ snap:'Ciplun diweddaraf',live:'Byw nawr',gbelec:'Trydan Prydain, {when}',
+ flows_note:'Mae’r llinellau symudol yn dangos allbwn pob safle nawr: mwy trwchus a chyflymach yw mwy o bŵer. Lle mae mesuryddion Elexon ar gael mae’r ffigur yn un go iawn; fel arall mae’n amcangyfrif o’r gyfran genedlaethol ar gyfer pob technoleg.',
+ snap_note:'Ni all y copi hwn gyrraedd ffrydiau data byw, felly mae’n dangos y ciplun diweddaraf. Ar ei gyfeiriad gwe ei hun (er enghraifft GitHub Pages), mae’n diweddaru bob pum munud.',
+ mapped_today:'Y grid ar y map heddiw',mapped_y:'Y grid ar y map yn {y}',sites_meta:'{n} prif safle · {c} o gapasiti cynhyrchu · {i} o ryng-gysylltwyr',
+ plus_osm:'Hefyd {n} o safleoedd llai o OpenStreetMap ({c} lle cofnodir y capasiti).',
+ change:'Newid ers 2026',new_:'Newydd: {l}',closed_:'Wedi cau: {l}',nochange:'Dim newid ymhlith y safleoedd ar y map.',
+ intro:'Tapiwch unrhyw safle, rhyng-gysylltydd neu gysylltiad grid i ddilyn i ble mae’r pŵer yn mynd. Prosiectau sy’n dal i gael eu hadeiladu neu eu cynllunio yw’r cylchoedd toredig, fel Wylfa a Hinkley Point C. Llusgwch y flwyddyn i weld beth sy’n agor a beth sy’n cau; dim ond ar gyfer heddiw y dangosir y llif byw.',
+ fine:'Yn dangos prif safleoedd y DU yn fanwl, gyda safleoedd llai a llwybrau peilonau o OpenStreetMap. Mae’r capasiti wedi’i dalgrynnu; targedau datblygwyr neu’r llywodraeth ym mis Medi 2026 yw’r dyddiadau i ddod, ac maen nhw’n aml yn llithro. Mae gan Ogledd Iwerddon grid ar wahân a rennir ag Iwerddon.',
+ replay:'Ailchwarae’r 24 awr diwethaf',play:'Chwarae',pause:'Oedi',nowbtn:'Yn ôl i nawr',replay_at:'Yn dangos {when}',
+ pc_h:'Gwirio’ch ardal',pc_ph:'Cod post, e.e. LL77',pc_btn:'Gwirio',pc_need:'Mae angen fersiwn gwe’r map hwn i chwilio am god post.',pc_bad:'Methu dod o hyd i’r cod post hwnnw. Rhowch gynnig ar yr hanner cyntaf, fel LL77.',
+ pc_res:'{r}: {g} gCO₂/kWh ar hyn o bryd ({idx}).',pc_best:'Yr amser glanaf yn y 24 awr nesaf: {t} (tua {g} gCO₂/kWh).',pc_near:'Y safleoedd agosaf ar y map',
+ feeds:'Ffynonellau data',f_ok:'yn gweithio',f_fail:'dim cysylltiad',f_na:'heb ei drio',upd:'Diweddarwyd {t}',snapshot_pill:'Ciplun · {when}',live_pill:'Byw · diweddarwyd {t}',
+ w_title:'Cymru',w_meta:'Cynhyrchu yng Nghymru ar y map a’r cymysgedd diweddaraf',w_mix:'Trydan a ddefnyddir yng Nghymru, {when}',w_ci:'Dwysedd carbon: {g} gCO₂/kWh ({idx})',
+ w_cap:'Capasiti ar y map yng Nghymru neu’n cysylltu yno',w_now:'Amcangyfrif o allbwn safleoedd Cymru ar y map nawr: {v}. Mae Cymru’n defnyddio tua 1.6 GW ar gyfartaledd, felly ar y rhan fwyaf o ddyddiau mae’n cynhyrchu mwy nag y mae’n ei ddefnyddio ac yn anfon y gweddill i Loegr ac Iwerddon.',
+ w_links:'Cysylltiadau allan o Gymru',w_links_t:'Mae llinellau 400 kV yng Nglannau Dyfrdwy ac ar draws Hafren yn cludo pŵer i Loegr ac oddi yno. Mae Cyswllt HVDC y Gorllewin yn glanio yng Nglannau Dyfrdwy, mae EWIC yn rhedeg i Ddulyn, ac mae Greenlink yn rhedeg o Benfro i Wexford.',
+ w_sites:'Y safleoedd mwyaf ar y map',w_osm:'Dangosir {n} o safleoedd llai yng Nghymru fel dotiau bach pan fyddwch yn chwyddo i mewn.',
+ osm_src:'O OpenStreetMap. Wedi’i fapio gan y gymuned, felly gall y manylion fod yn anghyflawn.',osm_cap:'Capasiti heb ei gofnodi',osm_unnamed:'Safle {t} dienw',osm_local:'Mae safleoedd o’r maint hwn fel arfer yn cysylltu â’r rhwydwaith dosbarthu lleol, felly defnyddir y rhan fwyaf o’u pŵer gerllaw.',operator:'Gweithredwr: {o}',
+ zin:'Chwyddo i mewn',zout:'Chwyddo allan',zreset:'Ailosod yr olwg',year:'Blwyddyn',maplabel:'Map o orsafoedd pŵer, rhyng-gysylltwyr a llinellau grid y DU',
+ fuel_wind:'Gwynt',fuel_solar:'Solar',fuel_nuclear:'Niwclear',fuel_gas:'Nwy',fuel_biomass:'Biomas',fuel_hydro:'Dŵr',fuel_imports:'Mewnforion',fuel_other:'Arall',
+ idx:{'very low':'isel iawn','low':'isel','moderate':'cymedrol','high':'uchel','very high':'uchel iawn'},
+ s_ph:'Chwilio am safle, lle neu god post…',s_place:'Lle',s_region:'Rhanbarth',s_pc:'Cod post',s_pc_go:'Gwirio’r cod post hwn',s_none:'Dim canlyniadau',
+ layers:'Haenau',g_ovl:'Troshaenau',g_gen:'Cynhyrchu',g_net:'Rhwydwaith',tips_again:'Dangos yr awgrymiadau eto',table:'Tabl',compare:'Cymharu',
+ in_t:'Croeso',in_1:'Tapiwch unrhyw orsaf bŵer, rhyng-gysylltydd neu is-orsaf i weld i ble mae ei drydan yn mynd.',in_2:'Llusgwch y llithrydd blwyddyn i weld beth sy’n agor a beth sy’n cau, hyd at 2040.',in_3:'Agorwch Haenau i ddewis beth sy’n cael ei ddangos, a rhowch gynnig ar y tabiau Carbon, Straeon a Cymharu.',in_ok:'Iawn',
+ t_title:'Pob safle',t_filter:'Hidlo yn ôl enw…',t_all:'Pob math',t_osm:'Cynnwys safleoedd llai o OpenStreetMap',t_count:'{n} safle',
+ c_name:'Enw',c_type:'Math',c_cap:'Capasiti (MW)',c_status:'Statws',c_on:'Agor',c_off:'Cau',c_wales:'Cymru',c_now:'Allbwn nawr (MW)',
+ st_op:'Yn gweithredu',st_con:'Wrthi’n cael ei adeiladu',st_dev:'Yn cael ei ddatblygu',st_closed:'Wedi cau',yes:'Ie',
+ cm_h:'Cymharu dwy flynedd',cm_from:'O',cm_to:'i',cm_hl:'Amlygu newidiadau ar y map',cm_stop:'Peidio ag amlygu',cm_new:'Newydd erbyn {y}',cm_gone:'Wedi cau erbyn {y}',cm_none:'Dim',cm_change:'Newid',cm_total:'Cyfanswm',
+ cm_key:'Ar y map: cylch gwyrdd = newydd, cylch coch toredig = wedi cau.',cm_note:'Yn cymharu’r safleoedd ar y map yn unig, gan ddefnyddio dyddiadau targed datblygwyr a’r llywodraeth.',
+ tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i fesur)',tip_click:'Cliciwch am fanylion',
+ c_infra:'Seilwaith y grid',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
+ lg_subs:'Is-orsafoedd',lg_lines:'Llinellau pŵer',lg_wind:'Ardaloedd gwynt ar y môr',
+ sub_t:'Is-orsaf',sub_meta:'{v} kV',sub_through:'Mae pŵer o’r safleoedd hyn ar y map yn mynd drwy’r fan hon',sub_none:'Nid oes yr un o’r llwybrau ar y map yn mynd drwy’r is-orsaf hon.',sub_near:'Safleoedd ar y map o fewn 15 km',
+ src_h:'Ffynonellau a gwiriadau',src_curated:'Capasiti a dyddiadau wedi’u casglu ar gyfer y map hwn o gyhoeddiadau cyhoeddus; gwiriwyd ddiwethaf ym mis Medi 2026.',
+ src_osm:'Mae OpenStreetMap yn rhestru {mw} ar gyfer “{n}”.',src_osm_diff:'Mae hyn yn wahanol i’r ffigur uchod, yn aml am fod un ffigur yn cynnwys y safle cyfan neu hen gynllun.',
+ src_none:'Dim gwiriad annibynnol ar gael eto.',b_ok:'Wedi’i wirio',b_chk:'Gwiriwch',b_none:'Heb ei wirio',
+ src_live_real:'Allbwn nawr: data wedi’i fesur gan Elexon.',src_live_est:'Allbwn nawr: amcangyfrif o gymysgedd cenedlaethol NESO.',src_route:'Llwybr: llinellau 400 kV a 275 kV o OpenStreetMap (detholiad 28 Medi 2026).',
+ src_osmobj:'Gweld hwn ar OpenStreetMap',
+ methods_h:'Ffynonellau a dulliau',
+ imp_ci:'carbon mewnforion',imp_ci_na:'ddim yn rhestr ffactorau NESO',imp_note:'Mae carbon mewnforion yn defnyddio ffactor API Dwysedd Carbon NESO ar gyfer pŵer o’r wlad hon. Cyfartaledd yw hwn, nid mesur byw.',
+ imp_h:'Carbon trydan a fewnforir',
+ st_reg_h:'Ble mae trydan lanaf ar hyn o bryd?',st_reg_t:'Mae NESO yn amcangyfrif dwysedd carbon y trydan a ddefnyddir ym mhob un o 14 rhanbarth Prydain. Mae’r Alban a Gogledd Cymru yn aml yn agos at sero, tra bod De Cymru a rhannau o Loegr yn dibynnu ar nwy.',st_reg_btn:'Lliwio’r map',st_reg_hide:'Cuddio o’r map',st_reg_when:'Amcangyfrif rhanbarthol NESO, {when}.',
+ st_q_h:'Pam mae prosiectau newydd yn aros blynyddoedd am gysylltiad grid',st_q_t:'Cyn y diwygio, roedd prosiectau’n ciwio yn y drefn y gwnaethant gais. Tyfodd y ciw i fwy na 700 GW, tua phedair gwaith yr hyn sydd ei angen ar Brydain erbyn 2030, yn llawn prosiectau nad oedden nhw byth yn mynd i gael eu hadeiladu. Aildrefnodd NESO y ciw ym mis Rhagfyr 2025 o amgylch prosiectau sy’n barod ac sydd eu hangen.',
+ st_q_a:'Ciw cyn y diwygio',st_q_b:'Piblinell flaenoriaeth (Rhag 2025)',st_q_c:'Angen erbyn 2030',st_q_d:'Galw trawsyrru â blaenoriaeth',st_q_note:'Cynhyrchu a storio, GW. Dangosir galw, llawer ohono’n ganolfannau data, ar wahân.',
+ st_p_h:'Oriau glân yw oriau rhad',st_p_t:'Pan fo’r gwynt yn chwythu, caiff gorsafoedd nwy eu gwthio oddi ar y system ac mae carbon a phrisiau cyfanwerthu yn gostwng. Mae’r siart yn cymharu’r ddau dros y diwrnod diwethaf.',st_p_need:'Mae angen prisiau byw gan Elexon ar gyfer y gymhariaeth hon, felly mae’n ymddangos ar fersiwn gwe’r map.',price:'Pris cyfanwerthu, £/MWh',
+ st_c_h:'Gwynt sy’n methu cyrraedd y de',st_c_t:'Yn aml mae gan yr Alban fwy o bŵer gwynt nag y gall y llinellau i Loegr ei gludo. Pan fo hynny’n digwydd mae gweithredwr y grid yn talu ffermydd gwynt yn yr Alban i droi i lawr a gorsafoedd nwy ymhellach i’r de i droi i fyny. Mae cysylltiadau tanfor newydd fel Eastern Green Link 1 a 2 yn cael eu hadeiladu i ddatrys hyn.',st_c_live:'Ar hyn o bryd mae tua {v} o wynt yn cael ei droi i lawr.',st_c_none:'Nid oes yr un fferm wynt ar y map yn cael ei throi i lawr ar hyn o bryd.',st_c_need:'Mae cwtogi byw yn ymddangos ar fersiwn gwe’r map.',st_c_btn:'Dangos Eastern Green Link 2',
+ tab_map:'Map',tab_ci:'Dwysedd carbon',ci_now:'Ar hyn o bryd',ci_today:'Cyfartaledd heddiw',ci_year:'Cyfartaledd {y}',ci_ytd:'{y} hyd yma',ci_unit:'gCO₂/kWh',
+ ci_explain:'Dwysedd carbon yw faint o CO₂ a allyrrir am bob cilowat awr o drydan a ddefnyddir ym Mhrydain. Mae’n gostwng pan fo gwynt, solar, niwclear a mewnforion yn uchel, ac yn codi pan fo gorsafoedd nwy yn rhedeg yn galetach.',
+ ci_short:'Heddiw, fesul hanner awr',ci_short_live:'Y 24 awr diwethaf a’r 48 awr nesaf',actual:'Gwirioneddol',forecast:'Rhagolwg',now:'nawr',
+ ci_best:'Yr amser glanaf sydd i ddod: {t} (tua {g} gCO₂/kWh).',
+ ci_snap:'Ciplun o API Dwysedd Carbon NESO ar gyfer {d}. Ni all y copi hwn nôl data mwy newydd; mae’r fersiwn ar y we yn diweddaru bob pum munud.',
+ ci_long:'Ers 2009, a llwybr 2030',hist:'Wedi’i gofnodi',path:'Llwybr targed',
+ ci_hist_note:'Hanes o gymysgedd cynhyrchu hanesyddol NESO ar gyfer Prydain: pob hanner awr ers Ionawr 2009, wedi’i gyfartaleddu fesul blwyddyn (dotiau) a mis (llinell wan). Mae’n mesur carbon y trydan a gynhyrchir, felly gall fod ychydig yn wahanol i’r ffigurau byw uchod, sy’n amcangyfrif y trydan a ddefnyddir. Mae’r dot toredig ar gyfer {y} yn cwmpasu 1 Ionawr i {to}.',monthly:'Misol',
+ ci_record:'Yr hanner awr isaf a gofnodwyd: {v} gCO₂/kWh, am {t}.',
+ st_h_h:'Oriau ar lefel pŵer glân 2030',st_h_t:'Mae llwybrau Pŵer Glân 2030 NESO yn rhoi dwysedd carbon cyfartalog o tua 50 gCO₂/kWh. Cyrhaeddodd Prydain y lefel honno am awr am y tro cyntaf yn 2019. Yn 2024 treuliodd bron i 600 awr ar y lefel honno neu’n is. I gyrraedd y targed, bydd angen iddi fod yno’r rhan fwyaf o’r amser.',st_h_note:'Oriau ar 50 gCO₂/kWh neu’n is bob blwyddyn, o gymysgedd cynhyrchu hanesyddol NESO. *1 Ionawr i {to} yw {y}.',
+ ci_proj_note:'Llinell doredig: mae llwybrau Pŵer Glân 2030 NESO yn dod â dwysedd carbon i tua 50 gCO₂/kWh neu’n is erbyn 2030. Mae pwynt 2035 yn nodi uchelgais gynharach y llywodraeth ar gyfer grid wedi’i ddatgarboneiddio’n llawn. Targedau yw’r rhain, nid rhagolygon.',
+ ci_year_note:'Ffigur {y} yw’r cyfartaledd o 1 Ionawr i {to}, o gymysgedd cynhyrchu hanesyddol NESO.'}
+};
+let LANG='en';
+try{ LANG=localStorage.getItem('lang')||(navigator.language||'').toLowerCase().startsWith('cy')?(localStorage.getItem('lang')||'cy'):'en'; }catch(e){}
+if(LANG!=='cy'&&LANG!=='en') LANG='en';
+function tr(k,v){ let s=I18N[LANG][k]; if(s==null) s=I18N.en[k]; if(s==null) return k; if(v) for(const x in v) s=s.split('{'+x+'}').join(v[x]); return s; }
+const tIdx = i => (I18N[LANG].idx||{})[i]||i||'';
+
+/* ---------------- data ---------------- */
+const T = { ow:{cf:.40}, nw:{cf:.28}, nu:{cf:.78}, gas:{cf:.35}, bio:{cf:.60}, hy:{cf:.35}, so:{cf:.11}, ti:{cf:.30}, bat:{cf:0}, ic:{} };
+const COLC={};
+const col = t => COLC[t]||(COLC[t]=getComputedStyle(document.documentElement).getPropertyValue('--'+t).trim());
+try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ for(const k in COLC) delete COLC[k]; render(); panel(); }); }catch(e){}
+__DATA__
+const PCY = {
+ london:'Llundain a’r De-ddwyrain',midlands:'Birmingham a Chanolbarth Lloegr',manchester:'Manceinion Fwyaf',liverpool:'Glannau Merswy',leeds:'Gorllewin Swydd Efrog',
+ newcastle:'Glannau Tyne a Gogledd-ddwyrain Lloegr',glasgow:'Glasgow a gorllewin canolbarth yr Alban',edinburgh:'Caeredin a’r Lothians',cardiff:'Caerdydd a De Cymru',
+ bristol:'Bryste a De-orllewin Lloegr',belfast:'Belffast',dublin:'Dulyn',nwales:'Trefi arfordir y Gogledd',anglesey:'Ynys Môn a Gwynedd',midwales:'Trefi Canolbarth Cymru',
+ westwales:'Sir Gaerfyrddin',pembs:'Sir Benfro',swansea:'Bae Abertawe',
+ pentir:'Is-orsaf Pentir, Gwynedd',bodel:'Is-orsaf Bodelwyddan, Sir Ddinbych',deeside:'Is-orsaf Glannau Dyfrdwy / Cei Connah',pembrokeS:'Is-orsaf Penfro',
+ ni:'Islandmagee, Swydd Antrim',ie1:'Traeth Rush, Swydd Dulyn',ie2:'Great Island, Swydd Wexford'
+};
+const COUNTRY_CY = {'France':'Ffrainc','the Netherlands':'yr Iseldiroedd','Belgium':'Gwlad Belg','Norway':'Norwy','Denmark':'Denmarc','Germany':'yr Almaen','Northern Ireland':'Gogledd Iwerddon','Ireland':'Iwerddon'};
+const NCY = {wylfa:'Wylfa (adweithyddion modiwlar bach)',pembroke:'Penfro',connahsquay:'Cei Connah',erebus:'Erebus (gwynt arnofiol)',clocaenog:'Coedwig Clocaenog',brechfa:'Gorllewin Coedwig Brechfa',garreglwyd:'Bryn Garreg Lwyd',western:'Cyswllt HVDC y Gorllewin',ewic:'Rhyng-gysylltydd Dwyrain–Gorllewin'};
+const NOTECY = {
+ gym:'Oddi ar arfordir y Gogledd rhwng Llandudno a’r Rhyl. Mae’r Gogledd yn defnyddio peth o’r pŵer; mae’r rhan fwyaf yn llifo tua’r dwyrain i Lannau Merswy a Swydd Gaer.',
+ awel:'Estyniad i Gwynt y Môr sydd wedi cael caniatâd, gan rannu’r cysylltiad ym Modelwyddan.',
+ mona:'Yn cael ei ddatblygu ym Môr Iwerddon, tua 30 km oddi ar arfordir y Gogledd. Byddai’n dod i’r lan yn sir Conwy ac yn cysylltu ym Modelwyddan.',
+ northhoyle:'Fferm wynt gyntaf Cymru ar y môr, oddi ar Brestatyn.',
+ erebus:'Prosiect arddangos gwynt arnofiol tua 40 km oddi ar arfordir Sir Benfro, sy’n rhagflaenu prosiectau mwy yn y Môr Celtaidd.',
+ morlais:'Parth ffrwd lanw oddi ar Ynys Gybi, Ynys Môn, a redir gan Menter Môn. Gall datblygwyr osod tyrbinau hyd at 240 MW i gyd; disgwylir y dyfeisiau cyntaf yn y blynyddoedd nesaf.',
+ clocaenog:'Un o ffermydd gwynt mwyaf Cymru ar y tir, mewn coedwig uwchben Dinbych.',
+ penycymoedd:'Y fferm wynt fwyaf ar y tir yng Nghymru a Lloegr.',
+ wylfa:'Dewisodd Great British Energy – Nuclear Wylfa ym mis Tachwedd 2025 ar gyfer adweithyddion modiwlar bach cyntaf y DU, a llofnododd gontract gyda Rolls-Royce SMR ym mis Ebrill 2026 i ddylunio ac adeiladu tair uned 470 MW. Y targed yw cynhyrchu pŵer o ganol y 2030au. Dywed y llywodraeth y gallai’r tair gyntaf bweru tua thair miliwn o gartrefi, a gallai’r safle ddal hyd at wyth adweithydd. Byddai’r pŵer yn defnyddio’r llinell 400 kV bresennol o hen orsaf Wylfa ar draws Ynys Môn i Bentir, yna tua’r dwyrain ar hyd arfordir y Gogledd.',
+ pembroke:'Un o’r gorsafoedd pŵer nwy mwyaf yn Ewrop.',
+ dinorwig:'Storfa bwmp y tu mewn i Elidir Fawr. Mae’n pwmpio dŵr i fyny’r mynydd pan fo pŵer yn rhad a gall ei ryddhau ar bŵer llawn o fewn tua munud i ateb y galw brig. Mae’n storio trydan yn hytrach na’i greu, ac yn ddefnyddiwr net ar y cyfan.',
+ ffestiniog:'Gorsaf storfa bwmp fawr gyntaf y DU.',
+ rheidol:'Cynllun ynni dŵr confensiynol mwyaf Cymru, yn defnyddio cadwyn o gronfeydd yng Nghwm Rheidol.',
+ maentwrog:'Yn cael ei fwydo gan Lyn Trawsfynydd.',
+ dolgarrog:'Yn cael ei fwydo gan gronfeydd yn y Carneddau uwchben Dyffryn Conwy.',
+ cwmdyli:'O dan yr Wyddfa; un o’r gorsafoedd ynni dŵr hynaf ym Mhrydain sy’n dal i redeg.',
+ ewic:'Yn dod i’r lan ger Prestatyn ac yn cysylltu yng Nglannau Dyfrdwy. Fel arfer mae pŵer yn llifo o Brydain i Iwerddon.',
+ greenlink:'Dechreuodd weithredu yn 2025. Disgwylir iddo gludo pŵer o Brydain i Iwerddon gan amlaf.',
+ western:'Cebl tanfor i lawr arfordir y gorllewin sy’n cludo pŵer dros ben o’r Alban yn syth i Lannau Dyfrdwy yn y Gogledd, gan osgoi llinellau prysur ar y tir.'
+};
+const WELSH = new Set(['gym','awel','burbo','mona','northhoyle','rhylflats','erebus','morlais','penycymoedd','clocaenog','brechfa','alltwalis','mynyddygwair','cefncroes','carno','garreglwyd','rheidol','maentwrog','dolgarrog','cwmdyli','wylfa','dinorwig','ffestiniog','pembroke','connahsquay','ewic','greenlink','western']);
+// Elexon BM unit prefixes (used only when live Elexon data is reachable)
+const BMU = {hornsea1:['HOWAO'],hornsea2:['HOWBO'],doggerA:['DBAWO'],doggerB:['DBBWO'],triton:['TKNEW','TKNWW'],racebank:['RCBKO'],ea1:['EAAO'],gabbard:['GRGBW'],galloper:['GAOFO'],
+ londonarray:['LARYW'],rampion:['RMPNO'],walneyx:['WLNYO-3','WLNYO-4'],walney:['WLNYW','WLNYO-2'],gym:['GYMRO'],burbo:['BRBEO'],morayeast:['MOWEO'],moraywest:['MOWWO'],beatrice:['BEATO'],
+ seagreen:['SGRWO'],nng:['NNGAO'],whitelee:['WHILW'],clyde:['CLDCW','CLDNW','CLDSW'],viking:['VKNGW'],penycymoedd:['PNYCW'],heysham1:['HEYM1'],heysham2:['HEYM2'],hartlepool:['HRTL'],
+ torness:['TORN'],sizewellb:['SIZB'],pembroke:['PEMB'],connahsquay:['CNQPS'],peterhead:['PEHE'],saltend:['SALTD'],staythorpe:['STAY'],grainpp:['GRAI'],westburton:['WBURB'],didcot:['DIDCB'],
+ keadby2:['KEAD2','KEAD-2'],carrington:['CARR'],drax:['DRAXX'],lynemouth:['LYNE'],dinorwig:['DINO'],ffestiniog:['FFES'],cruachan:['CRUA'],foyers:['FOYE']};
+const IMPORT_CI = Object.assign({}, SNAPSHOT.factors||{}, {'Northern Ireland':(SNAPSHOT.factors||{}).Ireland});
+const SRC = {
+ wylfa:[['GOV.UK, June 2026: Wylfa SMR programme update','https://www.gov.uk/government/news/uk-smr-programme-at-wylfa-hitting-target-for-british-contracts'],['Rolls-Royce, April 2026: Wylfa contract','https://www.rolls-royce.com/media/press-releases/2026/13-04-2026-rr-welcomes-contract-with-uk-government-for-delivery-of-small-modular-reactors.aspx'],['World Nuclear News, Nov 2025: site selected','https://www.world-nuclear-news.org/articles/uk-selects-wylfa-for-at-least-three-rolls-royce-smrs']]
+};
+const METHODS = [
+ ['NESO Carbon Intensity API: national and regional mix, carbon intensity, import factors','https://carbonintensity.org.uk/'],
+ ['Elexon Insights (BMRS): output per power station, interconnector flows, balancing actions, prices','https://bmrs.elexon.co.uk/'],
+ ['OpenStreetMap contributors, via Geofabrik (28 Sep 2026): power lines, substations, smaller sites, wind farm areas','https://www.openstreetmap.org/copyright'],
+ ['NESO data portal: historic GB generation mix, half-hourly since 2009','https://www.neso.energy/data-portal/historic-generation-mix'],
+ ['NESO data portal: GSP region boundaries (Feb 2026), grouped into the 14 regions','https://www.neso.energy/data-portal'],
+ ['NESO: connections reform results','https://www.neso.energy/industry-information/connections-reform/connections-reform-results'],
+ ['postcodes.io: postcode locations','https://postcodes.io/']
+];
+const REG = [[1,'North Scotland','Gogledd yr Alban',57.35,-4.5],[2,'South Scotland','De’r Alban',55.6,-3.7],[3,'North West England','Gogledd-orllewin Lloegr',53.95,-2.65],[4,'North East England','Gogledd-ddwyrain Lloegr',54.85,-1.75],[5,'Yorkshire','Swydd Efrog',53.8,-1.15],[6,'North Wales & Merseyside','Gogledd Cymru a Glannau Merswy',53.05,-3.45],[7,'South Wales','De Cymru',51.8,-3.7],[8,'West Midlands','Gorllewin Canolbarth Lloegr',52.45,-2.35],[9,'East Midlands','Dwyrain Canolbarth Lloegr',52.9,-0.95],[10,'East England','Dwyrain Lloegr',52.4,0.75],[11,'South West England','De-orllewin Lloegr',50.75,-3.85],[12,'South England','De Lloegr',51.2,-1.45],[13,'London','Llundain',51.5,-0.12],[14,'South East England','De-ddwyrain Lloegr',51.15,0.7]];
+const REG_SNAP = SNAPSHOT.region;
+const QUEUE = {before:722, pipeline:283, needLo:204, needHi:231, demand:99, src:[['Knight Frank, Dec 2025','https://www.knightfrank.co.uk/research/article/2025/12/connection-reform-update-a-new-pipeline-announced'],['NESO: connections reform','https://www.neso.energy/neso-implements-electricity-grid-connection-reforms-unlock-investment-great-britain'],['Curvature Energy, Sep 2026','https://curvature.energy/insight-uk-bess-grid-connection-reform']]};
+const ICCODE = {INTFR:'ifa',INTIFA2:'ifa2',INTELEC:'eleclink',INTNED:'britned',INTNEM:'nemo',INTNSL:'nsl',INTVKL:'viking',INTIRL:'moyle',INTEW:'ewic',INTGRNL:'greenlink'};
+
+const ALL = [...SITES, ...LINKS, ...GRID];
+ALL.forEach(d=>{ d.key=d.id+'|'+d.t; d.w=WELSH.has(d.id); d.bmu=BMU[d.id]; });
+const byId = Object.fromEntries(ALL.map(d=>[d.key,d]));
+const OTHERS = OSMP.map((a,i)=>({key:'osm'+i,t:a[1],c:[a[2],a[3]],mw:a[4],w:!!a[5],op:a[6],nen:a[0],ncy:a[7],oid:a[8],osm:1,on:0}));
+const SUBOBJ = SUBS.map((s,i)=>({key:'sub'+i,sub:1,t:'sub',nen:s[0],kv:s[1],c:[s[2],s[3]],op:s[4],oid:s[5],mw:0,on:0,osm:0}));
+OTHERS.forEach(o=>byId[o.key]=o); SUBOBJ.forEach(o=>byId[o.key]=o);
+const osmUrl = id => id ? 'https://www.openstreetmap.org/'+({n:'node',w:'way',r:'relation'}[id[0]])+'/'+id.slice(1) : null;
+
+const nm = d => d.sub ? (d.nen||tr('sub_t')) : d.osm ? ((LANG==='cy'&&d.ncy)||d.nen||tr('osm_unnamed',{t:tr('t_'+d.t).toLowerCase()})) : (LANG==='cy'&&NCY[d.id])||d.n;
+const pn = k => (LANG==='cy'&&PCY[k])||P[k][0];
+const country = c => LANG==='cy'?(COUNTRY_CY[c]||c):c;
+
+/* ---------------- live model ---------------- */
+const SNAP = {nat:SNAPSHOT.nat, wales:SNAPSHOT.wales};
+// NESO Carbon Intensity API, GB, 29 Sep 2026 (UTC half hours from 23:00 on 28 Sep): [forecast, actual]
+const CI_DAY_SNAP = SNAPSHOT.day;
+// Annual averages, gCO2/kWh: NESO (GB) and Carbon Brief analysis (UK)
+// NESO historic generation mix (GB, generation-based), half-hourly since 2009: annual and monthly means
+const CI_YTD = HISTORY.ytd;
+const CI_HIST = Object.entries(HISTORY.yr).map(([y,v])=>[+y,v]).filter(d=>d[0]<CI_YTD.y);
+const CI_MON = HISTORY.mon;
+const CI_CLEAN = HISTORY.clean;
+const CI_PATH = [CI_HIST[CI_HIST.length-1],[2030,50],[2035,0]];
+const CI_IDX_COL = {'very low':'#2fa84f','low':'#8bbf3a','moderate':'#e0a800','high':'#e8772e','very high':'#d6333a'};
+function ciIndex(g){ return g<60?'very low':g<120?'low':g<180?'moderate':g<240?'high':'very high'; }
+function seriesFromSnap(){ const t0=Date.parse(CI_DAY_SNAP.from); return CI_DAY_SNAP.v.map((x,i)=>({t:t0+i*1800000,f:x[0],a:x[1]})); }
+const LIVE = {mode:'snapshot', nat:SNAP.nat, wales:SNAP.wales, demandGW:SNAPSHOT.nat.demandGW||30, installedGW:{wind:33,solar:21,nuclear:5.9,gas:30,biomass:4.2,hydro:1.9},
+  ic:null, icNet:null, bmu:null, curt:null, hist:null, updated:null, feeds:{},
+  ci:{series:seriesFromSnap(), day:seriesFromSnap(), live:false, ytd:null}};
+function ciNow(){ const s=LIVE.ci.series, now=Date.now();
+  let p=s.find(x=>x.t<=now && now<x.t+1800000), stale=false;
+  if(!p){ stale=true; const withA=s.filter(x=>x.a!=null); p=withA[withA.length-1]||s[s.length-1]; }
+  const v=p.a!=null&&now>=p.t+1800000?p.a:(p.f!=null?p.f:p.a); return {v, t:p.t, idx:ciIndex(v), stale}; }
+function ciDayAvg(){ const d=LIVE.ci.day.map(x=>x.a!=null?x.a:x.f).filter(v=>v!=null); return d.length?Math.round(d.reduce((a,b)=>a+b,0)/d.length):null; }
+const FUEL = {ow:'wind',nw:'wind',so:'solar',nu:'nuclear',gas:'gas',bio:'biomass',hy:'hydro'};
+const CY_D=['Sul','Llun','Maw','Mer','Iau','Gwe','Sad'], CY_M=['Ion','Chwef','Maw','Ebr','Mai','Meh','Gorff','Awst','Medi','Hyd','Tach','Rhag'];
+function ukParts(dt){ const f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,weekday:'short'}).formatToParts(dt); const g=k=>(f.find(p=>p.type===k)||{}).value; return {wd:g('weekday'),d:+g('day'),m:+g('month'),hh:String(+g('hour')%24).padStart(2,'0'),mm:g('minute')}; }
+const EN_D={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}, EN_M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtWhen(iso){ try{ const p=ukParts(new Date(iso)); return LANG==='cy' ? `${CY_D[EN_D[p.wd]]} ${p.d} ${CY_M[p.m-1]}, ${p.hh}:${p.mm}` : `${p.wd} ${p.d} ${EN_M[p.m-1]}, ${p.hh}:${p.mm}`; }catch(e){ return iso; } }
+function fmtDate(d){ const p=d.split('-'); const m=+p[1]; return LANG==='cy' ? `${+p[2]} ${['Ionawr','Chwefror','Mawrth','Ebrill','Mai','Mehefin','Gorffennaf','Awst','Medi','Hydref','Tachwedd','Rhagfyr'][m-1]}` : `${+p[2]} ${['January','February','March','April','May','June','July','August','September','October','November','December'][m-1]}`; }
+function fmtTime(iso){ try{ const p=ukParts(new Date(iso)); return p.hh+':'+p.mm; }catch(e){ return ''; } }
+function curMix(){ return (S.replayIdx!=null && LIVE.hist) ? LIVE.hist[S.replayIdx].mix : LIVE.nat.mix; }
+function curWhen(){ return (S.replayIdx!=null && LIVE.hist) ? LIVE.hist[S.replayIdx].from : LIVE.nat.from; }
+function fleet(t){ const f=FUEL[t]; if(!f) return 0; const m=curMix(); return Math.max(0,Math.min(.95,(m[f]||0)/100*LIVE.demandGW/LIVE.installedGW[f])); }
+function realMW(d){ if(S.replayIdx!=null||!LIVE.bmu||!d.bmu) return null; const v=LIVE.bmu[d.id]; return v==null?null:v; }
+function liveMW(d){ const r=realMW(d); if(r!=null) return r; if(d.ps) return 0; return d.mw*fleet(d.t); }
+const liveNow = () => S.live && S.year===2026;
+
+/* ---------------- state + helpers ---------------- */
+const S = {year:2026, types:new Set(Object.keys(T)), future:true, grid:true, live:true, pyl:true, osm:true, sel:null, view:'overview', tab:'map', replayIdx:null, pc:null, infra:false, reg:false, cmpA:2026, cmpB:2035, cmp:false};
+const pc = k => Array.isArray(k) ? {c:k} : {n:pn(k), c:[P[k][1],P[k][2]], hub:!!P[k][3], k};
+const fmtMW = mw => mw>=1000 ? (mw/1000).toFixed(mw>=10000?0:1).replace(/\.0$/,'')+' GW' : Math.round(mw)+' MW';
+const fmtLive = mw => mw>=1000 ? fmtMW(Math.round(mw/10)*10) : (mw<20? Math.round(mw) : Math.round(mw/5)*5)+' MW';
+const active = d => d.osm ? true : (d.on<=S.year && !(d.off && S.year>=d.off));
+const future = d => !d.osm && d.on>S.year;
+function share(twh){ const p=twh/300*100; return (p<1?'&lt;1':p<10?p.toFixed(1):Math.round(p))+'%'; }
+function statusText(d){
+  if(d.off && S.year>=d.off) return tr('closed',{y:d.off});
+  if(active(d)) return d.on>2026 ? tr('op_exp',{y:d.on}) : tr('op_since',{y:d.on});
+  return (d.st==='con'?tr('con'):tr('dev'))+' · '+tr('tgt',{y:d.on});
+}
+function flowPts(d){
+  if(d.t==='grid') return {main:d.pts.map(pc), sur:[]};
+  if(d.t==='ic'){
+    const via=(d.via||[]).map(pc);
+    if(d.dir==='export') return {main:[pc(d.h),pc(d.g),...via.slice().reverse(),pc(d.a),pc(d.fh)], sur:[]};
+    return {main:[pc(d.a),...via,pc(d.g),pc(d.h)], sur:[]};
+  }
+  const main=[{c:d.c,n:nm(d)},...d.r.map(pc),pc(d.h)];
+  const sur=d.sur?[pc(d.h),...d.sur.map(pc)]:[];
+  return {main,sur};
+}
+function geom(d){ // drawn geometry [lat,lon][]
+  const R=ROUTES[d.key], f=flowPts(d);
+  return {main: R?R.m:f.main.map(p=>p.c), sur: R&&R.s?R.s:f.sur.map(p=>p.c), real: !!R};
+}
+function icIntoGB(d){ // live direction for an interconnector
+  if(liveNow() && S.replayIdx==null && LIVE.ic && LIVE.ic[d.id]!=null) return LIVE.ic[d.id]>20;
+  return d.dir!=='export';
+}
+function icGeom(d){ let g=geom(d).main.slice(); if(d.dir==='export') g.reverse(); return icIntoGB(d)?g:g.reverse(); }
+const activeAt = (d,y) => d.on<=y && !(d.off && y>=d.off);
+function visible(d){
+  if(S.cmp && d.t!=='grid'){ if(!S.types.has(d.t)) return false; return activeAt(d,S.cmpA)||activeAt(d,S.cmpB); }
+  if(d.t==='grid') return S.grid && (active(d) || (S.future && future(d)));
+  if(!S.types.has(d.t)) return false;
+  if(d.off && S.year>=d.off) return false;
+  return active(d) || (S.future && future(d));
+}
+function hav(a,b){ const r=Math.PI/180, dl=(b[0]-a[0])*r, dn=(b[1]-a[1])*r; const h=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)**2; return 12742*Math.asin(Math.sqrt(h)); }
+
+/* ---------------- map ---------------- */
+const svg=d3.select('#map'), node=svg.node(), svgBase=d3.select('#base');
+const gLand=svgBase.append('g').attr('class','land');
+const gRegA=svgBase.append('g').attr('class','rega');
+const gWind=svgBase.append('g').attr('class','warea');
+const gPyl=svgBase.append('g').attr('class','pyl');
+const gOver=svg.append('g');
+const cv=document.getElementById('dots'), ctx=cv.getContext('2d'); let DPR=1, dotQT=null;
+const gReg=gOver.append('g');
+const gLinks=gOver.append('g'), gLive=gOver.append('g'), gRoute=gOver.append('g'), gMarks=gOver.append('g'), gPc=gOver.append('g'), gLbl=gOver.append('g');
+let W=0,H=0,proj,zt=d3.zoomIdentity,zBase=d3.zoomIdentity;
+const ukBox={type:'MultiPoint',coordinates:[[-8.2,49.9],[1.9,60.9],[-8.2,60.9],[1.9,49.9]]};
+const lineGen=d3.line().curve(d3.curveCatmullRom.alpha(.5));
+const polyGen=d3.line();
+const xy = c => zt.apply(proj([c[1],c[0]]));
+const P0 = c => proj([c[1],c[0]]);
+const OSMK=4, SMALLK=1.8;
+const zb = k => k<SMALLK?0:k<OSMK?1:2;
+let zbNow=0;
+const zoom=d3.zoom().scaleExtent([.45,40])
+  .on('start',()=>{ document.querySelector('.mapwrap').classList.add('moving'); if(typeof hideTip==='function') hideTip(); })
+  .on('zoom',e=>{ zt=e.transform; gLand.attr('transform',zt); gPyl.attr('transform',zt); gWind.attr('transform',zt); gRegA.attr('transform',zt); drawDots();
+    const s=zt.k/zBase.k; gOver.attr('transform',`translate(${zt.x-s*zBase.x},${zt.y-s*zBase.y}) scale(${s})`); })
+  .on('end',()=>{ document.querySelector('.mapwrap').classList.remove('moving'); settle(); });
+function settle(){ gOver.attr('transform',null); zBase=zt; if(zb(zt.k)!==zbNow){ zbNow=zb(zt.k); render(); } else position(); drawDots(); }
+svg.call(zoom).on('dblclick.zoom',null);
+svg.on('click',e=>{ if(e.target!==node) return;
+  const [x,y]=d3.pointer(e,node); const h=dotQT&&dotQT.find(x,y,9);
+  select(h?h[2].key:null); });
+function showOsm(){ return S.osm && S.year===2026 && (zt.k>=OSMK || S.view==='wales'); }
+const SUBCOL = kv => kv===400 ? '#4f5bd5' : kv===275 ? '#d9453b' : kv===220 ? '#39a7d8' : '#b0407a';
+function drawDots(){
+  ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H); dotQT=null;
+  const pts=[], sel=S.sel;
+  if(S.infra){
+    const r=zt.k<SMALLK?2:zt.k<OSMK?3:4;
+    for(const s of SUBOBJ){ const p=xy(s.c); if(p[0]<-6||p[1]<-6||p[0]>W+6||p[1]>H+6) continue;
+      ctx.globalAlpha=1; ctx.fillStyle=SUBCOL(s.kv);
+      if(s.kv===400) ctx.fillRect(p[0]-r,p[1]-r,2*r,2*r); else { ctx.beginPath(); ctx.arc(p[0],p[1],r*.9,0,6.2832); ctx.fill(); }
+      if(s.key===sel){ ctx.strokeStyle=col('ink'); ctx.lineWidth=2; ctx.strokeRect(p[0]-r-3,p[1]-r-3,2*r+6,2*r+6); }
+      pts.push([p[0],p[1],s]); }
+  }
+  if(!showOsm()){ dotQT=pts.length?d3.quadtree(pts,d=>d[0],d=>d[1]):null; return; }
+  const wOnly = S.view==='wales' && zt.k<OSMK;
+  for(const o of OTHERS){
+    if(!S.types.has(o.t) || (wOnly && !o.w)) continue;
+    const p=xy(o.c); if(p[0]<-6||p[1]<-6||p[0]>W+6||p[1]>H+6) continue;
+    ctx.globalAlpha = S.sel? .3 : .8; ctx.fillStyle=col(o.t);
+    ctx.beginPath(); ctx.arc(p[0],p[1],osmR(o),0,6.2832); ctx.fill();
+    pts.push([p[0],p[1],o]);
+    if(o.key===sel){ ctx.globalAlpha=1; ctx.strokeStyle=col('ink'); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(p[0],p[1],osmR(o)+3,0,6.2832); ctx.stroke(); }
+  }
+  ctx.globalAlpha=1; dotQT=d3.quadtree(pts,d=>d[0],d=>d[1]);
+}
+
+function setup(){
+  W=node.clientWidth; H=node.clientHeight;
+  DPR=window.devicePixelRatio||1; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
+  proj=d3.geoConicConformal().parallels([50,60]).rotate([3,0]).fitExtent([[16,50],[W-16,visH()-70]],ukBox);
+  const gp=d3.geoPath(proj);
+  gLand.selectAll('path').data(GEO.features).join('path').attr('class',f=>f.properties.uk?'uk':null).attr('d',gp);
+  const pl=[]; ['220','275','400','dc'].forEach(k=>(PYL[k]||[]).forEach(l=>pl.push({k,l})));
+  gPyl.selectAll('path').data(pl).join('path').attr('class',d=>'v'+d.k).attr('d',d=>polyGen(d.l.map(P0)));
+  const wr=[]; WINDA.forEach(w=>w[1].forEach(r=>wr.push(r)));
+  gWind.selectAll('path').data(wr).join('path').attr('d',r=>polyGen(r.map(P0))+'Z');
+  gRegA.selectAll('path').data(REGGEO.features).join('path').attr('d',f=>f.geometry.coordinates.map(poly=>polyGen(poly[0].map(c=>proj(c)))+'Z').join(''));
+  gRegA.attr('transform',zt);
+  gLand.attr('transform',zt); gPyl.attr('transform',zt); gWind.attr('transform',zt); zBase=zt; zbNow=zb(zt.k);
+  render();
+}
+function markerR(d){ return d.t==='ic'?8:Math.max(7.5,3.4+Math.sqrt(d.mw)/6); }
+const compact = d => zt.k<SMALLK && d.t!=='ic' && d.mw<300 && S.sel!==d.key;
+const mR = d => compact(d) ? 4 : markerR(d);
+function osmR(d){ return d.mw? Math.max(2.6,Math.min(6,1.8+Math.sqrt(d.mw)/4)) : 2.6; }
+
+function render(){
+  const vis=ALL.filter(visible);
+  const sel=S.sel?byId[S.sel]:null;
+  gOver.classed('dim',!!sel);
+  // curated links
+  const lk=vis.filter(d=>d.t==='ic'||d.t==='grid');
+  const lg=gLinks.selectAll('g.lk').data(lk,d=>d.key).join(en=>{
+    const g=en.append('g').attr('class','lk');
+    g.append('path').attr('class','link');
+    g.append('path').attr('class','hit').on('click',(e,d)=>{e.stopPropagation();select(d.key);});
+    return g;});
+  lg.select('.link').attr('class',d=>'link '+d.t+(future(d)?' fut':'')+(sel===d?' on':''));
+  gPyl.style('opacity', S.infra ? 1 : zt.k<SMALLK ? .45 : zt.k<OSMK ? .75 : 1);
+  gPyl.style('display',(S.pyl||S.infra)?null:'none');
+  d3.select('#base').classed('infra',S.infra); document.querySelector('.mapwrap').classList.toggle('infra-on',S.infra);
+  const rg = S.reg ? REG.map(r=>({id:r[0],c:[r[3],r[4]],v:regVal(r[0])})).filter(r=>r.v!=null) : [];
+  const rgs=gReg.selectAll('g.rg').data(rg,d=>d.id).join(en=>{ const g=en.append('g').attr('class','rg'); g.append('circle').attr('class','regdot').attr('r',13); g.append('text').attr('class','regtxt').attr('dy',4); return g; });
+  rgs.select('circle').attr('fill',d=>CI_IDX_COL[ciIndex(d.v)]); rgs.select('text').text(d=>d.v);
+  gRegA.style('display',S.reg?null:'none').selectAll('path').attr('fill',f=>{ const v=regVal(f.properties.id); return v==null?'none':CI_IDX_COL[ciIndex(v)]; });
+  // markers
+  const mk=vis.filter(d=>d.t!=='grid');
+  const mg=gMarks.selectAll('g.mk').data(mk,d=>d.key).join(en=>{
+    const g=en.append('g').attr('class','mk').attr('tabindex',0).attr('role','button');
+    g.append('circle').attr('class','hitc').attr('fill','transparent');
+    g.append('circle').attr('class','curt');
+    g.append('circle').attr('class','ring');
+    g.append('circle').attr('class','dot');
+    g.append('use').attr('class','ico').attr('href',d=>'#i-'+d.t);
+    g.on('click',(e,d)=>{e.stopPropagation();select(d.key);})
+     .on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(d.key);}});
+    return g;});
+  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+(liveNow()&&S.replayIdx==null&&LIVE.curt&&LIVE.curt[d.id]>5?' curtailed':''))
+    .attr('aria-label',d=>nm(d)+', '+tr('t_'+d.t)+', '+fmtMW(d.mw))
+    .style('--c',d=>col(d.t));
+  mg.select('.dot').attr('fill',d=>col(d.t));
+  mg.each(function(d){const s=d3.select(this),r=mR(d),q=r*1.25;
+    s.select('.hitc').attr('r',Math.max(r+4,13)); s.select('.ring').attr('r',r+4); s.select('.curt').attr('r',r+7);
+    s.select('.dot').attr('r',r); s.select('.ico').attr('x',-q/2).attr('y',-q/2).attr('width',q).attr('height',q);});
+  mg.sort((a,b)=>b.mw-a.mw);
+  if(sel&&!sel.osm&&!sel.sub) mg.filter(d=>d===sel).raise();
+  // live flows for everything
+  const lf=[];
+  if(liveNow()) vis.forEach(d=>{
+    if(d.t==='grid'||!active(d)) return;
+    if(d.t==='ic'){ const v=(S.replayIdx==null&&LIVE.ic)?LIVE.ic[d.id]:null;
+      lf.push({key:d.key,pts:icGeom(d),c:col('ic'),w:v!=null?0.9+Math.min(2,Math.sqrt(Math.max(v,60))/14):1.1,dur:1.3}); return; }
+    const mw=liveMW(d); if(mw<2) return;
+    const fac=d.mw?Math.min(1,mw/d.mw):0;
+    lf.push({key:d.key,pts:geom(d).main,c:col(d.t),w:1.2+Math.min(5,Math.sqrt(mw)/7),dur:2.4-1.8*fac,still:zt.k<SMALLK&&mw<250});
+  });
+  gLive.selectAll('path').data(lf,d=>d.key).join('path').attr('class',d=>'lf'+(d.still?' still':''))
+    .attr('stroke',d=>d.c).attr('stroke-width',d=>d.w).style('animation-duration',d=>d.dur.toFixed(2)+'s');
+  // selected route
+  let routes=[],stops=[];
+  if(sel&&!sel.osm&&!sel.sub){ const f=flowPts(sel), g=sel.t==='ic'?{main:icGeom(sel),sur:[]}:geom(sel); const c=col(sel.t==='grid'?'ic':sel.t);
+    routes.push({k:'m',pts:g.main,c,sur:false}); if(g.sur.length) routes.push({k:'s',pts:g.sur,c,sur:true});
+    const seen=new Set();
+    [...f.main.slice(1),...f.sur.slice(1)].forEach(p=>{ if(p.n&&!seen.has(p.n)){seen.add(p.n);stops.push(p);} });
+    if(sel.t==='ic'||sel.t==='grid'){ const p0=f.main[0]; if(p0.n) stops.unshift(p0); }
+  }
+  gRoute.selectAll('path.flowbase').data(routes,d=>d.k).join('path').attr('class','flowbase').attr('stroke',d=>d.c);
+  gRoute.selectAll('path.flow').data(routes,d=>d.k).join('path').attr('class',d=>'flow'+(d.sur?' sur':'')).attr('stroke',d=>d.c);
+  gRoute.selectAll('circle.st').data(stops,d=>d.n).join('circle').attr('class',d=>'st '+(d.hub?'hubdot':'stop')).attr('r',d=>d.hub?5:3.5);
+  S._stops=stops;
+  gPc.selectAll('circle').data(S.pc&&S.pc.c?[S.pc]:[]).join('circle').attr('class','pcpin').attr('r',7);
+  position(); drawDots();
+}
+const pathD = pts => pts.length>6 ? polyGen(pts.map(xy)) : lineGen(pts.map(xy));
+function position(){
+  gLinks.selectAll('g.lk').each(function(d){
+    const raw=d.t==='ic'? [pc(d.a),...(d.via||[]).map(pc),pc(d.g)] : flowPts(d).main;
+    d3.select(this).selectAll('path').attr('d',lineGen(raw.map(p=>xy(p.c)))); });
+  gMarks.selectAll('g.mk').attr('transform',d=>{const p=xy(d.t==='ic'?pc(d.g).c:d.c);return `translate(${p[0]},${p[1]})`;});
+  gLive.selectAll('path').attr('d',d=>pathD(d.pts));
+  gReg.selectAll('g.rg').attr('transform',d=>{const p=xy(d.c);return `translate(${p[0]},${p[1]})`;});
+  gRoute.selectAll('path.flowbase,path.flow').attr('d',d=>pathD(d.pts));
+  gRoute.selectAll('circle.st').attr('cx',d=>xy(d.c)[0]).attr('cy',d=>xy(d.c)[1]);
+  gPc.selectAll('circle').attr('cx',d=>xy(d.c)[0]).attr('cy',d=>xy(d.c)[1]);
+  const lab=[];
+  if(S.sel){ const sel=byId[S.sel];
+    if(sel.osm||sel.sub) lab.push({k:'sel',n:nm(sel),c:sel.c,cls:'hub',above:sel.sub?8:osmR(sel)+4});
+    else { const p0=sel.t==='ic'?pc(sel.g).c:(sel.c||pc(sel.pts[0]).c);
+      lab.push({k:'sel',n:nm(sel),c:p0,cls:'hub',above:sel.t==='ic'?8:(sel.t==='grid'?6:markerR(sel)+5)});
+      (S._stops||[]).forEach(s=>lab.push({k:s.n,n:s.hub?s.n:s.n.split(',')[0],c:s.c,cls:s.hub?'hub':''})); }
+  } else if(zt.k>=2.6){
+    gMarks.selectAll('g.mk').each(d=>{ if(d.mw>=400||zt.k>=4.5) lab.push({k:d.key,n:nm(d),c:d.t==='ic'?pc(d.g).c:d.c,cls:'site',r:mR(d)}); });
+  }
+  if(S.pc&&S.pc.c) lab.unshift({k:'pc',n:S.pc.label,c:S.pc.c,cls:'hub',above:10});
+  gLbl.selectAll('text').data(lab,d=>d.k).join('text').attr('class',d=>'lbl '+d.cls).text(d=>d.n)
+    .each(function(d){ d._w=this.getComputedTextLength(); });
+  const boxes=[], fits=b=>b.x0>=2&&b.x1<=W-2&&b.y0>=2&&b.y1<=H-2, hit=b=>boxes.some(o=>b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0);
+  gLbl.selectAll('text').each(function(d){
+    const p=xy(d.c), r=d.above?d.above:(d.r||8)+3, w=d._w, h=13;
+    const cand=[
+      {x:p[0]+r,y:p[1]+4,a:'start',b:{x0:p[0]+r,x1:p[0]+r+w,y0:p[1]-8,y1:p[1]+5}},
+      {x:p[0]-r,y:p[1]+4,a:'end',b:{x0:p[0]-r-w,x1:p[0]-r,y0:p[1]-8,y1:p[1]+5}},
+      {x:p[0],y:p[1]-r-3,a:'middle',b:{x0:p[0]-w/2,x1:p[0]+w/2,y0:p[1]-r-3-h,y1:p[1]-r}},
+      {x:p[0],y:p[1]+r+12,a:'middle',b:{x0:p[0]-w/2,x1:p[0]+w/2,y0:p[1]+r,y1:p[1]+r+h}}];
+    if(d.above) cand.unshift(cand.splice(2,1)[0]);
+    let c=cand.find(c=>fits(c.b)&&!hit(c.b));
+    const must=d.cls==='hub'||d.k==='sel'||d.cls==='';
+    if(!c && must){ c=cand.find(c=>fits(c.b))||cand[0];
+      if(c.a==='middle'){ const sh=Math.max(0,w/2+4-c.x)-Math.max(0,c.x+w/2+4-W); c={...c,x:c.x+sh}; } }
+    const s=d3.select(this);
+    if(!c){ s.attr('display','none'); return; }
+    s.attr('display',null).attr('x',c.x).attr('y',c.y).attr('text-anchor',c.a); boxes.push(c.b);
+  });
+}
+function fitPts(ll, kmax=7){
+  const pts=ll.map(P0), vh=visH();
+  const x=d3.extent(pts,p=>p[0]), y=d3.extent(pts,p=>p[1]);
+  const dx=Math.max(x[1]-x[0],40), dy=Math.max(y[1]-y[0],40);
+  const k=Math.max(1,Math.min(kmax,.62*Math.min(W/dx,(vh-100)/dy)));
+  const cx=(x[0]+x[1])/2, cy=(y[0]+y[1])/2;
+  const t=d3.zoomIdentity.translate(W/2-k*cx,(vh-40)/2-k*cy).scale(k);
+  svg.transition().duration(matchMedia('(prefers-reduced-motion: reduce)').matches?0:650).call(zoom.transform,t);
+}
+function fitTo(d){
+  if(d.osm||d.sub||d.place){ const k=Math.max(zt.k,d.place?4.5:6), p=P0(d.c); svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity.translate(W/2-k*p[0],(visH()-40)/2-k*p[1]).scale(k)); return; }
+  const g=d.t==='ic'?{main:icGeom(d),sur:[]}:geom(d); fitPts([...g.main,...g.sur]);
+}
+function select(key){
+  S.sel=key; if(key) S.view='overview';
+  if(key && isSheet() && sheetState==='peek') setSheet('half');
+  render(); panel();
+  if(key) fitTo(byId[key]);
+  const j=document.getElementById('jump'); j.value=(key&&!byId[key].osm&&!byId[key].sub)?key:'';
+  document.getElementById('walesbtn').setAttribute('aria-pressed',S.view==='wales');
+}
+
+/* ---------------- panel ---------------- */
+const $p=document.getElementById('panel');
+const icon = t => `<svg><use href="#i-${t}"/></svg>`;
+function mixBlock(m){
+  const keys=[['wind','ow'],['solar','so'],['nuclear','nu'],['gas','gas'],['biomass','bio'],['hydro','hy'],['imports','ic'],['other','bat']];
+  return `<div class="bar" role="img">${keys.map(([k,t])=>m[k]?`<div style="width:${m[k]}%;background:${col(t)}"></div>`:'').join('')}</div>
+  <div class="legend">${keys.filter(([k])=>k!=='other'||m[k]).map(([k,t])=>`<span style="--c:${col(t)}">${icon(t)}${tr('fuel_'+k)}</span><b>${(+m[k]||0).toFixed(1).replace(/\.0$/,'')}%</b>`).join('')}</div>`;
+}
+function liveBlock(d,c){
+  if(!(liveNow() && active(d) && d.t!=='grid')) return '';
+  const when=fmtWhen(curWhen());
+  if(d.t==='ic'){
+    const v=(S.replayIdx==null&&LIVE.ic)?LIVE.ic[d.id]:null;
+    if(v!=null) return `<div class="livebox" style="--c:${c}"><b>${v>20?tr('ic_now_in',{v:fmtLive(v)}):tr('ic_now_out')}</b><span>${tr('ic_now_s',{when:fmtWhen(LIVE.updated)})}</span></div>`;
+    return `<div class="livebox" style="--c:${c}"><b>${tr('ic_net',{v:((curMix().imports||0)/100*LIVE.demandGW).toFixed(1)+' GW'})}</b><span>${tr('ic_net_s',{when})}</span></div>`;
+  }
+  let h='';
+  const curt=(S.replayIdx==null&&LIVE.curt)?LIVE.curt[d.id]:0;
+  if(curt>5) h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(curt)})}</b><span>${tr('curt_s')}</span></div>`;
+  const r=realMW(d);
+  if(r!=null){ const t = r<-2 ? tr('now_pump',{v:fmtLive(-r)}) : r<2 ? (d.ps?tr('now_idle'):tr('now_zero')) : tr('now_actual',{v:fmtLive(r)});
+    return h+`<div class="livebox" style="--c:${c}"><b>${t}</b><span>${tr('now_real',{when:fmtWhen(LIVE.updated)})}</span></div>`; }
+  if(FUEL[d.t]){ const mw=liveMW(d), fl=Math.round(fleet(d.t)*100);
+    const t= d.ps? tr('now_idle') : mw<2? tr('now_zero') : tr('now_about',{v:fmtLive(mw)});
+    return h+`<div class="livebox" style="--c:${c}"><b>${t}</b><span>${tr('now_est',{t:tr('fuel_'+FUEL[d.t]),p:fl,when})}</span></div>`; }
+  return h+`<div class="livebox" style="--c:${c}"><b>${tr('now_notyet')}</b></div>`;
+}
+function panel(){
+  if(S.view==='wales' && !S.sel) return walesPanel();
+  if(!S.sel) return overview();
+  const d=byId[S.sel];
+  if(d.osm) return osmPanel(d);
+  if(d.sub) return subPanel(d);
+  const f=flowPts(d), c=col(d.t==='grid'?'grid':d.t), g=geom(d);
+  const note=(LANG==='cy'&&NOTECY[d.id])||d.note;
+  let h=`<button class="back" id="back">${tr('back')}</button>
+  <div class="pill" style="--c:${c}">${d.t==='ic'?tr('t_ic')+' · '+country(d.country):tr('t_'+d.t)}</div>
+  <h2><span class="hicon" style="--c:${c}">${icon(d.t)}</span>${nm(d)}</h2><div class="meta">${statusText(d)}${d.off&&S.year<d.off?' · '+tr('closure',{y:d.off}):''}</div>`;
+  if(d.t==='ic'){ const ci=IMPORT_CI[d.country];
+    h+=`<div class="livebox" style="--c:${ci!=null?CI_IDX_COL[ciIndex(ci)]:'var(--muted)'}"><b>${ci!=null?ci+' gCO₂/kWh':'–'}</b><span>${tr('imp_ci')}${ci!=null?'':' · '+tr('imp_ci_na')}. ${tr('imp_note')}</span></div>`; }
+  if(d.t==='ic'||d.t==='grid'){
+    const dirTxt = d.t==='grid' ? tr('ns') : d.dir==='import' ? tr('into') : d.dir==='export' ? tr('outof') : tr('both');
+    h+=`<div class="stats"><div><b>${fmtMW(d.mw)}</b><span>${tr('cap')}</span></div><div><b>${d.on}</b><span>${d.on>2026?tr('target'):tr('opened')}</span></div><div><b style="font-size:1rem">${dirTxt}</b><span>${tr('typflow')}</span></div></div>`;
+  } else {
+    const cf=d.cf||T[d.t].cf; const twh=d.mw*cf*8.76/1000;
+    h+= d.ps ? `<div class="stats"><div><b>${fmtMW(d.mw)}</b><span>${tr('atfull')}</span></div><div><b>${tr('storage')}</b><span>${tr('notnet')}</span></div><div><b>${d.on}</b><span>${d.on>2026?tr('target'):tr('opened')}</span></div></div>`
+      : `<div class="stats"><div><b>${fmtMW(d.mw)}</b><span>${tr('cap')}</span></div><div><b>${twh.toFixed(1)} TWh</b><span>${tr('peryear')}</span></div><div><b>${share(twh)}</b><span>${tr('share')}</span></div></div>`;
+  }
+  h+=liveBlock(d,c);
+  h+=`<h3>${tr('where')}</h3><ol class="route" style="--c:${c}">`;
+  if(d.t==='ic'&&d.dir!=='export') h+=`<li>${tr('gen_in',{n:country(d.country)})}<small>${f.main[0].n}</small></li>`;
+  f.main.forEach((p,i)=>{
+    if(i===0 && (d.t!=='ic'||d.dir==='export')){
+      if(d.t==='grid') h+=`<li>${p.n}<small>${tr('starts')}</small></li>`;
+      else if(d.t==='ic') h+=`<li>${tr('from_grid',{n:p.n})}</li>`;
+      else h+=`<li>${tr('gen_at',{n:nm(d)})}</li>`;
+      return; }
+    if(i===0) return;
+    const last=i===f.main.length-1;
+    if(p.hub) h+=`<li><b>${last&&d.t==='ic'&&d.dir==='export'?tr('used2',{n:p.n}):tr('used',{n:p.n})}</b>${d.local&&d.r.length===0?'<small>'+tr('local2')+'</small>':''}</li>`;
+    else if(!p.n) return;
+    else h+=`<li>${p.n}${i===1&&d.local?'<small>'+tr('local1')+'</small>':''}${d.t==='ic'&&(p.k===d.a)&&d.dir==='export'?'<small>'+tr('sea')+'</small>':''}${d.t==='ic'&&p.k===d.g&&d.dir!=='export'?'<small>'+tr('arrive')+'</small>':''}</li>`;
+  });
+  if(f.sur.length){ h+=`<li class="sur">${tr('sur',{n:f.sur[f.sur.length-1].n})}<small>${d.c&&d.c[0]>55.3?tr('sur_sc'):tr('sur_gen')}</small></li>`; }
+  h+=`</ol>`;
+  if(note) h+=`<p>${note}</p>`;
+  if(d.t!=='ic'&&d.t!=='grid'&&!d.ps) h+=`<p class="fine">${tr('est_note',{p:Math.round((d.cf||T[d.t].cf)*100)})}</p>`;
+  if(g.real) h+=`<p class="fine">${tr('realroute')}</p>`;
+  h+=`<p class="fine">${tr('pool')}</p>`;
+  h+=sourcesBlock(d, g);
+  $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null);
+}
+function sourcesBlock(d,g){
+  if(d.t==='grid'||d.t==='ic'){ return `<h3>${tr('src_h')}</h3><ul class="srcs"><li>${tr('src_curated')}</li>${g.real?'<li>'+tr('src_route')+'</li>':''}</ul>`; }
+  const x=XCHK[d.id]; let badge='none';
+  if(x){ badge = Math.abs(x[1]-d.mw)/d.mw<=0.2 ? 'ok' : 'chk'; }
+  let h=`<h3>${tr('src_h')}<span class="badge ${badge}">${tr('b_'+badge)}</span></h3><ul class="srcs"><li>${tr('src_curated')}</li>`;
+  if(x) h+=`<li>${tr('src_osm',{mw:fmtMW(x[1]),n:x[2]})} <a href="${osmUrl(x[0])}" target="_blank" rel="noopener">OpenStreetMap ↗</a>${badge==='chk'?'<br><small>'+tr('src_osm_diff')+'</small>':''}</li>`;
+  else h+=`<li>${tr('src_none')}</li>`;
+  (SRC[d.id]||[]).forEach(s=>h+=`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]} ↗</a></li>`);
+  if(liveNow()&&active(d)) h+=`<li>${realMW(d)!=null?tr('src_live_real'):tr('src_live_est')}</li>`;
+  if(g&&g.real) h+=`<li>${tr('src_route')}</li>`;
+  return h+`</ul>`;
+}
+function subPanel(d){
+  const c=SUBCOL(d.kv);
+  let h=`<button class="back" id="back">${tr('back')}</button><div class="pill" style="--c:${c}">${tr('sub_t')}</div>
+  <h2>${nm(d)}</h2><div class="meta">${tr('sub_meta',{v:d.kv})}${d.op?' · '+tr('operator',{o:d.op}):''}</div>`;
+  const through=SITES.filter(s=>active(s)&&ROUTES[s.key]&&ROUTES[s.key].m.some(p=>hav(p,d.c)<1.5)).sort((a,b)=>b.mw-a.mw);
+  h+=`<h3>${tr('sub_through')}</h3>`+(through.length?`<ul class="sitelist">${through.slice(0,12).map(s=>`<li><button data-k="${s.key}" style="--c:${col(s.t)}">${icon(s.t)}${nm(s)}<b>${fmtMW(s.mw)}</b></button></li>`).join('')}</ul>`:`<p class="meta">${tr('sub_none')}</p>`);
+  const near=SITES.filter(s=>active(s)&&hav(s.c,d.c)<15&&!through.includes(s));
+  if(near.length) h+=`<h3>${tr('sub_near')}</h3><ul class="sitelist">${near.map(s=>`<li><button data-k="${s.key}" style="--c:${col(s.t)}">${icon(s.t)}${nm(s)}<b>${Math.round(hav(s.c,d.c))} km</b></button></li>`).join('')}</ul>`;
+  h+=`<p class="fine">${tr('osm_src')} <a href="${osmUrl(d.oid)}" target="_blank" rel="noopener">${tr('src_osmobj')} ↗</a></p>`;
+  $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null); wirePanel();
+}
+function osmPanel(d){
+  const c=col(d.t);
+  let h=`<button class="back" id="back">${tr('back')}</button>
+  <div class="pill" style="--c:${c}">${tr('t_'+d.t)}</div>
+  <h2><span class="hicon" style="--c:${c}">${icon(d.t)}</span>${nm(d)}</h2>
+  <div class="meta">${d.mw?fmtMW(d.mw)+' '+tr('cap'):tr('osm_cap')}${d.op?' · '+tr('operator',{o:d.op}):''}</div>`;
+  if(liveNow()&&FUEL[d.t]&&d.mw){ const mw=d.mw*fleet(d.t); h+=`<div class="livebox" style="--c:${c}"><b>${mw<2?tr('now_zero'):tr('now_about',{v:fmtLive(mw)})}</b><span>${tr('now_est',{t:tr('fuel_'+FUEL[d.t]),p:Math.round(fleet(d.t)*100),when:fmtWhen(curWhen())})}</span></div>`; }
+  if(!d.mw||d.mw<50) h+=`<p>${tr('osm_local')}</p>`;
+  h+=`<p class="fine">${tr('osm_src')}${d.oid?` <a href="${osmUrl(d.oid)}" target="_blank" rel="noopener">${tr('src_osmobj')} ↗</a>`:''}</p>`;
+  $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null);
+}
+function replayBlock(){
+  if(!LIVE.hist||!LIVE.hist.length||!liveNow()) return '';
+  const n=LIVE.hist.length, i=S.replayIdx==null?n-1:S.replayIdx;
+  return `<h3>${tr('replay')}</h3><div class="row"><button class="pbtn ghost" id="rplay">${S.playing?tr('pause'):tr('play')}</button>
+  <input type="range" id="rslider" min="0" max="${n-1}" value="${i}" style="flex:1" aria-label="${tr('replay')}"></div>
+  <div class="meta">${S.replayIdx!=null?tr('replay_at',{when:fmtWhen(LIVE.hist[i].from)})+' · <button class="back" id="rnow" style="display:inline">'+tr('nowbtn')+'</button>':''}</div>`;
+}
+function pcBlock(){
+  let h=`<h3>${tr('pc_h')}</h3><div class="row"><input type="text" id="pcin" placeholder="${tr('pc_ph')}" autocomplete="postal-code" value="${S.pc&&S.pc.q?S.pc.q:''}"><button id="pcgo">${tr('pc_btn')}</button></div>`;
+  if(S.pc){
+    if(S.pc.err) h+=`<p class="meta">${S.pc.err}</p>`;
+    else {
+      if(S.pc.ci!=null) h+=`<p>${tr('pc_res',{r:S.pc.region,g:S.pc.ci,idx:tIdx(S.pc.idx)})}</p>`;
+      if(S.pc.best) h+=`<p>${tr('pc_best',{t:S.pc.best.t,g:S.pc.best.g})}</p>`;
+      if(S.pc.near) h+=`<div class="meta">${tr('pc_near')}</div><ul class="sitelist">${S.pc.near.map(s=>`<li><button data-k="${s.d.key}" style="--c:${col(s.d.t)}">${icon(s.d.t)}${nm(s.d)}<b>${Math.round(s.km)} km</b></button></li>`).join('')}</ul>`;
+    }
+  }
+  return h;
+}
+function feedsBlock(){
+  const names={ci_reg:'NESO Carbon Intensity: regions',ci_fac:'NESO Carbon Intensity: import factors',elx_mid:'Elexon: wholesale prices',ci_day:'NESO Carbon Intensity: today',ci_48:'NESO Carbon Intensity: 24 h back, 48 h ahead',ci_ytd:'NESO Carbon Intensity: year so far',ci_nat:'NESO Carbon Intensity: GB mix',ci_wales:'NESO Carbon Intensity: Wales',ci_hist:'NESO Carbon Intensity: last 24 h',elx_cur:'Elexon: generation by fuel & interconnectors',elx_pn:'Elexon: output per power station',elx_boa:'Elexon: balancing actions (curtailment)'};
+  return `<h3>${tr('feeds')}</h3><ul class="feeds">${Object.keys(names).map(k=>{const s=LIVE.feeds[k]; return `<li><span class="${s===true?'ok':s===false?'bad':''}">${s===true?'●':s===false?'●':'○'}</span><b>${names[k]}</b>${s===true?tr('f_ok'):s===false?tr('f_fail'):tr('f_na')}</li>`;}).join('')}</ul>`;
+}
+function tabs(){ return `<div class="tabs" role="tablist"><button role="tab" data-tab="map" aria-selected="${S.tab==='map'}">${tr('tab_map')}</button><button role="tab" data-tab="carbon" aria-selected="${S.tab==='carbon'}">${tr('tab_ci')}</button><button role="tab" data-tab="stories" aria-selected="${S.tab==='stories'}">${tr('tab_st')}</button><button role="tab" data-tab="compare" aria-selected="${S.tab==='compare'}">${tr('compare')}</button></div>`; }
+function wireTabs(){ $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ S.tab=b.dataset.tab; panel(); $p.scrollTop=0; if(S.tab==='carbon') loadYTD(); }); }
+function overview(){
+  if(S.tab==='carbon') return carbonPanel();
+  if(S.tab==='stories') return storiesPanel();
+  if(S.tab==='compare') return comparePanel();
+  const y=S.year, act=SITES.filter(active);
+  const by={}; act.forEach(d=>{ if(!d.ps||true) by[d.t]=(by[d.t]||0)+d.mw; });
+  const tot=Object.values(by).reduce((a,b)=>a+b,0);
+  const ic=LINKS.filter(active).reduce((a,d)=>a+d.mw,0);
+  const order=['ow','nw','nu','gas','bio','hy','so','ti'];
+  let h=tabs();
+  if(liveNow()){
+    const when=fmtWhen(curWhen());
+    h+=`<h2>${LIVE.mode==='live'&&S.replayIdx==null?tr('live'):tr('snap')}</h2><div class="meta">${tr('gbelec',{when})}</div>${mixBlock(curMix())}`;
+    h+=replayBlock();
+    const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
+    if(tc>5&&S.replayIdx==null) h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b><span>${tr('curt_s')}</span></div>`;
+    h+=`<p class="fine">${tr('flows_note')}${LIVE.mode==='live'?'':' '+tr('snap_note')}</p>`;
+  }
+  h+=`<h2 style="margin-top:${liveNow()?'18px':'0'}">${y===2026?tr('mapped_today'):tr('mapped_y',{y})}</h2>
+  <div class="meta">${tr('sites_meta',{n:act.length,c:fmtMW(tot),i:fmtMW(ic)})}</div>
+  <div class="bar" role="img">${order.map(t=>by[t]?`<div style="width:${by[t]/tot*100}%;background:${col(t)}"></div>`:'').join('')}</div>
+  <div class="legend">${order.filter(t=>by[t]).map(t=>`<span style="--c:${col(t)}">${icon(t)}${tr('t_'+t)}</span><b>${fmtMW(by[t])}</b>`).join('')}<span style="--c:${col('ic')}">${icon('ic')}${tr('t_ic')}</span><b>${fmtMW(ic)}</b></div>`;
+  if(y===2026){ const oc=OTHERS.reduce((a,o)=>a+(o.mw||0),0); h+=`<p class="meta">${tr('plus_osm',{n:OTHERS.length.toLocaleString('en-GB'),c:fmtMW(oc)})}</p>`; }
+  const added=SITES.filter(d=>d.on>2026&&d.on<=y), gone=SITES.filter(d=>d.off&&d.off<=y);
+  if(y>2026){
+    h+=`<h3>${tr('change')}</h3><ul class="chg">`;
+    if(added.length) h+=`<li>${tr('new_',{l:added.map(nm).join(', ')})}</li>`;
+    if(gone.length) h+=`<li>${tr('closed_',{l:gone.map(nm).join(', ')})}</li>`;
+    if(!added.length&&!gone.length) h+=`<li>${tr('nochange')}</li>`;
+    h+=`</ul>`;
+  } else h+=`<p>${tr('intro')}</p>`;
+  h+=pcBlock();
+  h+=feedsBlock();
+  h+=`<h3>${tr('methods_h')}</h3><ul class="srcs">${METHODS.map(m=>`<li><a href="${m[1]}" target="_blank" rel="noopener">${m[0]} ↗</a></li>`).join('')}</ul>`;
+  h+=`<p class="fine">${tr('fine')}</p>`;
+  $p.innerHTML=h; wirePanel(); wireTabs();
+}
+function regVal(id){ const s=LIVE.reg||REG_SNAP; const v=s.v[id]; return v==null?null:v; }
+function storiesPanel(){
+  let h=tabs();
+  const rs=REG.map(r=>({id:r[0],n:LANG==='cy'?r[2]:r[1],v:regVal(r[0])})).filter(r=>r.v!=null).sort((a,b)=>a.v-b.v);
+  const mx=Math.max(...rs.map(r=>r.v),200);
+  h+=`<h3 style="margin-top:0;font-size:1.05rem">${tr('st_reg_h')}</h3><p>${tr('st_reg_t')}</p>
+  <div class="hbar">${rs.map(r=>`<span>${r.n}</span><div class="b" style="width:${Math.max(2,r.v/mx*100)}%;--c:${CI_IDX_COL[ciIndex(r.v)]}"></div><b>${r.v}</b>`).join('')}</div>
+  <p class="meta">${tr('st_reg_when',{when:fmtWhen((LIVE.reg||REG_SNAP).from)})} gCO₂/kWh</p>
+  <button class="pbtn ghost" id="regbtn">${S.reg?tr('st_reg_hide'):tr('st_reg_btn')}</button>`;
+  h+=`<div class="story"><h3>${tr('st_h_h')}</h3><p>${tr('st_h_t')}</p><div class="chart" id="ch4"></div><p class="fine">${tr('st_h_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p></div>`;
+  const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):null;
+  h+=`<div class="story"><h3>${tr('st_c_h')}</h3><p>${tr('st_c_t')}</p><p><b>${tc==null?tr('st_c_need'):tc>5?tr('st_c_live',{v:fmtLive(tc)}):tr('st_c_none')}</b></p><button class="pbtn ghost" data-k="egl2|grid">${tr('st_c_btn')}</button></div>`;
+  const qmax=QUEUE.before;
+  const qb=(lab,v,c,txt)=>`<span>${lab}</span><div class="b" style="width:${v/qmax*100}%;--c:${c}"></div><b>${txt||v+' GW'}</b>`;
+  h+=`<div class="story"><h3>${tr('st_q_h')}</h3><p>${tr('st_q_t')}</p>
+  <div class="hbar" style="grid-template-columns:10.5em 1fr auto">${qb(tr('st_q_a'),QUEUE.before,'#b9c3c7')}${qb(tr('st_q_b'),QUEUE.pipeline,'#4f5bd5')}${qb(tr('st_q_c'),QUEUE.needHi,'#2fa84f',QUEUE.needLo+'–'+QUEUE.needHi+' GW')}${qb(tr('st_q_d'),QUEUE.demand,'#c77700')}</div>
+  <p class="fine">${tr('st_q_note')} ${QUEUE.src.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]} ↗</a>`).join(' · ')}</p></div>`;
+  h+=`<div class="story"><h3>${tr('st_p_h')}</h3><p>${tr('st_p_t')}</p>`;
+  if(LIVE.price&&LIVE.price.length>4) h+=`<div class="key"><span><i></i>gCO₂/kWh</span><span><i class="g"></i>${tr('price')}</span></div><div class="chart" id="ch3"></div>`;
+  else h+=`<p class="meta">${tr('st_p_need')}</p>`;
+  h+=`</div>`;
+  $p.innerHTML=h; wireTabs(); wirePanel();
+  const rb=document.getElementById('regbtn'); if(rb) rb.onclick=()=>{ S.reg=!S.reg; syncChip('reg'); render(); storiesPanel(); if(S.reg) svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); };
+  $p.querySelectorAll('.story button[data-k]').forEach(b=>b.onclick=()=>select(b.dataset.k));
+  const c3=document.getElementById('ch3'); if(c3) drawPrice(c3);
+  const c4=document.getElementById('ch4'); if(c4) drawClean(c4);
+}
+function drawPrice(el){
+  const PR=LIVE.price, C=LIVE.ci.series.filter(d=>d.a!=null);
+  const w=el.clientWidth||320, h=160, m={l:30,r:38,t:10,b:20};
+  const t0=Math.max(d3.min(PR,d=>d.t),Date.now()-86400000), t1=Date.now();
+  const x=d3.scaleTime().domain([t0,t1]).range([m.l,w-m.r]);
+  const yc=d3.scaleLinear().domain([0,(d3.max(C,d=>d.a)||200)*1.1]).nice().range([h-m.b,m.t]);
+  const yp=d3.scaleLinear().domain([Math.min(0,d3.min(PR,d=>d.p)),(d3.max(PR,d=>d.p)||100)*1.1]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(4).tickFormat(d=>{const p=ukParts(d);return p.hh+':'+p.mm;}).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(yc).ticks(4)).call(g=>g.select('.domain').remove());
+  s.append('g').attr('class','ax').attr('transform',`translate(${w-m.r},0)`).call(d3.axisRight(yp).ticks(4).tickFormat(v=>'£'+v)).call(g=>g.select('.domain').remove());
+  const inR=d=>d.t>=t0&&d.t<=t1;
+  s.append('path').attr('class','act').attr('d',d3.line().x(d=>x(d.t)).y(d=>yc(d.a)).curve(d3.curveMonotoneX)(C.filter(inR)));
+  s.append('path').attr('class','proj').attr('d',d3.line().x(d=>x(d.t)).y(d=>yp(d.p)).curve(d3.curveMonotoneX)(PR.filter(inR)));
+}
+function comparePanel(){
+  const A=S.cmpA, B=S.cmpB, order=['ow','nw','nu','gas','bio','hy','so','ti'];
+  const cap=y=>{ const o={}; SITES.forEach(d=>{ if(activeAt(d,y)) o[d.t]=(o[d.t]||0)+d.mw; }); return o; };
+  const a=cap(A), b=cap(B), sum=o=>Object.values(o).reduce((x,y)=>x+y,0);
+  const icA=LINKS.filter(d=>activeAt(d,A)).reduce((x,d)=>x+d.mw,0), icB=LINKS.filter(d=>activeAt(d,B)).reduce((x,d)=>x+d.mw,0);
+  const yopt=sel=>Array.from({length:15},(_,i)=>2026+i).map(y=>`<option ${y===sel?'selected':''}>${y}</option>`).join('');
+  const dl=(x,y)=>{ const d=y-x; return d===0?'–':`<span class="${d>0?'up':'down'}">${d>0?'+':'−'}${fmtMW(Math.abs(d))}</span>`; };
+  let h=tabs()+`<h2>${tr('cm_h')}</h2><div class="cmprow"><label>${tr('cm_from')} <select id="cmA">${yopt(A)}</select></label><label>${tr('cm_to')} <select id="cmB">${yopt(B)}</select></label></div>
+  <table class="ctab"><thead><tr><th></th><th>${A}</th><th>${B}</th><th>${tr('cm_change')}</th></tr></thead><tbody>
+  ${order.filter(t=>a[t]||b[t]).map(t=>`<tr><td style="--c:${col(t)}">${icon(t)}${tr('t_'+t)}</td><td>${fmtMW(a[t]||0)}</td><td>${fmtMW(b[t]||0)}</td><td>${dl(a[t]||0,b[t]||0)}</td></tr>`).join('')}
+  <tr><td style="--c:${col('ic')}">${icon('ic')}${tr('t_ic')}</td><td>${fmtMW(icA)}</td><td>${fmtMW(icB)}</td><td>${dl(icA,icB)}</td></tr></tbody>
+  <tfoot><tr><td>${tr('cm_total')}</td><td>${fmtMW(sum(a))}</td><td>${fmtMW(sum(b))}</td><td>${dl(sum(a),sum(b))}</td></tr></tfoot></table>
+  <button class="pbtn ${S.cmp?'ghost':''}" id="cmHl">${S.cmp?tr('cm_stop'):tr('cm_hl')}</button>${S.cmp?`<p class="meta">${tr('cm_key')}</p>`:''}`;
+  const lo=Math.min(A,B), hi=Math.max(A,B);
+  const nw=SITES.filter(d=>!activeAt(d,lo)&&activeAt(d,hi)).sort((x,y)=>y.mw-x.mw), gone=SITES.filter(d=>activeAt(d,lo)&&!activeAt(d,hi)).sort((x,y)=>y.mw-x.mw);
+  const lst=arr=>arr.length?`<ul class="sitelist">${arr.map(d=>`<li><button data-k="${d.key}" style="--c:${col(d.t)}">${icon(d.t)}${nm(d)}<b>${fmtMW(d.mw)}</b></button></li>`).join('')}</ul>`:`<p class="meta">${tr('cm_none')}</p>`;
+  h+=`<h3>${tr('cm_new',{y:hi})}</h3>${lst(nw)}<h3>${tr('cm_gone',{y:hi})}</h3>${lst(gone)}<p class="fine">${tr('cm_note')}</p>`;
+  $p.innerHTML=h; wireTabs(); wirePanel();
+  const upd=()=>{ S.cmpA=+document.getElementById('cmA').value; S.cmpB=+document.getElementById('cmB').value; if(S.cmp){ S.year=Math.max(S.cmpA,S.cmpB); yr.value=S.year; updYear(); render(); } comparePanel(); };
+  document.getElementById('cmA').onchange=upd; document.getElementById('cmB').onchange=upd;
+  document.getElementById('cmHl').onclick=()=>{ S.cmp=!S.cmp; if(S.cmp){ S.year=Math.max(S.cmpA,S.cmpB); yr.value=S.year; updYear(); } render(); comparePanel(); };
+}
+function syncChip(k){ const b=chips.querySelector(`[data-k="${k}"]`); if(b) b.setAttribute('aria-pressed',S[k]); }
+function carbonPanel(){
+  const n=ciNow(), day=ciDayAvg(), yr=LIVE.ci.ytd;
+  const yv = CI_YTD.v, ylab = tr('ci_ytd',{y:CI_YTD.y});
+  const cell=(v,lab)=>`<div><b style="color:${CI_IDX_COL[ciIndex(v)]}">${v==null?'–':v}</b><small>${tr('ci_unit')}</small><span>${lab}</span></div>`;
+  let h=tabs()+`<h2>${tr('tab_ci')}</h2><div class="cibig">${cell(n.v,(n.stale?fmtWhen(new Date(n.t).toISOString()):tr('ci_now'))+' · '+tIdx(n.idx))}${cell(day,tr('ci_today'))}${cell(yv,ylab)}</div>`;
+  h+=`<p>${tr('ci_explain')}</p>`;
+  const now=Date.now(), fut=LIVE.ci.series.filter(x=>x.t>=now-1800000&&x.f!=null);
+  if(fut.length){ const b=fut.reduce((a,x)=>x.f<a.f?x:a); h+=`<p><b>${tr('ci_best',{t:fmtWhen(new Date(b.t).toISOString()),g:b.f})}</b></p>`; }
+  h+=`<h3>${LIVE.ci.live?tr('ci_short_live'):tr('ci_short')}</h3><div class="key"><span><i></i>${tr('actual')}</span><span><i class="d"></i>${tr('forecast')}</span></div><div class="chart" id="ch1"></div>`;
+  if(!LIVE.ci.live) h+=`<p class="fine" style="margin-top:4px">${tr('ci_snap',{d:fmtWhen(new Date(Date.parse(CI_DAY_SNAP.from)+3600000).toISOString()).split(',')[0]})}</p>`;
+  h+=`<h3>${tr('ci_long')}</h3><div class="key"><span><i></i>${tr('hist')}</span><span><i style="border-top:1px solid var(--muted);opacity:.6"></i>${tr('monthly')}</span><span><i class="g"></i>${tr('path')}</span></div><div class="chart" id="ch2"></div>`;
+  h+=`<p class="fine">${tr('ci_hist_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p><p class="fine">${tr('ci_proj_note')}</p><p>${tr('ci_record',{v:HISTORY.record.v,t:fmtDate(HISTORY.record.t.slice(0,10))+' '+HISTORY.record.t.slice(0,4)+', '+fmtTime(HISTORY.record.t)})}</p>`;
+  h+=`<h3>${tr('imp_h')}</h3><div class="hbar">${['France','the Netherlands','Ireland'].map(c=>`<span>${country(c)}</span><div class="b" style="width:${IMPORT_CI[c]/5}%;--c:${CI_IDX_COL[ciIndex(IMPORT_CI[c])]}"></div><b>${IMPORT_CI[c]}</b>`).join('')}</div><p class="fine">${tr('imp_note')}</p>`;
+  h+=`<p class="fine">${tr('ci_year_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p>`;
+  $p.innerHTML=h; wireTabs();
+  drawShort(document.getElementById('ch1')); drawLong(document.getElementById('ch2'));
+}
+function drawShort(el){
+  const s=LIVE.ci.series; if(!s.length) return;
+  const w=el.clientWidth||320, h=150, m={l:30,r:8,t:10,b:20};
+  const x=d3.scaleTime().domain(d3.extent(s,d=>d.t+900000)).range([m.l,w-m.r]);
+  const ymax=d3.max(s,d=>Math.max(d.a||0,d.f||0))||100;
+  const y=d3.scaleLinear().domain([0,Math.max(100,ymax*1.1)]).nice().range([h-m.b,m.t]);
+  const svgc=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  svgc.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(Math.max(3,Math.floor(w/80))).tickFormat(d=>{const p=ukParts(d); return p.hh+':'+p.mm;}).tickSizeOuter(0));
+  svgc.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  const A=s.filter(d=>d.a!=null), F=s.filter(d=>d.f!=null && (d.a==null || d.t>=Date.now()-1800000));
+  const ln=k=>d3.line().x(d=>x(d.t+900000)).y(d=>y(d[k])).curve(d3.curveMonotoneX);
+  svgc.append('path').attr('class','area').attr('d',d3.area().x(d=>x(d.t+900000)).y0(y(0)).y1(d=>y(d.a!=null?d.a:d.f)).curve(d3.curveMonotoneX)(s.filter(d=>d.a!=null||d.f!=null)));
+  if(F.length) svgc.append('path').attr('class','fc').attr('d',ln('f')(F));
+  if(A.length) svgc.append('path').attr('class','act').attr('d',ln('a')(A));
+  const nx=x(Date.now()); if(nx>=m.l&&nx<=w-m.r){ svgc.append('line').attr('class','nowl').attr('x1',nx).attr('x2',nx).attr('y1',m.t).attr('y2',h-m.b); svgc.append('text').attr('class','nowt').attr('x',nx+3).attr('y',m.t+9).text(tr('now')); }
+}
+function drawLong(el){
+  const w=el.clientWidth||320, h=180, m={l:30,r:14,t:16,b:20};
+  const x=d3.scaleLinear().domain([2009,2036]).range([m.l,w-m.r]);
+  const y=d3.scaleLinear().domain([0,Math.max(560,d3.max(CI_MON,d=>d[2])+10)]).nice().range([h-m.b,m.t]);
+  const svgc=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  svgc.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickValues([2010,2015,2020,2025,2030,2035]).tickFormat(d3.format('d')).tickSizeOuter(0));
+  svgc.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  svgc.append('path').attr('class','mon').attr('d',d3.line().x(d=>x(d[0]+(d[1]-.5)/12)).y(d=>y(d[2]))(CI_MON));
+  const ln=d3.line().x(d=>x(d[0]+.5)).y(d=>y(d[1]));
+  svgc.append('path').attr('class','hist').attr('d',ln(CI_HIST));
+  svgc.append('path').attr('class','proj').attr('d',ln(CI_PATH));
+  svgc.selectAll('circle.pt').data(CI_HIST).join('circle').attr('class','pt').attr('r',2.6).attr('cx',d=>x(d[0]+.5)).attr('cy',d=>y(d[1]));
+  svgc.append('circle').attr('class','pt ytd').attr('r',3).attr('cx',x(CI_YTD.y+.37)).attr('cy',y(CI_YTD.v));
+  svgc.selectAll('circle.ptp').data(CI_PATH.slice(1)).join('circle').attr('class','ptp').attr('r',3.2).attr('cx',d=>x(d[0]+.5)).attr('cy',d=>y(d[1]));
+  const lab=(yr,an)=>{ const f=CI_HIST.find(d=>d[0]===yr); if(!f) return; const v=f[1]; svgc.append('text').attr('class','vl').attr('x',x(yr+.5)).attr('y',y(v)-8).attr('text-anchor',an).text(v); };
+  lab(2012,'middle'); lab(2020,'middle'); lab(2024,'middle');
+  svgc.append('text').attr('class','vlp').attr('x',x(2030.5)).attr('y',y(50)-8).attr('text-anchor','middle').text('≤50');
+  svgc.append('text').attr('class','vlp').attr('x',x(2035.5)).attr('y',y(0)-7).attr('text-anchor','end').text('~0');
+}
+function drawClean(el){
+  const d=Object.entries(CI_CLEAN).map(([k,v])=>[+k,v]);
+  const w=el.clientWidth||320, h=130, m={l:30,r:8,t:14,b:20};
+  const x=d3.scaleBand().domain(d.map(e=>e[0])).range([m.l,w-m.r]).padding(.25);
+  const y=d3.scaleLinear().domain([0,d3.max(d,e=>e[1])*1.15]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickFormat(v=>v===CI_YTD.y?v+'*':v).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.selectAll('rect').data(d).join('rect').attr('x',e=>x(e[0])).attr('width',x.bandwidth()).attr('y',e=>y(e[1])).attr('height',e=>y(0)-y(e[1])).attr('fill',e=>e[0]===CI_YTD.y?'#8fcf9e':'#2fa84f').attr('rx',2);
+  s.selectAll('text.v').data(d).join('text').attr('class','vl').attr('x',e=>x(e[0])+x.bandwidth()/2).attr('y',e=>y(e[1])-3).attr('text-anchor','middle').text(e=>e[1]);
+}
+async function loadYTD(){ return; // headline year figure now comes from NESO's historic dataset
+  if(LIVE.mode!=='live'||LIVE.ci.ytd||loadYTD.busy) return; loadYTD.busy=true;
+  try{ const now=new Date(), y=now.getUTCFullYear(); let t=Date.UTC(y,0,1), sum=0, dur=0;
+    const iso=ms=>new Date(ms).toISOString().slice(0,16)+'Z';
+    while(t<now.getTime()-3600000){ const e=Math.min(t+14*86400000, now.getTime()-1800000);
+      const x=await getJSON(`${CI}/intensity/stats/${iso(t)}/${iso(e)}`); const r=arr(x)[0]; const a=r&&r.intensity&&r.intensity.average;
+      if(a!=null){ sum+=a*(e-t); dur+=e-t; } t=e; }
+    if(dur>0){ LIVE.ci.ytd={y, v:Math.round(sum/dur)}; LIVE.feeds.ci_ytd=true; }
+  }catch(e){ LIVE.feeds.ci_ytd=false; }
+  loadYTD.busy=false; statusPill(); if(S.tab==='carbon'&&!S.sel&&S.view!=='wales') panel();
+}
+function walesPanel(){
+  const ws=SITES.filter(d=>d.w&&active(d)), wo=OTHERS.filter(o=>o.w);
+  const by={}; ws.forEach(d=>by[d.t]=(by[d.t]||0)+d.mw); wo.forEach(o=>{ if(o.mw) by[o.t]=(by[o.t]||0)+o.mw; });
+  const tot=Object.values(by).reduce((a,b)=>a+b,0);
+  const order=['ow','nw','nu','gas','bio','hy','so','ti','bat'];
+  const now=ws.reduce((a,d)=>a+Math.max(0,liveMW(d)),0)+wo.reduce((a,o)=>a+(o.mw&&FUEL[o.t]?o.mw*fleet(o.t):0),0);
+  let h=`<button class="back" id="back">${tr('back')}</button><h2>${tr('w_title')}</h2><div class="meta">${tr('w_meta')}</div>`;
+  h+=`<h3>${tr('w_mix',{when:fmtWhen(LIVE.wales.from)})}</h3>${mixBlock(LIVE.wales.mix)}`;
+  if(LIVE.wales.ci!=null) h+=`<p class="meta">${tr('w_ci',{g:LIVE.wales.ci,idx:tIdx(LIVE.wales.idx)})}</p>`;
+  if(liveNow()) h+=`<p>${tr('w_now',{v:fmtLive(now)})}</p>`;
+  h+=`<h3>${tr('w_cap')}</h3><div class="bar">${order.map(t=>by[t]?`<div style="width:${by[t]/tot*100}%;background:${col(t)}"></div>`:'').join('')}</div>
+  <div class="legend">${order.filter(t=>by[t]).map(t=>`<span style="--c:${col(t)}">${icon(t)}${tr('t_'+t)}</span><b>${fmtMW(by[t])}</b>`).join('')}</div>`;
+  h+=`<h3>${tr('w_sites')}</h3><ul class="sitelist">${SITES.filter(d=>d.w&&(active(d)||S.future)).sort((a,b)=>b.mw-a.mw).slice(0,14).map(d=>`<li><button data-k="${d.key}" style="--c:${col(d.t)}">${icon(d.t)}${nm(d)}${future(d)?' ('+d.on+')':''}<b>${fmtMW(d.mw)}</b></button></li>`).join('')}</ul>`;
+  h+=`<p class="meta">${tr('w_osm',{n:wo.length})}</p>`;
+  h+=`<h3>${tr('w_links')}</h3><p>${tr('w_links_t')}</p>`;
+  $p.innerHTML=h; document.getElementById('back').onclick=()=>{S.view='overview';select(null);svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity);}; wirePanel();
+}
+function wirePanel(){
+  $p.querySelectorAll('.sitelist button').forEach(b=>b.onclick=()=>select(b.dataset.k));
+  const go=document.getElementById('pcgo'); if(go){ const inp=document.getElementById('pcin'); go.onclick=()=>checkPostcode(inp.value); inp.onkeydown=e=>{if(e.key==='Enter') checkPostcode(inp.value);}; }
+  const rs=document.getElementById('rslider'); if(rs){ rs.oninput=()=>{ S.playing=false; clearInterval(S.timer); S.replayIdx=+rs.value; if(S.replayIdx===LIVE.hist.length-1) S.replayIdx=null; render(); refreshReplayText(); }; }
+  const rp=document.getElementById('rplay'); if(rp) rp.onclick=togglePlay;
+  const rn=document.getElementById('rnow'); if(rn) rn.onclick=()=>{S.playing=false;clearInterval(S.timer);S.replayIdx=null;render();panel();};
+}
+function refreshReplayText(){ // light update without rebuilding the slider mid-drag
+  const m=$p.querySelector('.meta'); if(m) m.textContent=tr('gbelec',{when:fmtWhen(curWhen())});
+  const bar=$p.querySelector('.bar'), leg=$p.querySelector('.legend'); if(bar&&leg){ const tmp=document.createElement('div'); tmp.innerHTML=mixBlock(curMix()); bar.replaceWith(tmp.children[0]); leg.replaceWith(tmp.children[0]); }
+}
+function togglePlay(){
+  if(S.playing){ S.playing=false; clearInterval(S.timer); panel(); return; }
+  S.playing=true; if(S.replayIdx==null) S.replayIdx=0;
+  S.timer=setInterval(()=>{ S.replayIdx++; if(S.replayIdx>=LIVE.hist.length-1){ S.replayIdx=null; S.playing=false; clearInterval(S.timer); render(); panel(); return; }
+    render(); const rs=document.getElementById('rslider'); if(rs) rs.value=S.replayIdx; refreshReplayText(); }, 450);
+  panel();
+}
+
+/* ---------------- live feeds (work when hosted on its own web address) ---------------- */
+const CI='https://api.carbonintensity.org.uk', ELX='https://data.elexon.co.uk/bmrs/api/v1';
+async function getJSON(url,ms=9000){ const c=new AbortController(); const t=setTimeout(()=>c.abort(),ms);
+  try{ const r=await fetch(url,{signal:c.signal,headers:{Accept:'application/json'}}); if(!r.ok) throw new Error('HTTP '+r.status); return await r.json(); } finally{ clearTimeout(t); } }
+const arr = x => Array.isArray(x)?x:(x&&Array.isArray(x.data)?x.data:[]);
+const mixObj = gm => { const m={}; (gm||[]).forEach(f=>m[f.fuel]=+f.perc||0); return m; };
+function ukNow(){ const f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+  const g=k=>f.find(p=>p.type===k).value; const hh=+g('hour')%24, mm=+g('minute');
+  return {date:`${g('year')}-${g('month')}-${g('day')}`, sp:Math.floor((hh*60+mm)/30)+1}; }
+const bmuId = r => String(r.nationalGridBmUnit||r.bmUnit||r.bmUnitId||'').replace(/^[TE]_/,'').toUpperCase();
+function levelAt(recs, now){ // recs for one BMU: pick the segment covering now, else latest
+  let best=null;
+  for(const r of recs){ const a=Date.parse(r.timeFrom), b=Date.parse(r.timeTo); const lf=+r.levelFrom, lt=+r.levelTo;
+    if(!isNaN(a)&&!isNaN(b)&&a<=now&&now<=b) return b>a? lf+(lt-lf)*(now-a)/(b-a) : lt;
+    if(!best||Date.parse(r.timeTo)>Date.parse(best.timeTo)) best=r; }
+  return best? +best.levelTo : null;
+}
+function bySite(levels){ const out={};
+  for(const s of SITES){ if(!s.bmu) continue; let sum=0,n=0;
+    for(const id in levels){ if(s.bmu.some(p=>id.startsWith(p))){ sum+=levels[id]; n++; } }
+    if(n) out[s.id]=sum; }
+  return out; }
+async function refreshLive(){
+  const now=Date.now(); const {date,sp}=ukNow(); let any=false;
+  const tasks={
+    ci_day: async()=>{ const x=await getJSON(CI+'/intensity/date'); const s=arr(x).map(d=>({t:Date.parse(d.from),f:d.intensity&&d.intensity.forecast,a:d.intensity&&d.intensity.actual})).filter(d=>!isNaN(d.t)); if(!s.length) throw new Error('empty'); LIVE.ci.day=s; if(!LIVE.ci.live) LIVE.ci.series=s; },
+    ci_48: async()=>{ const iso=new Date(now).toISOString().slice(0,16)+'Z';
+      const [b,f]=await Promise.all([getJSON(CI+'/intensity/'+iso+'/pt24h'),getJSON(CI+'/intensity/'+iso+'/fw48h')]);
+      const m=new Map(); [...arr(b),...arr(f)].forEach(d=>{ const t=Date.parse(d.from); if(!isNaN(t)) m.set(t,{t,f:d.intensity&&d.intensity.forecast,a:d.intensity&&d.intensity.actual}); });
+      const s=[...m.values()].sort((a,b)=>a.t-b.t); if(s.length<10) throw new Error('short'); LIVE.ci.series=s; LIVE.ci.live=true; },
+    ci_reg: async()=>{ const x=await getJSON(CI+'/regional'); const d=arr(x)[0]; const v={}; (d.regions||[]).forEach(r=>{ if(r.regionid<=14&&r.intensity) v[r.regionid]=r.intensity.forecast; }); if(!Object.keys(v).length) throw new Error('empty'); LIVE.reg={from:d.from,v}; },
+    ci_fac: async()=>{ const x=await getJSON(CI+'/intensity/factors'); const f=arr(x)[0]||{}; if(f['French Imports']!=null) IMPORT_CI['France']=f['French Imports']; if(f['Dutch Imports']!=null) IMPORT_CI['the Netherlands']=f['Dutch Imports']; if(f['Irish Imports']!=null){ IMPORT_CI['Ireland']=f['Irish Imports']; IMPORT_CI['Northern Ireland']=f['Irish Imports']; } },
+    elx_mid: async()=>{ const iso=ms=>new Date(ms).toISOString().slice(0,19)+'Z';
+      const x=await getJSON(`${ELX}/balancing/pricing/market-index?from=${iso(now-86400000)}&to=${iso(now)}&dataProviders=APXMIDP`,15000);
+      const p=arr(x).map(r=>({t:Date.parse(r.startTime||r.timeFrom||r.settlementDate),p:+r.price,v:+(r.volume??1)})).filter(r=>!isNaN(r.t)&&!isNaN(r.p)&&r.v>0).sort((a,b)=>a.t-b.t);
+      if(p.length<4) throw new Error('empty'); LIVE.price=p; },
+    ci_nat: async()=>{ const x=await getJSON(CI+'/generation'); const d=Array.isArray(x.data)?x.data[0]:x.data; LIVE.nat={from:d.from,mix:mixObj(d.generationmix)}; },
+    ci_wales: async()=>{ const x=await getJSON(CI+'/regional/wales'); const r=arr(x)[0]; const d=(r.data||[])[0]||r; LIVE.wales={from:d.from,mix:mixObj(d.generationmix),ci:d.intensity&&d.intensity.forecast,idx:d.intensity&&d.intensity.index}; },
+    ci_hist: async()=>{ const iso=new Date(now).toISOString().slice(0,16)+'Z'; const x=await getJSON(CI+'/generation/'+iso+'/pt24h'); const h=arr(x).filter(d=>d&&d.generationmix).map(d=>({from:d.from,mix:mixObj(d.generationmix)})); h.sort((a,b)=>a.from<b.from?-1:1); if(h.length>2) LIVE.hist=h; else throw new Error('empty'); },
+    elx_cur: async()=>{ const x=await getJSON(ELX+'/generation/outturn/current'); const ic={}; let tot=0;
+      arr(x).forEach(r=>{ const ft=String(r.fuelType||r.fuel||'').toUpperCase(); const v=+(r.currentUsage??r.generation??r.currentMw??NaN); if(isNaN(v)) return; tot+=Math.max(0,v); if(ICCODE[ft]) ic[ICCODE[ft]]=v; });
+      if(!Object.keys(ic).length) throw new Error('no interconnectors'); LIVE.ic=ic; if(tot>10000) LIVE.demandGW=Math.min(50,tot/1000*1.12); },
+    elx_pn: async()=>{ const x=await getJSON(`${ELX}/balancing/physical/all?dataset=PN&settlementDate=${date}&settlementPeriod=${sp}`,15000);
+      const g={}; arr(x).forEach(r=>{ const id=bmuId(r); if(id) (g[id]=g[id]||[]).push(r); });
+      const lv={}; for(const id in g){ const v=levelAt(g[id],now); if(v!=null&&!isNaN(v)) lv[id]=v; }
+      const s=bySite(lv); if(!Object.keys(s).length) throw new Error('no matches'); LIVE.bmu=s; LIVE._pnLevels=lv; },
+    elx_boa: async()=>{ if(!LIVE._pnLevels) throw new Error('needs PN');
+      const x=await getJSON(`${ELX}/balancing/acceptances/all?settlementDate=${date}&settlementPeriod=${sp}`,15000);
+      const g={}; arr(x).forEach(r=>{ const id=bmuId(r); if(id) (g[id]=g[id]||[]).push(r); });
+      const cut={}; for(const id in g){ const pn=LIVE._pnLevels[id]; if(pn==null) continue; const acc=levelAt(g[id],now); if(acc!=null&&pn-acc>0) cut[id]=pn-acc; }
+      const bs=bySite(cut); const out={}; for(const k in bs){ const s=SITES.find(x=>x.id===k); if(s&&(s.t==='ow'||s.t==='nw')) out[k]=bs[k]; } LIVE.curt=out; }
+  };
+  // run in order so balancing can use PN levels
+  for(const [k,fn] of Object.entries(tasks)){ try{ await fn(); LIVE.feeds[k]=true; any=true; }catch(e){ LIVE.feeds[k]=false; } }
+  if(any){ LIVE.mode='live'; LIVE.updated=new Date().toISOString(); }
+  statusPill(); if(!S.playing){ render(); panel(); }
+  if(any && !refreshLive.timer) refreshLive.timer=setInterval(refreshLive,5*60*1000);
+}
+async function checkPostcode(q){
+  q=(q||'').trim().toUpperCase(); if(!q) return;
+  S.pc={q}; 
+  try{
+    let lat,lon,outcode;
+    try{ const r=await getJSON('https://api.postcodes.io/postcodes/'+encodeURIComponent(q)); lat=r.result.latitude; lon=r.result.longitude; outcode=r.result.outcode; }
+    catch(e){ const oc=q.replace(/\s+/g,' ').split(' ')[0]; const r=await getJSON('https://api.postcodes.io/outcodes/'+encodeURIComponent(oc)); lat=r.result.latitude; lon=r.result.longitude; outcode=r.result.outcode; }
+    S.pc.c=[lat,lon]; S.pc.label=q;
+    S.pc.near=SITES.filter(d=>active(d)&&S.types.has(d.t)).map(d=>({d,km:hav([lat,lon],d.c)})).sort((a,b)=>a.km-b.km).slice(0,3);
+    try{ const x=await getJSON(CI+'/regional/postcode/'+encodeURIComponent(outcode)); const r=arr(x)[0]; const d=(r.data||[])[0]||r; S.pc.region=r.shortname||outcode; S.pc.ci=d.intensity&&d.intensity.forecast; S.pc.idx=d.intensity&&d.intensity.index; }catch(e){}
+    try{ const iso=new Date().toISOString().slice(0,16)+'Z'; const x=await getJSON(CI+'/regional/intensity/'+iso+'/fw24h/postcode/'+encodeURIComponent(outcode)); const r=Array.isArray(x.data)?x.data[0]:x.data; const ps=(r&&r.data)||[];
+      let best=null; for(let i=0;i+3<ps.length;i++){ const g=(ps[i].intensity.forecast+ps[i+1].intensity.forecast+ps[i+2].intensity.forecast+ps[i+3].intensity.forecast)/4; if(!best||g<best.g) best={g:Math.round(g),from:ps[i].from}; }
+      if(best) S.pc.best={g:best.g,t:fmtWhen(best.from)}; }catch(e){}
+    render(); panel(); fitPts([S.pc.c,...S.pc.near.map(s=>s.d.c)],6);
+  }catch(e){
+    S.pc.err = LIVE.mode==='live' ? tr('pc_bad') : tr('pc_need'); panel();
+  }
+}
+function ciPill(){ const n=ciNow(), b=document.getElementById('cipill');
+  b.style.setProperty('--cic',CI_IDX_COL[n.idx]); b.querySelector('b').textContent=n.v; b.querySelector('span').textContent=tr('ci_unit')+' · '+tIdx(n.idx);
+  b.setAttribute('aria-label',tr('tab_ci')+': '+n.v+' '+tr('ci_unit')); }
+function statusPill(){ ciPill();
+  const b=document.getElementById('status'); b.classList.toggle('live',LIVE.mode==='live');
+  const t=LIVE.mode==='live' ? tr('live_pill',{t:fmtTime(LIVE.updated)}) : tr('snapshot_pill',{when:fmtWhen(LIVE.nat.from)});
+  b.querySelector('span').textContent=t;
+}
+
+/* ---------------- controls ---------------- */
+const chips=document.getElementById('layers'), jump=document.getElementById('jump'), yr=document.getElementById('year');
+function buildChrome(){
+  document.documentElement.lang = LANG==='cy'?'cy':'en-GB';
+  document.getElementById('title').innerHTML=`${tr('title')} <span>${tr('tag')}</span>`;
+  document.title=tr('title');
+  const lb=document.getElementById('langbtn'); lb.lang=LANG==='cy'?'en':'cy';
+  document.querySelector('#walesbtn .lab').textContent=tr('wales');
+  document.querySelector('#langbtn .lab').textContent=tr('other');
+  document.querySelector('#layersbtn .lab').textContent=tr('layers'); document.getElementById('layersbtn').setAttribute('aria-label',tr('layers'));
+  document.querySelector('#tablebtn .lab').textContent=tr('table'); document.getElementById('tablebtn').setAttribute('aria-label',tr('table'));
+  document.getElementById('search').placeholder=tr('s_ph'); document.getElementById('search').setAttribute('aria-label',tr('s_ph'));
+  document.getElementById('layers-t').textContent=tr('layers');
+  document.getElementById('lg-ovl-t').textContent=tr('g_ovl'); document.getElementById('lg-gen-t').textContent=tr('g_gen'); document.getElementById('lg-net-t').textContent=tr('g_net');
+  document.getElementById('tipsagain').textContent=tr('tips_again');
+  document.getElementById('grab').setAttribute('aria-label',tr('layers'));
+  document.getElementById('zin').setAttribute('aria-label',tr('zin'));
+  document.getElementById('zout').setAttribute('aria-label',tr('zout'));
+  document.getElementById('zreset').setAttribute('aria-label',tr('zreset'));
+  yr.setAttribute('aria-label',tr('year')); svg.attr('aria-label',tr('maplabel'));
+  const groups={ovl:document.getElementById('lg-ovl'),gen:document.getElementById('lg-gen'),net:document.getElementById('lg-net')};
+  Object.values(groups).forEach(g=>g.innerHTML='');
+  const tog=[['live','c_live','livechip','ovl'],['future','c_future','ring','ovl'],['reg','c_reg','dots','ovl'],...Object.keys(T).map(t=>[t,'t_'+t,'type',t==='ic'?'net':'gen']),['grid','c_grid','line','net'],['pyl','c_pyl','pyl','net'],['infra','c_infra','pyl','net'],['osm','c_osm','dots','gen']];
+  tog.forEach(([k,lab,cls,grpn])=>{
+    const b=document.createElement('button'); b.className='chip '+(cls==='type'?'':cls); b.dataset.k=k;
+    const on = cls==='type'? S.types.has(k) : S[k]; b.setAttribute('aria-pressed',on);
+    if(cls==='type'){ b.style.setProperty('--c',col(k)); b.innerHTML=`<span class="ib">${icon(k)}</span>${tr(lab)}`; } else b.innerHTML=`<i></i>${tr(lab)}`;
+    b.onclick=()=>{ if(cls==='type'){ S.types.has(k)?S.types.delete(k):S.types.add(k); b.setAttribute('aria-pressed',S.types.has(k)); } else { S[k]=!S[k]; b.setAttribute('aria-pressed',S[k]); } render(); panel(); };
+    groups[grpn].appendChild(b);
+  });
+  document.getElementById('ilegend').innerHTML=`<b>${tr('lg_subs')}</b><div><i class="s" style="background:#4f5bd5"></i>400 kV</div><div><i class="s" style="background:#d9453b;border-radius:50%"></i>275 kV</div><div><i class="s" style="background:#39a7d8;border-radius:50%"></i>220 kV</div><b>${tr('lg_lines')}</b><div><i class="l" style="border-color:#4f5bd5"></i>400 kV</div><div><i class="l" style="border-color:#d9453b"></i>275 kV</div><div><i class="l" style="border-color:#39a7d8"></i>220 kV</div><div><i class="d"></i>HVDC</div><div><i class="a"></i>${tr('lg_wind')}</div>`;
+  jump.innerHTML=`<option value="">${tr('find')}</option>`;
+  [...Object.keys(T),'grid'].forEach(t=>{
+    const items=ALL.filter(d=>d.t===t); if(!items.length) return;
+    const og=document.createElement('optgroup'); og.label=tr('t_'+t);
+    items.sort((a,b)=>nm(a).localeCompare(nm(b))).forEach(d=>{const o=document.createElement('option');o.value=d.key;o.textContent=nm(d);og.appendChild(o);});
+    jump.appendChild(og);
+  });
+  jump.value=S.sel&&!byId[S.sel].osm?S.sel:'';
+  document.getElementById('ys').textContent=S.year===2026?tr('today'):tr('projected');
+  statusPill();
+}
+jump.onchange=()=>{ const v=jump.value, d=byId[v]; if(!d) return select(null);
+  if(d.t!=='grid'&&!S.types.has(d.t)) S.types.add(d.t);
+  if(future(d)) S.future=true;
+  if(d.off&&S.year>=d.off){S.year=d.off-1;yr.value=S.year;updYear();}
+  buildChrome(); select(v); };
+function updYear(){ document.getElementById('yv').textContent=S.year; document.getElementById('ys').textContent=S.year===2026?tr('today'):tr('projected'); }
+yr.oninput=()=>{ S.year=+yr.value; updYear(); if(S.sel){const d=byId[S.sel]; if(d.osm||d.sub||(d.off&&S.year>=d.off)) S.sel=null;} render(); panel(); };
+document.getElementById('langbtn').onclick=()=>{ LANG=LANG==='cy'?'en':'cy'; try{localStorage.setItem('lang',LANG);}catch(e){} buildChrome(); render(); panel(); };
+document.getElementById('walesbtn').onclick=()=>{
+  if(S.view==='wales'){ S.view='overview'; select(null); svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); return; }
+  S.view='wales'; S.sel=null; render(); panel(); document.getElementById('walesbtn').setAttribute('aria-pressed','true');
+  fitPts([[51.35,-5.3],[53.45,-2.7]],9); };
+document.getElementById('cipill').onclick=()=>{ S.view='overview'; S.tab='carbon'; select(null); loadYTD(); $p.scrollTop=0; };
+document.getElementById('status').onclick=()=>{ S.tab='map'; select(null); setTimeout(()=>{ const f=$p.querySelector('.feeds'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },50); };
+document.getElementById('zin').onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1.6);
+document.getElementById('zout').onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1/1.6);
+document.getElementById('zreset').onclick=()=>{S.view='overview';S.pc=null;select(null);svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);};
+/* ---------- bottom sheet (narrow screens) ---------- */
+const sheet=document.getElementById('sheet'), grab=document.getElementById('grab'), mapwrap=document.querySelector('.mapwrap'), stage=document.querySelector('.stage');
+let sheetState='half';
+const isSheet = () => matchMedia('(max-width: 899px)').matches;
+const sheetSizes = () => { const h=stage.clientHeight; return {peek:Math.min(150,h*.3), half:Math.round(h*.44), full:h-8}; };
+const sheetPx = () => isSheet() ? sheet.getBoundingClientRect().height : 0;
+function visH(){ return isSheet() ? Math.max(200, H - sheetSizes()[sheetState]) : H; }
+function applySheet(px){ if(!isSheet()){ sheet.style.removeProperty('height'); mapwrap.style.setProperty('--sheet','0px'); stage.style.removeProperty('--sheet'); return; }
+  stage.style.setProperty('--sheet',px+'px'); mapwrap.style.setProperty('--sheet',px+'px'); sheet.style.height=px+'px'; }
+function setSheet(s){ sheetState=s; applySheet(sheetSizes()[s]); }
+(function(){ let y0=0,h0=0,t0=0,drag=false;
+  grab.addEventListener('pointerdown',e=>{ if(!isSheet()) return; drag=true; y0=e.clientY; h0=sheet.getBoundingClientRect().height; t0=performance.now(); sheet.classList.add('dragging'); grab.setPointerCapture(e.pointerId); });
+  grab.addEventListener('pointermove',e=>{ if(!drag) return; const s=sheetSizes(); applySheet(Math.max(s.peek*.7,Math.min(s.full,h0-(e.clientY-y0)))); });
+  const end=e=>{ if(!drag) return; drag=false; sheet.classList.remove('dragging');
+    const s=sheetSizes(), h=sheet.getBoundingClientRect().height, dy=e.clientY-y0, v=dy/Math.max(1,performance.now()-t0);
+    if(Math.abs(dy)<6){ setSheet(sheetState==='peek'?'half':sheetState==='half'?'full':'peek'); return; }
+    let st = v<-.5 ? (sheetState==='peek'?'half':'full') : v>.5 ? (sheetState==='full'?'half':'peek') : Object.entries(s).sort((a,b)=>Math.abs(a[1]-h)-Math.abs(b[1]-h))[0][0];
+    setSheet(st); };
+  grab.addEventListener('pointerup',end); grab.addEventListener('pointercancel',end);
+  grab.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setSheet(sheetState==='peek'?'half':sheetState==='half'?'full':'peek'); } });
+})();
+
+/* ---------- pop-overs: layers, table, intro ---------- */
+const scrim=document.getElementById('scrim');
+function openPop(id){ document.querySelectorAll('.pop.open').forEach(p=>p.classList.remove('open')); const p=document.getElementById(id); p.classList.add('open');
+  scrim.classList.toggle('open', id!=='layers' || isSheet()); document.getElementById('layersbtn').setAttribute('aria-expanded',id==='layers');
+  const f=p.querySelector('input,button:not(.xbtn),select'); if(f) setTimeout(()=>f.focus(),30); }
+function closePops(){ document.querySelectorAll('.pop.open').forEach(p=>p.classList.remove('open')); scrim.classList.remove('open'); document.getElementById('layersbtn').setAttribute('aria-expanded','false'); }
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closePops);
+scrim.onclick=closePops;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePops(); closeResults(); } });
+document.addEventListener('pointerdown',e=>{ const l=document.getElementById('layers'); if(l.classList.contains('open')&&!l.contains(e.target)&&!e.target.closest('#layersbtn')&&!isSheet()) closePops(); });
+document.getElementById('layersbtn').onclick=()=>{ document.getElementById('layers').classList.contains('open')?closePops():openPop('layers'); };
+document.getElementById('tipsagain').onclick=()=>{ closePops(); showIntro(); };
+function showIntro(){ document.getElementById('intro-t').textContent=tr('in_t');
+  document.getElementById('intro-l').innerHTML=['in_1','in_2','in_3'].map(k=>`<li>${tr(k)}</li>`).join('');
+  const ok=document.getElementById('intro-ok'); ok.textContent=tr('in_ok'); ok.onclick=()=>{ try{localStorage.setItem('pm_intro','1');}catch(e){} closePops(); };
+  openPop('intro'); }
+
+/* ---------- table view ---------- */
+const TS={key:'mw',dir:-1};
+function statusAt(d){ if(d.osm) return tr('st_op'); if(d.off&&S.year>=d.off) return tr('st_closed'); if(active(d)) return tr('st_op'); return d.st==='con'?tr('st_con'):tr('st_dev'); }
+function openTable(){
+  document.getElementById('tablev-t').textContent=tr('t_title');
+  const f=document.getElementById('tfilter'); f.placeholder=tr('t_filter');
+  const ty=document.getElementById('ttype'); const cur=ty.value;
+  ty.innerHTML=`<option value="">${tr('t_all')}</option>`+Object.keys(T).map(t=>`<option value="${t}">${tr('t_'+t)}</option>`).join(''); ty.value=cur;
+  document.getElementById('tosm-l').textContent=tr('t_osm');
+  const cols=[['name','c_name'],['type','c_type'],['mw','c_cap'],['status','c_status'],['on','c_on'],['off','c_off'],['w','c_wales']];
+  if(liveNow()) cols.push(['now','c_now']);
+  document.querySelector('#ttable thead').innerHTML='<tr>'+cols.map(([k,l])=>`<th data-k="${k}" aria-sort="${TS.key===k?(TS.dir>0?'ascending':'descending'):'none'}" tabindex="0">${tr(l)}</th>`).join('')+'</tr>';
+  document.querySelectorAll('#ttable th').forEach(th=>{ const go=()=>{ const k=th.dataset.k; TS.dir = TS.key===k ? -TS.dir : (k==='name'||k==='type'||k==='status'?1:-1); TS.key=k; openTable(); };
+    th.onclick=go; th.onkeydown=e=>{ if(e.key==='Enter') go(); }; });
+  drawTable(cols); if(!document.getElementById('tablev').classList.contains('open')) openPop('tablev');
+}
+function drawTable(cols){
+  const q=document.getElementById('tfilter').value.trim().toLowerCase(), ty=document.getElementById('ttype').value, inc=document.getElementById('tosm').checked;
+  let rows=[...SITES,...LINKS,...(inc?OTHERS:[])].filter(d=>(!ty||d.t===ty)&&(!q||nm(d).toLowerCase().includes(q)));
+  const val=d=>({name:nm(d),type:tr('t_'+d.t),mw:d.mw||0,status:statusAt(d),on:d.osm?0:d.on,off:d.off||0,w:d.w?1:0,now:(liveNow()&&FUEL[d.t]&&(d.osm||active(d)))?Math.round(d.osm?(d.mw||0)*fleet(d.t):liveMW(d)):-1});
+  rows=rows.map(d=>[d,val(d)]).sort((a,b)=>{ const x=a[1][TS.key], y=b[1][TS.key]; return (typeof x==='string'?x.localeCompare(y):x-y)*TS.dir; });
+  const shown=rows.slice(0,600);
+  document.querySelector('#ttable tbody').innerHTML=shown.map(([d,v])=>`<tr data-k="${d.key}" tabindex="0"><td>${v.name}</td><td><span class="ti" style="--c:${col(d.t)}">${icon(d.t)}${v.type}</span></td><td class="num">${d.mw?Math.round(d.mw).toLocaleString('en-GB'):'–'}</td><td>${v.status}</td><td class="num">${v.on||'–'}</td><td class="num">${v.off||'–'}</td><td>${v.w?tr('yes'):''}</td>${cols.length>7?`<td class="num">${v.now>=0?v.now.toLocaleString('en-GB'):'–'}</td>`:''}</tr>`).join('');
+  document.getElementById('tcount').textContent=tr('t_count',{n:rows.length.toLocaleString('en-GB')})+(rows.length>shown.length?' · 600 shown':'');
+  document.querySelectorAll('#ttable tbody tr').forEach(tr_=>{ const go=()=>{ closePops(); goTo(byId[tr_.dataset.k]); }; tr_.onclick=go; tr_.onkeydown=e=>{ if(e.key==='Enter') go(); }; });
+}
+['tfilter','ttype','tosm'].forEach(id=>document.getElementById(id).addEventListener(id==='tfilter'?'input':'change',()=>openTable()));
+document.getElementById('tablebtn').onclick=openTable;
+
+/* ---------- going to anything (search, table) ---------- */
+function goTo(d){
+  if(!d) return;
+  if(d.place){ closeResults(); S.view='overview'; select(null); fitTo(d); return; }
+  if(d.region){ S.reg=true; syncChip('reg'); S.view='overview'; S.tab='stories'; select(null); fitPts([d.c],3); return; }
+  if(d.sub){ S.infra=true; syncChip('infra'); }
+  if(d.osm){ S.osm=true; syncChip('osm'); if(S.year!==2026){ S.year=2026; yr.value=2026; updYear(); } S.types.add(d.t); syncType(d.t); }
+  if(!d.osm&&!d.sub){ if(d.t!=='grid'&&!S.types.has(d.t)){ S.types.add(d.t); syncType(d.t); } if(future(d)&&!S.future){ S.future=true; syncChip('future'); }
+    if(d.off&&S.year>=d.off){ S.year=d.off-1; yr.value=S.year; updYear(); } }
+  S.cmp=false; select(d.key);
+}
+function syncType(t){ const b=chips.querySelector(`[data-k="${t}"]`); if(b) b.setAttribute('aria-pressed',S.types.has(t)); }
+
+/* ---------- search everything ---------- */
+const sIn=document.getElementById('search'), sRes=document.getElementById('results');
+const PLACES=Object.entries(P).filter(([k,v])=>v[3]).map(([k,v])=>({key:'place_'+k,place:1,k,c:[v[1],v[2]]}));
+const PC_RE=/^[A-Z]{1,2}[0-9][A-Z0-9]?(\s*[0-9][A-Z]{2})?$/i;
+let sItems=[], sIdx=-1;
+const norm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function closeResults(){ sRes.classList.remove('open'); sIn.setAttribute('aria-expanded','false'); sIdx=-1; }
+function runSearch(){
+  const q=norm(sIn.value.trim()); if(q.length<2){ closeResults(); return; }
+  const score=n=>{ const s=norm(n); if(!s) return -1; if(s.startsWith(q)) return 3; if(s.split(/[\s(\-]+/).some(w=>w.startsWith(q))) return 2; return s.includes(q)?1:-1; };
+  const out=[];
+  if(PC_RE.test(sIn.value.trim())) out.push({kind:'pc',label:sIn.value.trim().toUpperCase(),sub:tr('s_pc_go'),sc:9});
+  ALL.forEach(d=>{ const s=Math.max(score(nm(d)),score(d.n)); if(s>0) out.push({kind:'site',d,label:nm(d),sub:tr('t_'+d.t)+(d.mw?' · '+fmtMW(d.mw):''),sc:s+2}); });
+  PLACES.forEach(p=>{ const s=score(pn(p.k)); if(s>0) out.push({kind:'place',d:p,label:pn(p.k),sub:tr('s_place'),sc:s+1.5}); });
+  REG.forEach(r=>{ const s=Math.max(score(r[1]),score(r[2])); if(s>0) out.push({kind:'region',d:{region:1,c:[r[3],r[4]]},label:LANG==='cy'?r[2]:r[1],sub:tr('s_region'),sc:s+1}); });
+  SUBOBJ.forEach(o=>{ if(!o.nen) return; const s=score(o.nen); if(s>0) out.push({kind:'sub',d:o,label:o.nen,sub:tr('sub_t')+' · '+o.kv+' kV',sc:s}); });
+  OTHERS.forEach(o=>{ if(!o.nen&&!o.ncy) return; const s=Math.max(score(o.nen),score(o.ncy)); if(s>0) out.push({kind:'osm',d:o,label:nm(o),sub:tr('t_'+o.t)+(o.mw?' · '+fmtMW(o.mw):''),sc:s-.5}); });
+  out.sort((a,b)=>b.sc-a.sc||a.label.localeCompare(b.label));
+  sItems=out.slice(0,9); sIdx=sItems.length?0:-1;
+  sRes.innerHTML = sItems.length ? sItems.map((it,i)=>{ const t=it.d&&it.d.t; const c=it.kind==='sub'?SUBCOL(it.d.kv):t?col(t==='grid'?'grid':t):'var(--muted)';
+      const ic=it.kind==='place'||it.kind==='region'||it.kind==='pc'?'':icon(it.kind==='sub'?'grid':t);
+      return `<li role="option" id="sr${i}" aria-selected="${i===sIdx}" data-i="${i}"><span class="ri" style="--c:${c}">${ic}</span>${it.label}<small>${it.sub}</small></li>`; }).join('')
+    : `<li class="none">${tr('s_none')}</li>`;
+  sRes.classList.add('open'); sIn.setAttribute('aria-expanded','true');
+  sRes.querySelectorAll('li[data-i]').forEach(li=>li.onmousedown=e=>{ e.preventDefault(); pick(+li.dataset.i); });
+}
+function pick(i){ const it=sItems[i]; if(!it) return; closeResults(); sIn.blur();
+  if(it.kind==='pc'){ S.view='overview'; S.tab='map'; select(null); if(isSheet()) setSheet('half'); checkPostcode(it.label); return; }
+  goTo(it.kind==='place'?it.d:it.kind==='region'?it.d:it.d); sIn.value=''; }
+sIn.addEventListener('input',runSearch);
+sIn.addEventListener('focus',()=>{ if(sIn.value.trim().length>=2) runSearch(); });
+sIn.addEventListener('blur',()=>setTimeout(closeResults,120));
+sIn.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); if(!sItems.length) return; sIdx=(sIdx+(e.key==='ArrowDown'?1:-1)+sItems.length)%sItems.length;
+    sRes.querySelectorAll('li[data-i]').forEach(li=>li.setAttribute('aria-selected',+li.dataset.i===sIdx)); sIn.setAttribute('aria-activedescendant','sr'+sIdx); }
+  else if(e.key==='Enter'){ e.preventDefault(); if(sIdx>=0) pick(sIdx); } });
+
+/* ---------- hover previews (mouse and trackpad only) ---------- */
+const tip=document.getElementById('tip'); const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;
+function tipHTML(d){
+  let s=`<b>${nm(d)}</b><span>${d.sub?tr('sub_t')+' · '+d.kv+' kV':tr('t_'+d.t)+(d.mw?' · '+fmtMW(d.mw):'')}${!d.osm&&!d.sub&&!active(d)&&!(d.off&&S.year>=d.off)?' · '+(d.st==='con'?tr('con'):tr('dev'))+' '+d.on:''}</span>`;
+  if(liveNow()&&FUEL[d.t]&&(d.osm?d.mw:active(d))&&!d.ps){ const r=d.osm?null:realMW(d), mw=r!=null?r:(d.osm?d.mw*fleet(d.t):liveMW(d)); s+=`<em>${r!=null?tr('tip_real',{v:fmtLive(mw)}):tr('tip_now',{v:fmtLive(mw)})}</em>`; }
+  return s;
+}
+function showTip(d,x,y){ if(!canHover||mapwrap.classList.contains('moving')) return; tip.innerHTML=tipHTML(d); tip.style.display='block';
+  const w=tip.offsetWidth, h=tip.offsetHeight; tip.style.left=Math.min(W-w-6,Math.max(6,x+14))+'px'; tip.style.top=Math.max(6,y-h-10)+'px'; }
+function hideTip(){ tip.style.display='none'; }
+if(canHover){
+  gMarks.on('mouseover',e=>{ const g=e.target.closest('.mk'); if(!g) return; const d=d3.select(g).datum(); const r=node.getBoundingClientRect(); showTip(d,e.clientX-r.left,e.clientY-r.top); })
+        .on('mouseout',e=>{ if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.mk')) hideTip(); });
+  gLinks.on('mouseover',e=>{ const g=e.target.closest('.lk'); if(!g) return; const d=d3.select(g).datum(); const [x,y]=d3.pointer(e,node); showTip(d,x,y); }).on('mouseout',hideTip);
+  let raf=0; svg.on('mousemove.tip',e=>{ if(e.target!==node) return; cancelAnimationFrame(raf); raf=requestAnimationFrame(()=>{ const [x,y]=d3.pointer(e,node); const h=dotQT&&dotQT.find(x,y,9);
+    if(h){ showTip(h[2],x,y); node.style.cursor='pointer'; } else { hideTip(); node.style.cursor=''; } }); });
+  svg.on('mouseleave.tip',hideTip);
+}
+
+new ResizeObserver(()=>{ if(isSheet()) applySheet(sheetSizes()[sheetState]); else applySheet(0); if(node.clientWidth!==W||node.clientHeight!==H) setup(); }).observe(stage);
+if(isSheet()) setSheet('half');
+buildChrome(); setup(); panel();
+try{ if(!localStorage.getItem('pm_intro')) setTimeout(showIntro,400); }catch(e){ setTimeout(showIntro,400); }
+refreshLive();
+</script>
+</body>
+</html>
