@@ -1,0 +1,94 @@
+# Keeps the UK power map's embedded data fresh.
+#  - Every day: refreshes the offline snapshot from the NESO Carbon Intensity API.
+#  - On the 2nd of each month: also refreshes the carbon history (NESO) and the
+#    OpenStreetMap grid, substations, smaller sites and routes.
+# Then rebuilds index.html and commits it if anything changed.
+#
+# The map sits at the top level of the repository. If you move it into a subfolder,
+# set MAP_DIR below to that folder's name.
+name: Refresh UK power map data
+
+on:
+  schedule:
+    - cron: "15 5 * * *"   # daily, 05:15 UTC
+    - cron: "0 3 2 * *"    # monthly, 03:00 UTC on the 2nd
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Also refresh carbon history and OpenStreetMap data"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-power-map
+  cancel-in-progress: false
+
+env:
+  MAP_DIR: "."   # folder containing index.html, src/, data/ and tools/ ("." = top level)
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Decide what to refresh
+        id: mode
+        run: |
+          if [ "${{ github.event.schedule }}" = "0 3 2 * *" ] || [ "${{ inputs.full }}" = "true" ]; then
+            echo "full=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "full=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Python packages
+        working-directory: ${{ env.MAP_DIR }}
+        run: pip install -r tools/requirements.txt
+
+      - name: Refresh offline snapshot
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/update_snapshot.py
+
+      - name: Refresh carbon history
+        if: steps.mode.outputs.full == 'true'
+        continue-on-error: true
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/update_history.py
+
+      - name: Install osmium-tool
+        if: steps.mode.outputs.full == 'true'
+        run: sudo apt-get update -q && sudo apt-get install -y -q osmium-tool
+
+      - name: Refresh OpenStreetMap data and routes
+        if: steps.mode.outputs.full == 'true'
+        continue-on-error: true
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/update_osm.py
+
+      - name: Build index.html
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/build.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A "$MAP_DIR"
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Refresh power map data ($(date -u +%Y-%m-%d))"
+            git push
+          fi
