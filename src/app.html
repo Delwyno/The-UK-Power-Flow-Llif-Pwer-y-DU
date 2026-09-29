@@ -33,21 +33,24 @@
 }
 *,*::before,*::after{box-sizing:inherit}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+@supports (font: -apple-system-body){ html{font:-apple-system-body;font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif} }
 body{height:100%;margin:0;background:var(--panel);overflow:hidden;max-width:100vw}
 .app{max-width:100vw;overflow:hidden}
 .app{height:100%;display:flex;flex-direction:column}
+@media (max-width:899px){ .app{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);height:auto} }
 header{padding:10px 14px 8px;border-bottom:1px solid var(--rule);background:var(--panel)}
 .titlerow{display:flex;align-items:center;gap:8px;justify-content:space-between}
 h1{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.01em;margin:0;line-height:1.1;flex:1;min-width:0}
 h1 span{font-weight:500;color:var(--muted)}
 .tools{display:flex;gap:6px;align-items:center;flex:none}
 select,.tbtn{font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:5px 8px;max-width:100%}
-.tbtn{cursor:pointer;font-weight:600;white-space:nowrap}
+.tbtn{cursor:pointer;font-weight:600;white-space:nowrap;min-height:34px;min-width:34px}
 .tbtn[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 /* search */
 .search{position:relative;flex:1;min-width:0;max-width:340px}
-.search input{width:100%;font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:6px 9px 6px 28px}
+.search.insheet{max-width:none;margin:0 16px 6px;flex:none}
+.search input{width:100%;min-height:36px;font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:6px 9px 6px 28px}
 .search svg.mag{position:absolute;left:8px;top:50%;width:14px;height:14px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
 .results{position:absolute;top:calc(100% + 4px);left:0;right:0;min-width:260px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);list-style:none;margin:0;padding:4px;z-index:30;max-height:60vh;overflow:auto;display:none}
 .results.open{display:block}
@@ -70,6 +73,8 @@ select,.tbtn{font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft
 .pophead b{font-family:"Barlow Semi Condensed",sans-serif;font-size:1.15rem}
 .xbtn{font:inherit;font-size:1.2rem;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 6px}
 .linkbtn{font:inherit;font-size:.85rem;background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;margin-top:12px}
+.lgrab{display:none}
+@media (max-width:599px){ .lgrab{display:flex;justify-content:center;height:24px;margin:-8px 0 2px;touch-action:none;cursor:grab} .lgrab::before{content:"";width:40px;height:5px;border-radius:3px;background:var(--rule);margin-top:6px} }
 .scrim{position:fixed;inset:0;background:rgba(10,20,25,.35);z-index:35;display:none}
 .scrim.open{display:block}
 #intro{left:50%;top:50%;transform:translate(-50%,-50%);width:min(420px,calc(100vw - 28px));padding:20px 22px}
@@ -99,7 +104,7 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .tip span{color:var(--muted);display:block}
 .tip em{font-style:normal;font-weight:600;display:block;margin-top:2px}
 /* credits */
-.attrib{position:absolute;right:6px;bottom:calc(var(--sheet,0px) + 2px);font:500 .66rem "Barlow",sans-serif;color:var(--muted);background:color-mix(in srgb,var(--panel) 80%,transparent);padding:1px 6px;border-radius:4px;z-index:3;max-width:calc(100% - 12px);text-align:right}
+.attrib{position:absolute;right:6px;bottom:calc(var(--sheet,0px) + 2px);font:500 max(11px,.69rem) "Barlow",sans-serif;color:var(--muted);background:color-mix(in srgb,var(--panel) 88%,transparent);padding:1px 6px;border-radius:4px;z-index:3;max-width:calc(100% - 12px);text-align:right}
 .attrib a{color:inherit}
 /* compare */
 .cmprow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
@@ -113,7 +118,7 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .ctab tfoot td{font-weight:600;border-bottom:0}
 .mk.cmp-new .ring{display:block;stroke:#2fa84f;stroke-width:3}
 .mk.cmp-gone .dot{fill:var(--muted)!important}
-.mk.cmp-gone .ring{display:block;stroke:var(--warn);stroke-width:2.5;stroke-dasharray:3 2}
+.mk.cmp-gone .ring{display:block;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:3 2}
 /* bottom sheet (phones and small tablets) */
 .sheet{display:flex;flex-direction:column;min-height:0}
 .grab{display:none}
@@ -126,7 +131,10 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .chip.line i{height:0;border-radius:0;width:14px;border-top:2px dashed var(--grid);background:none}
 .chip.pyl i{height:0;border-radius:0;width:14px;border-top:2px solid var(--pyl);background:none}
 .chip.dots i{background:radial-gradient(circle,var(--muted) 30%,transparent 32%) 0 0/5px 5px;border-radius:2px}
-.chip[aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+.chip{min-height:34px}
+.chip[aria-pressed="true"]{background:var(--soft);border-color:color-mix(in srgb,var(--ink) 35%,var(--rule))}
+.chip[aria-pressed="true"]::after{content:"";width:10px;height:6px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg) translate(1px,-2px);margin-left:2px}
+.chip[aria-pressed="false"]{opacity:.62}
 .chip:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,.mk:focus-visible{outline:2px solid var(--ic);outline-offset:2px}
 .stage{flex:1;min-height:0;display:flex;flex-direction:column}
 .mapwrap{position:relative;flex:1;min-height:0;background:var(--sea)}
@@ -174,8 +182,11 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .story{border-top:1px solid var(--rule);padding-top:10px;margin-top:14px}
 .story h3{margin-top:0;font-size:1.05rem}
 .ctl{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:4px}
+@media (pointer:coarse){ #zin,#zout{display:none} }
 .ctl button{width:34px;height:34px;border-radius:6px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);font:600 1.1rem "Barlow",sans-serif;cursor:pointer;display:grid;place-items:center}
 .pills{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 64px)}
+.cipill,.status{min-height:32px;position:relative}
+.cipill::after,.status::after{content:"";position:absolute;inset:-6px -2px}
 .cipill{background:var(--panel);border:1px solid var(--rule);border-left:5px solid var(--cic,var(--muted));border-radius:999px;padding:3px 10px 3px 8px;font:500 .8rem "Barlow",sans-serif;color:var(--ink);cursor:pointer;display:flex;gap:5px;align-items:baseline}
 .cipill b{font:700 1rem "Barlow Semi Condensed",sans-serif}
 .status{background:var(--panel);border:1px solid var(--rule);border-radius:999px;padding:4px 10px 4px 8px;font:500 .8rem "Barlow",sans-serif;color:var(--ink);display:flex;gap:6px;align-items:center;cursor:pointer;max-width:100%}
@@ -185,7 +196,11 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .yearbar{position:absolute;left:10px;right:54px;bottom:calc(var(--sheet,0px) + 18px);background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:6px 12px 8px;display:flex;align-items:center;gap:12px;max-width:460px}
 .yearbar label{font-family:"Barlow Semi Condensed",sans-serif;font-weight:700;font-size:1.25rem;min-width:4.6em;line-height:1}
 .yearbar label small{display:block;font:500 .72rem "Barlow",sans-serif;color:var(--muted)}
-input[type=range]{flex:1;accent-color:var(--ink);min-width:0}
+input[type=range]{flex:1;min-width:0;height:44px;margin:-8px 0;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:var(--rule)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.3);margin-top:-11px}
+input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .panel{background:var(--panel);border-top:1px solid var(--rule);overflow-y:auto;max-height:44%;padding:14px 16px 18px;flex:none}
 .panel h2{font-family:"Barlow Semi Condensed",sans-serif;font-weight:700;font-size:1.35rem;margin:0;line-height:1.15}
 .panel p{margin:.5em 0;line-height:1.5;max-width:62ch}
@@ -221,6 +236,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .hicon{width:26px;height:26px;border-radius:50%;background:var(--c);display:inline-grid;place-items:center;vertical-align:-6px;margin-right:6px}
 .hicon svg{width:16px;height:16px;color:#fff}
 .row{display:flex;gap:8px;align-items:center;margin:8px 0}
+.row input[type=text]::placeholder{text-transform:none}
 .row input[type=text]{flex:1;min-width:0;font:inherit;font-size:.95rem;padding:6px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--soft);color:var(--ink);text-transform:uppercase}
 .row button,.pbtn{font:inherit;font-size:.9rem;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:var(--panel);cursor:pointer}
 .pbtn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
@@ -241,7 +257,8 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .cibig div{background:var(--panel);padding:10px}
 .cibig b{display:block;font:700 1.9rem/1 "Barlow Semi Condensed",sans-serif}
 .cibig small{display:block;font-size:.75rem;color:var(--muted);margin-top:2px}
-.cibig span{display:block;font-size:.82rem;font-weight:600;margin-top:6px}
+.cibig span{display:flex;gap:6px;align-items:baseline;font-size:.82rem;font-weight:600;margin-top:6px}
+.rdot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;display:inline-block;align-self:center}
 .chart{width:100%;margin:6px 0 2px}
 .chart svg{display:block;width:100%;overflow:visible}
 .chart .ax text{font:500 10.5px "Barlow",sans-serif;fill:var(--muted)}
@@ -249,8 +266,8 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .chart .act{fill:none;stroke:var(--ink);stroke-width:2}
 .chart .fc{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-dasharray:4 3;opacity:.7}
 .chart .area{fill:var(--soft)}
-.chart .nowl{stroke:var(--warn);stroke-width:1.5}
-.chart .nowt{font:600 10.5px "Barlow",sans-serif;fill:var(--warn)}
+.chart .nowl{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:3 2}
+.chart .nowt{font:600 10.5px "Barlow",sans-serif;fill:var(--ink)}
 .chart .hist{fill:none;stroke:var(--ink);stroke-width:2}
 .chart .mon{fill:none;stroke:var(--muted);stroke-width:.8;opacity:.45}
 .chart .pt.ytd{stroke-dasharray:2 1.5}
@@ -293,12 +310,12 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 @media (prefers-reduced-motion:reduce){.flow,.lf{animation:none;stroke-dasharray:6 4}.mk .curt{animation:none}}
 .hubdot{fill:var(--hub);stroke:var(--panel);stroke-width:2}
 .stop{fill:var(--panel);stroke:var(--hub);stroke-width:1.6}
-.pcpin{fill:var(--warn);stroke:var(--panel);stroke-width:2}
+.pcpin{fill:var(--ink);stroke:var(--panel);stroke-width:3}
 .lbl{font:600 11.5px "Barlow",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--land-uk);stroke-width:3.5px;stroke-linejoin:round;pointer-events:none}
 .lbl.hub{font-size:12.5px;font-weight:700}
 .lbl.site{font-weight:500;font-size:11px;fill:var(--muted)}
 @media (max-width:599px){
-  h1 span{display:none} h1{font-size:1.15rem;flex-basis:100%}
+  h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .titlerow{flex-wrap:wrap;gap:6px}
   .tools{flex:1;min-width:0}
   .search{max-width:none}
@@ -312,7 +329,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   .mapwrap{position:absolute;inset:0}
   .sheet{position:absolute;left:0;right:0;bottom:0;height:var(--sheet,42%);z-index:6;background:var(--panel);border-radius:14px 14px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.15);transition:height .22s ease}
   .sheet.dragging{transition:none}
-  .grab{display:flex;justify-content:center;align-items:center;height:22px;flex:none;cursor:grab;touch-action:none}
+  .grab{display:flex;justify-content:center;align-items:center;height:28px;flex:none;cursor:grab;touch-action:none}
   .grab::before{content:"";width:40px;height:5px;border-radius:3px;background:var(--rule)}
   .panel{flex:1;max-height:none;border-top:0;padding-top:2px;overscroll-behavior:contain}
 }
@@ -382,7 +399,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   </div>
 </div>
 <div class="scrim" id="scrim"></div>
-<div class="pop" id="layers" role="dialog" aria-modal="false"><div class="pophead"><b id="layers-t"></b><button class="xbtn" data-close="layers" aria-label="Close">×</button></div>
+<div class="pop" id="layers" role="dialog" aria-modal="false"><div class="lgrab" id="lgrab" aria-hidden="true"></div><div class="pophead"><b id="layers-t"></b><button class="xbtn" data-close="layers" aria-label="Close">×</button></div>
   <h4 id="lg-ovl-t"></h4><div class="chips" id="lg-ovl"></div>
   <h4 id="lg-gen-t"></h4><div class="chips" id="lg-gen"></div>
   <h4 id="lg-net-t"></h4><div class="chips" id="lg-net"></div>
@@ -450,13 +467,14 @@ en:{title:'UK power, source to socket', tag:'· tap a site to trace its electric
  fuel_wind:'Wind',fuel_solar:'Solar',fuel_nuclear:'Nuclear',fuel_gas:'Gas',fuel_biomass:'Biomass',fuel_hydro:'Hydro',fuel_imports:'Imports',fuel_other:'Other',
  idx:{'very low':'very low','low':'low','moderate':'moderate','high':'high','very high':'very high'},
  s_ph:'Search sites, places or postcodes…',s_place:'Place',s_region:'Region',s_pc:'Postcode',s_pc_go:'Check this postcode',s_none:'No matches',
+ sh_lab:'Resize panel',sh_peek:'collapsed',sh_half:'half height',sh_full:'full height',
  layers:'Layers',g_ovl:'Overlays',g_gen:'Generation',g_net:'Network',tips_again:'Show the tips again',table:'Table',compare:'Compare',
  in_t:'Welcome',in_1:'Tap any power station, interconnector or substation to see where its electricity goes.',in_2:'Drag the year slider to see what comes on and what closes, up to 2040.',in_3:'Open Layers to choose what’s shown, and try the Carbon, Stories and Compare tabs.',in_ok:'Got it',
  t_title:'All sites',t_filter:'Filter by name…',t_all:'All types',t_osm:'Include smaller sites from OpenStreetMap',t_count:'{n} sites',
  c_name:'Name',c_type:'Type',c_cap:'Capacity (MW)',c_status:'Status',c_on:'Opens',c_off:'Closes',c_wales:'Wales',c_now:'Output now (MW)',
  st_op:'Operating',st_con:'Under construction',st_dev:'In development',st_closed:'Closed',yes:'Yes',
  cm_h:'Compare two years',cm_from:'From',cm_to:'to',cm_hl:'Highlight changes on the map',cm_stop:'Stop highlighting',cm_new:'New by {y}',cm_gone:'Closed by {y}',cm_none:'None',cm_change:'Change',cm_total:'Total',
- cm_key:'On the map: green ring = new, red dashed ring = closed.',cm_note:'Compares the mapped sites only, using developer and government target dates.',
+ cm_key:'On the map: green ring = new, grey dashed ring = closed.',cm_note:'Compares the mapped sites only, using developer and government target dates.',
  tip_now:'About {v} now',tip_real:'{v} now (metered)',tip_click:'Click for details',
  c_infra:'Grid infrastructure',c_reg:'Regional carbon',tab_st:'Stories',
  lg_subs:'Substations',lg_lines:'Power lines',lg_wind:'Offshore wind areas',
@@ -527,13 +545,14 @@ cy:{title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i d
  fuel_wind:'Gwynt',fuel_solar:'Solar',fuel_nuclear:'Niwclear',fuel_gas:'Nwy',fuel_biomass:'Biomas',fuel_hydro:'Dŵr',fuel_imports:'Mewnforion',fuel_other:'Arall',
  idx:{'very low':'isel iawn','low':'isel','moderate':'cymedrol','high':'uchel','very high':'uchel iawn'},
  s_ph:'Chwilio am safle, lle neu god post…',s_place:'Lle',s_region:'Rhanbarth',s_pc:'Cod post',s_pc_go:'Gwirio’r cod post hwn',s_none:'Dim canlyniadau',
+ sh_lab:'Newid maint y panel',sh_peek:'wedi’i leihau',sh_half:'hanner uchder',sh_full:'uchder llawn',
  layers:'Haenau',g_ovl:'Troshaenau',g_gen:'Cynhyrchu',g_net:'Rhwydwaith',tips_again:'Dangos yr awgrymiadau eto',table:'Tabl',compare:'Cymharu',
  in_t:'Croeso',in_1:'Tapiwch unrhyw orsaf bŵer, rhyng-gysylltydd neu is-orsaf i weld i ble mae ei drydan yn mynd.',in_2:'Llusgwch y llithrydd blwyddyn i weld beth sy’n agor a beth sy’n cau, hyd at 2040.',in_3:'Agorwch Haenau i ddewis beth sy’n cael ei ddangos, a rhowch gynnig ar y tabiau Carbon, Straeon a Cymharu.',in_ok:'Iawn',
  t_title:'Pob safle',t_filter:'Hidlo yn ôl enw…',t_all:'Pob math',t_osm:'Cynnwys safleoedd llai o OpenStreetMap',t_count:'{n} safle',
  c_name:'Enw',c_type:'Math',c_cap:'Capasiti (MW)',c_status:'Statws',c_on:'Agor',c_off:'Cau',c_wales:'Cymru',c_now:'Allbwn nawr (MW)',
  st_op:'Yn gweithredu',st_con:'Wrthi’n cael ei adeiladu',st_dev:'Yn cael ei ddatblygu',st_closed:'Wedi cau',yes:'Ie',
  cm_h:'Cymharu dwy flynedd',cm_from:'O',cm_to:'i',cm_hl:'Amlygu newidiadau ar y map',cm_stop:'Peidio ag amlygu',cm_new:'Newydd erbyn {y}',cm_gone:'Wedi cau erbyn {y}',cm_none:'Dim',cm_change:'Newid',cm_total:'Cyfanswm',
- cm_key:'Ar y map: cylch gwyrdd = newydd, cylch coch toredig = wedi cau.',cm_note:'Yn cymharu’r safleoedd ar y map yn unig, gan ddefnyddio dyddiadau targed datblygwyr a’r llywodraeth.',
+ cm_key:'Ar y map: cylch gwyrdd = newydd, cylch llwyd toredig = wedi cau.',cm_note:'Yn cymharu’r safleoedd ar y map yn unig, gan ddefnyddio dyddiadau targed datblygwyr a’r llywodraeth.',
  tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i fesur)',tip_click:'Cliciwch am fanylion',
  c_infra:'Seilwaith y grid',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
  lg_subs:'Is-orsafoedd',lg_lines:'Llinellau pŵer',lg_wind:'Ardaloedd gwynt ar y môr',
@@ -814,7 +833,7 @@ function render(){
   d3.select('#base').classed('infra',S.infra); document.querySelector('.mapwrap').classList.toggle('infra-on',S.infra);
   const rg = S.reg ? REG.map(r=>({id:r[0],c:[r[3],r[4]],v:regVal(r[0])})).filter(r=>r.v!=null) : [];
   const rgs=gReg.selectAll('g.rg').data(rg,d=>d.id).join(en=>{ const g=en.append('g').attr('class','rg'); g.append('circle').attr('class','regdot').attr('r',13); g.append('text').attr('class','regtxt').attr('dy',4); return g; });
-  rgs.select('circle').attr('fill',d=>CI_IDX_COL[ciIndex(d.v)]); rgs.select('text').text(d=>d.v);
+  rgs.select('circle').attr('fill',d=>CI_IDX_COL[ciIndex(d.v)]); rgs.select('text').text(d=>d.v).style('fill',d=>ciIndex(d.v)==='very high'?'#fff':'#1b282e');
   gRegA.style('display',S.reg?null:'none').selectAll('path').attr('fill',f=>{ const v=regVal(f.properties.id); return v==null?'none':CI_IDX_COL[ciIndex(v)]; });
   // markers
   const mk=vis.filter(d=>d.t!=='grid');
@@ -1163,7 +1182,7 @@ function syncChip(k){ const b=chips.querySelector(`[data-k="${k}"]`); if(b) b.se
 function carbonPanel(){
   const n=ciNow(), day=ciDayAvg(), yr=LIVE.ci.ytd;
   const yv = CI_YTD.v, ylab = tr('ci_ytd',{y:CI_YTD.y});
-  const cell=(v,lab)=>`<div><b style="color:${CI_IDX_COL[ciIndex(v)]}">${v==null?'–':v}</b><small>${tr('ci_unit')}</small><span>${lab}</span></div>`;
+  const cell=(v,lab)=>`<div><b>${v==null?'–':v}</b><small>${tr('ci_unit')}</small><span><i class="rdot" style="--c:${CI_IDX_COL[ciIndex(v)]}"></i>${lab}</span></div>`;
   let h=tabs()+`<h2>${tr('tab_ci')}</h2><div class="cibig">${cell(n.v,(n.stale?fmtWhen(new Date(n.t).toISOString()):tr('ci_now'))+' · '+tIdx(n.idx))}${cell(day,tr('ci_today'))}${cell(yv,ylab)}</div>`;
   h+=`<p>${tr('ci_explain')}</p>`;
   const now=Date.now(), fut=LIVE.ci.series.filter(x=>x.t>=now-1800000&&x.f!=null);
@@ -1370,7 +1389,7 @@ function buildChrome(){
   document.getElementById('layers-t').textContent=tr('layers');
   document.getElementById('lg-ovl-t').textContent=tr('g_ovl'); document.getElementById('lg-gen-t').textContent=tr('g_gen'); document.getElementById('lg-net-t').textContent=tr('g_net');
   document.getElementById('tipsagain').textContent=tr('tips_again');
-  document.getElementById('grab').setAttribute('aria-label',tr('layers'));
+  labelGrab(); placeSearch();
   document.getElementById('zin').setAttribute('aria-label',tr('zin'));
   document.getElementById('zout').setAttribute('aria-label',tr('zout'));
   document.getElementById('zreset').setAttribute('aria-label',tr('zreset'));
@@ -1423,7 +1442,12 @@ const sheetPx = () => isSheet() ? sheet.getBoundingClientRect().height : 0;
 function visH(){ return isSheet() ? Math.max(200, H - sheetSizes()[sheetState]) : H; }
 function applySheet(px){ if(!isSheet()){ sheet.style.removeProperty('height'); mapwrap.style.setProperty('--sheet','0px'); stage.style.removeProperty('--sheet'); return; }
   stage.style.setProperty('--sheet',px+'px'); mapwrap.style.setProperty('--sheet',px+'px'); sheet.style.height=px+'px'; }
-function setSheet(s){ sheetState=s; applySheet(sheetSizes()[s]); }
+function setSheet(s){ sheetState=s; applySheet(sheetSizes()[s]); labelGrab(); }
+function labelGrab(){ const g=document.getElementById('grab'); if(!g) return; g.setAttribute('aria-label',tr('sh_lab')+', '+tr('sh_'+(typeof sheetState==='string'?sheetState:'half'))); }
+function placeSearch(){ const s=document.querySelector('.search'), tools=document.querySelector('.tools'), sh=document.getElementById('sheet'), pnl=document.getElementById('panel');
+  if(!s||!sh) return;
+  if(isSheet()){ if(!s.classList.contains('insheet')){ s.classList.add('insheet'); sh.insertBefore(s,pnl); } }
+  else if(s.classList.contains('insheet')){ s.classList.remove('insheet'); tools.insertBefore(s,tools.firstChild); } }
 (function(){ let y0=0,h0=0,t0=0,drag=false;
   grab.addEventListener('pointerdown',e=>{ if(!isSheet()) return; drag=true; y0=e.clientY; h0=sheet.getBoundingClientRect().height; t0=performance.now(); sheet.classList.add('dragging'); grab.setPointerCapture(e.pointerId); });
   grab.addEventListener('pointermove',e=>{ if(!drag) return; const s=sheetSizes(); applySheet(Math.max(s.peek*.7,Math.min(s.full,h0-(e.clientY-y0)))); });
@@ -1447,6 +1471,12 @@ scrim.onclick=closePops;
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePops(); closeResults(); } });
 document.addEventListener('pointerdown',e=>{ const l=document.getElementById('layers'); if(l.classList.contains('open')&&!l.contains(e.target)&&!e.target.closest('#layersbtn')&&!isSheet()) closePops(); });
 document.getElementById('layersbtn').onclick=()=>{ document.getElementById('layers').classList.contains('open')?closePops():openPop('layers'); };
+(function(){ const lg=document.getElementById('lgrab'), lp=document.getElementById('layers'); let y0=null;
+  const down=e=>{ if(!isSheet()) return; y0=e.clientY; lp.style.transition='none'; };
+  const move=e=>{ if(y0==null) return; const dy=Math.max(0,e.clientY-y0); lp.style.transform=`translateY(${dy}px)`; };
+  const up=e=>{ if(y0==null) return; const dy=e.clientY-y0; y0=null; lp.style.transition=''; lp.style.transform=''; if(dy>70) closePops(); };
+  [lg,lp.querySelector('.pophead')].forEach(el=>{ el.addEventListener('pointerdown',e=>{ if(e.target.closest('button')) return; down(e); el.setPointerCapture(e.pointerId); }); el.addEventListener('pointermove',move); el.addEventListener('pointerup',up); el.addEventListener('pointercancel',up); });
+})();
 document.getElementById('tipsagain').onclick=()=>{ closePops(); showIntro(); };
 function showIntro(){ document.getElementById('intro-t').textContent=tr('in_t');
   document.getElementById('intro-l').innerHTML=['in_1','in_2','in_3'].map(k=>`<li>${tr(k)}</li>`).join('');
@@ -1521,12 +1551,12 @@ function runSearch(){
   sRes.classList.add('open'); sIn.setAttribute('aria-expanded','true');
   sRes.querySelectorAll('li[data-i]').forEach(li=>li.onmousedown=e=>{ e.preventDefault(); pick(+li.dataset.i); });
 }
-function pick(i){ const it=sItems[i]; if(!it) return; closeResults(); sIn.blur();
+function pick(i){ const it=sItems[i]; if(!it) return; closeResults(); sIn.blur(); if(isSheet()) setSheet('half');
   if(it.kind==='pc'){ S.view='overview'; S.tab='map'; select(null); if(isSheet()) setSheet('half'); checkPostcode(it.label); return; }
   goTo(it.kind==='place'?it.d:it.kind==='region'?it.d:it.d); sIn.value=''; }
 sIn.addEventListener('input',runSearch);
-sIn.addEventListener('focus',()=>{ if(sIn.value.trim().length>=2) runSearch(); });
-sIn.addEventListener('blur',()=>setTimeout(closeResults,120));
+sIn.addEventListener('focus',()=>{ if(isSheet()&&sheetState!=='full') setSheet('full'); if(sIn.value.trim().length>=2) runSearch(); });
+sIn.addEventListener('blur',()=>{ setTimeout(closeResults,120); window.scrollTo(0,0); });
 sIn.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); if(!sItems.length) return; sIdx=(sIdx+(e.key==='ArrowDown'?1:-1)+sItems.length)%sItems.length;
     sRes.querySelectorAll('li[data-i]').forEach(li=>li.setAttribute('aria-selected',+li.dataset.i===sIdx)); sIn.setAttribute('aria-activedescendant','sr'+sIdx); }
@@ -1551,7 +1581,7 @@ if(canHover){
   svg.on('mouseleave.tip',hideTip);
 }
 
-new ResizeObserver(()=>{ if(isSheet()) applySheet(sheetSizes()[sheetState]); else applySheet(0); if(node.clientWidth!==W||node.clientHeight!==H) setup(); }).observe(stage);
+new ResizeObserver(()=>{ placeSearch(); if(isSheet()) applySheet(sheetSizes()[sheetState]); else applySheet(0); if(node.clientWidth!==W||node.clientHeight!==H) setup(); }).observe(stage);
 if(isSheet()) setSheet('half');
 buildChrome(); setup(); panel();
 try{ if(!localStorage.getItem('pm_intro')) setTimeout(showIntro,400); }catch(e){ setTimeout(showIntro,400); }
