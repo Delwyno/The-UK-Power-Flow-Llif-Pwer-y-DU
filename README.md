@@ -99,14 +99,16 @@ The page always contains an embedded snapshot, so it works anywhere, including o
 
 To see which feeds are working, tap the status pill at the top left of the map, or scroll to **Data sources** at the bottom of the Map tab.
 
-| Feed | Source | Status |
-|---|---|---|
-| GB, Welsh and regional mix; carbon intensity; import factors | NESO Carbon Intensity API | Tested against real responses |
-| Output per power station (`/balancing/physical/all`, PN) | Elexon Insights | Endpoint and parameters confirmed against Elexon's API specification |
-| Balancing actions for curtailment (`/balancing/acceptances/all`) | Elexon Insights | Endpoint and parameters confirmed against Elexon's API specification |
-| Generation by fuel and interconnector flows (`/generation/outturn/current`) | Elexon Insights | Endpoint confirmed; field names to check live |
-| Wholesale prices (market index) | Elexon Insights | Endpoint path to check live |
-| Postcode lookup | postcodes.io | Standard public API |
+| Feed | Source |
+|---|---|
+| GB, Welsh and regional mix; carbon intensity; import factors | NESO Carbon Intensity API |
+| Output per power station (`/balancing/physical/all`, PN) | Elexon Insights |
+| Balancing actions for curtailment (`/balancing/acceptances/all`) | Elexon Insights |
+| Generation by fuel and interconnector flows (`/generation/outturn/current`) | Elexon Insights |
+| Wholesale prices (market index) | Elexon Insights |
+| Postcode lookup | postcodes.io |
+
+All feeds were confirmed working on the live site on 29 September 2026.
 
 ## Data sources and licences
 
