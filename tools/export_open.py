@@ -14,6 +14,11 @@ SITE = "https://delwyno.github.io/UK-Energy-Generation-Map/"
 B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 ELX = "Contains BMRS data © Elexon Limited copyright and database right"
 NESO = "NESO Open Data Licence"
+NAME, AUTHOR = "The UK Power Flow", "Daniel Elwyn Thomas"
+CC = "CC BY 4.0"
+ODBL = "ODbL 1.0"
+CREDIT = f"Data: {NAME} ({AUTHOR}), {CC}. {SITE}"
+CREDIT_ODBL = f"Data: {NAME} ({AUTHOR}), {ODBL}. Contains information from OpenStreetMap contributors. {SITE}"
 
 def load(name, default=None):
     try:
@@ -37,9 +42,10 @@ def main():
     OUT.mkdir(exist_ok=True)
     N, SUB = names(), (load("subsidy.json", {}) or {}).get("farms", {})
     index = []
-    def add(fname, title, desc, source, head, rows):
+    def add(fname, title, desc, source, head, rows, licence=CC):
         n = write(fname, head, rows)
-        index.append({"file": fname, "url": SITE + "data/open/" + fname, "title": title, "description": desc, "rows": n, "columns": head, "source": source})
+        index.append({"file": fname, "url": SITE + "data/open/" + fname, "title": title, "description": desc, "rows": n, "columns": head, "source": source,
+                      "licence": licence, "credit": CREDIT_ODBL if licence == ODBL else CREDIT})
 
     cur = load("curtail.json", {"days": []})
     add("curtailment-daily.csv", "Wind turned down, daily",
@@ -99,8 +105,9 @@ def main():
     if q:
         add("connection-queue-by-site.csv", "Connection queue, by connection site",
             "Capacity with a contract to connect at each transmission connection site (NESO TEC register), repeated rows counted once, with location where the map could place it.",
-            NESO + " (TEC register); locations © OpenStreetMap contributors, ODbL", ["connection_site", "latitude", "longitude", "network_owner", "queued_mw", "connected_mw", "projects", "earliest_year", "typical_year", "in_wales", "mw_past_contracted_date", "mw_by_technology"],
-            [[s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[8], s[9], s[10], s[12], ";".join(f"{k}:{v}" for k, v in s[7].items())] for s in q["sites"]])
+            NESO + " (TEC register); locations derived from OpenStreetMap, © OpenStreetMap contributors, ODbL", ["connection_site", "latitude", "longitude", "network_owner", "queued_mw", "connected_mw", "projects", "earliest_year", "typical_year", "in_wales", "mw_past_contracted_date", "mw_by_technology"],
+            [[s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[8], s[9], s[10], s[12], ";".join(f"{k}:{v}" for k, v in s[7].items())] for s in q["sites"]],
+            licence=ODBL)
 
     con = load("constraints.json")
     if con:
@@ -110,10 +117,38 @@ def main():
             NESO + " (constraint breakdown); " + ELX, ["date", "neso_thermal_cost_gbp", "neso_thermal_volume_mwh", "neso_all_constraints_cost_gbp", "tracked_wind_payments_gbp", "tracked_wind_turned_down_mwh"],
             [r + [ours[r[0]]["gbp"] if r[0] in ours else "", ours[r[0]]["mwh"] if r[0] in ours else ""] for r in con["days"]])
 
-    doc = {"title": "UK power, source to socket: open data", "site": SITE, "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
-           "licence": "CC BY 4.0 for this compilation. The original sources' terms also apply: NESO Open Data Licence; Elexon BMRS (" + ELX + "); OpenStreetMap (ODbL).",
-           "cite": "UK power, source to socket. " + SITE, "datasets": index}
+    doc = {"title": f"{NAME}: open data", "author": AUTHOR, "site": SITE, "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
+           "licence": {"default": CC, "default_url": "https://creativecommons.org/licenses/by/4.0/",
+                       "exceptions": "connection-queue-by-site.csv is shared under ODbL 1.0 (https://opendatacommons.org/licenses/odbl/1-0/) because it includes locations derived from OpenStreetMap.",
+                       "original_sources": "The underlying data comes from NESO (NESO Open Data Licence), Elexon (" + ELX + ") and OpenStreetMap contributors (ODbL). Their terms also apply. The licence here covers the compilation, not the original data. Provided without warranty."},
+           "cite": CREDIT, "datasets": index}
     (OUT / "index.json").write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+    (OUT / "README.md").write_text(f"""# {NAME}: open data
+
+By {AUTHOR}. Refreshed daily. Every file is described, with its columns, in `index.json`.
+
+## Licence
+
+- Most files: **{CC}** (https://creativecommons.org/licenses/by/4.0/). You can copy, share, adapt and use them, including commercially, if you give credit.
+- `connection-queue-by-site.csv`: **{ODBL}** (https://opendatacommons.org/licenses/odbl/1-0/), because it includes locations derived from OpenStreetMap.
+
+## How to credit
+
+> {CREDIT}
+
+For the queue file:
+
+> {CREDIT_ODBL}
+
+## Original sources
+
+The numbers come from NESO (NESO Open Data Licence), Elexon ({ELX}) and OpenStreetMap contributors (ODbL).
+Their terms also apply. This licence covers the compilation (the daily tracking, matching and calculations), not the original data.
+Provided without warranty: please check anything important against the original sources.
+
+## Files
+
+""" + "\n".join(f"- `{d['file']}` ({d['licence']}): {d['title']}" for d in index) + "\n", encoding="utf-8")
     print("open data:", ", ".join(f"{d['file']} ({d['rows']})" for d in index))
 
 if __name__ == "__main__":

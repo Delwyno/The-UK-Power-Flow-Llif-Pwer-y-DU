@@ -1,4 +1,4 @@
-# UK power, source to socket
+# The UK Power Flow · Llif Pŵer y DU
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
 
@@ -185,7 +185,7 @@ All feeds were confirmed working on the live site on 29 September 2026.
 | Welsh targets and progress | Welsh Government, Energy Generation and Energy Use in Wales (2026) |
 | Wind farm support schemes | LCCC Contracts for Difference register; Ofgem; developer announcements (see `data/subsidy.json`) |
 
-The open data in `data/open/` is shared under CC BY 4.0; the original sources' terms also apply.
+The open data in `data/open/` is shared under CC BY 4.0, except the connection queue file, which is ODbL because it includes OpenStreetMap-derived locations. See **Licence and credit** below. The original sources' terms also apply.
 
 The map carries the required credits in its bottom corner. Check each provider's current terms before any commercial use.
 
@@ -208,3 +208,17 @@ The map carries the required credits in its bottom corner. Check each provider's
 - **Themes:** light and dark mode are supported.
 - **Language:** fully bilingual, and your choice is remembered.
 - **Table view:** a text alternative to the map for screen-reader users.
+
+## Licence and credit
+
+Created by **Daniel Elwyn Thomas**.
+
+**Open data** (the CSV files in `data/open/`): shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You can copy, share, adapt and use them, including commercially, if you give credit. The exception is `connection-queue-by-site.csv`, which includes locations derived from OpenStreetMap and is shared under the [Open Database Licence (ODbL)](https://opendatacommons.org/licenses/odbl/1-0/) instead.
+
+**How to credit it:**
+
+> Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/UK-Energy-Generation-Map/
+
+The licence covers the compilation (the daily tracking, matching and calculations), not the original data, which comes from NESO, Elexon and OpenStreetMap and carries their terms (see Data sources and licences). It is provided without warranty. `data/open/README.md` and `data/open/index.json` repeat this, with the exact credit line for each file.
+
+The licence for the code (everything outside `data/`) has not been chosen yet.
