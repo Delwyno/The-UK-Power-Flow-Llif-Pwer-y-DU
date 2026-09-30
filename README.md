@@ -108,6 +108,17 @@ tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
 
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
+
 ## Keeping the data fresh automatically
 
 The GitHub Action runs on its own:
@@ -197,6 +208,12 @@ The map carries the required credits in its bottom corner. Check each provider's
 - **Themes:** light and dark mode are supported.
 - **Language:** fully bilingual, and your choice is remembered.
 - **Table view:** a text alternative to the map for screen-reader users.
+
+## Brand files
+
+The icon, favicons and link-preview image are in the top-level folder: `logo.svg` (the mark, scalable), `icon-512.png` (for social profile pictures; it survives the round crop), `icon-192.png`, `apple-touch-icon.png`, `favicon.svg`, `favicon-32.png`, `favicon.ico`, and `social.png` (1200 × 630, the image shown when the link is shared). The mark is Britain's outline with the 400 kV grid, and a line from a wind farm in the north to a socket in the south-east: source to socket. Typeface: Barlow Semi Condensed and Barlow.
+
+If a platform still shows an old preview after you update `social.png`, ask it to refresh: LinkedIn Post Inspector, Facebook Sharing Debugger, or add `?v=3` to the image address in `src/app.html`.
 
 ## Licence and credit
 
