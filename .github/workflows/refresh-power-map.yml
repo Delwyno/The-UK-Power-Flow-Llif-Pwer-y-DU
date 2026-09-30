@@ -1,7 +1,8 @@
 # Keeps the UK power map's data fresh.
 #  - Every day: the offline snapshot, forecast accuracy, weekly digest and daily Wales
 #    figures (NESO Carbon Intensity API); curtailment and station history (Elexon);
-#    carbon history, records and simulator data (NESO historic generation mix).
+#    carbon history, records and simulator data (NESO historic generation mix); the connection
+#    queue and official constraint costs (NESO data portal); open data CSVs.
 #  - On the 2nd of each month: also the OpenStreetMap grid, substations, smaller sites and routes.
 # Then rebuilds index.html and commits it if anything changed.
 #
@@ -83,6 +84,17 @@ jobs:
         continue-on-error: true
         working-directory: ${{ env.MAP_DIR }}
         run: python tools/update_osm.py
+
+      - name: Refresh connection queue and official constraint costs (NESO)
+        continue-on-error: true
+        timeout-minutes: 15
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/update_neso.py
+
+      - name: Publish open data (CSV)
+        continue-on-error: true
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/export_open.py
 
       - name: Build index.html
         working-directory: ${{ env.MAP_DIR }}
