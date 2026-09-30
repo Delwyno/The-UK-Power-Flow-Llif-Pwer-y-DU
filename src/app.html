@@ -421,6 +421,43 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   header{padding:12px 20px 10px}
   h1{font-size:1.5rem}
 }
+.mtoc{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.85rem;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.mtoc a{color:var(--muted);text-underline-offset:3px}
+.mbody{overflow-y:auto;flex:1;padding-right:4px;overscroll-behavior:contain}
+.mbody section{max-width:66ch}
+.mbody h3{font-family:"Barlow Semi Condensed",sans-serif;font-size:1.15rem;margin:18px 0 4px}
+.mbody p,.mbody li{line-height:1.55}
+.mbody ol,.mbody ul{padding-left:1.3em;margin:.4em 0}
+.mbody code{font-size:.85em;background:var(--soft);padding:1px 4px;border-radius:3px}
+#methodsv{inset:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 12px);display:none;flex-direction:column;padding:14px 18px;max-width:780px;margin:0 auto}
+#methodsv.open{display:flex}
+.linkbtn.inl{margin:0;font-size:inherit}
+#layers .linkbtn + .linkbtn{margin-left:14px}
+.key i.sq{width:10px;height:10px;border:0;border-radius:2px}
+.simbar{position:sticky;top:-2px;z-index:2;display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;background:var(--panel);border-bottom:1px solid var(--rule);padding:8px 0 6px;margin-top:10px;font-size:.85rem;color:var(--muted)}
+.simbar b{font:700 1.15rem "Barlow Semi Condensed",sans-serif;color:var(--ink)}
+.simbar .rdot{margin-right:4px}
+.simsl{display:grid;gap:2px 16px;margin:14px 0 6px}
+.simsl label{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:baseline;margin-top:6px}
+.simsl .sll{font-size:.88rem;font-weight:600}
+.simsl input[type=range]{grid-column:1/3;margin:-10px 0 -8px;width:100%}
+.simsl output{font:700 1.02rem "Barlow Semi Condensed",sans-serif;text-align:right;font-variant-numeric:tabular-nums}
+.simsl input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(to right,var(--rule) 0 var(--lo),#7cc48e var(--lo) var(--hi),var(--rule) var(--hi))}
+.simsl input[type=range]::-moz-range-track{background:linear-gradient(to right,var(--rule) 0 var(--lo),#7cc48e var(--lo) var(--hi),var(--rule) var(--hi))}
+.simkey{font-size:.8rem;color:var(--muted);margin:8px 0 0;display:flex;gap:6px;align-items:center}
+.simkey i{width:18px;height:6px;border-radius:3px;background:#7cc48e;flex:none}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.simtxt{padding-left:1.1em;margin:6px 0}
+.simtxt li{margin:4px 0;line-height:1.45}
+.simchk{font-size:.88rem;border-left:3px solid var(--rule);padding:4px 0 4px 10px;margin:10px 0}
+.digest{border-bottom:1px solid var(--rule);padding-bottom:12px;margin-bottom:4px}
+.dghead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.dghead h3{margin:0;font-size:1.15rem;font-family:"Barlow Semi Condensed",sans-serif}
+.dgnav{display:flex;gap:4px}
+.dgnav .xbtn{width:36px;height:36px;border:1px solid var(--rule);border-radius:8px;background:var(--panel);color:var(--ink);font-size:1.3rem;cursor:pointer}
+.dgnav .xbtn:disabled{opacity:.35;cursor:default}
+.dgrec{font-weight:600;border-left:3px solid #2fa84f;padding-left:10px}
+.dgact{flex-wrap:wrap}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 </head>
@@ -483,15 +520,18 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   <h4 id="lg-ovl-t"></h4><div class="chips" id="lg-ovl"></div>
   <h4 id="lg-gen-t"></h4><div class="chips" id="lg-gen"></div>
   <h4 id="lg-net-t"></h4><div class="chips" id="lg-net"></div>
-  <button class="linkbtn" id="tipsagain"></button>
+  <button class="linkbtn" id="tipsagain"></button> <button class="linkbtn" id="methodsbtn" data-methods=""></button>
 </div>
 <div class="pop" id="chartv" role="dialog" aria-modal="true" aria-labelledby="chartv-t"><div class="pophead"><b id="chartv-t"></b><button class="xbtn" data-close="chartv" aria-label="Close">×</button></div>
   <div class="chart big" id="chartbig"></div><p class="meta" id="chartv-hint"></p><div class="row" id="chartv-actions"></div>
 </div>
 <div class="pop" id="tablev" role="dialog" aria-modal="true"><div class="pophead"><b id="tablev-t"></b><button class="xbtn" data-close="tablev" aria-label="Close">×</button></div>
-  <div class="tcontrols"><input type="text" id="tfilter"><select id="ttype"></select><label><input type="checkbox" id="tosm"><span id="tosm-l"></span></label></div>
+  <div class="tcontrols"><input type="text" id="tfilter"><select id="ttype"></select><label><input type="checkbox" id="tosm"><span id="tosm-l"></span></label><button class="pbtn ghost" id="tcsv" hidden></button></div>
   <div class="twrap"><table class="sites" id="ttable"><thead></thead><tbody></tbody></table></div>
   <div class="tcount" id="tcount"></div>
+</div>
+<div class="pop" id="methodsv" role="dialog" aria-modal="true" aria-labelledby="methodsv-t"><div class="pophead"><b id="methodsv-t"></b><button class="xbtn" data-close="methodsv" aria-label="Close">×</button></div>
+  <nav class="mtoc" id="mtoc"></nav><div class="mbody" id="mbody"></div>
 </div>
 <div class="chooser" id="chooser" role="menu" hidden></div>
       <div class="coach" id="coach" role="note" hidden><p id="coach-t"></p><button class="pbtn" id="coach-ok"></button></div>
@@ -505,11 +545,48 @@ const WINDA = __WINDA__; // [name, rings, osm id]
 const XCHK = __XCHK__;
 const REGGEO = __REGGEO__;
 const SNAPSHOT = __SNAPSHOT__;  // offline fallback, refreshed daily by tools/update_snapshot.py
+const ACCURACY = __ACC__;       // forecast tracker, updated daily by tools/update_snapshot.py
+const DIGEST = __DIGEST__;       // weekly digest, updated daily by tools/update_snapshot.py
+const SIM_INLINE = __SIMINLINE__; // null: the simulator fetches data/sim.json when opened
 const HISTORY = __HISTORY__;    // NESO historic generation mix, refreshed monthly by tools/update_history.py // NESO GSP regions grouped into the 14 Carbon Intensity regions   // site id -> [osm id, MW, OSM name]
 
 /* ---------------- words ---------------- */
 const I18N = {
-en:{title:'UK power, source to socket', tag:'· tap a site to trace its electricity', find:'Find a site…', wales:'Wales', other:'Cymraeg',
+en:{tab_sim:'2030',tab_sim_l:'2030 simulator',dl_csv:'Download data (CSV)',t_csv:'Download CSV',m_title:'How this map works',m_link:'How this is calculated',m_btn:'How this map works',
+ m_report:'Spotted something wrong? Report it on',
+ acc_h:'How accurate are the forecasts?',acc_none:'The forecast tracker starts with the next daily refresh.',acc_wait:'Tracking started on {d}. The first result appears once a full day has passed.',
+ acc_t:'Each morning the map saves NESO’s forecast for the next 24 hours, then checks it against what actually happened. Over the last {n} days:',
+ acc_mae:'typical error',acc_w20:'within 20 g',acc_hh:'of half-hours',acc_days:'days',acc_hit:'cleanest window found',
+ acc_bias0:'The forecasts show no consistent lean either way.',acc_bias_hi:'On average the forecasts ran {v} g too high, so real electricity was slightly cleaner than predicted.',acc_bias_lo:'On average the forecasts ran {v} g too low, so real electricity was slightly dirtier than predicted.',
+ acc_key:'Typical error each day (g)',acc_note:'“Cleanest window found” counts days when starting at the forecast’s cleanest 3-hour window came within 10 g of the true cleanest window. Tracking since {d}.',
+ sb_clean:'clean',sb_gas:'TWh gas',sim_h:'What would 2030 look like?',sim_t:'Replay every hour of real weather and demand with the power system you choose. The Clean Power 2030 goal is for clean sources to make at least 95% of Britain’s electricity.',
+ sim_loading:'Loading a year of hourly data…',sim_nodata:'The simulator’s data isn’t available yet. It’s added at the next monthly data refresh.',sim_offline:'The simulator loads a year of hourly data from the published map, so it only works on the hosted version.',
+ sim_presets:'Starting points',sim_p_base:'{y} as built',sim_p_ffr:'NESO: more renewables',sim_p_nd:'NESO: new dispatch',
+ sv_off:'Offshore wind',sv_on:'Onshore wind',sv_solar:'Solar',sv_nuclear:'Nuclear',sv_bat:'Batteries (2 h)',sv_ldes:'Long-duration storage (8 h)',sv_ic:'Interconnectors',sv_lcd:'New low-carbon dispatchable',sv_dem:'Demand change',
+ sim_cp:'2030 plan: {r} GW',sim_dem_hint:'NESO expects about +11%',sim_band:'Green: the government’s 2030 plan (for demand, NESO’s estimate)',
+ sim_goal95:'goal: 95% or more',sim_clean:'Clean share of generation',sim_ci:'Average carbon intensity',sim_ofhours:'of hours',sim_h50:'At 50 g or below',
+ sim_gas:'Gas generation',sim_curt_l:'Wind and solar turned down',sim_netx:'Net exports',sim_netm:'Net imports',
+ sim_meet_h:'Meets the Clean Power 2030 goal',sim_miss_h:'Falls short of the Clean Power 2030 goal',
+ sim_meet:'Clean sources make {p}% of Britain’s generation, above the 95% goal.',sim_miss:'Clean sources make {p}% of Britain’s generation, against a goal of 95%.',
+ sim_dem_t:'Over the year, clean sources produce {p}% as much electricity as Britain uses. The goal is at least 100%.',
+ sim_gas_t:'Gas still runs in {h}% of hours and generates {t} TWh, compared with {a} TWh in {y}.',
+ sim_spell_d:'The longest stretch leaning heavily on gas lasts {d} days from {date}, when the wind dropped for days on end.',sim_spell_h:'The longest stretch leaning heavily on gas lasts {h} hours, from {date}.',
+ sim_curt_t:'{t} TWh of wind and solar would have nowhere to go and be turned down, {p}% of their output. Exports take {x} TWh.',
+ sim_ch:'Carbon intensity, day by day',sim_k_sim:'Your system',sim_k_act:'Actual {y}',
+ sim_chk_h:'Model check.',sim_chk:'Replaying {y} with the capacity that actually existed gives an average of {m} g, against {a} g measured. Clean sources: {mc}% modelled, {ac}% measured.',
+ sim_assume:'A simplified hour-by-hour model. It moves power freely around Britain, runs storage without foresight and doesn’t cost anything.',
+ sim_src:'Weather and demand: NESO historic generation mix. Capacities: {s}.',
+ dg_h:'Last week on the grid',dg_h_old:'A week on the grid',dg_none:'The weekly digest appears after the next daily data refresh.',dg_prev:'Previous week',dg_next:'Next week',
+ dg_avg:'Average',dg_hours:'hours',dg_at50:'At 50 g or below',dg_ofgen:'of generation',
+ dg_s1:'Electricity averaged {ci} gCO₂/kWh{cmp}.',dg_cleaner:', {p}% cleaner than the week before',dg_dirtier:', {p}% dirtier than the week before',dg_same:', about the same as the week before',
+ dg_s2:'Wind supplied {w}% of generation, peaking at {pk}% on {when}.',dg_s3:'The cleanest day was {d1} ({v1} g) and the dirtiest was {d2} ({v2} g).',
+ dg_s4:'Electricity was at 50 g or below for {h} hours.',dg_s4n:'It never got down to 50 g.',dg_s5:'{r} was the cleanest region, at {v} g.',
+ dg_wal0:'Wales averaged {v} g, close to Britain as a whole.',dg_wal_lo:'Wales averaged {v} g, {p}% cleaner than Britain as a whole.',dg_wal_hi:'Wales averaged {v} g, {p}% dirtier than Britain as a whole.',
+ dg_ly:'For comparison, {m} {y} averaged {v} g.',dg_rec:'The cleanest week since this digest began on {d}.',dg_rec_hh:'It includes a new record-low half-hour of {v} g.',
+ dg_img:'Save as image',dg_share:'Share',dg_copy:'Copy text',dg_copied:'Copied',dg_share_h:'Britain’s electricity, {r}',dg_img_h:'Britain’s electricity, week by week',
+ dg_img_src:'Data: NESO Carbon Intensity API',dg_chart:'Daily average carbon intensity for the week',
+ dg_src:'Written automatically each Monday from NESO’s Carbon Intensity API.',
+ title:'UK power, source to socket', tag:'· tap a site to trace its electricity', find:'Find a site…', wales:'Wales', other:'Cymraeg',
  t_ow:'Offshore wind',t_nw:'Onshore wind',t_nu:'Nuclear',t_gas:'Gas',t_bio:'Biomass & waste',t_hy:'Hydro & pumped storage',t_so:'Solar',t_ti:'Tidal',t_bat:'Batteries',t_ic:'Interconnectors',t_grid:'Grid backbone',
  c_live:'Live flows',c_future:'Future projects',c_grid:'Grid links',c_pyl:'Pylon lines',c_osm:'All other sites',
  today:'today',projected:'projected',back:'Back to overview',
@@ -525,13 +602,13 @@ en:{title:'UK power, source to socket', tag:'· tap a site to trace its electric
  est_note:'*Estimated from typical output for this technology ({p}% of capacity on average) and UK electricity use of roughly 300 TWh a year.',
  now_about:'About {v} right now',now_zero:'Near zero right now',now_idle:'Idle right now',now_actual:'{v} right now',now_pump:'Pumping: using {v}',
  now_est:'{t} across GB was running at {p}% of capacity ({when}). Estimated for this site from that national figure.',
- now_real:'Metered output from Elexon, {when}.',
+ now_real:'Planned output notified to Elexon for this half-hour ({when}). Turn-down instructions are shown separately.',
  now_notyet:'Not yet generating',
  curt_b:'Being turned down by about {v}',curt_s:'The grid operator has paid this site to cut output, usually because the network can\'t carry its power to where it\'s needed.',
  ic_now_in:'Importing {v} into GB',ic_now_out:'Exporting or idle',ic_now_s:'Elexon interconnector reading, {when}. Elexon reports exports as zero, so a zero here usually means power is flowing out of GB.',
  ic_net:'GB importing {v} overall',ic_net_s:'Across all interconnectors, {when}. This feed doesn\'t split imports by link, so the line shows this link\'s usual direction.',
  snap:'Latest snapshot',live:'Live now',gbelec:'GB electricity, {when}',
- flows_note:'Moving lines show each site\'s output now: thicker and faster means more power. Where Elexon metering is available the figure is real; otherwise it\'s estimated from the national share for each technology.',
+ flows_note:'Moving lines show each site\'s output now: thicker and faster means more power. Where a station reports its planned output to Elexon, the figure is that report; otherwise it\'s estimated from the national share for each technology.',
  snap_note:'This copy can\'t reach live data feeds, so it shows the latest snapshot. Hosted on its own web address (for example GitHub Pages), it updates itself every five minutes.',
  mapped_today:'The mapped grid today',mapped_y:'The mapped grid in {y}',sites_meta:'{n} major sites · {c} generating capacity · {i} of interconnectors',
  plus_osm:'Plus {n} smaller sites from OpenStreetMap ({c} where capacity is recorded).',
@@ -596,14 +673,14 @@ en:{title:'UK power, source to socket', tag:'· tap a site to trace its electric
  st_op:'Operating',st_con:'Under construction',st_dev:'In development',st_closed:'Closed',yes:'Yes',
  cm_h:'Compare two years',cm_from:'From',cm_to:'to',cm_hl:'Highlight changes on the map',cm_stop:'Stop highlighting',cm_new:'New by {y}',cm_gone:'Closed by {y}',cm_none:'None',cm_change:'Change',cm_total:'Total',
  cm_key:'On the map: green ring = new, grey dashed ring = closed.',cm_note:'Compares the mapped sites only, using developer and government target dates.',
- tip_now:'About {v} now',tip_real:'{v} now (metered)',tip_click:'Click for details',
+ tip_now:'About {v} now',tip_real:'{v} now (reported)',tip_click:'Click for details',
  c_infra:'Grid infrastructure',c_reg:'Regional carbon',tab_st:'Stories',
  lg_subs:'Substations',lg_lines:'Power lines',lg_wind:'Offshore wind areas',
  sub_t:'Substation',sub_meta:'{v} kV',sub_through:'Power from these mapped sites passes through here',sub_none:'None of the mapped routes pass through this substation.',sub_near:'Mapped sites within 15 km',
  src_h:'Sources and checks',src_curated:'Capacity and dates compiled for this map from public announcements; last checked September 2026.',
  src_osm:'OpenStreetMap lists {mw} for “{n}”.',src_osm_diff:'This differs from the figure above, often because one figure covers a whole site or an older layout.',
  src_none:'No independent cross-check available yet.',b_ok:'Cross-checked',b_chk:'Check',b_none:'Not cross-checked',
- src_live_real:'Output right now: metered data from Elexon.',src_live_est:'Output right now: estimated from NESO’s national mix.',src_route:'Route: 400 kV and 275 kV lines from OpenStreetMap (extract of 28 September 2026).',
+ src_live_real:'Output right now: the station’s own notified output, from Elexon.',src_live_est:'Output right now: estimated from NESO’s national mix.',src_route:'Route: 400 kV and 275 kV lines from OpenStreetMap (extract of 28 September 2026).',
  src_osmobj:'View this on OpenStreetMap',
  methods_h:'Sources and methods',
  imp_ci:'carbon of imports',imp_ci_na:'not in NESO’s factor list',imp_note:'Import carbon uses NESO’s Carbon Intensity API factor for power from this country. It is an average, not a live measure.',
@@ -624,7 +701,41 @@ en:{title:'UK power, source to socket', tag:'· tap a site to trace its electric
  st_h_h:'Hours at the 2030 clean power level',st_h_t:'NESO’s Clean Power 2030 pathways put average carbon intensity at around 50 gCO₂/kWh. Britain first touched that level for an hour in 2019. In 2024 it spent nearly 600 hours at or below it. To hit the target, it will need to be there most of the time.',st_h_note:'Hours at or below 50 gCO₂/kWh each year, from NESO’s historic generation mix. *{y} is 1 January to {to}.',
  ci_proj_note:'Dashed line: NESO’s Clean Power 2030 pathways bring carbon intensity to around 50 gCO₂/kWh or lower by 2030. The 2035 point marks the earlier government ambition for a fully decarbonised grid. These are targets, not forecasts.',
  ci_year_note:'The {y} figure is the average from 1 January to {to}, from NESO’s historic generation mix.'},
-cy:{title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i ddilyn ei drydan', find:'Chwilio am safle…', wales:'Cymru', other:'English',
+cy:{tab_sim:'2030',tab_sim_l:'Efelychydd 2030',dl_csv:'Lawrlwytho’r data (CSV)',t_csv:'Lawrlwytho CSV',m_title:'Sut mae’r map yn gweithio',m_link:'Sut mae hyn yn cael ei gyfrifo',m_btn:'Sut mae’r map yn gweithio',
+ m_report:'Wedi sylwi ar gamgymeriad? Rhowch wybod ar',
+ acc_h:'Pa mor gywir yw’r rhagolygon?',acc_none:'Bydd y traciwr rhagolygon yn dechrau gyda’r diweddariad dyddiol nesaf.',acc_wait:'Dechreuodd y tracio ar {d}. Bydd y canlyniad cyntaf yn ymddangos ar ôl diwrnod llawn.',
+ acc_t:'Bob bore mae’r map yn cadw rhagolwg NESO ar gyfer y 24 awr nesaf, ac yna’n ei gymharu â’r hyn a ddigwyddodd go iawn. Dros y {n} diwrnod diwethaf:',
+ acc_mae:'gwall arferol',acc_w20:'o fewn 20 g',acc_hh:'o’r hanner awrau',acc_days:'diwrnod',acc_hit:'cyfnod glanaf wedi’i ganfod',
+ acc_bias0:'Nid yw’r rhagolygon yn gwyro’n gyson i’r naill ffordd na’r llall.',acc_bias_hi:'Ar gyfartaledd roedd y rhagolygon {v} g yn rhy uchel, felly roedd y trydan go iawn ychydig yn lanach na’r disgwyl.',acc_bias_lo:'Ar gyfartaledd roedd y rhagolygon {v} g yn rhy isel, felly roedd y trydan go iawn ychydig yn fwy budr na’r disgwyl.',
+ acc_key:'Gwall arferol bob dydd (g)',acc_note:'Mae “cyfnod glanaf wedi’i ganfod” yn cyfrif y dyddiau pan ddaeth dechrau ar gyfnod 3 awr glanaf y rhagolwg o fewn 10 g i’r cyfnod glanaf go iawn. Tracio ers {d}.',
+ sb_clean:'glân',sb_gas:'TWh nwy',sim_h:'Sut olwg fyddai ar 2030?',sim_t:'Ail-chwarae pob awr o dywydd a galw go iawn gyda’r system bŵer o’ch dewis. Nod Pŵer Glân 2030 yw bod ffynonellau glân yn cynhyrchu o leiaf 95% o drydan Prydain.',
+ sim_loading:'Wrthi’n llwytho blwyddyn o ddata fesul awr…',sim_nodata:'Nid yw data’r efelychydd ar gael eto. Bydd yn cael ei ychwanegu yn y diweddariad data misol nesaf.',sim_offline:'Mae’r efelychydd yn llwytho blwyddyn o ddata fesul awr o’r map cyhoeddedig, felly dim ond ar fersiwn y we mae’n gweithio.',
+ sim_presets:'Mannau cychwyn',sim_p_base:'{y} fel yr oedd',sim_p_ffr:'NESO: mwy o ynni adnewyddadwy',sim_p_nd:'NESO: anfon newydd',
+ sv_off:'Gwynt ar y môr',sv_on:'Gwynt ar y tir',sv_solar:'Solar',sv_nuclear:'Niwclear',sv_bat:'Batris (2 awr)',sv_ldes:'Storio hirdymor (8 awr)',sv_ic:'Rhyng-gysylltwyr',sv_lcd:'Pŵer carbon isel newydd ar alw',sv_dem:'Newid yn y galw',
+ sim_cp:'Cynllun 2030: {r} GW',sim_dem_hint:'Mae NESO yn disgwyl tua +11%',sim_band:'Gwyrdd: cynllun 2030 y llywodraeth (ar gyfer y galw, amcangyfrif NESO)',
+ sim_goal95:'nod: 95% neu fwy',sim_clean:'Cyfran lân y cynhyrchu',sim_ci:'Dwysedd carbon cyfartalog',sim_ofhours:'o’r oriau',sim_h50:'Ar 50 g neu is',
+ sim_gas:'Cynhyrchu nwy',sim_curt_l:'Gwynt a solar wedi’u troi i lawr',sim_netx:'Allforion net',sim_netm:'Mewnforion net',
+ sim_meet_h:'Yn cyrraedd nod Pŵer Glân 2030',sim_miss_h:'Yn methu nod Pŵer Glân 2030',
+ sim_meet:'Mae ffynonellau glân yn cynhyrchu {p}% o drydan Prydain, uwchlaw’r nod o 95%.',sim_miss:'Mae ffynonellau glân yn cynhyrchu {p}% o drydan Prydain, o’i gymharu â nod o 95%.',
+ sim_dem_t:'Dros y flwyddyn, mae ffynonellau glân yn cynhyrchu {p}% o’r trydan y mae Prydain yn ei ddefnyddio. Y nod yw o leiaf 100%.',
+ sim_gas_t:'Mae nwy yn dal i redeg mewn {h}% o’r oriau ac yn cynhyrchu {t} TWh, o’i gymharu â {a} TWh yn {y}.',
+ sim_spell_d:'Mae’r cyfnod hiraf sy’n dibynnu’n drwm ar nwy yn para {d} diwrnod o {date}, pan ostyngodd y gwynt am ddyddiau.',sim_spell_h:'Mae’r cyfnod hiraf sy’n dibynnu’n drwm ar nwy yn para {h} awr, o {date}.',
+ sim_curt_t:'Ni fyddai gan {t} TWh o wynt a solar unman i fynd, a byddai’n cael ei droi i lawr, sef {p}% o’u hallbwn. Mae allforion yn cymryd {x} TWh.',
+ sim_ch:'Dwysedd carbon, diwrnod wrth ddiwrnod',sim_k_sim:'Eich system chi',sim_k_act:'{y} go iawn',
+ sim_chk_h:'Gwirio’r model.',sim_chk:'Mae ail-chwarae {y} gyda’r capasiti a oedd yn bodoli go iawn yn rhoi cyfartaledd o {m} g, o’i gymharu â {a} g a fesurwyd. Ffynonellau glân: {mc}% yn y model, {ac}% wedi’u mesur.',
+ sim_assume:'Model symlach fesul awr yw hwn. Mae’n symud pŵer yn rhydd o amgylch Prydain, yn rhedeg storfeydd heb ragwybodaeth ac nid yw’n cyfrif costau.',
+ sim_src:'Tywydd a galw: cymysgedd cynhyrchu hanesyddol NESO. Capasiti: {s}.',
+ dg_h:'Yr wythnos ddiwethaf ar y grid',dg_h_old:'Wythnos ar y grid',dg_none:'Bydd y crynodeb wythnosol yn ymddangos ar ôl y diweddariad data dyddiol nesaf.',dg_prev:'Yr wythnos flaenorol',dg_next:'Yr wythnos nesaf',
+ dg_avg:'Cyfartaledd',dg_hours:'awr',dg_at50:'Ar 50 g neu is',dg_ofgen:'o’r cynhyrchu',
+ dg_s1:'Cyfartaledd y trydan oedd {ci} gCO₂/kWh{cmp}.',dg_cleaner:', {p}% yn lanach na’r wythnos flaenorol',dg_dirtier:', {p}% yn fwy budr na’r wythnos flaenorol',dg_same:', tua’r un fath â’r wythnos flaenorol',
+ dg_s2:'Cynhyrchodd gwynt {w}% o’r trydan, gan gyrraedd uchafbwynt o {pk}% ar {when}.',dg_s3:'Y diwrnod glanaf oedd {d1} ({v1} g) a’r mwyaf budr oedd {d2} ({v2} g).',
+ dg_s4:'Roedd y trydan ar 50 g neu is am {h} awr.',dg_s4n:'Ni ddisgynnodd i 50 g o gwbl.',dg_s5:'{r} oedd y rhanbarth glanaf, ar {v} g.',
+ dg_wal0:'Cyfartaledd Cymru oedd {v} g, yn agos at Brydain gyfan.',dg_wal_lo:'Cyfartaledd Cymru oedd {v} g, {p}% yn lanach na Phrydain gyfan.',dg_wal_hi:'Cyfartaledd Cymru oedd {v} g, {p}% yn fwy budr na Phrydain gyfan.',
+ dg_ly:'I gymharu, cyfartaledd {m} {y} oedd {v} g.',dg_rec:'Yr wythnos lanaf ers i’r crynodeb hwn ddechrau ar {d}.',dg_rec_hh:'Mae’n cynnwys hanner awr isaf erioed o {v} g.',
+ dg_img:'Cadw fel delwedd',dg_share:'Rhannu',dg_copy:'Copïo’r testun',dg_copied:'Wedi’i gopïo',dg_share_h:'Trydan Prydain, {r}',dg_img_h:'Trydan Prydain, wythnos wrth wythnos',
+ dg_img_src:'Data: API Dwysedd Carbon NESO',dg_chart:'Dwysedd carbon cyfartalog dyddiol ar gyfer yr wythnos',
+ dg_src:'Wedi’i ysgrifennu’n awtomatig bob dydd Llun o API Dwysedd Carbon NESO.',
+ title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i ddilyn ei drydan', find:'Chwilio am safle…', wales:'Cymru', other:'English',
  t_ow:'Gwynt ar y môr',t_nw:'Gwynt ar y tir',t_nu:'Niwclear',t_gas:'Nwy',t_bio:'Biomas a gwastraff',t_hy:'Ynni dŵr a storfa bwmp',t_so:'Solar',t_ti:'Llanw',t_bat:'Batris',t_ic:'Rhyng-gysylltwyr',t_grid:'Asgwrn cefn y grid',
  c_live:'Llif byw',c_future:'Prosiectau’r dyfodol',c_grid:'Cysylltiadau’r grid',c_pyl:'Llinellau peilonau',c_osm:'Pob safle arall',
  today:'heddiw',projected:'rhagamcan',back:'Yn ôl i’r trosolwg',
@@ -640,13 +751,13 @@ cy:{title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i d
  est_note:'*Amcangyfrif yn seiliedig ar allbwn arferol y dechnoleg hon ({p}% o’r capasiti ar gyfartaledd) a defnydd trydan y DU o tua 300 TWh y flwyddyn.',
  now_about:'Tua {v} ar hyn o bryd',now_zero:'Bron dim ar hyn o bryd',now_idle:'Segur ar hyn o bryd',now_actual:'{v} ar hyn o bryd',now_pump:'Yn pwmpio: yn defnyddio {v}',
  now_est:'Roedd {t} ar draws Prydain yn rhedeg ar {p}% o’r capasiti ({when}). Amcangyfrif ar gyfer y safle hwn o’r ffigur cenedlaethol hwnnw.',
- now_real:'Allbwn wedi’i fesur gan Elexon, {when}.',
+ now_real:'Allbwn arfaethedig wedi’i hysbysu i Elexon ar gyfer yr hanner awr hon ({when}). Mae cyfarwyddiadau i droi i lawr yn cael eu dangos ar wahân.',
  now_notyet:'Ddim yn cynhyrchu eto',
  curt_b:'Yn cael ei droi i lawr tua {v}',curt_s:'Mae gweithredwr y grid wedi talu’r safle hwn i dorri ei allbwn, fel arfer am nad yw’r rhwydwaith yn gallu cludo’i bŵer i ble mae ei angen.',
  ic_now_in:'Yn mewnforio {v} i Brydain',ic_now_out:'Yn allforio neu’n segur',ic_now_s:'Darlleniad rhyng-gysylltydd Elexon, {when}. Mae Elexon yn cofnodi allforion fel sero, felly mae sero yma fel arfer yn golygu bod pŵer yn llifo allan o Brydain.',
  ic_net:'Prydain yn mewnforio {v} i gyd',ic_net_s:'Ar draws pob rhyng-gysylltydd, {when}. Nid yw’r ffrwd hon yn rhannu mewnforion fesul cysylltiad, felly mae’r llinell yn dangos cyfeiriad arferol y cysylltiad hwn.',
  snap:'Ciplun diweddaraf',live:'Byw nawr',gbelec:'Trydan Prydain, {when}',
- flows_note:'Mae’r llinellau symudol yn dangos allbwn pob safle nawr: mwy trwchus a chyflymach yw mwy o bŵer. Lle mae mesuryddion Elexon ar gael mae’r ffigur yn un go iawn; fel arall mae’n amcangyfrif o’r gyfran genedlaethol ar gyfer pob technoleg.',
+ flows_note:'Mae’r llinellau symudol yn dangos allbwn pob safle nawr: mwy trwchus a chyflymach yw mwy o bŵer. Lle mae gorsaf yn adrodd ei hallbwn arfaethedig i Elexon, y ffigur yw’r adroddiad hwnnw; fel arall mae’n amcangyfrif o’r gyfran genedlaethol ar gyfer pob technoleg.',
  snap_note:'Ni all y copi hwn gyrraedd ffrydiau data byw, felly mae’n dangos y ciplun diweddaraf. Ar ei gyfeiriad gwe ei hun (er enghraifft GitHub Pages), mae’n diweddaru bob pum munud.',
  mapped_today:'Y grid ar y map heddiw',mapped_y:'Y grid ar y map yn {y}',sites_meta:'{n} prif safle · {c} o gapasiti cynhyrchu · {i} o ryng-gysylltwyr',
  plus_osm:'Hefyd {n} o safleoedd llai o OpenStreetMap ({c} lle cofnodir y capasiti).',
@@ -711,14 +822,14 @@ cy:{title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i d
  st_op:'Yn gweithredu',st_con:'Wrthi’n cael ei adeiladu',st_dev:'Yn cael ei ddatblygu',st_closed:'Wedi cau',yes:'Ie',
  cm_h:'Cymharu dwy flynedd',cm_from:'O',cm_to:'i',cm_hl:'Amlygu newidiadau ar y map',cm_stop:'Peidio ag amlygu',cm_new:'Newydd erbyn {y}',cm_gone:'Wedi cau erbyn {y}',cm_none:'Dim',cm_change:'Newid',cm_total:'Cyfanswm',
  cm_key:'Ar y map: cylch gwyrdd = newydd, cylch llwyd toredig = wedi cau.',cm_note:'Yn cymharu’r safleoedd ar y map yn unig, gan ddefnyddio dyddiadau targed datblygwyr a’r llywodraeth.',
- tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i fesur)',tip_click:'Cliciwch am fanylion',
+ tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i adrodd)',tip_click:'Cliciwch am fanylion',
  c_infra:'Seilwaith y grid',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
  lg_subs:'Is-orsafoedd',lg_lines:'Llinellau pŵer',lg_wind:'Ardaloedd gwynt ar y môr',
  sub_t:'Is-orsaf',sub_meta:'{v} kV',sub_through:'Mae pŵer o’r safleoedd hyn ar y map yn mynd drwy’r fan hon',sub_none:'Nid oes yr un o’r llwybrau ar y map yn mynd drwy’r is-orsaf hon.',sub_near:'Safleoedd ar y map o fewn 15 km',
  src_h:'Ffynonellau a gwiriadau',src_curated:'Capasiti a dyddiadau wedi’u casglu ar gyfer y map hwn o gyhoeddiadau cyhoeddus; gwiriwyd ddiwethaf ym mis Medi 2026.',
  src_osm:'Mae OpenStreetMap yn rhestru {mw} ar gyfer “{n}”.',src_osm_diff:'Mae hyn yn wahanol i’r ffigur uchod, yn aml am fod un ffigur yn cynnwys y safle cyfan neu hen gynllun.',
  src_none:'Dim gwiriad annibynnol ar gael eto.',b_ok:'Wedi’i wirio',b_chk:'Gwiriwch',b_none:'Heb ei wirio',
- src_live_real:'Allbwn nawr: data wedi’i fesur gan Elexon.',src_live_est:'Allbwn nawr: amcangyfrif o gymysgedd cenedlaethol NESO.',src_route:'Llwybr: llinellau 400 kV a 275 kV o OpenStreetMap (detholiad 28 Medi 2026).',
+ src_live_real:'Allbwn nawr: allbwn yr orsaf ei hun, wedi’i hysbysu i Elexon.',src_live_est:'Allbwn nawr: amcangyfrif o gymysgedd cenedlaethol NESO.',src_route:'Llwybr: llinellau 400 kV a 275 kV o OpenStreetMap (detholiad 28 Medi 2026).',
  src_osmobj:'Gweld hwn ar OpenStreetMap',
  methods_h:'Ffynonellau a dulliau',
  imp_ci:'carbon mewnforion',imp_ci_na:'ddim yn rhestr ffactorau NESO',imp_note:'Mae carbon mewnforion yn defnyddio ffactor API Dwysedd Carbon NESO ar gyfer pŵer o’r wlad hon. Cyfartaledd yw hwn, nid mesur byw.',
@@ -804,6 +915,7 @@ const METHODS = [
  ['NESO: connections reform results','https://www.neso.energy/industry-information/connections-reform/connections-reform-results'],
  ['postcodes.io: postcode locations','https://postcodes.io/']
 ];
+const METHOD_DOC = {"en": [["data", "What the map shows", "<p>The map brings together public data about Britain’s electricity system. Major sites (power stations, interconnectors and grid links) are compiled by hand from public announcements and checked against OpenStreetMap. Grid lines, substations, smaller generators and wind farm outlines come from OpenStreetMap, refreshed monthly. Live figures come from NESO and Elexon every five minutes. Every site panel lists its own sources.</p><p>If the live feeds can’t be reached, the map shows the latest stored snapshot instead and says so in the status pill.</p>"], ["live", "Live output of each power station", "<p>Where a station reports to Elexon, the figure is its <b>physical notification</b>: the output the station told the grid operator it planned to produce for that half-hour. It is not a meter reading. When the grid operator pays a station to turn down, that instruction is shown separately as curtailment.</p><p>Where no report is available, output is <b>estimated</b>: the station’s capacity multiplied by how hard that technology is running across Britain, from NESO’s national mix. The panel says which method was used.</p>"], ["routes", "Where the electricity goes", "<p>Routes follow real 400 kV and 275 kV pylon lines from OpenStreetMap, found with a shortest-path search on the line network. Once electricity joins the grid it mixes with everything else, so a route shows the <b>typical direction of flow</b>, not a fixed destination.</p>"], ["carbon", "Carbon intensity", "<p>Carbon intensity is the CO₂ emitted per kilowatt-hour of electricity (gCO₂/kWh). Two measures appear on the map. The <b>history</b> uses NESO’s historic generation mix, which counts electricity generated in Britain. The <b>live and forecast</b> figures come from NESO’s Carbon Intensity API, which estimates electricity consumed, including imports. They usually differ by 10 to 30 g.</p><p>Regional figures are NESO’s estimates for its 14 regions. Import figures use NESO’s average factor for each country, not live data from that country.</p>"], ["why", "“Why now”", "<p>“Typical” is the average for the same month and half-hour of the day over the last two years of NESO’s historic data. The card calls a reading unusual if it is among the cleanest or dirtiest 10% for that time. It then lists the sources whose share differs most from typical.</p>"], ["curt", "Curtailment, payments and CO₂", "<p>Curtailment is read from the grid operator’s accepted instructions to reduce output (Elexon balancing acceptances). Payments use each station’s bid price for the half-hour. The extra CO₂ assumes the lost power is replaced by combined-cycle gas at NESO’s factor of 394 gCO₂/kWh, which is an estimate. The Eastern Green Link scenario assumes the new capacity carries curtailed Scottish wind straight to demand in England. In practice, other bottlenecks can limit this.</p>"], ["plan", "When to run it", "<p>The Plan tab averages NESO’s 48-hour carbon intensity forecast over every possible start time for your running time, then picks the lowest. CO₂ is your power multiplied by hours, multiplied by that average. Cost isn’t included, because wholesale prices aren’t forecast publicly.</p>"], ["acc", "Forecast accuracy", "<p>Every morning at about 05:15 UTC, the daily refresh saves NESO’s national forecast for the next 24 hours. After those 24 hours have passed, it compares each half-hour with NESO’s measured figure. The <b>typical error</b> is the average size of the miss in either direction, and the <b>bias</b> is the average signed miss.</p><p>“Cleanest window found” asks the practical question behind the Plan tab: if you had started at the forecast’s cleanest 3-hour window, would you have been within 10 g of the truly cleanest window? The record is kept in <code>data/accuracy.json</code> in the map’s repository.</p>"], ["sim", "2030 simulator", "<p>The simulator replays one real year, hour by hour: demand and the output of wind, solar, nuclear, biomass and hydro from NESO’s historic generation mix. It scales each hour’s output by the capacity you choose, compared with the capacity that actually existed that year (from the Clean Power 2030 Action Plan annex). Wind is scaled by expected output, not capacity alone, because offshore turbines produce more per gigawatt (assumed 40% of capacity on average, against 27% onshore).</p><p>Each hour, it meets demand in this order:</p><ol><li>clean generation</li><li>batteries (2 hours of storage, 85% round trip) and long-duration storage (8 hours, 75%)</li><li>new low-carbon dispatchable plant (assumed 50 g/kWh)</li><li>imports, following the same year’s pattern scaled to your interconnector capacity</li><li>gas</li></ol><p>Surplus power charges storage first, then goes to exports (up to 60% of interconnector capacity), and anything left is turned down. Carbon intensity counts generation only: gas at 394 g, biomass at 120 g and other fuels at 300 g, all per kWh.</p><p><b>What it leaves out:</b></p><ul><li>limits on the grid inside Britain, so it understates curtailment</li><li>the gas plant the grid needs running for stability</li><li>demand that shifts its timing</li><li>weather in other years</li><li>costs</li></ul><p>The model check shows how closely it reproduces the real base year.</p>"], ["digest", "Weekly digest", "<p>Each day the refresh checks whether a full Monday-to-Sunday week (UK time) has ended. If it has, it summarises that week from NESO’s Carbon Intensity API: measured intensity where available (forecast otherwise), the generation mix and regional estimates. The text is written from those numbers by fixed rules, not by hand. Records compare with the weeks stored since the digest began and with the lowest half-hour in NESO’s history since 2009.</p>"], ["dl", "Downloading the data", "<p>On the published map, every chart has <b>Download data (CSV)</b> in its enlarged view, and the table can be downloaded as it is filtered. Please credit the original sources, as listed under Data sources: NESO, Elexon (contains BMRS data © Elexon Limited) and OpenStreetMap contributors (Open Database Licence).</p>"], ["limits", "Known limitations", "<ul><li>Future dates are developer or government targets, and they often slip.</li><li>OpenStreetMap is mapped by volunteers, so some entries are out of date.</li><li>Northern Ireland runs a separate grid shared with Ireland.</li><li>Estimated outputs assume every site of a technology runs equally hard, which is never quite true.</li></ul>"]], "cy": [["data", "Beth mae’r map yn ei ddangos", "<p>Mae’r map yn dod â data cyhoeddus am system drydan Prydain at ei gilydd. Mae’r prif safleoedd (gorsafoedd pŵer, rhyng-gysylltwyr a chysylltiadau grid) wedi’u casglu â llaw o gyhoeddiadau cyhoeddus a’u gwirio yn erbyn OpenStreetMap. Daw llinellau’r grid, is-orsafoedd, cynhyrchwyr llai ac amlinellau ffermydd gwynt o OpenStreetMap, ac maen nhw’n cael eu diweddaru’n fisol. Daw’r ffigurau byw gan NESO ac Elexon bob pum munud. Mae panel pob safle yn rhestru ei ffynonellau ei hun.</p><p>Os na ellir cyrraedd y ffrydiau byw, mae’r map yn dangos y ciplun diweddaraf sydd wedi’i gadw, ac mae’r bilsen statws yn dweud hynny.</p>"], ["live", "Allbwn byw pob gorsaf bŵer", "<p>Lle mae gorsaf yn adrodd i Elexon, y ffigur yw ei <b>hysbysiad ffisegol</b>: yr allbwn y dywedodd yr orsaf wrth weithredwr y grid ei bod yn bwriadu ei gynhyrchu ar gyfer yr hanner awr honno. Nid darlleniad mesurydd yw hwn. Pan fydd gweithredwr y grid yn talu gorsaf i droi i lawr, mae’r cyfarwyddyd hwnnw’n cael ei ddangos ar wahân fel cwtogi.</p><p>Lle nad oes adroddiad ar gael, mae’r allbwn yn <b>amcangyfrif</b>: capasiti’r orsaf wedi’i luosi â pha mor galed mae’r dechnoleg honno’n rhedeg ar draws Prydain, o gymysgedd cenedlaethol NESO. Mae’r panel yn dweud pa ddull a ddefnyddiwyd.</p>"], ["routes", "I ble mae’r trydan yn mynd", "<p>Mae’r llwybrau’n dilyn llinellau peilonau 400 kV a 275 kV go iawn o OpenStreetMap, wedi’u canfod drwy chwilio am y llwybr byrraf ar rwydwaith y llinellau. Unwaith y bydd trydan yn ymuno â’r grid mae’n cymysgu â phopeth arall, felly mae llwybr yn dangos <b>cyfeiriad arferol y llif</b>, nid pen draw penodol.</p>"], ["carbon", "Dwysedd carbon", "<p>Dwysedd carbon yw’r CO₂ a allyrrir am bob cilowat-awr o drydan (gCO₂/kWh). Mae dau fesur ar y map. Mae’r <b>hanes</b> yn defnyddio cymysgedd cynhyrchu hanesyddol NESO, sy’n cyfrif y trydan a gynhyrchir ym Mhrydain. Daw’r ffigurau <b>byw a’r rhagolygon</b> o API Dwysedd Carbon NESO, sy’n amcangyfrif y trydan a ddefnyddir, gan gynnwys mewnforion. Maen nhw fel arfer yn wahanol o 10 i 30 g.</p><p>Amcangyfrifon NESO ar gyfer ei 14 rhanbarth yw’r ffigurau rhanbarthol. Mae’r ffigurau mewnforio yn defnyddio ffactor cyfartalog NESO ar gyfer pob gwlad, nid data byw o’r wlad honno.</p>"], ["why", "“Pam nawr”", "<p>“Arferol” yw’r cyfartaledd ar gyfer yr un mis a’r un hanner awr o’r dydd dros ddwy flynedd ddiwethaf data hanesyddol NESO. Mae’r cerdyn yn galw darlleniad yn anarferol os yw ymhlith y 10% glanaf neu fwyaf budr ar gyfer yr adeg honno. Yna mae’n rhestru’r ffynonellau y mae eu cyfran fwyaf gwahanol i’r arfer.</p>"], ["curt", "Cwtogi, taliadau a CO₂", "<p>Mae cwtogi’n cael ei ddarllen o gyfarwyddiadau derbyniedig gweithredwr y grid i leihau allbwn (derbyniadau cydbwyso Elexon). Mae’r taliadau’n defnyddio pris cynnig pob gorsaf ar gyfer yr hanner awr. Mae’r CO₂ ychwanegol yn tybio bod nwy cylch cyfun yn cymryd lle’r pŵer a gollwyd, ar ffactor NESO o 394 gCO₂/kWh, ac amcangyfrif yw hynny. Mae senario Cyswllt Gwyrdd y Dwyrain yn tybio bod y capasiti newydd yn cludo gwynt yr Alban a gafodd ei gwtogi yn syth i’r galw yn Lloegr. Yn ymarferol, gall tagfeydd eraill gyfyngu ar hyn.</p>"], ["plan", "Pryd i’w redeg", "<p>Mae’r tab Cynllunio yn cyfartalu rhagolwg dwysedd carbon 48 awr NESO dros bob amser cychwyn posibl ar gyfer eich amser rhedeg, ac yna’n dewis yr isaf. CO₂ yw eich pŵer wedi’i luosi â’r oriau, wedi’i luosi â’r cyfartaledd hwnnw. Nid yw’r gost wedi’i chynnwys, gan nad yw prisiau cyfanwerthu’n cael eu rhagweld yn gyhoeddus.</p>"], ["acc", "Cywirdeb y rhagolygon", "<p>Bob bore tua 05:15 UTC, mae’r diweddariad dyddiol yn cadw rhagolwg cenedlaethol NESO ar gyfer y 24 awr nesaf. Ar ôl i’r 24 awr hynny fynd heibio, mae’n cymharu pob hanner awr â ffigur mesuredig NESO. Y <b>gwall arferol</b> yw maint cyfartalog y methiant i’r naill gyfeiriad neu’r llall, a’r <b>gogwydd</b> yw’r methiant cyfartalog gyda’i arwydd.</p><p>Mae “cyfnod glanaf wedi’i ganfod” yn gofyn y cwestiwn ymarferol y tu ôl i’r tab Cynllunio: pe baech wedi dechrau ar gyfnod 3 awr glanaf y rhagolwg, a fyddech o fewn 10 g i’r cyfnod glanaf go iawn? Mae’r cofnod yn cael ei gadw yn <code>data/accuracy.json</code> yn ystorfa’r map.</p>"], ["sim", "Efelychydd 2030", "<p>Mae’r efelychydd yn ail-chwarae un flwyddyn go iawn, awr wrth awr: y galw ac allbwn gwynt, solar, niwclear, biomas a dŵr o gymysgedd cynhyrchu hanesyddol NESO. Mae’n graddio allbwn pob awr yn ôl y capasiti rydych chi’n ei ddewis, o’i gymharu â’r capasiti a oedd yn bodoli go iawn y flwyddyn honno (o atodiad Cynllun Gweithredu Pŵer Glân 2030). Mae gwynt yn cael ei raddio yn ôl yr allbwn disgwyliedig, nid y capasiti yn unig, gan fod tyrbinau ar y môr yn cynhyrchu mwy am bob gigawat (40% o’r capasiti ar gyfartaledd, o’i gymharu â 27% ar y tir).</p><p>Bob awr, mae’n diwallu’r galw yn y drefn hon:</p><ol><li>cynhyrchu glân</li><li>batris (2 awr o storio, 85% yr holl ffordd) a storio hirdymor (8 awr, 75%)</li><li>pŵer carbon isel newydd ar alw (gan dybio 50 g/kWh)</li><li>mewnforion, yn dilyn patrwm yr un flwyddyn wedi’i raddio i’ch capasiti rhyng-gysylltu</li><li>nwy</li></ol><p>Mae pŵer dros ben yn gwefru’r storfeydd yn gyntaf, yna’n cael ei allforio (hyd at 60% o gapasiti’r rhyng-gysylltwyr), ac mae unrhyw beth sy’n weddill yn cael ei droi i lawr. Mae dwysedd carbon yn cyfrif cynhyrchu yn unig: nwy ar 394 g, biomas ar 120 g a thanwyddau eraill ar 300 g, i gyd am bob kWh.</p><p><b>Beth nad yw’n ei gynnwys:</b></p><ul><li>cyfyngiadau’r grid y tu mewn i Brydain, felly mae’n tanamcangyfrif cwtogi</li><li>y gweithfeydd nwy sydd eu hangen ar y grid er mwyn sefydlogrwydd</li><li>galw sy’n newid ei amseriad</li><li>tywydd blynyddoedd eraill</li><li>costau</li></ul><p>Mae gwirio’r model yn dangos pa mor agos y mae’n atgynhyrchu’r flwyddyn sylfaen go iawn.</p>"], ["digest", "Crynodeb wythnosol", "<p>Bob dydd mae’r diweddariad yn gwirio a oes wythnos lawn o ddydd Llun i ddydd Sul (amser y DU) wedi dod i ben. Os oes, mae’n crynhoi’r wythnos honno o API Dwysedd Carbon NESO: y dwysedd a fesurwyd lle mae ar gael (y rhagolwg fel arall), y cymysgedd cynhyrchu a’r amcangyfrifon rhanbarthol. Mae’r testun yn cael ei ysgrifennu o’r rhifau hynny yn ôl rheolau penodol, nid â llaw. Mae’r recordiau’n cymharu â’r wythnosau sydd wedi’u cadw ers i’r crynodeb ddechrau, ac â’r hanner awr isaf yn hanes NESO ers 2009.</p>"], ["dl", "Lawrlwytho’r data", "<p>Ar y map cyhoeddedig, mae gan bob siart <b>Lawrlwytho’r data (CSV)</b> yn ei olwg fwy, a gellir lawrlwytho’r tabl fel y mae wedi’i hidlo. Cofiwch gydnabod y ffynonellau gwreiddiol, fel y’u rhestrir o dan Ffynonellau data: NESO, Elexon (yn cynnwys data BMRS © Elexon Limited) a chyfranwyr OpenStreetMap (Trwydded Cronfa Ddata Agored).</p>"], ["limits", "Cyfyngiadau hysbys", "<ul><li>Targedau datblygwyr neu’r llywodraeth yw’r dyddiadau yn y dyfodol, ac maen nhw’n aml yn llithro.</li><li>Gwirfoddolwyr sy’n mapio OpenStreetMap, felly mae rhai cofnodion wedi dyddio.</li><li>Mae gan Ogledd Iwerddon grid ar wahân sy’n cael ei rannu ag Iwerddon.</li><li>Mae allbynnau amcangyfrifedig yn tybio bod pob safle o’r un dechnoleg yn rhedeg yr un mor galed, sydd byth yn hollol wir.</li></ul>"]]};
 const REG = [[1,'North Scotland','Gogledd yr Alban',57.35,-4.5],[2,'South Scotland','De’r Alban',55.6,-3.7],[3,'North West England','Gogledd-orllewin Lloegr',53.95,-2.65],[4,'North East England','Gogledd-ddwyrain Lloegr',54.85,-1.75],[5,'Yorkshire','Swydd Efrog',53.8,-1.15],[6,'North Wales & Merseyside','Gogledd Cymru a Glannau Merswy',53.05,-3.45],[7,'South Wales','De Cymru',51.8,-3.7],[8,'West Midlands','Gorllewin Canolbarth Lloegr',52.45,-2.35],[9,'East Midlands','Dwyrain Canolbarth Lloegr',52.9,-0.95],[10,'East England','Dwyrain Lloegr',52.4,0.75],[11,'South West England','De-orllewin Lloegr',50.75,-3.85],[12,'South England','De Lloegr',51.2,-1.45],[13,'London','Llundain',51.5,-0.12],[14,'South East England','De-ddwyrain Lloegr',51.15,0.7]];
 const REG_SNAP = SNAPSHOT.region;
 const QUEUE = {before:722, pipeline:283, needLo:204, needHi:231, demand:99, src:[['Knight Frank, Dec 2025','https://www.knightfrank.co.uk/research/article/2025/12/connection-reform-update-a-new-pipeline-announced'],['NESO: connections reform','https://www.neso.energy/neso-implements-electricity-grid-connection-reforms-unlock-investment-great-britain'],['Curvature Energy, Sep 2026','https://curvature.energy/insight-uk-bess-grid-connection-reform']]};
@@ -1296,13 +1408,14 @@ function whyNow(){
   h+=`<p class="fine">${tr('why_note',{from:fmtDate(HISTORY.typ_from)+' '+HISTORY.typ_from.slice(0,4)})}</p></div>`;
   return h;
 }
-function tabs(){ return `<div class="tabs" role="tablist"><button role="tab" data-tab="map" aria-selected="${S.tab==='map'}">${tr('tab_map')}</button><button role="tab" data-tab="carbon" aria-selected="${S.tab==='carbon'}" aria-label="${tr('tab_ci')}">Carbon</button><button role="tab" data-tab="stories" aria-selected="${S.tab==='stories'}">${tr('tab_st')}</button><button role="tab" data-tab="compare" aria-selected="${S.tab==='compare'}">${tr('compare')}</button><button role="tab" data-tab="plan" aria-selected="${S.tab==='plan'}">${tr('plan')}</button></div>`; }
+function tabs(){ return `<div class="tabs" role="tablist"><button role="tab" data-tab="map" aria-selected="${S.tab==='map'}">${tr('tab_map')}</button><button role="tab" data-tab="carbon" aria-selected="${S.tab==='carbon'}" aria-label="${tr('tab_ci')}">Carbon</button><button role="tab" data-tab="stories" aria-selected="${S.tab==='stories'}">${tr('tab_st')}</button><button role="tab" data-tab="compare" aria-selected="${S.tab==='compare'}">${tr('compare')}</button><button role="tab" data-tab="plan" aria-selected="${S.tab==='plan'}">${tr('plan')}</button><button role="tab" data-tab="sim" aria-selected="${S.tab==='sim'}" aria-label="${tr('tab_sim_l')}">${tr('tab_sim')}</button></div>`; }
 function wireTabs(){ $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ S.tab=b.dataset.tab; panel(); $p.scrollTop=0; if(S.tab==='carbon') loadYTD(); }); }
 function overview(){
   if(S.tab==='carbon') return carbonPanel();
   if(S.tab==='stories') return storiesPanel();
   if(S.tab==='compare') return comparePanel();
   if(S.tab==='plan') return planPanel();
+  if(S.tab==='sim') return simPanel();
   const y=S.year, act=SITES.filter(active);
   const by={}; act.forEach(d=>{ if(!d.ps||true) by[d.t]=(by[d.t]||0)+d.mw; });
   const tot=Object.values(by).reduce((a,b)=>a+b,0);
@@ -1334,7 +1447,7 @@ function overview(){
   } else h+=`<p>${tr('intro')}</p>`;
   h+=pcBlock();
   h+=feedsBlock();
-  h+=`<h3>${tr('methods_h')}</h3><ul class="srcs">${METHODS.map(m=>`<li><a href="${m[1]}" target="_blank" rel="noopener">${m[0]} ↗</a></li>`).join('')}</ul>`;
+  h+=`<h3>${tr('methods_h')}</h3><ul class="srcs">${METHODS.map(m=>`<li><a href="${m[1]}" target="_blank" rel="noopener">${m[0]} ↗</a></li>`).join('')}</ul><button class="pbtn ghost" data-methods="">${tr('m_btn')}</button>`;
   h+=`<p class="fine">${tr('fine')}</p>`;
   $p.innerHTML=h; wirePanel(); wireTabs();
 }
@@ -1420,10 +1533,10 @@ function scenarioBlock(){
   return h;
 }
 function storiesPanel(){
-  let h=tabs();
+  let h=tabs()+digestBlock();
   const rs=REG.map(r=>({id:r[0],n:LANG==='cy'?r[2]:r[1],v:regVal(r[0])})).filter(r=>r.v!=null).sort((a,b)=>a.v-b.v);
   const mx=Math.max(...rs.map(r=>r.v),200);
-  h+=`<h3 style="margin-top:0;font-size:1.05rem">${tr('st_reg_h')}</h3><p>${tr('st_reg_t')}</p>
+  h+=`<h3 style="margin-top:18px;font-size:1.05rem">${tr('st_reg_h')}</h3><p>${tr('st_reg_t')}</p>
   <div class="hbar">${rs.map(r=>`<span>${r.n}</span><div class="b" style="width:${Math.max(2,r.v/mx*100)}%;--c:${CI_IDX_COL[ciIndex(r.v)]}"></div><b>${r.v}</b>`).join('')}</div>
   <p class="meta">${tr('st_reg_when',{when:fmtWhen((LIVE.reg||REG_SNAP).from)})} gCO₂/kWh</p>
   <button class="pbtn ghost" id="regbtn">${S.reg?tr('st_reg_hide'):tr('st_reg_btn')}</button>`;
@@ -1444,7 +1557,7 @@ function storiesPanel(){
   if(LIVE.price&&LIVE.price.length>4) h+=`<div class="key"><span><i></i>gCO₂/kWh</span><span><i class="g"></i>${tr('price')}</span></div><div class="chart" id="ch3"></div>`;
   else h+=`<p class="meta">${tr('st_p_need')}</p>`;
   h+=`</div>`;
-  $p.innerHTML=h; wireTabs(); wirePanel();
+  $p.innerHTML=h; wireTabs(); wirePanel(); wireDigest();
   const rb=document.getElementById('regbtn'); if(rb) rb.onclick=()=>{ S.reg=!S.reg; syncChip('reg'); render(); storiesPanel(); if(S.reg) svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); };
   $p.querySelectorAll('.story button[data-k]').forEach(b=>b.onclick=()=>select(b.dataset.k));
   $p.querySelectorAll('[data-scen]').forEach(b=>b.onclick=()=>{ S.scen[b.dataset.scen]=!S.scen[b.dataset.scen]; const y=$p.scrollTop; storiesPanel(); $p.scrollTop=y; });
@@ -1610,11 +1723,13 @@ function carbonPanel(){
   if(!LIVE.ci.live) h+=`<p class="fine" style="margin-top:4px">${tr('ci_snap',{d:fmtWhen(new Date(Date.parse(CI_DAY_SNAP.from)+3600000).toISOString()).split(',')[0]})}</p>`;
   h+=`<h3>${tr('ci_long')}</h3><div class="key"><span><i></i>${tr('hist')}</span><span><i style="border-top:1px solid var(--muted);opacity:.6"></i>${tr('monthly')}</span><span><i class="g"></i>${tr('path')}</span></div><div class="chart" id="ch2"></div>`;
   h+=`<p class="fine">${tr('ci_hist_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p><p class="fine">${tr('ci_proj_note')}</p><p>${tr('ci_record',{v:HISTORY.record.v,t:fmtDate(HISTORY.record.t.slice(0,10))+' '+HISTORY.record.t.slice(0,4)+', '+fmtTime(HISTORY.record.t)})}</p>`;
+  h+=accBlock();
   h+=`<h3>${tr('imp_h')}</h3><div class="hbar">${['France','the Netherlands','Ireland'].map(c=>`<span>${country(c)}</span><div class="b" style="width:${IMPORT_CI[c]/5}%;--c:${CI_IDX_COL[ciIndex(IMPORT_CI[c])]}"></div><b>${IMPORT_CI[c]}</b>`).join('')}</div><p class="fine">${tr('imp_note')}</p>`;
   h+=`<p class="fine">${tr('ci_year_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p>`;
   $p.innerHTML=h; wireTabs();
   drawShort(document.getElementById('ch1')); drawLong(document.getElementById('ch2'));
   makeZoomable(document.getElementById('ch1'),'short'); makeZoomable(document.getElementById('ch2'),'long');
+  const ca=document.getElementById('chacc'); if(ca){ drawAcc(ca); makeZoomable(ca,'acc'); }
 }
 function drawShort(el,o={}){
   const s=LIVE.ci.series; if(!s.length) return;
@@ -1824,6 +1939,7 @@ function buildChrome(){
   document.getElementById('layers-t').textContent=tr('layers');
   document.getElementById('lg-ovl-t').textContent=tr('g_ovl'); document.getElementById('lg-gen-t').textContent=tr('g_gen'); document.getElementById('lg-net-t').textContent=tr('g_net');
   document.getElementById('tipsagain').textContent=tr('tips_again');
+  document.getElementById('methodsbtn').textContent=tr('m_btn');
   labelGrab(); placeSearch();
   document.getElementById('zin').setAttribute('aria-label',tr('zin'));
   document.getElementById('zout').setAttribute('aria-label',tr('zout'));
@@ -1962,6 +2078,280 @@ function showCoach(){ const c=document.getElementById('coach'); document.getElem
 function hideCoach(){ document.getElementById('coach').hidden=true; try{localStorage.setItem('pm_intro','1');}catch(e){} }
 function showIntro(){ showCoach(); }
 
+/* ======================= downloads (CSV) ======================= */
+const canSave = () => LIVE.mode==='live';
+const isoT = ms => new Date(ms).toISOString().slice(0,16)+'Z';
+function csvCell(v){ if(v==null||(typeof v==='number'&&isNaN(v))) return ''; const s=String(v); return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
+function downloadCSV(name, head, rows){
+  const txt='\ufeff'+[head,...rows].map(r=>r.map(csvCell).join(',')).join('\r\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'})); a.download=`uk-power-${name}.csv`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+const CSV = {
+  short:()=>['carbon-intensity-48h',['time_utc','forecast_gco2_kwh','actual_gco2_kwh'],LIVE.ci.series.map(d=>[isoT(d.t),d.f,d.a])],
+  long:()=>['carbon-intensity-history',['year','month','average_gco2_kwh'],[...CI_MON.map(d=>[d[0],d[1],d[2]]),...CI_HIST.map(d=>[d[0],'all',d[1]])]],
+  clean:()=>['hours-at-50g',['year','hours_at_or_below_50g'],Object.entries(CI_CLEAN)],
+  price:()=>['price',['time_utc','price_gbp_mwh'],(LIVE.price||[]).map(d=>[isoT(d.t),d.p])],
+  plan:()=>{ const r=S_PLAN.res; return ['plan',['time_utc','forecast_gco2_kwh','in_best_window'],r?r.s.map(d=>[isoT(d.t),d.f,d.t>=r.best.t&&d.t<r.best.end?1:0]):[]]; },
+  regfc:()=>{ const d=byId[S.sel]; const s=(d&&REGFC[d.rid]&&REGFC[d.rid].s)||[]; return ['region-forecast',['time_utc','forecast_gco2_kwh'],s.map(x=>[isoT(x.t),x.f])]; },
+  sim:()=>{ const R=S_SIM.res, D=S_SIM.data; if(!R) return ['simulator',[],[]];
+    const t0=Date.parse(D.from); return ['simulator-daily',['date','simulated_gco2_kwh',`actual_${D.year}_gco2_kwh`,'simulated_gas_gwh','simulated_turned_down_gwh'],
+      Array.from(R.daily,(v,i)=>[new Date(t0+i*864e5).toISOString().slice(0,10),Math.round(v),D.daily[i],Math.round(R.dgas[i]/1e3),Math.round(R.dcurt[i]/1e3)])]; },
+  acc:()=>['forecast-accuracy',['date','mean_abs_error_g','bias_g','within_20g_pct','cleanest_3h_window_gap_g','half_hours'],(ACCURACY.days||[]).map(d=>[d.d,d.mae,d.bias,d.w20,d.gap,d.n])],
+  digest:()=>{ const x=dgWeek(); return ['week-'+(x?x.w.start:''),['date','average_gco2_kwh'],x?x.w.days:[]]; }
+};
+function csvButton(kind){ return canSave()&&CSV[kind]?`<button class="pbtn ghost" data-csv="${kind}">${tr('dl_csv')}</button>`:''; }
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-csv]'); if(c){ e.preventDefault(); e.stopPropagation(); const [n,h,r]=CSV[c.dataset.csv](); downloadCSV(n,h,r); return; }
+  const m=e.target.closest('[data-methods]'); if(m){ e.preventDefault(); e.stopPropagation(); openMethods(m.dataset.methods); }
+},true);
+
+/* ======================= how this map works ======================= */
+function openMethods(sec){
+  document.getElementById('methodsv-t').textContent=tr('m_title');
+  const doc=METHOD_DOC[LANG]||METHOD_DOC.en;
+  document.getElementById('mtoc').innerHTML=doc.map(s=>`<a href="#m-${s[0]}" data-go="${s[0]}">${s[1]}</a>`).join('');
+  document.getElementById('mbody').innerHTML=doc.map(s=>`<section id="m-${s[0]}"><h3>${s[1]}</h3>${s[2]}</section>`).join('')+
+    `<p class="fine">${tr('m_report')} <a href="https://github.com/delwyno/UK-Energy-Generation-Map/issues" target="_blank" rel="noopener">GitHub ↗</a></p>`;
+  document.querySelectorAll('#mtoc a').forEach(a=>a.onclick=ev=>{ ev.preventDefault(); goSec(a.dataset.go); });
+  openPop('methodsv');
+  const goSec=id=>{ const el=document.getElementById('m-'+id), b=document.getElementById('mbody'); if(el&&b) b.scrollTop=el.offsetTop-b.offsetTop-4; };
+  requestAnimationFrame(()=>{ const b=document.getElementById('mbody'); b.scrollTop=0; if(sec) goSec(sec); document.querySelector('#methodsv .xbtn').focus({preventScroll:true}); });
+}
+
+/* ======================= forecast accuracy ======================= */
+function accBlock(){
+  const A=ACCURACY, d=(A.days||[]).slice(-30);
+  let h=`<h3>${tr('acc_h')}</h3>`;
+  if(!d.length) return h+`<p class="meta">${A.since?tr('acc_wait',{d:fmtDate(A.since)}):tr('acc_none')}</p><button class="linkbtn" data-methods="acc">${tr('m_link')}</button>`;
+  const mae=d3.mean(d,x=>x.mae), bias=d3.mean(d,x=>x.bias), w20=d3.mean(d,x=>x.w20), hit=d.filter(x=>x.gap<=10).length;
+  h+=`<p>${tr('acc_t',{n:d.length})}</p><div class="cibig"><div><b>±${Math.round(mae)}</b><small>gCO₂/kWh</small><span>${tr('acc_mae')}</span></div>
+    <div><b>${Math.round(w20)}%</b><small>${tr('acc_hh')}</small><span>${tr('acc_w20')}</span></div>
+    <div><b>${hit}/${d.length}</b><small>${tr('acc_days')}</small><span>${tr('acc_hit')}</span></div></div>`;
+  h+=`<p>${Math.abs(bias)<3?tr('acc_bias0'):tr(bias>0?'acc_bias_hi':'acc_bias_lo',{v:Math.round(Math.abs(bias))})}</p>`;
+  h+=`<div class="key"><span><i class="sq" style="background:var(--muted)"></i>${tr('acc_key')}</span></div><div class="chart" id="chacc"></div>`;
+  h+=`<p class="fine">${tr('acc_note',{d:fmtDate(A.since)+' '+A.since.slice(0,4)})} <button class="linkbtn inl" data-methods="acc">${tr('m_link')}</button></p>`;
+  return h;
+}
+function drawAcc(el,o={}){
+  const d=(ACCURACY.days||[]).slice(o.big?-120:-30); if(!d.length) return;
+  const w=el.clientWidth||320, h=o.h||110, m={l:30,r:8,t:10,b:20};
+  const x=d3.scaleBand().domain(d.map(e=>e.d)).range([m.l,w-m.r]).padding(.2);
+  const y=d3.scaleLinear().domain([0,Math.max(30,d3.max(d,e=>e.mae)*1.15)]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  const every=Math.ceil(d.length/Math.max(3,Math.floor(w/70)));
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickValues(d.map(e=>e.d).filter((e,i)=>i%every===0)).tickFormat(v=>fmtDate(v).replace(/ (\S{3})\S*$/,' $1')).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.selectAll('rect.b').data(d).join('rect').attr('class','b').attr('x',e=>x(e.d)).attr('width',x.bandwidth()).attr('y',e=>y(e.mae)).attr('height',e=>y(0)-y(e.mae)).attr('fill',col('muted')).attr('rx',1.5);
+  if(o.big) addHover(s,v=>x(v)+x.bandwidth()/2,[{name:tr('acc_key'),color:col('muted'),pts:d.map(e=>[e.d,e.mae]),y}],{m,w,h,unit:' g',band:x,fx:v=>fmtDate(v)});
+}
+
+/* ======================= 2030 simulator ======================= */
+const SIM_K={cfOff:.40,cfOn:.27,batH:2,ldH:8,etaB:.85,etaL:.75,exp:.6,gas:394,bio:120,oth:300,lcd:50,gasHeavy:.25};
+const SIM_SL=[['off',0,90,1],['on',0,45,1],['solar',0,90,1],['nuclear',0,10,.1],['bat',0,50,1],['ldes',0,20,.5],['ic',0,30,.5],['lcd',0,20,.5],['dem',-10,40,1]];
+const SIM_RANGE={off:[43,50],on:[27,29],solar:[45,47],nuclear:[3,4],bat:[23,27],ldes:[4,6],ic:[12,14],dem:[10,12]};
+const SIM_PRESETS={ffr:{off:51,on:27,solar:47,nuclear:4,bat:27,ldes:8,ic:12,lcd:0,dem:11},nd:{off:43,on:27,solar:47,nuclear:4,bat:23,ldes:5,ic:12,lcd:3,dem:11}};
+const S_SIM={data:null,loading:false,err:null,v:null,preset:'ffr',res:null,base:null};
+const B64I=(()=>{ const m=new Int16Array(128); 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'.split('').forEach((c,i)=>m[c.charCodeAt(0)]=i); return m; })();
+function unpack(s,u){ const n=s.length>>1, a=new Float32Array(n); for(let i=0;i<n;i++) a[i]=((B64I[s.charCodeAt(2*i)]<<6)|B64I[s.charCodeAt(2*i+1)])*u; return a; }
+const simBase = () => { const c=S_SIM.data.cap; return {off:c.off,on:c.on,solar:c.solar,nuclear:c.nuclear,bat:c.bat,ldes:c.ldes,ic:c.ic,lcd:0,dem:0}; };
+async function loadSim(){
+  const P=S_SIM; if(P.data||P.loading||P.err) return; P.loading=true;
+  try{
+    let j=SIM_INLINE;
+    if(!j){ const r=await fetch('data/sim.json',{cache:'no-cache'}); if(!r.ok) throw new Error('fetch'); j=await r.json(); }
+    if(!j||!j.s||!j.s.d){ P.err='nodata'; }
+    else { const s={}; for(const k in j.s) s[k]=unpack(j.s[k],j.unit); P.data={...j,s}; P.base=simRun(P.data,simBase()); P.v=P.v||{...SIM_PRESETS.ffr}; P.res=simRun(P.data,P.v); }
+  }catch(e){ P.err=location.protocol.startsWith('http')?'nodata':'offline'; }
+  P.loading=false; if(S.tab==='sim'&&!S.sel&&S.view!=='wales') panel();
+}
+function simRun(D,v){
+  const c=D.cap, s=D.s, H=D.hours, K=SIM_K;
+  const kW=(v.off*K.cfOff+v.on*K.cfOn)/(c.off*K.cfOff+c.on*K.cfOn), kS=v.solar/c.solar, kN=v.nuclear/c.nuclear, kD=1+v.dem/100, kI=v.ic/c.ic;
+  const bP=v.bat*1e3, bE=bP*K.batH, lP=v.ldes*1e3, lE=lP*K.ldH, xP=v.ic*1e3*K.exp, cP=v.lcd*1e3;
+  let sb=bE/2, sl=lE/2;
+  const T={gen:0,clean:0,gas:0,curt:0,ws:0,exp:0,imp:0,dem:0,h50:0,gasH:0};
+  const nd=Math.floor(H/24), daily=new Float32Array(nd), dgas=new Float32Array(nd), dcurt=new Float32Array(nd);
+  let run=0, runStart=0, best={len:0,start:0};
+  for(let h=0;h<H;h++){
+    const d=s.d[h]*kD, ws=s.w[h]*kW+s.so[h]*kS, n=s.n[h]*kN, b=s.b[h], hy=s.hy[h], ot=s.ot[h];
+    let r=d-(ws+n+b+hy+ot), wsU=ws, nU=n, gas=0, lc=0, cu=0;
+    if(r<0){ let sur=-r, x;
+      x=Math.min(sur,bP,(bE-sb)/K.etaB); sb+=x*K.etaB; sur-=x;
+      x=Math.min(sur,lP,(lE-sl)/K.etaL); sl+=x*K.etaL; sur-=x;
+      x=Math.min(sur,xP); T.exp+=x; sur-=x;
+      cu=sur; wsU=Math.max(0,ws-sur); nU=n-Math.max(0,sur-ws); T.curt+=Math.min(sur,ws);
+    } else { let x;
+      x=Math.min(r,bP,sb); sb-=x; r-=x;
+      x=Math.min(r,lP,sl); sl-=x; r-=x;
+      lc=Math.min(r,cP); r-=lc;
+      x=Math.min(r,s.im[h]*kI); T.imp+=x; r-=x;
+      gas=r;
+    }
+    const clean=wsU+nU+b+hy+lc, gen=clean+gas+ot, em=gas*K.gas+b*K.bio+ot*K.oth+lc*K.lcd, ci=gen>0?em/gen:0;
+    T.gen+=gen; T.clean+=clean; T.gas+=gas; T.ws+=ws; T.dem+=d; if(ci<=50) T.h50++; if(gas>500) T.gasH++;
+    const di=Math.floor(h/24); if(di<nd){ daily[di]+=ci/24; dgas[di]+=gas; dcurt[di]+=Math.min(cu,ws); }
+    if(gen>0&&gas/gen>=K.gasHeavy){ if(!run) runStart=h; run++; if(run>best.len) best={len:run,start:runStart}; } else run=0;
+  }
+  const ciMean=d3.mean(daily);
+  return {ci:ciMean, cleanShare:T.clean/T.gen*100, cleanDem:T.clean/T.dem*100, gas:T.gas/1e6, curt:T.curt/1e6, curtPct:T.ws?T.curt/T.ws*100:0,
+    exp:T.exp/1e6, imp:T.imp/1e6, h50:T.h50/H*100, gasH:T.gasH/H*100, spell:best, daily, dgas, dcurt};
+}
+function simPanel(){
+  const P=S_SIM;
+  let h=tabs()+`<h2>${tr('sim_h')}</h2><p>${tr('sim_t')}</p>`;
+  if(!P.data){ if(!P.err){ h+=`<p class="meta">${tr('sim_loading')}</p>`; $p.innerHTML=h; wireTabs(); loadSim(); return; }
+    h+=`<p class="meta">${tr(P.err==='offline'?'sim_offline':'sim_nodata')}</p><button class="linkbtn" data-methods="sim">${tr('m_link')}</button>`; $p.innerHTML=h; wireTabs(); return; }
+  const D=P.data, v=P.v;
+  h+=`<div class="chips" role="group" aria-label="${tr('sim_presets')}">${[['base',tr('sim_p_base',{y:D.year})],['ffr',tr('sim_p_ffr')],['nd',tr('sim_p_nd')]].map(([k,l])=>`<button class="chip" data-sp="${k}" aria-pressed="${P.preset===k}">${l}</button>`).join('')}</div>`;
+  const band=(k,mn,mx)=>{ const r=SIM_RANGE[k]; return r?`--lo:${(r[0]-mn)/(mx-mn)*100}%;--hi:${(r[1]-mn)/(mx-mn)*100}%`:'--lo:0%;--hi:0%'; };
+  const hint=k=>SIM_RANGE[k]?`<span class="vh" id="svh-${k}">${k==='dem'?tr('sim_dem_hint'):tr('sim_cp',{r:SIM_RANGE[k].join('–')})}</span>`:'';
+  h+=`<div class="simbar" id="simbar" aria-live="polite"></div><p class="simkey"><i></i>${tr('sim_band')}</p><div class="simsl">${SIM_SL.map(([k,mn,mx,st])=>`<label><span class="sll">${tr('sv_'+k)}</span><output id="sv-${k}">${simFmt(k,v[k])}</output>
+    <input type="range" min="${mn}" max="${mx}" step="${st}" value="${v[k]}" data-sv="${k}" style="${band(k,mn,mx)}" ${SIM_RANGE[k]?`aria-describedby="svh-${k}"`:''}>${hint(k)}</label>`).join('')}</div>`;
+  h+=`<div id="simres"></div>`;
+  $p.innerHTML=h; wireTabs();
+  $p.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{ P.preset=b.dataset.sp; P.v=b.dataset.sp==='base'?simBase():{...SIM_PRESETS[b.dataset.sp]}; const y=$p.scrollTop; simPanel(); $p.scrollTop=y; });
+  let raf=0;
+  $p.querySelectorAll('[data-sv]').forEach(inp=>inp.oninput=()=>{ const k=inp.dataset.sv; v[k]=+inp.value; document.getElementById('sv-'+k).textContent=simFmt(k,v[k]);
+    P.preset=null; $p.querySelectorAll('[data-sp]').forEach(b=>b.setAttribute('aria-pressed','false'));
+    cancelAnimationFrame(raf); raf=requestAnimationFrame(()=>{ P.res=simRun(D,v); simResults(); }); });
+  P.res=simRun(D,v); simResults();
+}
+const simFmt=(k,x)=>k==='dem'?(x>0?'+':'')+x+'%':(+x).toFixed(x%1?1:0)+' GW';
+function simResults(){
+  const P=S_SIM, D=P.data, R=P.res, B=P.base, el=document.getElementById('simres'); if(!el) return;
+  const ok=R.cleanShare>=95, f1=x=>x.toFixed(1), f0=x=>Math.round(x);
+  const sp=R.spell, spDate=fmtDate(new Date(Date.parse(D.from)+sp.start*36e5).toISOString().slice(0,10));
+  let h=`<div class="cibig"><div><b>${f0(R.cleanShare)}%</b><small>${tr('sim_goal95')}</small><span><i class="rdot" style="--c:${ok?'#2fa84f':'#e8772e'}"></i>${tr('sim_clean')}</span></div>
+    <div><b>${f0(R.ci)}</b><small>gCO₂/kWh</small><span><i class="rdot" style="--c:${CI_IDX_COL[ciIndex(R.ci)]}"></i>${tr('sim_ci')}</span></div>
+    <div><b>${f0(R.h50)}%</b><small>${tr('sim_ofhours')}</small><span>${tr('sim_h50')}</span></div></div>
+    <div class="cibig"><div><b>${f0(R.gas)}</b><small>TWh</small><span>${tr('sim_gas')}</span></div>
+    <div><b>${f1(R.curt)}</b><small>TWh</small><span>${tr('sim_curt_l')}</span></div>
+    <div><b>${f1(R.exp-R.imp)}</b><small>TWh</small><span>${tr(R.exp>=R.imp?'sim_netx':'sim_netm')}</span></div></div>`;
+  h+=`<div class="why ${ok?'clean':'dirty'}"><div class="whyh">${tr(ok?'sim_meet_h':'sim_miss_h')}</div><ul class="simtxt">
+    <li>${tr(ok?'sim_meet':'sim_miss',{p:f0(R.cleanShare)})}</li>
+    <li>${tr('sim_dem_t',{p:f0(R.cleanDem)})}</li>
+    <li>${tr('sim_gas_t',{h:f0(R.gasH),t:f0(R.gas),a:f0(D.act.gas),y:D.year})}</li>
+    ${sp.len>=6?`<li>${tr(sp.len>=48?'sim_spell_d':'sim_spell_h',{d:f1(sp.len/24),h:sp.len,date:spDate})}</li>`:''}
+    ${R.curt>=.5?`<li>${tr('sim_curt_t',{t:f1(R.curt),p:f0(R.curtPct),x:f1(R.exp)})}</li>`:''}</ul></div>`;
+  h+=`<h3>${tr('sim_ch')}</h3><div class="key"><span><i style="border-top-color:#2fa84f"></i>${tr('sim_k_sim')}</span><span><i style="border-top-color:var(--muted);opacity:.7"></i>${tr('sim_k_act',{y:D.year})}</span><span><i class="g"></i>50 g</span></div><div class="chart" id="chsim"></div>`;
+  h+=`<div class="simchk"><b>${tr('sim_chk_h')}</b> ${tr('sim_chk',{y:D.year,m:f0(B.ci),a:D.act.ci,mc:f0(B.cleanShare),ac:f0(D.act.clean_share)})}</div>`;
+  h+=`<p class="fine">${tr('sim_assume')} <button class="linkbtn inl" data-methods="sim">${tr('m_link')}</button></p>`;
+  h+=`<p class="fine">${tr('sim_src',{s:D.cap.src})}</p>`;
+  if(canSave()) h+=`<div class="row">${csvButton('sim')}</div>`;
+  el.innerHTML=h;
+  const sb=document.getElementById('simbar');
+  if(sb) sb.innerHTML=`<span><i class="rdot" style="--c:${ok?'#2fa84f':'#e8772e'}"></i><b>${f0(R.cleanShare)}%</b> ${tr('sb_clean')}</span><span><b>${f0(R.ci)}</b> g</span><span><b>${f0(R.gas)}</b> ${tr('sb_gas')}</span>`;
+  const c=document.getElementById('chsim'); drawSim(c); makeZoomable(c,'sim');
+}
+function drawSim(el,o={}){
+  const P=S_SIM, R=P.res, D=P.data; if(!R) return;
+  const t0=Date.parse(D.from), day=i=>t0+i*864e5+432e5;
+  const w=el.clientWidth||320, h=o.h||150, m={l:30,r:8,t:10,b:20};
+  const x=d3.scaleTime().domain([t0,t0+R.daily.length*864e5]).range([m.l,w-m.r]);
+  const y=d3.scaleLinear().domain([0,Math.max(120,d3.max(D.daily)||0,d3.max(R.daily))*1.05]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(d3.timeMonth.every(w<500?3:1)).tickFormat(d=>{const p=ukParts(d); return LANG==='cy'?CY_M[p.m-1]:EN_M[p.m-1];}).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(50)).attr('y2',y(50)).attr('stroke','#2fa84f').attr('stroke-dasharray','5 4').attr('stroke-width',1.4);
+  const ln=d3.line().x((v,i)=>x(day(i))).y(v=>y(v)).defined(v=>v!=null);
+  s.append('path').attr('d',ln(D.daily)).attr('fill','none').attr('stroke',col('muted')).attr('stroke-width',1).attr('opacity',.7);
+  s.append('path').attr('d',ln(Array.from(R.daily))).attr('fill','none').attr('stroke','#2fa84f').attr('stroke-width',1.6);
+  if(o.big) addHover(s,x,[{name:tr('sim_k_sim'),color:'#2fa84f',pts:Array.from(R.daily,(v,i)=>[day(i),v]),y},{name:tr('sim_k_act',{y:D.year}),color:col('muted'),pts:D.daily.map((v,i)=>[day(i),v]),y}],{m,w,h,unit:' g',fx:v=>fmtDate(new Date(v).toISOString().slice(0,10))+' '+D.year});
+}
+
+/* ======================= weekly digest ======================= */
+const EN_DF=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], CY_DF=['dydd Sul','dydd Llun','dydd Mawrth','dydd Mercher','dydd Iau','dydd Gwener','dydd Sadwrn'];
+const dayName = ds => (LANG==='cy'?CY_DF:EN_DF)[new Date(ds+'T12:00:00Z').getUTCDay()];
+const addDays = (ds,n) => new Date(Date.parse(ds+'T12:00:00Z')+n*864e5).toISOString().slice(0,10);
+function dgWeek(){ const W=DIGEST.weeks||[]; if(!W.length) return null; const i=S.dw==null?W.length-1:Math.max(0,Math.min(W.length-1,S.dw)); return {w:W[i],i,W}; }
+function dgRange(w){ const e=addDays(w.start,6), a=fmtDate(w.start), z=fmtDate(e);
+  return w.start.slice(5,7)===e.slice(5,7) ? `${a.split(' ')[0]}–${z} ${e.slice(0,4)}` : `${a} – ${z} ${e.slice(0,4)}`; }
+function dgFacts(x){
+  const {w,i,W}=x, out=[];
+  const prev=W[i-1]&&W[i-1].start===addDays(w.start,-7)?W[i-1]:null;
+  let cmp=''; if(prev){ const p=Math.round((w.ci-prev.ci)/prev.ci*100); cmp=Math.abs(p)<3?tr('dg_same'):tr(p<0?'dg_cleaner':'dg_dirtier',{p:Math.abs(p)}); }
+  out.push(tr('dg_s1',{ci:w.ci,cmp}));
+  if(w.mix){ const pk=w.pk&&w.pk.wind; out.push(tr('dg_s2',{w:Math.round(w.mix.wind),pk:pk?pk[0]:'–',when:pk?fmtWhen(pk[1]):''})); }
+  const lo=w.days.reduce((a,b)=>b[1]<a[1]?b:a), hi=w.days.reduce((a,b)=>b[1]>a[1]?b:a);
+  out.push(tr('dg_s3',{d1:dayName(lo[0]),v1:lo[1],d2:dayName(hi[0]),v2:hi[1]}));
+  out.push(w.h50>0?tr('dg_s4',{h:Math.round(w.h50)}):tr('dg_s4n'));
+  if(w.reg){ const rs=REG.map(r=>[r,w.reg[r[0]]]).filter(e=>e[1]!=null).sort((a,b)=>a[1]-b[1]);
+    if(rs.length){ const r=rs[0], wv=w.reg['17']; let s=tr('dg_s5',{r:LANG==='cy'?r[0][2]:r[0][1],v:r[1]});
+      if(wv!=null){ const p=Math.round((wv-w.ci)/w.ci*100); s+=' '+(Math.abs(p)<3?tr('dg_wal0',{v:wv}):tr(p<0?'dg_wal_lo':'dg_wal_hi',{v:wv,p:Math.abs(p)})); }
+      out.push(s); } }
+  const [yy,mm]=w.start.split('-').map(Number), ly=CI_MON.find(d=>d[0]===yy-1&&d[1]===mm);
+  if(ly) out.push(tr('dg_ly',{v:ly[2],m:fmtDate(w.start).replace(/^\d+ /,''),y:yy-1}));
+  const rec=[];
+  if(W.length>=6&&w.ci===Math.min(...W.map(z=>z.ci))) rec.push(tr('dg_rec',{d:fmtDate(W[0].start)+' '+W[0].start.slice(0,4)}));
+  if(HISTORY.record&&w.min[0]<HISTORY.record.v) rec.push(tr('dg_rec_hh',{v:w.min[0]}));
+  return {out,rec,lo,hi};
+}
+function digestBlock(){
+  const x=dgWeek();
+  if(!x) return `<div class="digest"><h3>${tr('dg_h')}</h3><p class="meta">${tr('dg_none')}</p></div>`;
+  const {w,i,W}=x, F=dgFacts(x);
+  let h=`<div class="digest"><div class="dghead"><div><h3>${i===W.length-1?tr('dg_h'):tr('dg_h_old')}</h3><div class="meta">${dgRange(w)}</div></div>
+    <div class="dgnav"><button class="xbtn" data-dg="-1" aria-label="${tr('dg_prev')}" ${i===0?'disabled':''}>‹</button><button class="xbtn" data-dg="1" aria-label="${tr('dg_next')}" ${i===W.length-1?'disabled':''}>›</button></div></div>
+    <div class="cibig"><div><b>${w.ci}</b><small>gCO₂/kWh</small><span><i class="rdot" style="--c:${CI_IDX_COL[ciIndex(w.ci)]}"></i>${tr('dg_avg')}</span></div>
+    <div><b>${Math.round(w.h50)}</b><small>${tr('dg_hours')}</small><span>${tr('dg_at50')}</span></div>
+    <div><b>${w.mix?Math.round(w.mix.wind)+'%':'–'}</b><small>${tr('dg_ofgen')}</small><span>${tr('fuel_wind')}</span></div></div>
+    <div class="chart" id="chdg"></div>
+    <ul class="simtxt">${F.out.map(s=>`<li>${s}</li>`).join('')}</ul>
+    ${F.rec.length?`<p class="dgrec">${F.rec.join(' ')}</p>`:''}`;
+  if(canSave()) h+=`<div class="row dgact"><button class="pbtn ghost" id="dgimg">${tr('dg_img')}</button><button class="pbtn ghost" id="dgshare">${navigator.share?tr('dg_share'):tr('dg_copy')}</button>${csvButton('digest')}</div>`;
+  h+=`<p class="fine">${tr('dg_src')} <button class="linkbtn inl" data-methods="digest">${tr('m_link')}</button></p></div>`;
+  return h;
+}
+function wireDigest(){
+  const x=dgWeek(); if(!x) return;
+  $p.querySelectorAll('[data-dg]').forEach(b=>b.onclick=()=>{ S.dw=x.i+(+b.dataset.dg); const y=$p.scrollTop; storiesPanel(); $p.scrollTop=y; });
+  drawDigest(document.getElementById('chdg'),x.w);
+  const bi=document.getElementById('dgimg'); if(bi) bi.onclick=async()=>{ const b=await dgImage(x); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=`uk-grid-week-${x.w.start}.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); };
+  const bs=document.getElementById('dgshare'); if(bs) bs.onclick=async()=>{
+    const txt=dgShareText(x);
+    if(navigator.share){ try{ const b=await dgImage(x), f=new File([b],`uk-grid-week-${x.w.start}.png`,{type:'image/png'});
+        if(navigator.canShare&&navigator.canShare({files:[f]})) await navigator.share({files:[f],text:txt}); else await navigator.share({text:txt,url:location.href.split('#')[0]}); }catch(e){} }
+    else { try{ await navigator.clipboard.writeText(txt); bs.textContent=tr('dg_copied'); setTimeout(()=>bs.textContent=tr('dg_copy'),1800); }catch(e){} } };
+}
+function dgShareText(x){ const F=dgFacts(x); return `${tr('dg_share_h',{r:dgRange(x.w)})}\n\n${F.out.join(' ')}${F.rec.length?' '+F.rec.join(' '):''}\n\n${location.href.split('#')[0]}`; }
+function drawDigest(el,w,o={}){
+  if(!el) return; const d=w.days, W=el.clientWidth||320, h=o.h||110, m={l:30,r:8,t:14,b:20};
+  const x=d3.scaleBand().domain(d.map(e=>e[0])).range([m.l,W-m.r]).padding(.28);
+  const y=d3.scaleLinear().domain([0,Math.max(150,d3.max(d,e=>e[1])*1.15)]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${W} ${h}`).attr('height',h).attr('role','img').attr('aria-label',tr('dg_chart'));
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickFormat(v=>{ const n=new Date(v+'T12:00:00Z').getUTCDay(); return LANG==='cy'?CY_D[n]:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][n]; }).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(W-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.selectAll('rect.b').data(d).join('rect').attr('class','b').attr('x',e=>x(e[0])).attr('width',x.bandwidth()).attr('y',e=>y(e[1])).attr('height',e=>y(0)-y(e[1])).attr('fill',e=>CI_IDX_COL[ciIndex(e[1])]).attr('rx',2);
+  s.selectAll('text.v').data(d).join('text').attr('class','vl').attr('x',e=>x(e[0])+x.bandwidth()/2).attr('y',e=>y(e[1])-3).attr('text-anchor','middle').text(e=>e[1]);
+}
+async function dgImage(x){
+  const {w}=x, F=dgFacts(x), c=document.createElement('canvas'), W=1200, H=630; c.width=W; c.height=H; const g=c.getContext('2d');
+  try{ await document.fonts.load('700 40px "Barlow Semi Condensed"'); await document.fonts.load('500 20px Barlow'); }catch(e){}
+  const ink='#1b282e', mut='#5b6b71', bg='#f6f8f7', rule='#d5dcdc';
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+  g.fillStyle=ink; g.font='700 44px "Barlow Semi Condensed", "Arial Narrow", sans-serif'; g.fillText(tr('dg_img_h'),60,86);
+  g.fillStyle=mut; g.font='500 26px Barlow, sans-serif'; g.fillText(dgRange(w),60,126);
+  const stats=[[String(w.ci),'gCO₂/kWh',tr('dg_avg')],[String(Math.round(w.h50)),tr('dg_hours'),tr('dg_at50')],[w.mix?Math.round(w.mix.wind)+'%':'–',tr('dg_ofgen'),tr('fuel_wind')]];
+  stats.forEach((s,k)=>{ const x0=60+k*190; g.fillStyle=ink; g.font='700 64px "Barlow Semi Condensed", "Arial Narrow", sans-serif'; g.fillText(s[0],x0,220);
+    g.fillStyle=mut; g.font='500 20px Barlow, sans-serif'; g.fillText(s[1],x0,248); g.fillStyle=ink; g.font='600 22px Barlow, sans-serif'; g.fillText(s[2],x0,278); });
+  // bars
+  const bx=660, by=160, bw=480, bh=260, mx=Math.max(150,...w.days.map(d=>d[1]))*1.15, cw=bw/7;
+  g.strokeStyle=rule; g.lineWidth=1; g.beginPath(); g.moveTo(bx,by+bh+.5); g.lineTo(bx+bw,by+bh+.5); g.stroke();
+  w.days.forEach((d,k)=>{ const hh=d[1]/mx*bh, x0=bx+k*cw+cw*.18; g.fillStyle=CI_IDX_COL[ciIndex(d[1])]; g.fillRect(x0,by+bh-hh,cw*.64,hh);
+    g.fillStyle=ink; g.font='600 20px Barlow, sans-serif'; g.textAlign='center'; g.fillText(String(d[1]),x0+cw*.32,by+bh-hh-8);
+    const n=new Date(d[0]+'T12:00:00Z').getUTCDay(); g.fillStyle=mut; g.font='500 19px Barlow, sans-serif'; g.fillText(LANG==='cy'?CY_D[n]:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][n],x0+cw*.32,by+bh+26); g.textAlign='left'; });
+  // two lines of story
+  g.fillStyle=ink; g.font='500 24px Barlow, sans-serif';
+  const words=(F.out.slice(1,3).join(' ')).replace(/<[^>]+>/g,'').split(' '); let line='', ly=350, lines=0;
+  for(const wd of words){ const t=line?line+' '+wd:wd; if(g.measureText(t).width>560){ g.fillText(line,60,ly); ly+=34; line=wd; if(++lines>=5) break; } else line=t; }
+  if(lines<5&&line) g.fillText(line,60,ly);
+  g.fillStyle=rule; g.fillRect(60,H-78,W-120,1);
+  g.fillStyle=mut; g.font='500 19px Barlow, sans-serif'; g.fillText(tr('dg_img_src'),60,H-44);
+  g.textAlign='right'; g.fillText(location.host?location.host+location.pathname.replace(/index\.html$/,''):'',W-60,H-44); g.textAlign='left';
+  return await new Promise(res=>c.toBlob(res,'image/png'));
+}
+
 /* ---------- table view ---------- */
 const TS={key:'mw',dir:-1};
 function statusAt(d){ if(d.osm) return tr('st_op'); if(d.off&&S.year>=d.off) return tr('st_closed'); if(active(d)) return tr('st_op'); return d.st==='con'?tr('st_con'):tr('st_dev'); }
@@ -1971,6 +2361,7 @@ function openTable(){
   const ty=document.getElementById('ttype'); const cur=ty.value;
   ty.innerHTML=`<option value="">${tr('t_all')}</option>`+Object.keys(T).map(t=>`<option value="${t}">${tr('t_'+t)}</option>`).join(''); ty.value=cur;
   document.getElementById('tosm-l').textContent=tr('t_osm');
+  const tc=document.getElementById('tcsv'); tc.textContent=tr('t_csv'); tc.hidden=!canSave();
   const cols=[['name','c_name'],['type','c_type'],['mw','c_cap'],['status','c_status'],['on','c_on'],['off','c_off'],['w','c_wales']];
   if(liveNow()) cols.push(['now','c_now']);
   document.querySelector('#ttable thead').innerHTML='<tr>'+cols.map(([k,l])=>`<th data-k="${k}" aria-sort="${TS.key===k?(TS.dir>0?'ascending':'descending'):'none'}" tabindex="0">${tr(l)}</th>`).join('')+'</tr>';
@@ -1983,6 +2374,7 @@ function drawTable(cols){
   let rows=[...SITES,...LINKS,...(inc?OTHERS:[])].filter(d=>(!ty||d.t===ty)&&(!q||nm(d).toLowerCase().includes(q)));
   const val=d=>({name:nm(d),type:tr('t_'+d.t),mw:d.mw||0,status:statusAt(d),on:d.osm?0:d.on,off:d.off||0,w:d.w?1:0,now:(liveNow()&&FUEL[d.t]&&(d.osm||active(d)))?Math.round(d.osm?(d.mw||0)*fleet(d.t):liveMW(d)):-1});
   rows=rows.map(d=>[d,val(d)]).sort((a,b)=>{ const x=a[1][TS.key], y=b[1][TS.key]; return (typeof x==='string'?x.localeCompare(y):x-y)*TS.dir; });
+  TS.rows=rows; TS.cols=cols;
   const shown=rows.slice(0,600);
   document.querySelector('#ttable tbody').innerHTML=shown.map(([d,v])=>`<tr data-k="${d.key}" tabindex="0"><td>${v.name}</td><td><span class="ti" style="--c:${col(d.t)}">${icon(d.t)}${v.type}</span></td><td class="num">${d.mw?Math.round(d.mw).toLocaleString('en-GB'):'–'}</td><td>${v.status}</td><td class="num">${v.on||'–'}</td><td class="num">${v.off||'–'}</td><td>${v.w?tr('yes'):''}</td>${cols.length>7?`<td class="num">${v.now>=0?v.now.toLocaleString('en-GB'):'–'}</td>`:''}</tr>`).join('');
   document.getElementById('tcount').textContent=tr('t_count',{n:rows.length.toLocaleString('en-GB')})+(rows.length>shown.length?' · 600 shown':'');
@@ -1990,6 +2382,8 @@ function drawTable(cols){
 }
 ['tfilter','ttype','tosm'].forEach(id=>document.getElementById(id).addEventListener(id==='tfilter'?'input':'change',()=>openTable()));
 document.getElementById('tablebtn').onclick=openTable;
+document.getElementById('tcsv').onclick=()=>{ if(!TS.rows) return; const cols=TS.cols;
+  downloadCSV('sites',[...cols.map(([k,l])=>tr(l)),'latitude','longitude','source'],TS.rows.map(([d,v])=>[...cols.map(([k])=>k==='on'||k==='off'?(v[k]||''):k==='now'?(v.now<0?'':v.now):k==='w'?(v.w?'yes':''):v[k]),d.c?d.c[0]:'',d.c?d.c[1]:'',d.osm?'OpenStreetMap':'curated'])); };
 
 /* ---------- enlarge charts ---------- */
 const CHARTS = {
@@ -1997,6 +2391,9 @@ const CHARTS = {
   long:{t:()=>tr('ci_long'), draw:(el,o)=>drawLong(el,o)},
   clean:{t:()=>tr('st_h_h'), draw:(el,o)=>drawClean(el,o)},
   price:{t:()=>tr('st_p_h'), draw:(el,o)=>drawPrice(el,o)},
+  sim:{t:()=>tr('sim_ch'), draw:(el,o)=>drawSim(el,o)},
+  acc:{t:()=>tr('acc_key'), draw:(el,o)=>drawAcc(el,o)},
+  digest:{t:()=>tr('dg_chart'), draw:(el,o)=>{ const x=dgWeek(); if(x) drawDigest(el,x.w,o); }},
   plan:{t:()=>tr('pl_h'), draw:(el,o)=>{ if(S_PLAN.res) drawPlan(el,S_PLAN.res,o); }},
   regfc:{t:()=>tr('reg_fc')+(S.sel&&byId[S.sel]&&byId[S.sel].region?' · '+nm(byId[S.sel]):''), draw:(el,o)=>{ const d=byId[S.sel]; const s=d&&REGFC[d.rid]&&REGFC[d.rid].s; if(s) drawRegionFc(el,s,o); }}
 };
@@ -2018,6 +2415,7 @@ function openChart(kind){
   document.getElementById('chartv-hint').textContent=tr('chart_hint');
   const act=document.getElementById('chartv-actions'); act.innerHTML='';
   if(LIVE.mode==='live'){ const b=document.createElement('button'); b.className='pbtn ghost'; b.textContent=tr('save_img'); b.onclick=()=>saveChart(el,kind); act.appendChild(b); }
+  if(canSave()&&CSV[kind]) act.insertAdjacentHTML('beforeend',csvButton(kind));
 }
 function saveChart(el,kind){
   const sv=el.querySelector('svg'); if(!sv) return;

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Rebuild data/history.json from NESO's historic generation mix CSV.
+"""Rebuild data/history.json and data/sim.json from NESO's historic generation mix CSV.
+
+history.json  annual, monthly and typical carbon intensity (embedded in the page)
+sim.json      one base year of hourly demand and output, for the 2030 simulator
+              (loaded by the page only when the simulator is opened)
 
 Usage:
   python tools/update_history.py                 # downloads the latest CSV from NESO
@@ -12,6 +16,76 @@ import pandas as pd
 URL = ("https://api.neso.energy/dataset/88313ae5-94e4-4ddc-a790-593554d8c6b9/"
        "resource/f93d1835-75bc-43e5-84ad-12472b180a98/download/df_fuel_ckan.csv")
 OUT = Path(__file__).resolve().parent.parent / "data" / "history.json"
+SIM = OUT.parent / "sim.json"
+
+# Installed GB capacity (GW) in each base year the simulator can replay. The page scales
+# each hour's output by (chosen capacity / base capacity), so these must describe the
+# fleet that produced that year's output. Source for 2024: DESNZ Clean Power 2030 Action
+# Plan, connections reform annex, Table 1 (renewables Q2 2024; nuclear 2023; batteries
+# Q4 2024; interconnectors 2024). Add a year here to let the simulator replay it.
+BASE_CAP = {
+    2024: {"off": 14.8, "on": 14.2, "solar": 16.6, "nuclear": 5.9, "bat": 4.55, "ldes": 2.9, "ic": 9.8,
+           "src": "DESNZ, Clean Power 2030 Action Plan: connections reform annex, Table 1"},
+}
+SIM_UNIT = 50  # MW per step in the packed series
+B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+
+def pack(series):
+    """Two characters per hour: value in 50 MW steps, 0-4095."""
+    out = []
+    for v in series:
+        n = int(round(max(0.0, float(v)) / SIM_UNIT)) if v == v else 0
+        n = min(n, 4095)
+        out.append(B64[n >> 6] + B64[n & 63])
+    return "".join(out)
+
+def build_sim(df):
+    need = ["WIND", "SOLAR", "NUCLEAR", "GAS"]
+    if any(c not in df for c in need):
+        print("sim.json: CSV lacks", [c for c in need if c not in df], "- not updated", file=sys.stderr)
+        return
+    d = df.set_index("DATETIME").sort_index()
+    years = sorted(y for y in BASE_CAP if ((d.index.year == y).sum() >= 17000))
+    if not years:
+        print("sim.json: no complete base year in the CSV - not updated", file=sys.stderr)
+        return
+    y = years[-1]
+    d = d[d.index.year == y]
+    col = lambda c: d[c].clip(lower=0).fillna(0) if c in d else pd.Series(0.0, index=d.index)
+    parts = {
+        "gas": col("GAS") + col("COAL"),
+        "nuclear": col("NUCLEAR"),
+        "wind": col("WIND") + col("WIND_EMB"),
+        "solar": col("SOLAR"),
+        "bio": col("BIOMASS"),
+        "hydro": col("HYDRO"),
+        "other": col("OTHER"),
+        "imports": col("IMPORTS"),
+        "storage": col("STORAGE"),
+    }
+    demand = sum(parts.values())
+    h = lambda s: s.resample("1h").mean().interpolate(limit=4).fillna(0)
+    H = {k: h(v) for k, v in parts.items()}
+    D = h(demand)
+    ci = h(d["CARBON_INTENSITY"])
+    twh = lambda s: round(float(s.sum()) / 1e6, 1)
+    dom = sum(H[k] for k in ["gas", "nuclear", "wind", "solar", "bio", "hydro", "other"])
+    clean = H["nuclear"] + H["wind"] + H["solar"] + H["bio"] + H["hydro"]
+    daily = ci.resample("1D").mean().round().astype(int).tolist()
+    out = {
+        "year": y, "from": D.index[0].strftime("%Y-%m-%dT%H:%MZ"), "hours": len(D), "unit": SIM_UNIT,
+        "cap": BASE_CAP[y],
+        "s": {"d": pack(D), "w": pack(H["wind"]), "so": pack(H["solar"]), "n": pack(H["nuclear"]),
+              "b": pack(H["bio"]), "hy": pack(H["hydro"]), "ot": pack(H["other"]), "im": pack(H["imports"])},
+        "act": {"ci": int(round(float(ci.mean()))), "demand": twh(D), "gas": twh(H["gas"]), "imports": twh(H["imports"]),
+                "wind": twh(H["wind"]), "solar": twh(H["solar"]), "nuclear": twh(H["nuclear"]),
+                "clean_share": round(float(clean.sum() / dom.sum()) * 100, 1),
+                "h50": int((ci <= 50).sum())},
+        "daily": daily,
+    }
+    SIM.write_text(json.dumps(out, separators=(",", ":")))
+    print(f"sim.json: base year {y}, {len(D)} hours, {SIM.stat().st_size/1024:.0f} KB, actual mean {out['act']['ci']} g")
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -61,6 +135,10 @@ def main():
     out["typ_from"] = (last - pd.Timedelta(days=730)).strftime("%Y-%m-%d")
     OUT.write_text(json.dumps(out, separators=(",", ":")).replace("NaN", "null"))
     print(f"history.json: {len(out['yr'])} years, latest {out['ytd']}, record {out['record']}")
+    try:
+        build_sim(df)
+    except Exception as e:  # the simulator data is optional; never block the history refresh
+        print("sim.json: not updated -", e, file=sys.stderr)
 
 if __name__ == "__main__":
     main()
