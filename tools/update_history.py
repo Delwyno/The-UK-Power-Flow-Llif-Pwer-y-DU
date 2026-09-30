@@ -39,6 +39,63 @@ def pack(series):
         out.append(B64[n >> 6] + B64[n & 63])
     return "".join(out)
 
+def records(df, days_back=30):
+    """All-time records, and milestones reached in the last days_back days.
+
+    Uses NESO's historic generation mix only (generation-based carbon intensity), so a
+    'record' is never an artefact of comparing two different measures."""
+    s = df.sort_values("DATETIME").reset_index(drop=True)
+    stamp = lambda t: t.strftime("%Y-%m-%dT%H:%MZ")
+    s["wind"] = s["WIND_perc"] + (s["WIND_EMB_perc"] if "WIND_EMB_perc" in s else 0)
+    s["solar"] = s["SOLAR_perc"]; s["ci"] = s["CARBON_INTENSITY"]
+    s["day"] = s["DATETIME"].dt.tz_localize("UTC").dt.tz_convert("Europe/London").dt.date
+    g = s.groupby("day")
+    D = pd.DataFrame({"n": g.size(), "mean": g["ci"].mean(), "min": g["ci"].min(), "wmax": g["wind"].max(), "smax": g["solar"].max(),
+                      "min_t": s.loc[g["ci"].idxmin(), "DATETIME"].values, "w_t": s.loc[g["wind"].idxmax(), "DATETIME"].values,
+                      "s_t": s.loc[g["solar"].idxmax(), "DATETIME"].values})
+    for c in ["min_t", "w_t", "s_t"]:
+        D[c] = pd.to_datetime(D[c])
+    full = D[D["n"] >= 46]
+    # spells at or below 50 g, across day boundaries
+    flag = (s["ci"] <= 50).to_numpy(); runs = []; start = None
+    for i, f in enumerate(flag):
+        if f and start is None: start = i
+        if (not f or i == len(flag) - 1) and start is not None:
+            end = i if f else i - 1; runs.append((end - start + 1, start, end)); start = None
+    best_run = max(runs) if runs else None
+    lo = full["mean"].idxmin()
+    rec = {"from": str(D.index.min()), "to": str(D.index.max()),
+           "low": [round(float(D["min"].min())), stamp(D.loc[D["min"].idxmin(), "min_t"])],
+           "day": [int(round(full.loc[lo, "mean"])), str(lo)],
+           "wind": [round(float(D["wmax"].max()), 1), stamp(D.loc[D["wmax"].idxmax(), "w_t"])],
+           "solar": [round(float(D["smax"].max()), 1), stamp(D.loc[D["smax"].idxmax(), "s_t"])]}
+    if best_run:
+        rec["run50"] = [best_run[0] / 2, stamp(s.loc[best_run[1], "DATETIME"])]
+    ms = []
+    recent = [d for d in D.index if d > D.index.max() - pd.Timedelta(days=days_back)]
+    for d in recent:
+        prior, x = D[D.index < d], D.loc[d]
+        if not len(prior):
+            continue
+        if x["min"] < prior["min"].min():
+            ms.append({"d": str(d), "k": "low", "v": round(float(x["min"]))})
+        if x["wmax"] > prior["wmax"].max():
+            ms.append({"d": str(d), "k": "wind", "v": round(float(x["wmax"]), 1)})
+        if x["smax"] > prior["smax"].max():
+            ms.append({"d": str(d), "k": "solar", "v": round(float(x["smax"]), 1)})
+        if x["n"] >= 46:
+            pf = prior[prior["n"] >= 46]; cleaner = pf[pf["mean"] <= x["mean"]]
+            v = int(round(x["mean"]))
+            if not len(cleaner):
+                ms.append({"d": str(d), "k": "day_ever", "v": v})
+            elif (d - cleaner.index.max()).days >= 30:
+                ms.append({"d": str(d), "k": "day", "v": v, "s": str(cleaner.index.max())})
+    for length, a, b in runs:
+        d = s.loc[b, "day"]
+        if d in recent and length >= 8 and length > max([r[0] for r in runs if r[2] < a] or [0]):
+            ms.append({"d": str(d), "k": "run", "v": length / 2})
+    return rec, sorted(ms, key=lambda m: m["d"])
+
 def build_sim(df):
     need = ["WIND", "SOLAR", "NUCLEAR", "GAS"]
     if any(c not in df for c in need):
@@ -132,6 +189,11 @@ def main():
         typ[m]["p10"] = [round(float(q.quantile(.1).get((m, s), float("nan")))) for s in range(48)]
         typ[m]["p90"] = [round(float(q.quantile(.9).get((m, s), float("nan")))) for s in range(48)]
     out["typ"] = typ
+    # records and milestones, all from this one dataset so every comparison uses the same measure
+    try:
+        out["rec"], out["ms"] = records(df)
+    except Exception as e:
+        print("history: records not updated -", e, file=sys.stderr)
     out["typ_from"] = (last - pd.Timedelta(days=730)).strftime("%Y-%m-%d")
     OUT.write_text(json.dumps(out, separators=(",", ":")).replace("NaN", "null"))
     print(f"history.json: {len(out['yr'])} years, latest {out['ytd']}, record {out['record']}")

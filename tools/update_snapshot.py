@@ -5,6 +5,7 @@ data/snapshot.json  what the page shows when it can't reach live feeds
 data/accuracy.json  forecast tracker: stores today's 24-hour forecast, then scores
                     earlier forecasts against what actually happened
 data/digest.json    weekly grid digest: one summary per Monday-to-Sunday week
+data/daily.json     one line of extremes per day, for records and milestones
 
 Each part is updated independently; if one call fails, the previous data is kept.
 """
@@ -18,6 +19,17 @@ API = "https://api.carbonintensity.org.uk"
 OUT = Path(__file__).resolve().parent.parent / "data" / "snapshot.json"
 ACC = OUT.parent / "accuracy.json"
 DIG = OUT.parent / "digest.json"
+DAY = OUT.parent / "daily.json"
+DIGEST_VERSION = 2  # bump to rebuild stored weeks after a fix to week_summary
+
+def val(r):
+    """Measured intensity, or the forecast when the measurement is missing (NESO reports gaps as 0 or null)."""
+    i = r["intensity"]; a = i.get("actual")
+    return a if a not in (None, 0) else i.get("forecast")
+
+def in_range(rows, t0, t1):
+    """NESO range queries also return the half-hour ending at the start time, so drop it."""
+    return [r for r in rows if t0 <= parse(r["from"][:16] + "Z") < t1]
 UK = ZoneInfo("Europe/London")
 iso = lambda dt: dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
 parse = lambda s: datetime.strptime(s.replace("Z", ""), "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
@@ -74,7 +86,8 @@ def update_accuracy(now):
         if t1 > now - timedelta(minutes=10):
             continue
         rows = get(f"/intensity/{iso(t0)}/{iso(t1)}")["data"]
-        a = [r["intensity"]["actual"] for r in rows][:len(fc["f"])]
+        rows = in_range(rows, t0, t1)
+        a = [(r["intensity"]["actual"] or None) for r in rows][:len(fc["f"])]
         s = score(fc["f"], a)
         if s:
             acc["days"].append({"d": k, **s})
@@ -95,12 +108,8 @@ def week_summary(start_uk):
     """Summarise the Monday-to-Sunday week starting at start_uk (UK midnight)."""
     t0 = start_uk.astimezone(timezone.utc); t1 = (start_uk + timedelta(days=7)).astimezone(timezone.utc)
     rng = f"{iso(t0)}/{iso(t1)}"
-    rows = [r for r in get(f"/intensity/{rng}")["data"] if parse(r["from"][:16] + "Z") < t1]
-    pts = []
-    for r in rows:
-        v = r["intensity"]["actual"] if r["intensity"]["actual"] is not None else r["intensity"]["forecast"]
-        if v is not None:
-            pts.append((parse(r["from"][:16] + "Z"), v))
+    rows = in_range(get(f"/intensity/{rng}")["data"], t0, t1)
+    pts = [(parse(r["from"][:16] + "Z"), val(r)) for r in rows if val(r) is not None]
     if len(pts) < 300:
         raise ValueError(f"only {len(pts)} half-hours")
     vals = [v for _, v in pts]
@@ -111,7 +120,7 @@ def week_summary(start_uk):
     out = {"start": start_uk.strftime("%Y-%m-%d"), "ci": round(mean(vals)), "min": [lo[1], iso(lo[0])], "max": [hi[1], iso(hi[0])],
            "h50": sum(v <= 50 for v in vals) / 2, "days": [[d, round(mean(v))] for d, v in sorted(days.items())], "n": len(vals)}
     try:
-        gen = get(f"/generation/{rng}")["data"]
+        gen = in_range(get(f"/generation/{rng}")["data"], t0, t1)
         mix = {f: [] for f in FUELS}; pk = {"wind": [0, None], "solar": [0, None]}
         for g in gen:
             m = {x["fuel"]: float(x["perc"]) for x in g["generationmix"]}
@@ -126,7 +135,7 @@ def week_summary(start_uk):
     except Exception as e:
         print("digest: no generation mix -", e, file=sys.stderr)
     try:
-        reg = get(f"/regional/intensity/{rng}")["data"]
+        reg = in_range(get(f"/regional/intensity/{rng}")["data"], t0, t1)
         acc = {}
         for r in reg:
             for x in r["regions"]:
@@ -140,6 +149,8 @@ def week_summary(start_uk):
 
 def update_digest(now):
     dig = load(DIG, {"weeks": []})
+    if dig.get("v") != DIGEST_VERSION:
+        dig = {"v": DIGEST_VERSION, "weeks": []}
     have = {w["start"] for w in dig["weeks"]}
     uk = now.astimezone(UK)
     monday = (uk - timedelta(days=uk.weekday())).replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
@@ -159,9 +170,69 @@ def update_digest(now):
         DIG.write_text(json.dumps(dig, separators=(",", ":")))
     return changed
 
+# ---------------------------------------------------------------- daily extremes (records and milestones)
+def longest_run(flags):
+    best = run = 0
+    for f in flags:
+        run = run + 1 if f else 0; best = max(best, run)
+    return best
+
+def day_summary(day_uk):
+    t0 = day_uk.astimezone(timezone.utc); t1 = (day_uk + timedelta(days=1)).astimezone(timezone.utc)
+    rng = f"{iso(t0)}/{iso(t1)}"
+    rows = in_range(get(f"/intensity/{rng}")["data"], t0, t1)
+    pts = [(r["from"][:16] + "Z", val(r)) for r in rows if val(r) is not None]
+    if len(pts) < 40:
+        raise ValueError(f"only {len(pts)} half-hours")
+    v = [x for _, x in pts]; lo = min(pts, key=lambda p: p[1])
+    out = {"d": day_uk.strftime("%Y-%m-%d"), "ci": round(mean(v)), "min": [lo[1], lo[0]],
+           "h50": sum(x <= 50 for x in v) / 2, "run50": longest_run([x <= 50 for x in v]) / 2}
+    try:
+        gen = in_range(get(f"/generation/{rng}")["data"], t0, t1)
+        best = {"wind": [0, None], "solar": [0, None]}
+        for g in gen:
+            m = {x["fuel"]: float(x["perc"]) for x in g["generationmix"]}
+            for f in best:
+                if m.get(f, 0) > best[f][0]:
+                    best[f] = [round(m.get(f, 0), 1), g["from"][:16] + "Z"]
+        out["wind"] = best["wind"]; out["solar"] = best["solar"]
+    except Exception as e:
+        print("daily: no mix -", e, file=sys.stderr)
+    try:
+        reg = in_range(get(f"/regional/intensity/{rng}")["data"], t0, t1)
+        w = []
+        for r in reg:
+            x = next((x for x in r["regions"] if x["regionid"] == 17), None)
+            if x and x.get("generationmix"):
+                w.append({m["fuel"]: float(m["perc"]) for m in x["generationmix"]})
+        if len(w) > 40:
+            ws = [m.get("wind", 0) for m in w]
+            out["wales"] = {"wind": round(mean(ws), 1), "h80": sum(s >= 80 for s in ws) / 2, "max": round(max(ws), 1)}
+    except Exception as e:
+        print("daily: no Wales mix -", e, file=sys.stderr)
+    return out
+
+def update_daily(now):
+    day = load(DAY, {"days": []})
+    have = {d["d"] for d in day["days"]}
+    today = now.astimezone(UK).replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
+    back = 60 if len(day["days"]) < 7 else 3   # backfill two months on the first run
+    changed = False
+    for k in range(1, back + 1):
+        d = (today - timedelta(days=k)).replace(tzinfo=UK)
+        if d.strftime("%Y-%m-%d") in have:
+            continue
+        try:
+            day["days"].append(day_summary(d)); changed = True
+        except Exception as e:
+            print("daily: skipped", d.strftime("%Y-%m-%d"), "-", e, file=sys.stderr)
+    day["days"] = sorted(day["days"], key=lambda x: x["d"])[-800:]
+    if changed:
+        DAY.write_text(json.dumps(day, separators=(",", ":")))
+
 def main():
     now = datetime.now(timezone.utc)
-    for name, fn in [("accuracy", update_accuracy), ("digest", update_digest)]:
+    for name, fn in [("accuracy", update_accuracy), ("digest", update_digest), ("daily", update_daily)]:
         try:
             fn(now)
         except Exception as e:
