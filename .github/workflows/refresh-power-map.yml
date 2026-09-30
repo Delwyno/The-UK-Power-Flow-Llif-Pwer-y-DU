@@ -1,7 +1,8 @@
-# Keeps the UK power map's embedded data fresh.
-#  - Every day: refreshes the offline snapshot from the NESO Carbon Intensity API.
-#  - On the 2nd of each month: also refreshes the carbon history (NESO) and the
-#    OpenStreetMap grid, substations, smaller sites and routes.
+# Keeps the UK power map's data fresh.
+#  - Every day: the offline snapshot, forecast accuracy, weekly digest and daily Wales
+#    figures (NESO Carbon Intensity API); curtailment and station history (Elexon);
+#    carbon history, records and simulator data (NESO historic generation mix).
+#  - On the 2nd of each month: also the OpenStreetMap grid, substations, smaller sites and routes.
 # Then rebuilds index.html and commits it if anything changed.
 #
 # The map sits at the top level of the repository. If you move it into a subfolder,
@@ -59,10 +60,16 @@ jobs:
 
       - name: Refresh offline snapshot
         working-directory: ${{ env.MAP_DIR }}
+        continue-on-error: true
         run: python tools/update_snapshot.py
 
-      - name: Refresh carbon history
-        if: steps.mode.outputs.full == 'true'
+      - name: Refresh curtailment and station history (Elexon)
+        continue-on-error: true
+        timeout-minutes: 40
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/update_elexon.py
+
+      - name: Refresh carbon history, records and simulator data
         continue-on-error: true
         working-directory: ${{ env.MAP_DIR }}
         run: python tools/update_history.py
