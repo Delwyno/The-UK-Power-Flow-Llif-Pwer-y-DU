@@ -51,6 +51,18 @@ The map is a single self-contained web page (`index.html`). The `src/`, `data/` 
 
 **Downloads.** On the published map, every chart's enlarged view has **Download data (CSV)**, and the table downloads as filtered.
 
+**Switch-off prices.** Each tracked wind farm shows its support scheme (Renewables Obligation, a 2014 early Contract for Difference, or an auction CfD) and what it cost per MWh to switch off over the last 30 days. Stories compares the schemes and explains why older ones cost more. Schemes and sources are in `data/subsidy.json`.
+
+**Replay the last 7 days.** From the Map or Stories tab, the map plays back the week hour by hour for every station that reports to Elexon: flows change, wind farms being turned down light up, and a label on the map shows the hour. Pause, scrub or tap the chart to jump.
+
+**Grid queue** (in the Future tab). Every project with a contract to connect to the transmission grid, from NESO's TEC register, shown as circles at each connection site. Totals by technology and contracted year, the longest queues, each site's largest projects, and a Wales-only view.
+
+**Wales in depth.** The Wales view shows progress against the Welsh Government's targets (70% of consumption from renewables by 2030, 100% by 2035), local ownership and heat pumps, recent wind in Wales, Welsh wind farms turned down, and what's queuing to connect in Wales.
+
+**Checked against NESO.** The curtailment tracker compares its wind payments with NESO's official daily thermal constraint costs, with a note on why they differ.
+
+**Open data.** Nine CSV files, refreshed daily at stable addresses under `data/open/`, with an index describing each (`data/open/index.json`). Linked from "How this map works" and the Layers panel.
+
 **Compare years** (also in the Future tab): pick two years to see capacity by technology side by side, what's new and what closes. You can also highlight the changes on the map: a green ring means new and a red dashed ring means closed.
 
 **Also:**
@@ -81,13 +93,31 @@ data/digest.json      weekly digests (one added each week)
 data/daily.json       daily Wales figures from NESO's regional estimates
 data/curtail.json     daily curtailment totals and each wind farm's share (loads when needed)
 data/stations.json    each mapped station's hourly output for the last 14 days (loads when needed)
+data/subsidy.json     support scheme for each tracked wind farm, with sources (edit by hand)
+data/queue.json       the connection queue by connection site (loads when needed)
+data/constraints.json NESO's daily constraint costs, for the cross-check (loads when needed)
+data/gazetteer.json   named substations and power stations from OpenStreetMap, for placing queue sites
+data/open/            open data: CSV files and index.json
 tools/build.py        assembles index.html from src/ and data/
 tools/update_snapshot.py   refreshes the offline snapshot, forecast accuracy, weekly digest and Wales figures (daily)
 tools/update_elexon.py     refreshes the curtailment tracker and station history from Elexon (daily)
 tools/update_history.py    refreshes carbon history, records and the simulator data from NESO (daily)
 tools/update_osm.py        refreshes grid, substations, smaller sites and routes from OpenStreetMap (monthly)
+tools/update_neso.py       refreshes the connection queue and official constraint costs from the NESO data portal (daily)
+tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
+
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
 
 ## Keeping the data fresh automatically
 
@@ -98,6 +128,7 @@ The GitHub Action runs on its own:
 | Every day, 05:15 UTC | The offline snapshot: national, Welsh and regional mix, today's carbon intensity, import factors. Also saves today's 24-hour forecast, scores earlier ones, and adds last week's digest once the week is over | `update_snapshot.py` |
 | Every day | Yesterday's curtailment and each station's output, read half-hour by half-hour from Elexon (the first run fills in the last week) | `update_elexon.py` |
 | Every day | Carbon history since 2009, records and milestones, and the simulator's hourly year (NESO historic generation mix) | `update_history.py` |
+| Every day | The connection queue (TEC register) and NESO's daily constraint costs; then the open data CSVs | `update_neso.py`, `export_open.py` |
 | 2nd of each month | All of the above, plus lines, substations, smaller sites, wind farm areas, routes and cross-checks (OpenStreetMap UK extract) | `update_osm.py` |
 
 After refreshing, it rebuilds `index.html` and commits only if something changed. Each step works independently: if one source is down, the previous data is kept and the rest still updates.
@@ -112,6 +143,8 @@ python tools/update_snapshot.py
 python tools/update_elexon.py
 python tools/update_history.py              # or: --csv df_fuel_ckan.csv
 python tools/update_osm.py                  # or: --pbf united-kingdom-latest.osm.pbf
+python tools/update_neso.py
+python tools/export_open.py
 python tools/build.py                       # or: --inline for one self-contained file
 ```
 
@@ -147,6 +180,12 @@ All feeds were confirmed working on the live site on 29 September 2026.
 | Live mix, regional and import carbon | NESO Carbon Intensity API |
 | Output, flows, balancing, prices | Elexon Insights (BMRS): contains BMRS data © Elexon Limited |
 | Connection queue figures | NESO; Knight Frank; Curvature Energy |
+| Connection queue by site | NESO TEC register (NESO Open Data Licence); locations from OpenStreetMap |
+| Official constraint costs | NESO constraint breakdown (NESO Open Data Licence) |
+| Welsh targets and progress | Welsh Government, Energy Generation and Energy Use in Wales (2026) |
+| Wind farm support schemes | LCCC Contracts for Difference register; Ofgem; developer announcements (see `data/subsidy.json`) |
+
+The open data in `data/open/` is shared under CC BY 4.0; the original sources' terms also apply.
 
 The map carries the required credits in its bottom corner. Check each provider's current terms before any commercial use.
 
@@ -154,11 +193,13 @@ The map carries the required credits in its bottom corner. Check each provider's
 
 - **Routes show the typical direction of flow.** Electricity joins a shared pool once it's on the grid, so a route shows where power usually goes, not a fixed destination.
 - **Per-station live output is reported, not metered.** Where a station reports to Elexon, the figure is its physical notification: the output it told the grid operator it planned to produce that half-hour. Turn-down instructions are shown separately as curtailment.
-- **Some live output figures are estimates.** Where Elexon metering isn't available, a site's output is its capacity multiplied by how hard that technology is running nationally. The site panel says which method was used.
+- **Some live output figures are estimates.** Where a station doesn't report to Elexon, its output is its capacity multiplied by how hard that technology is running nationally. The site panel says which method was used.
 - **Two carbon measures are used.** The history uses NESO's generation-based figures. The live figures estimate electricity consumed, including imports. They usually differ by 10 to 30 gCO₂/kWh.
 - **Future dates are targets.** They are developer or government targets and often slip. The 2030 and 2035 carbon points are targets, not forecasts.
 - **Northern Ireland** runs a separate grid shared with Ireland.
 - **OpenStreetMap is community-mapped.** Some entries are out of date.
+- **The connection queue is a list of contracts, not a forecast.** Many queued projects are never built, NESO notes some capacity is repeated across rows (repeats are counted once), and connections reform is re-ordering the queue. Sites the map can't place from their names are counted but not drawn.
+- **Switch-off prices are averages.** Payments divided by energy turned down over 30 days; wind farms turned down by less than 200 MWh are left out.
 
 ## Accessibility
 

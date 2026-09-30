@@ -498,6 +498,44 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);transform:translate(-50%,20px);background:var(--ink);color:var(--panel);font-weight:600;padding:9px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){ .toast{transition:none} }
+.prbars{list-style:none;padding:0;margin:6px 0}
+.prbars li{border-top:1px solid var(--rule)}
+.prbars button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:8.5em 1fr 5.4em;gap:8px;align-items:center;width:100%;padding:6px 2px;min-height:40px;font-size:.88rem}
+.prbars .pn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prbars .pb{height:10px;background:var(--soft);border-radius:5px;overflow:hidden}
+.prbars .pb i{display:block;height:100%;border-radius:5px}
+.prbars b{text-align:right;font-variant-numeric:tabular-nums}
+.prbars button:hover .pn,.prbars button:focus-visible .pn{text-decoration:underline;text-underline-offset:3px}
+.prbars button:focus-visible{outline:2px solid var(--ic);outline-offset:1px}
+.subs{font-size:.9rem;border-left:3px solid var(--rule);padding:4px 0 4px 10px;margin:10px 0;line-height:1.45}
+.subs span{color:var(--muted)}
+.wkbtn{margin:8px 0}
+.wk .wkwhen{font:700 1.35rem "Barlow Semi Condensed",sans-serif;margin:10px 0 4px}
+.wkctl{align-items:center;gap:10px;flex-wrap:nowrap}
+.wkctl input[type=range]{flex:1;min-width:0}
+.wkctl .pbtn{min-width:5.2em}
+.qlayer circle{fill-opacity:.55;stroke:var(--panel);stroke-width:1.2;cursor:pointer}
+.qlayer g.qs.on circle{fill-opacity:.9;stroke:var(--ink);stroke-width:2}
+.qlayer g.qs:focus-visible circle{stroke:var(--ic);stroke-width:3}
+#map.queueon g.mk{opacity:.22}
+#map.queueon path.lf{display:none}
+.qt{width:100%;border-collapse:collapse;font-size:.85rem;margin:4px 0}
+.qt th{text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--rule);padding:4px 4px 4px 0}
+.qt td{border-bottom:1px solid var(--rule);padding:5px 4px 5px 0;vertical-align:top}
+.qt td:nth-child(2),.qt th:nth-child(2){text-align:right;white-space:nowrap}
+.ti.sm{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:middle}
+.qlist .ti{width:14px;height:14px}
+.wtbar{position:relative;height:14px;background:var(--soft);border-radius:7px;margin:14px 0 30px}
+.wtbar i{display:block;height:100%;background:#2fa84f;border-radius:7px}
+.wtm{position:absolute;top:-4px;height:22px;border-left:2px dashed var(--ink);font-size:.72rem;color:var(--muted);padding:24px 0 0;transform:translateX(-1px);white-space:nowrap}
+.wtm b{color:var(--ink);margin-right:3px}
+.wtm:last-child{transform:translateX(-100%);border-left:0;border-right:2px dashed var(--ink);text-align:right}
+.wkchip{position:absolute;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 62px);z-index:6;display:flex;align-items:center;gap:10px;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:999px;padding:6px 14px;box-shadow:0 2px 10px rgba(0,0,0,.14);font:inherit;cursor:pointer;white-space:nowrap}
+.wkchip[hidden]{display:none}
+.wkchip b{font:700 .95rem "Barlow Semi Condensed",sans-serif}
+.wkchip span{font-size:.8rem;color:var(--warn);font-weight:600}
+.wkchip i{font-style:normal;font-size:.75rem;color:var(--muted)}
+@media (min-width:900px){ .wkchip{top:18px} }
 </style>
 <link rel="preconnect" href="https://api.carbonintensity.org.uk" crossorigin><link rel="preconnect" href="https://data.elexon.co.uk" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
@@ -540,7 +578,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
       <canvas id="dots" aria-hidden="true"></canvas>
       <svg id="map" role="img"></svg>
       <div class="ilegend" id="ilegend"></div>
-      <div class="pills"><button class="cipill" id="cipill"><i class="ldot" aria-hidden="true"></i><b></b><span class="ciu"></span><small class="cist"></small></button><button class="status" id="status" hidden><i></i><span></span></button></div>
+      <button class="wkchip" id="wkchip" hidden></button><div class="pills"><button class="cipill" id="cipill"><i class="ldot" aria-hidden="true"></i><b></b><span class="ciu"></span><small class="cist"></small></button><button class="status" id="status" hidden><i></i><span></span></button></div>
       <div class="ctl">
         <button id="zin">+</button>
         <button id="zout">−</button>
@@ -562,7 +600,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   <h4 id="lg-ovl-t"></h4><div class="chips" id="lg-ovl"></div>
   <h4 id="lg-gen-t"></h4><div class="chips" id="lg-gen"></div>
   <h4 id="lg-net-t"></h4><div class="chips" id="lg-net"></div>
-  <button class="linkbtn" id="tipsagain"></button> <button class="linkbtn" id="methodsbtn" data-methods=""></button>
+  <button class="linkbtn" id="tipsagain"></button> <button class="linkbtn" id="methodsbtn" data-methods=""></button> <button class="linkbtn" id="opendatabtn" data-methods="open"></button>
 </div>
 <div class="pop" id="chartv" role="dialog" aria-modal="true" aria-labelledby="chartv-t"><div class="pophead"><b id="chartv-t"></b><button class="xbtn" data-close="chartv" aria-label="Close">×</button></div>
   <div class="chart big" id="chartbig"></div><p class="meta" id="chartv-hint"></p><div class="row" id="chartv-actions"></div>
@@ -588,13 +626,48 @@ const XCHK = __XCHK__;
 const REGGEO = __REGGEO__;
 const SNAPSHOT = __SNAPSHOT__;  // offline fallback, refreshed daily by tools/update_snapshot.py
 const ACCURACY = __ACC__;       // forecast tracker, updated daily by tools/update_snapshot.py
-const DIGEST = __DIGEST__;       // weekly digest, updated daily by tools/update_snapshot.py
+const DIGEST = __DIGEST__;
+const SUBSIDY_DOC = __SUBSIDY__;  // support scheme per tracked wind farm (data/subsidy.json)       // weekly digest, updated daily by tools/update_snapshot.py
 const SIM_INLINE = __SIMINLINE__; // null: the simulator fetches data/sim.json when opened
 const HISTORY = __HISTORY__;    // NESO historic generation mix, refreshed monthly by tools/update_history.py // NESO GSP regions grouped into the 14 Carbon Intensity regions   // site id -> [osm id, MW, OSM name]
 
 /* ---------------- words ---------------- */
 const I18N = {
-en:{tab_fut:'Future',fut_sim:'2030 simulator',fut_cmp:'Compare years',share:'Share this view',link_copied:'Link copied',link_copy:'Copy this link',
+en:{sc_ro:'Renewables Obligation (earns certificates on every MWh)',sc_ic:'Early Contract for Difference (2014), guaranteed £{k}/MWh in 2012 prices',sc_cfd:'Contract for Difference ({y} auction), £{k}/MWh in 2012 prices',sc_part:'Contract for Difference on {mw} MW ({y} auction, £{k}/MWh in 2012 prices); the rest sold under private deals',
+ scs_ro:'Renewables Obligation',scs_ic:'Early CfD (2014)',scs_cfd:'Auction CfD',scs_part:'Part CfD',
+ pr_h:'Why some wind farms cost more to switch off',pr_t:'When a wind farm is switched off it loses its subsidy for that power, so it asks to be paid at least that much. Older schemes pay far more per MWh, so they cost far more to switch off.',
+ pr_avg:'Average switch-off price over the last 30 days: {list}.',pr_avg_ro:'Renewables Obligation {v}',pr_avg_ic:'early CfDs {v}',pr_avg_cfd:'auction CfDs {v}',
+ pr_note:'Price is each wind farm’s payments divided by the energy it was turned down by. Farms turned down by less than 200 MWh are left out.',
+ sub_h:'Support scheme:',sub_price:'Switch-off price over the last 30 days: {v}.',
+ sub_why_ro:'Each MWh earns certificates worth well over £50, so switching off costs it that income.',sub_why_ic:'Its guaranteed price is far above today’s market price, and it loses the top-up on every MWh it doesn’t generate.',
+ sub_why_cfd:'Its guaranteed price is close to the market price, so little top-up is lost when it’s switched off.',sub_why_part:'Only part of its output has a guaranteed price near the market price, so switching off costs it relatively little.',
+ wk_chip:'{v} of wind turned down',wk_btn:'Replay the last 7 days',wk_h:'The last 7 days, hour by hour',wk_meta:'The {n} stations that report to Elexon',wk_live:'Back to live',wk_slider:'Hour to show',
+ wk_gen:'Generating',wk_gen_s:'reporting stations',wk_cut:'Wind turned down',wk_cut_s:'this hour',wk_top:'Turned down most this hour',wk_none:'No wind was being turned down this hour.',
+ wk_note:'Smaller sites that don’t report to Elexon are hidden during the replay. The chart shows wind turned down across the week; tap it to jump.',wk_chart:'Wind turned down, hour by hour, over the last 7 days',
+ fut_q:'Grid queue',q_h:'Waiting to connect',q_t:'Every project with a contract to connect to Britain’s transmission grid, from NESO’s register. Circles on the map show where each one plugs in.',
+ q_all:'All of Britain',q_wales:'Wales only',q_queued:'Waiting to connect',q_queued_s:'contracted',q_proj:'Projects',q_proj_s:'in the queue',q_late:'Contracted date passed',q_late_s:'not yet built',
+ q_by_t:'What’s queuing',q_by_y:'When they’re contracted to connect',q_by_y_note:'Contracted dates, in MW. Red: dates already passed without the project being built.',
+ q_top:'Where the queue is longest',q_row:'{n} projects, typical date {y}',q_unplaced:'not on map',q_more:'Show the top {n}',
+ q_note:'NESO TEC register, as of {d}. NESO notes that some capacity is repeated across stages and technologies; repeated rows are counted once. {u} is at sites the map couldn’t place.',
+ q_none:'The queue appears after the next data refresh.',q_back:'Back to the queue',q_site_meta:'Connection site · network owner: {h}',q_conn:'Already connected',q_conn_s:'here',
+ q_years:'Contracted to connect from {a}; typical date {m}.',q_site_late:'{v} has a contracted date that has already passed.',q_largest:'Largest projects',
+ q_c_name:'Project',q_c_mw:'Size',q_c_date:'Contracted',q_c_status:'Status',q_shown:'Showing the {a} largest of {n} projects.',
+ q_unplaced_l:'The map couldn’t place this site from its name, so it isn’t shown as a circle.',q_site_note:'A contract to connect is not a guarantee of being built; many queued projects never are.',
+ q_explore:'Explore the queue on the map',q_dem:'Demand',q_oth:'Other',qs_B:'Built',qs_C:'Being built',qs_A:'Consented',qs_W:'Awaiting consent',qs_S:'Scoping',qs_x:'–',
+ wt_h:'Wales against its targets',wt_t:'In {y}, renewable generation in Wales equalled {p}% of the electricity Wales used. The Welsh Government’s targets are 70% by 2030 and 100% by 2035.',
+ wt_aria:'{p}% of consumption, against targets of 70% by 2030 and 100% by 2035',wt_chart:'Renewable generation as a share of Welsh electricity use, with the 2030 and 2035 targets',
+ wt_dem:'Electricity use is expected to rise from {a} TWh in 2024 to {b} TWh in 2035, so renewable generation needs to roughly triple.',
+ wt_own:'Locally owned renewables: {a} GW of a {b} GW target ({p}%).',wt_hp:'Heat pumps: about {a} installed, against {b} planned by 2035.',
+ wt_src:'Welsh Government, Energy Generation and Energy Use in Wales (2026).',
+ wy_h:'Wind in Wales',wy_t:'On {d}, wind made up {w}% of the electricity used in Wales on average, peaking at {m}%, and was above 80% for {h} hours. These are NESO’s regional estimates, which include power flowing in from elsewhere.',wy_wk:'Over the last 7 days: {w}% on average, and {h} hours above 80%.',
+ wc_h:'Welsh wind farms turned down, last 30 days',wc_none:'No Welsh wind farm was paid to switch off in the last 30 days.',
+ wq_h:'Waiting to connect in Wales',wq_t:'{q} of projects ({n}) have contracts to connect at Welsh substations, led by {s}.',wq_go:'See the queue in Wales',
+ oc_h:'Checked against NESO’s official figures',oc_wait:'NESO publishes its constraint costs weekly; its latest figures run to {d}. The comparison appears once they cover tracked days.',
+ oc_t:'On the {n} days both cover, the wind farms this map tracks were paid {o} to switch off. NESO’s official cost of thermal constraints for the same days was {g}, so the tracked payments make up {p}% of it.',
+ oc_k_neso:'NESO thermal constraint cost',oc_k_ours:'Tracked wind payments',
+ oc_note:'They aren’t meant to match: NESO’s figure also includes turning up other generators (usually gas in England) to replace the lost wind, and wind farms this map doesn’t track.',
+ od_btn:'Open data',
+ tab_fut:'Future',fut_sim:'2030 simulator',fut_cmp:'Compare years',share:'Share this view',link_copied:'Link copied',link_copy:'Copy this link',
  sh_h:'Last 7 days',sh_loading:'Loading…',sh_none:'History appears after the next daily data refresh.',sh_offline:'History loads on the published map.',sh_out:'Output',sh_cut:'Turned down',
  sh_sum:'Averaged {a} ({p}% of capacity), peaking at {m}.',sh_cutsum:'{v} was turned down.',sh_30:'Turned down on {n} of the last {t} days: {v} in total, with about {p} in payments.',sh_30none:'Not turned down in the last {t} days.',
  sh_note:'Output is what the station notified to Elexon each half-hour, less any turn-down the grid operator paid for.',
@@ -756,7 +829,41 @@ en:{tab_fut:'Future',fut_sim:'2030 simulator',fut_cmp:'Compare years',share:'Sha
  st_h_h:'Hours at the 2030 clean power level',st_h_t:'NESO’s Clean Power 2030 pathways put average carbon intensity at around 50 gCO₂/kWh. Britain first touched that level for an hour in 2019. In 2024 it spent nearly 600 hours at or below it. To hit the target, it will need to be there most of the time.',st_h_note:'Hours at or below 50 gCO₂/kWh each year, from NESO’s historic generation mix. *{y} is 1 January to {to}.',
  ci_proj_note:'Dashed line: NESO’s Clean Power 2030 pathways bring carbon intensity to around 50 gCO₂/kWh or lower by 2030. The 2035 point marks the earlier government ambition for a fully decarbonised grid. These are targets, not forecasts.',
  ci_year_note:'The {y} figure is the average from 1 January to {to}, from NESO’s historic generation mix.'},
-cy:{tab_fut:'Dyfodol',fut_sim:'Efelychydd 2030',fut_cmp:'Cymharu blynyddoedd',share:'Rhannu’r olwg hon',link_copied:'Wedi copïo’r ddolen',link_copy:'Copïwch y ddolen hon',
+cy:{sc_ro:'Rhwymedigaeth Ynni Adnewyddadwy (yn ennill tystysgrifau ar bob MWh)',sc_ic:'Contract Gwahaniaeth cynnar (2014), £{k}/MWh wedi’i warantu ym mhrisiau 2012',sc_cfd:'Contract Gwahaniaeth (arwerthiant {y}), £{k}/MWh ym mhrisiau 2012',sc_part:'Contract Gwahaniaeth ar {mw} MW (arwerthiant {y}, £{k}/MWh ym mhrisiau 2012); mae’r gweddill yn cael ei werthu drwy gytundebau preifat',
+ scs_ro:'Rhwymedigaeth Ynni Adnewyddadwy',scs_ic:'CfD cynnar (2014)',scs_cfd:'CfD arwerthiant',scs_part:'CfD rhannol',
+ pr_h:'Pam mae’n costio mwy i ddiffodd rhai ffermydd gwynt',pr_t:'Pan fydd fferm wynt yn cael ei diffodd mae’n colli ei chymhorthdal ar gyfer y pŵer hwnnw, felly mae’n gofyn am gael ei thalu o leiaf cymaint â hynny. Mae cynlluniau hŷn yn talu llawer mwy am bob MWh, felly maen nhw’n costio llawer mwy i’w diffodd.',
+ pr_avg:'Pris diffodd cyfartalog dros y 30 diwrnod diwethaf: {list}.',pr_avg_ro:'Rhwymedigaeth Ynni Adnewyddadwy {v}',pr_avg_ic:'CfDs cynnar {v}',pr_avg_cfd:'CfDs arwerthiant {v}',
+ pr_note:'Y pris yw taliadau pob fferm wynt wedi’u rhannu â’r ynni y cafodd ei throi i lawr. Mae ffermydd a gafodd eu troi i lawr o lai na 200 MWh wedi’u gadael allan.',
+ sub_h:'Cynllun cymorth:',sub_price:'Pris diffodd dros y 30 diwrnod diwethaf: {v}.',
+ sub_why_ro:'Mae pob MWh yn ennill tystysgrifau sy’n werth ymhell dros £50, felly mae diffodd yn costio’r incwm hwnnw iddi.',sub_why_ic:'Mae ei phris gwarantedig ymhell uwchlaw pris y farchnad heddiw, ac mae’n colli’r atodiad ar bob MWh nad yw’n ei gynhyrchu.',
+ sub_why_cfd:'Mae ei phris gwarantedig yn agos at bris y farchnad, felly ychydig o atodiad sy’n cael ei golli pan gaiff ei diffodd.',sub_why_part:'Dim ond rhan o’i hallbwn sydd â phris gwarantedig agos at bris y farchnad, felly mae diffodd yn costio cymharol ychydig iddi.',
+ wk_chip:'{v} o wynt wedi’i droi i lawr',wk_btn:'Ail-chwarae’r 7 diwrnod diwethaf',wk_h:'Y 7 diwrnod diwethaf, awr wrth awr',wk_meta:'Y {n} gorsaf sy’n adrodd i Elexon',wk_live:'Yn ôl i’r byw',wk_slider:'Yr awr i’w dangos',
+ wk_gen:'Yn cynhyrchu',wk_gen_s:'gorsafoedd sy’n adrodd',wk_cut:'Gwynt wedi’i droi i lawr',wk_cut_s:'yr awr hon',wk_top:'Wedi’u troi i lawr fwyaf yr awr hon',wk_none:'Doedd dim gwynt yn cael ei droi i lawr yr awr hon.',
+ wk_note:'Mae safleoedd llai nad ydyn nhw’n adrodd i Elexon wedi’u cuddio yn ystod yr ail-chwarae. Mae’r siart yn dangos gwynt wedi’i droi i lawr drwy’r wythnos; tapiwch hi i neidio.',wk_chart:'Gwynt wedi’i droi i lawr, awr wrth awr, dros y 7 diwrnod diwethaf',
+ fut_q:'Ciw’r grid',q_h:'Yn aros i gysylltu',q_t:'Pob prosiect sydd â chontract i gysylltu â grid trawsyrru Prydain, o gofrestr NESO. Mae’r cylchoedd ar y map yn dangos lle mae pob un yn cysylltu.',
+ q_all:'Prydain gyfan',q_wales:'Cymru yn unig',q_queued:'Yn aros i gysylltu',q_queued_s:'dan gontract',q_proj:'Prosiectau',q_proj_s:'yn y ciw',q_late:'Dyddiad contract wedi pasio',q_late_s:'heb eu hadeiladu eto',
+ q_by_t:'Beth sy’n ciwio',q_by_y:'Pryd mae disgwyl iddyn nhw gysylltu',q_by_y_note:'Dyddiadau contract, mewn MW. Coch: dyddiadau sydd eisoes wedi pasio heb i’r prosiect gael ei adeiladu.',
+ q_top:'Lle mae’r ciw hiraf',q_row:'{n} prosiect, dyddiad arferol {y}',q_unplaced:'nid ar y map',q_more:'Dangos y {n} uchaf',
+ q_note:'Cofrestr TEC NESO, ar {d}. Mae NESO yn nodi bod rhywfaint o gapasiti’n cael ei ailadrodd ar draws camau a thechnolegau; mae rhesi sy’n ailadrodd yn cael eu cyfrif unwaith. Mae {u} mewn safleoedd na allai’r map eu lleoli.',
+ q_none:'Bydd y ciw yn ymddangos ar ôl y diweddariad data nesaf.',q_back:'Yn ôl i’r ciw',q_site_meta:'Safle cysylltu · perchennog y rhwydwaith: {h}',q_conn:'Eisoes wedi cysylltu',q_conn_s:'yma',
+ q_years:'Dan gontract i gysylltu o {a} ymlaen; dyddiad arferol {m}.',q_site_late:'Mae dyddiad contract {v} eisoes wedi pasio.',q_largest:'Y prosiectau mwyaf',
+ q_c_name:'Prosiect',q_c_mw:'Maint',q_c_date:'Contract',q_c_status:'Statws',q_shown:'Yn dangos y {a} mwyaf o {n} prosiect.',
+ q_unplaced_l:'Nid oedd y map yn gallu lleoli’r safle hwn o’i enw, felly nid yw’n cael ei ddangos fel cylch.',q_site_note:'Nid yw contract i gysylltu yn warant y bydd prosiect yn cael ei adeiladu; nid yw llawer o brosiectau yn y ciw byth yn cael eu hadeiladu.',
+ q_explore:'Archwilio’r ciw ar y map',q_dem:'Galw',q_oth:'Arall',qs_B:'Wedi’i adeiladu',qs_C:'Yn cael ei adeiladu',qs_A:'Caniatâd wedi’i roi',qs_W:'Yn aros am ganiatâd',qs_S:'Cwmpasu',qs_x:'–',
+ wt_h:'Cymru yn erbyn ei thargedau',wt_t:'Yn {y}, roedd cynhyrchu adnewyddadwy yng Nghymru yn cyfateb i {p}% o’r trydan a ddefnyddiodd Cymru. Targedau Llywodraeth Cymru yw 70% erbyn 2030 a 100% erbyn 2035.',
+ wt_aria:'{p}% o’r defnydd, o’i gymharu â thargedau o 70% erbyn 2030 a 100% erbyn 2035',wt_chart:'Cynhyrchu adnewyddadwy fel cyfran o ddefnydd trydan Cymru, gyda thargedau 2030 a 2035',
+ wt_dem:'Mae disgwyl i’r defnydd o drydan godi o {a} TWh yn 2024 i {b} TWh yn 2035, felly mae angen i gynhyrchu adnewyddadwy dreblu, fwy neu lai.',
+ wt_own:'Ynni adnewyddadwy dan berchnogaeth leol: {a} GW o darged o {b} GW ({p}%).',wt_hp:'Pympiau gwres: tua {a} wedi’u gosod, o’i gymharu â {b} wedi’u cynllunio erbyn 2035.',
+ wt_src:'Llywodraeth Cymru, Cynhyrchu Ynni a Defnyddio Ynni yng Nghymru (2026).',
+ wy_h:'Gwynt yng Nghymru',wy_t:'Ar {d}, gwynt oedd {w}% o’r trydan a ddefnyddiwyd yng Nghymru ar gyfartaledd, gan gyrraedd uchafbwynt o {m}%, ac roedd dros 80% am {h} awr. Amcangyfrifon rhanbarthol NESO yw’r rhain, sy’n cynnwys pŵer sy’n llifo i mewn o fannau eraill.',wy_wk:'Dros y 7 diwrnod diwethaf: {w}% ar gyfartaledd, a {h} awr dros 80%.',
+ wc_h:'Ffermydd gwynt Cymru wedi’u troi i lawr, y 30 diwrnod diwethaf',wc_none:'Ni chafodd unrhyw fferm wynt yng Nghymru ei thalu i ddiffodd yn y 30 diwrnod diwethaf.',
+ wq_h:'Yn aros i gysylltu yng Nghymru',wq_t:'Mae gan {q} o brosiectau ({n}) gontractau i gysylltu mewn is-orsafoedd yng Nghymru, gyda {s} ar y blaen.',wq_go:'Gweld y ciw yng Nghymru',
+ oc_h:'Wedi’i wirio yn erbyn ffigurau swyddogol NESO',oc_wait:'Mae NESO yn cyhoeddi ei gostau cyfyngiadau’n wythnosol; mae ei ffigurau diweddaraf yn mynd hyd at {d}. Bydd y gymhariaeth yn ymddangos pan fyddan nhw’n cwmpasu’r dyddiau sy’n cael eu tracio.',
+ oc_t:'Ar y {n} diwrnod y mae’r ddau’n eu cwmpasu, cafodd y ffermydd gwynt y mae’r map hwn yn eu tracio eu talu {o} i ddiffodd. Cost swyddogol NESO ar gyfer cyfyngiadau thermol ar yr un dyddiau oedd {g}, felly mae’r taliadau sy’n cael eu tracio yn {p}% ohono.',
+ oc_k_neso:'Cost cyfyngiadau thermol NESO',oc_k_ours:'Taliadau gwynt wedi’u tracio',
+ oc_note:'Nid ydyn nhw i fod i gyfateb: mae ffigur NESO hefyd yn cynnwys troi cynhyrchwyr eraill i fyny (nwy yn Lloegr fel arfer) yn lle’r gwynt a gollwyd, a ffermydd gwynt nad yw’r map hwn yn eu tracio.',
+ od_btn:'Data agored',
+ tab_fut:'Dyfodol',fut_sim:'Efelychydd 2030',fut_cmp:'Cymharu blynyddoedd',share:'Rhannu’r olwg hon',link_copied:'Wedi copïo’r ddolen',link_copy:'Copïwch y ddolen hon',
  sh_h:'Y 7 diwrnod diwethaf',sh_loading:'Wrthi’n llwytho…',sh_none:'Bydd yr hanes yn ymddangos ar ôl y diweddariad data dyddiol nesaf.',sh_offline:'Mae’r hanes yn llwytho ar y map cyhoeddedig.',sh_out:'Allbwn',sh_cut:'Wedi’i droi i lawr',
  sh_sum:'Cyfartaledd o {a} ({p}% o’r capasiti), gydag uchafbwynt o {m}.',sh_cutsum:'Cafodd {v} ei droi i lawr.',sh_30:'Wedi’i droi i lawr ar {n} o’r {t} diwrnod diwethaf: {v} i gyd, gyda thua {p} mewn taliadau.',sh_30none:'Heb ei droi i lawr yn y {t} diwrnod diwethaf.',
  sh_note:'Yr allbwn yw’r hyn a hysbysodd yr orsaf i Elexon bob hanner awr, llai unrhyw droi i lawr y talodd gweithredwr y grid amdano.',
@@ -983,7 +1090,7 @@ const METHODS = [
  ['NESO: connections reform results','https://www.neso.energy/industry-information/connections-reform/connections-reform-results'],
  ['postcodes.io: postcode locations','https://postcodes.io/']
 ];
-const METHOD_DOC = {"en": [["data", "What the map shows", "<p>The map brings together public data about Britain’s electricity system. Major sites (power stations, interconnectors and grid links) are compiled by hand from public announcements and checked against OpenStreetMap. Grid lines, substations, smaller generators and wind farm outlines come from OpenStreetMap, refreshed monthly. Live figures come from NESO and Elexon every five minutes. Every site panel lists its own sources.</p><p>If the live feeds can’t be reached, the map shows the latest stored snapshot instead and says so in the status pill.</p>"], ["live", "Live output of each power station", "<p>Where a station reports to Elexon, the figure is its <b>physical notification</b>: the output the station told the grid operator it planned to produce for that half-hour. It is not a meter reading. When the grid operator pays a station to turn down, that instruction is shown separately as curtailment.</p><p>Where no report is available, output is <b>estimated</b>: the station’s capacity multiplied by how hard that technology is running across Britain, from NESO’s national mix. The panel says which method was used.</p>"], ["routes", "Where the electricity goes", "<p>Routes follow real 400 kV and 275 kV pylon lines from OpenStreetMap, found with a shortest-path search on the line network. Once electricity joins the grid it mixes with everything else, so a route shows the <b>typical direction of flow</b>, not a fixed destination.</p>"], ["carbon", "Carbon intensity", "<p>Carbon intensity is the CO₂ emitted per kilowatt-hour of electricity (gCO₂/kWh). Two measures appear on the map. The <b>history</b> uses NESO’s historic generation mix, which counts electricity generated in Britain plus imports. The <b>live and forecast</b> figures come from NESO’s Carbon Intensity API, which estimates electricity consumed, including imports. They usually differ by 10 to 30 g.</p><p>Regional figures are NESO’s estimates for its 14 regions. Import figures use NESO’s average factor for each country, not live data from that country.</p>"], ["why", "“Why now”", "<p>“Typical” is the average for the same month and half-hour of the day over the last two years of NESO’s historic data. The card calls a reading unusual if it is among the cleanest or dirtiest 10% for that time. It then lists the sources whose share differs most from typical.</p>"], ["curt", "Curtailment, payments and CO₂", "<p>Curtailment is read from the grid operator’s accepted instructions to reduce output (Elexon balancing acceptances). Payments use each station’s bid price for the half-hour. The extra CO₂ assumes the lost power is replaced by combined-cycle gas at NESO’s factor of 394 gCO₂/kWh, which is an estimate. The Eastern Green Link scenario assumes the new capacity carries curtailed Scottish wind straight to demand in England. In practice, other bottlenecks can limit this.</p>"], ["plan", "When to run it", "<p>The Plan tab averages NESO’s 48-hour carbon intensity forecast over every possible start time for your running time, then picks the lowest. CO₂ is your power multiplied by hours, multiplied by that average. Cost isn’t included, because wholesale prices aren’t forecast publicly.</p>"], ["acc", "Forecast accuracy", "<p>Every morning at about 05:15 UTC, the daily refresh saves NESO’s national forecast for the next 24 hours. After those 24 hours have passed, it compares each half-hour with NESO’s measured figure. The <b>typical error</b> is the average size of the miss in either direction, and the <b>bias</b> is the average signed miss.</p><p>“Cleanest window found” asks the practical question behind the Plan tab: if you had started at the forecast’s cleanest 3-hour window, would you have been within 10 g of the truly cleanest window? The record is kept in <code>data/accuracy.json</code> in the map’s repository.</p>"], ["sim", "2030 simulator", "<p>The simulator replays one real year, hour by hour: demand and the output of wind, solar, nuclear, biomass and hydro from NESO’s historic generation mix. It scales each hour’s output by the capacity you choose, compared with the capacity that actually existed that year (from the Clean Power 2030 Action Plan annex). Wind is scaled by expected output, not capacity alone, because offshore turbines produce more per gigawatt (assumed 40% of capacity on average, against 27% onshore).</p><p>Each hour, it meets demand in this order:</p><ol><li>clean generation</li><li>batteries (2 hours of storage, 85% round trip) and long-duration storage (8 hours, 75%)</li><li>new low-carbon dispatchable plant (assumed 50 g/kWh)</li><li>imports, following the same year’s pattern scaled to your interconnector capacity</li><li>gas</li></ol><p>Surplus power charges storage first, then goes to exports (up to 60% of interconnector capacity), and anything left is turned down. Carbon intensity counts British generation plus imports, as NESO’s historic figures do: gas at 394 g, biomass at 120 g, other fuels at 300 g and imports at 50 g, all per kWh. The import figure is the one that best reproduces 2024’s daily carbon intensity, and suits imports that come mostly from French nuclear and Norwegian hydro.</p><p><b>What it leaves out:</b></p><ul><li>limits on the grid inside Britain, so it understates curtailment</li><li>the gas plant the grid needs running for stability</li><li>demand that shifts its timing</li><li>weather in other years</li><li>costs</li></ul><p>The model check shows how closely it reproduces the real base year: for 2024 its average is within about 1 g of what was measured, and its daily figures are typically within 5 g. With NESO’s 2030 capacities it lands a little below NESO’s own result of 95% clean, mainly because it doesn’t move any demand in time. NESO’s scenarios count on 10–12 GW of flexible demand, such as smart EV charging.</p>"], ["digest", "Weekly digest", "<p>Each day the refresh checks whether a full Monday-to-Sunday week (UK time) has ended. If it has, it summarises that week from NESO’s Carbon Intensity API: measured intensity where available (forecast otherwise), the generation mix and regional estimates. The text is written from those numbers by fixed rules, not by hand. Records compare with the weeks stored since the digest began and with the lowest half-hour in NESO’s history since 2009.</p>"], ["history", "Curtailment tracker and station history", "<p>Every morning the refresh reads each of the previous day’s half-hours from Elexon: each station’s notified output, the grid operator’s accepted instructions and the bid prices. For each mapped station, <b>turn-down</b> is the gap between its notified output and the level it was instructed to, and <b>payments</b> use its bid price for that half-hour. The daily totals cover the wind farms on the map with a known Elexon unit, so they understate the total for Britain.</p><p>Station history shows the last 14 days, hour by hour: notified output, with the part that was turned down shaded. The tracker keeps each wind farm’s daily figures for about four months and the daily totals for just over two years.</p>"], ["records", "Records and milestones", "<p>Britain’s records come from NESO’s historic generation mix, half-hour by half-hour since 2009, refreshed daily. Every record and milestone uses that one dataset, so nothing is ever a “record” just because two measures differ. A milestone appears when a day sets an all-time record, or is the cleanest day for at least 30 days.</p><p>Wales isn’t split out in that dataset, so the Wales row uses NESO’s live regional estimates, recorded daily, and is only ever compared with itself.</p>"], ["share", "Sharing a view", "<p><b>Share this view</b> copies a link that opens the map as you see it: the tab, the selected site or region, the year, the Wales view, your simulator settings or the digest week. Nothing is stored anywhere. Everything is in the link itself.</p>"], ["dl", "Downloading the data", "<p>On the published map, every chart has <b>Download data (CSV)</b> in its enlarged view, and the table can be downloaded as it is filtered. Please credit the original sources, as listed under Data sources: NESO, Elexon (contains BMRS data © Elexon Limited) and OpenStreetMap contributors (Open Database Licence).</p>"], ["limits", "Known limitations", "<ul><li>Future dates are developer or government targets, and they often slip.</li><li>OpenStreetMap is mapped by volunteers, so some entries are out of date.</li><li>Northern Ireland runs a separate grid shared with Ireland.</li><li>Estimated outputs assume every site of a technology runs equally hard, which is never quite true.</li></ul>"]], "cy": [["data", "Beth mae’r map yn ei ddangos", "<p>Mae’r map yn dod â data cyhoeddus am system drydan Prydain at ei gilydd. Mae’r prif safleoedd (gorsafoedd pŵer, rhyng-gysylltwyr a chysylltiadau grid) wedi’u casglu â llaw o gyhoeddiadau cyhoeddus a’u gwirio yn erbyn OpenStreetMap. Daw llinellau’r grid, is-orsafoedd, cynhyrchwyr llai ac amlinellau ffermydd gwynt o OpenStreetMap, ac maen nhw’n cael eu diweddaru’n fisol. Daw’r ffigurau byw gan NESO ac Elexon bob pum munud. Mae panel pob safle yn rhestru ei ffynonellau ei hun.</p><p>Os na ellir cyrraedd y ffrydiau byw, mae’r map yn dangos y ciplun diweddaraf sydd wedi’i gadw, ac mae’r bilsen statws yn dweud hynny.</p>"], ["live", "Allbwn byw pob gorsaf bŵer", "<p>Lle mae gorsaf yn adrodd i Elexon, y ffigur yw ei <b>hysbysiad ffisegol</b>: yr allbwn y dywedodd yr orsaf wrth weithredwr y grid ei bod yn bwriadu ei gynhyrchu ar gyfer yr hanner awr honno. Nid darlleniad mesurydd yw hwn. Pan fydd gweithredwr y grid yn talu gorsaf i droi i lawr, mae’r cyfarwyddyd hwnnw’n cael ei ddangos ar wahân fel cwtogi.</p><p>Lle nad oes adroddiad ar gael, mae’r allbwn yn <b>amcangyfrif</b>: capasiti’r orsaf wedi’i luosi â pha mor galed mae’r dechnoleg honno’n rhedeg ar draws Prydain, o gymysgedd cenedlaethol NESO. Mae’r panel yn dweud pa ddull a ddefnyddiwyd.</p>"], ["routes", "I ble mae’r trydan yn mynd", "<p>Mae’r llwybrau’n dilyn llinellau peilonau 400 kV a 275 kV go iawn o OpenStreetMap, wedi’u canfod drwy chwilio am y llwybr byrraf ar rwydwaith y llinellau. Unwaith y bydd trydan yn ymuno â’r grid mae’n cymysgu â phopeth arall, felly mae llwybr yn dangos <b>cyfeiriad arferol y llif</b>, nid pen draw penodol.</p>"], ["carbon", "Dwysedd carbon", "<p>Dwysedd carbon yw’r CO₂ a allyrrir am bob cilowat-awr o drydan (gCO₂/kWh). Mae dau fesur ar y map. Mae’r <b>hanes</b> yn defnyddio cymysgedd cynhyrchu hanesyddol NESO, sy’n cyfrif y trydan a gynhyrchir ym Mhrydain ynghyd â mewnforion. Daw’r ffigurau <b>byw a’r rhagolygon</b> o API Dwysedd Carbon NESO, sy’n amcangyfrif y trydan a ddefnyddir, gan gynnwys mewnforion. Maen nhw fel arfer yn wahanol o 10 i 30 g.</p><p>Amcangyfrifon NESO ar gyfer ei 14 rhanbarth yw’r ffigurau rhanbarthol. Mae’r ffigurau mewnforio yn defnyddio ffactor cyfartalog NESO ar gyfer pob gwlad, nid data byw o’r wlad honno.</p>"], ["why", "“Pam nawr”", "<p>“Arferol” yw’r cyfartaledd ar gyfer yr un mis a’r un hanner awr o’r dydd dros ddwy flynedd ddiwethaf data hanesyddol NESO. Mae’r cerdyn yn galw darlleniad yn anarferol os yw ymhlith y 10% glanaf neu fwyaf budr ar gyfer yr adeg honno. Yna mae’n rhestru’r ffynonellau y mae eu cyfran fwyaf gwahanol i’r arfer.</p>"], ["curt", "Cwtogi, taliadau a CO₂", "<p>Mae cwtogi’n cael ei ddarllen o gyfarwyddiadau derbyniedig gweithredwr y grid i leihau allbwn (derbyniadau cydbwyso Elexon). Mae’r taliadau’n defnyddio pris cynnig pob gorsaf ar gyfer yr hanner awr. Mae’r CO₂ ychwanegol yn tybio bod nwy cylch cyfun yn cymryd lle’r pŵer a gollwyd, ar ffactor NESO o 394 gCO₂/kWh, ac amcangyfrif yw hynny. Mae senario Cyswllt Gwyrdd y Dwyrain yn tybio bod y capasiti newydd yn cludo gwynt yr Alban a gafodd ei gwtogi yn syth i’r galw yn Lloegr. Yn ymarferol, gall tagfeydd eraill gyfyngu ar hyn.</p>"], ["plan", "Pryd i’w redeg", "<p>Mae’r tab Cynllunio yn cyfartalu rhagolwg dwysedd carbon 48 awr NESO dros bob amser cychwyn posibl ar gyfer eich amser rhedeg, ac yna’n dewis yr isaf. CO₂ yw eich pŵer wedi’i luosi â’r oriau, wedi’i luosi â’r cyfartaledd hwnnw. Nid yw’r gost wedi’i chynnwys, gan nad yw prisiau cyfanwerthu’n cael eu rhagweld yn gyhoeddus.</p>"], ["acc", "Cywirdeb y rhagolygon", "<p>Bob bore tua 05:15 UTC, mae’r diweddariad dyddiol yn cadw rhagolwg cenedlaethol NESO ar gyfer y 24 awr nesaf. Ar ôl i’r 24 awr hynny fynd heibio, mae’n cymharu pob hanner awr â ffigur mesuredig NESO. Y <b>gwall arferol</b> yw maint cyfartalog y methiant i’r naill gyfeiriad neu’r llall, a’r <b>gogwydd</b> yw’r methiant cyfartalog gyda’i arwydd.</p><p>Mae “cyfnod glanaf wedi’i ganfod” yn gofyn y cwestiwn ymarferol y tu ôl i’r tab Cynllunio: pe baech wedi dechrau ar gyfnod 3 awr glanaf y rhagolwg, a fyddech o fewn 10 g i’r cyfnod glanaf go iawn? Mae’r cofnod yn cael ei gadw yn <code>data/accuracy.json</code> yn ystorfa’r map.</p>"], ["sim", "Efelychydd 2030", "<p>Mae’r efelychydd yn ail-chwarae un flwyddyn go iawn, awr wrth awr: y galw ac allbwn gwynt, solar, niwclear, biomas a dŵr o gymysgedd cynhyrchu hanesyddol NESO. Mae’n graddio allbwn pob awr yn ôl y capasiti rydych chi’n ei ddewis, o’i gymharu â’r capasiti a oedd yn bodoli go iawn y flwyddyn honno (o atodiad Cynllun Gweithredu Pŵer Glân 2030). Mae gwynt yn cael ei raddio yn ôl yr allbwn disgwyliedig, nid y capasiti yn unig, gan fod tyrbinau ar y môr yn cynhyrchu mwy am bob gigawat (40% o’r capasiti ar gyfartaledd, o’i gymharu â 27% ar y tir).</p><p>Bob awr, mae’n diwallu’r galw yn y drefn hon:</p><ol><li>cynhyrchu glân</li><li>batris (2 awr o storio, 85% yr holl ffordd) a storio hirdymor (8 awr, 75%)</li><li>pŵer carbon isel newydd ar alw (gan dybio 50 g/kWh)</li><li>mewnforion, yn dilyn patrwm yr un flwyddyn wedi’i raddio i’ch capasiti rhyng-gysylltu</li><li>nwy</li></ol><p>Mae pŵer dros ben yn gwefru’r storfeydd yn gyntaf, yna’n cael ei allforio (hyd at 60% o gapasiti’r rhyng-gysylltwyr), ac mae unrhyw beth sy’n weddill yn cael ei droi i lawr. Mae dwysedd carbon yn cyfrif cynhyrchu ym Mhrydain ynghyd â mewnforion, fel y mae ffigurau hanesyddol NESO yn ei wneud: nwy ar 394 g, biomas ar 120 g, tanwyddau eraill ar 300 g a mewnforion ar 50 g, i gyd am bob kWh. Ffigur y mewnforion yw’r un sy’n atgynhyrchu dwysedd carbon dyddiol 2024 orau, ac mae’n gweddu i fewnforion sy’n dod yn bennaf o ynni niwclear Ffrainc a dŵr Norwy.</p><p><b>Beth nad yw’n ei gynnwys:</b></p><ul><li>cyfyngiadau’r grid y tu mewn i Brydain, felly mae’n tanamcangyfrif cwtogi</li><li>y gweithfeydd nwy sydd eu hangen ar y grid er mwyn sefydlogrwydd</li><li>galw sy’n newid ei amseriad</li><li>tywydd blynyddoedd eraill</li><li>costau</li></ul><p>Mae gwirio’r model yn dangos pa mor agos y mae’n atgynhyrchu’r flwyddyn sylfaen go iawn: ar gyfer 2024 mae ei gyfartaledd o fewn tua 1 g i’r hyn a fesurwyd, ac mae ei ffigurau dyddiol fel arfer o fewn 5 g. Gyda chapasiti 2030 NESO mae’n glanio ychydig yn is na chanlyniad NESO ei hun o 95% glân, yn bennaf am nad yw’n symud unrhyw alw mewn amser. Mae senarios NESO yn dibynnu ar 10–12 GW o alw hyblyg, fel gwefru cerbydau trydan yn glyfar.</p>"], ["digest", "Crynodeb wythnosol", "<p>Bob dydd mae’r diweddariad yn gwirio a oes wythnos lawn o ddydd Llun i ddydd Sul (amser y DU) wedi dod i ben. Os oes, mae’n crynhoi’r wythnos honno o API Dwysedd Carbon NESO: y dwysedd a fesurwyd lle mae ar gael (y rhagolwg fel arall), y cymysgedd cynhyrchu a’r amcangyfrifon rhanbarthol. Mae’r testun yn cael ei ysgrifennu o’r rhifau hynny yn ôl rheolau penodol, nid â llaw. Mae’r recordiau’n cymharu â’r wythnosau sydd wedi’u cadw ers i’r crynodeb ddechrau, ac â’r hanner awr isaf yn hanes NESO ers 2009.</p>"], ["history", "Traciwr cwtogi a hanes gorsafoedd", "<p>Bob bore mae’r diweddariad yn darllen pob hanner awr o’r diwrnod blaenorol o Elexon: allbwn hysbysedig pob gorsaf, cyfarwyddiadau derbyniedig gweithredwr y grid a’r prisiau cynnig. Ar gyfer pob gorsaf ar y map, <b>troi i lawr</b> yw’r bwlch rhwng ei hallbwn hysbysedig a’r lefel y cafodd gyfarwyddyd iddi, ac mae’r <b>taliadau</b> yn defnyddio ei phris cynnig ar gyfer yr hanner awr honno. Mae’r cyfansymiau dyddiol yn cynnwys y ffermydd gwynt ar y map sydd ag uned Elexon hysbys, felly maen nhw’n tanamcangyfrif y cyfanswm i Brydain.</p><p>Mae hanes gorsaf yn dangos y 14 diwrnod diwethaf, awr wrth awr: yr allbwn hysbysedig, gyda’r rhan a gafodd ei throi i lawr wedi’i thywyllu. Mae’r traciwr yn cadw ffigurau dyddiol pob fferm wynt am tua phedwar mis a’r cyfansymiau dyddiol am ychydig dros ddwy flynedd.</p>"], ["records", "Recordiau a cherrig milltir", "<p>Daw recordiau Prydain o gymysgedd cynhyrchu hanesyddol NESO, fesul hanner awr ers 2009, wedi’i ddiweddaru’n ddyddiol. Mae pob record a charreg filltir yn defnyddio’r un set ddata honno, felly nid yw dim byth yn “record” dim ond am fod dau fesur yn wahanol. Mae carreg filltir yn ymddangos pan fydd diwrnod yn gosod record erioed, neu’n ddiwrnod glanaf am o leiaf 30 diwrnod.</p><p>Nid yw Cymru ar wahân yn y set ddata honno, felly mae rhes Cymru yn defnyddio amcangyfrifon rhanbarthol byw NESO, wedi’u cofnodi’n ddyddiol, a dim ond â hi ei hun y caiff ei chymharu.</p>"], ["share", "Rhannu golwg", "<p>Mae <b>Rhannu’r olwg hon</b> yn copïo dolen sy’n agor y map fel rydych chi’n ei weld: y tab, y safle neu’r rhanbarth a ddewiswyd, y flwyddyn, golwg Cymru, gosodiadau eich efelychydd neu wythnos y crynodeb. Does dim yn cael ei storio yn unman. Mae popeth yn y ddolen ei hun.</p>"], ["dl", "Lawrlwytho’r data", "<p>Ar y map cyhoeddedig, mae gan bob siart <b>Lawrlwytho’r data (CSV)</b> yn ei olwg fwy, a gellir lawrlwytho’r tabl fel y mae wedi’i hidlo. Cofiwch gydnabod y ffynonellau gwreiddiol, fel y’u rhestrir o dan Ffynonellau data: NESO, Elexon (yn cynnwys data BMRS © Elexon Limited) a chyfranwyr OpenStreetMap (Trwydded Cronfa Ddata Agored).</p>"], ["limits", "Cyfyngiadau hysbys", "<ul><li>Targedau datblygwyr neu’r llywodraeth yw’r dyddiadau yn y dyfodol, ac maen nhw’n aml yn llithro.</li><li>Gwirfoddolwyr sy’n mapio OpenStreetMap, felly mae rhai cofnodion wedi dyddio.</li><li>Mae gan Ogledd Iwerddon grid ar wahân sy’n cael ei rannu ag Iwerddon.</li><li>Mae allbynnau amcangyfrifedig yn tybio bod pob safle o’r un dechnoleg yn rhedeg yr un mor galed, sydd byth yn hollol wir.</li></ul>"]]};
+const METHOD_DOC = {"en": [["data", "What the map shows", "<p>The map brings together public data about Britain’s electricity system. Major sites (power stations, interconnectors and grid links) are compiled by hand from public announcements and checked against OpenStreetMap. Grid lines, substations, smaller generators and wind farm outlines come from OpenStreetMap, refreshed monthly. Live figures come from NESO and Elexon every five minutes. Every site panel lists its own sources.</p><p>If the live feeds can’t be reached, the map shows the latest stored snapshot instead and says so in the status pill.</p>"], ["live", "Live output of each power station", "<p>Where a station reports to Elexon, the figure is its <b>physical notification</b>: the output the station told the grid operator it planned to produce for that half-hour. It is not a meter reading. When the grid operator pays a station to turn down, that instruction is shown separately as curtailment.</p><p>Where no report is available, output is <b>estimated</b>: the station’s capacity multiplied by how hard that technology is running across Britain, from NESO’s national mix. The panel says which method was used.</p>"], ["routes", "Where the electricity goes", "<p>Routes follow real 400 kV and 275 kV pylon lines from OpenStreetMap, found with a shortest-path search on the line network. Once electricity joins the grid it mixes with everything else, so a route shows the <b>typical direction of flow</b>, not a fixed destination.</p>"], ["carbon", "Carbon intensity", "<p>Carbon intensity is the CO₂ emitted per kilowatt-hour of electricity (gCO₂/kWh). Two measures appear on the map. The <b>history</b> uses NESO’s historic generation mix, which counts electricity generated in Britain plus imports. The <b>live and forecast</b> figures come from NESO’s Carbon Intensity API, which estimates electricity consumed, including imports. They usually differ by 10 to 30 g.</p><p>Regional figures are NESO’s estimates for its 14 regions. Import figures use NESO’s average factor for each country, not live data from that country.</p>"], ["why", "“Why now”", "<p>“Typical” is the average for the same month and half-hour of the day over the last two years of NESO’s historic data. The card calls a reading unusual if it is among the cleanest or dirtiest 10% for that time. It then lists the sources whose share differs most from typical.</p>"], ["curt", "Curtailment, payments and CO₂", "<p>Curtailment is read from the grid operator’s accepted instructions to reduce output (Elexon balancing acceptances). Payments use each station’s bid price for the half-hour. The extra CO₂ assumes the lost power is replaced by combined-cycle gas at NESO’s factor of 394 gCO₂/kWh, which is an estimate. The Eastern Green Link scenario assumes the new capacity carries curtailed Scottish wind straight to demand in England. In practice, other bottlenecks can limit this.</p>"], ["plan", "When to run it", "<p>The Plan tab averages NESO’s 48-hour carbon intensity forecast over every possible start time for your running time, then picks the lowest. CO₂ is your power multiplied by hours, multiplied by that average. Cost isn’t included, because wholesale prices aren’t forecast publicly.</p>"], ["acc", "Forecast accuracy", "<p>Every morning at about 05:15 UTC, the daily refresh saves NESO’s national forecast for the next 24 hours. After those 24 hours have passed, it compares each half-hour with NESO’s measured figure. The <b>typical error</b> is the average size of the miss in either direction, and the <b>bias</b> is the average signed miss.</p><p>“Cleanest window found” asks the practical question behind the Plan tab: if you had started at the forecast’s cleanest 3-hour window, would you have been within 10 g of the truly cleanest window? The record is kept in <code>data/accuracy.json</code> in the map’s repository.</p>"], ["sim", "2030 simulator", "<p>The simulator replays one real year, hour by hour: demand and the output of wind, solar, nuclear, biomass and hydro from NESO’s historic generation mix. It scales each hour’s output by the capacity you choose, compared with the capacity that actually existed that year (from the Clean Power 2030 Action Plan annex). Wind is scaled by expected output, not capacity alone, because offshore turbines produce more per gigawatt (assumed 40% of capacity on average, against 27% onshore).</p><p>Each hour, it meets demand in this order:</p><ol><li>clean generation</li><li>batteries (2 hours of storage, 85% round trip) and long-duration storage (8 hours, 75%)</li><li>new low-carbon dispatchable plant (assumed 50 g/kWh)</li><li>imports, following the same year’s pattern scaled to your interconnector capacity</li><li>gas</li></ol><p>Surplus power charges storage first, then goes to exports (up to 60% of interconnector capacity), and anything left is turned down. Carbon intensity counts British generation plus imports, as NESO’s historic figures do: gas at 394 g, biomass at 120 g, other fuels at 300 g and imports at 50 g, all per kWh. The import figure is the one that best reproduces 2024’s daily carbon intensity, and suits imports that come mostly from French nuclear and Norwegian hydro.</p><p><b>What it leaves out:</b></p><ul><li>limits on the grid inside Britain, so it understates curtailment</li><li>the gas plant the grid needs running for stability</li><li>demand that shifts its timing</li><li>weather in other years</li><li>costs</li></ul><p>The model check shows how closely it reproduces the real base year: for 2024 its average is within about 1 g of what was measured, and its daily figures are typically within 5 g. With NESO’s 2030 capacities it lands a little below NESO’s own result of 95% clean, mainly because it doesn’t move any demand in time. NESO’s scenarios count on 10–12 GW of flexible demand, such as smart EV charging.</p>"], ["digest", "Weekly digest", "<p>Each day the refresh checks whether a full Monday-to-Sunday week (UK time) has ended. If it has, it summarises that week from NESO’s Carbon Intensity API: measured intensity where available (forecast otherwise), the generation mix and regional estimates. The text is written from those numbers by fixed rules, not by hand. Records compare with the weeks stored since the digest began and with the lowest half-hour in NESO’s history since 2009.</p>"], ["history", "Curtailment tracker and station history", "<p>Every morning the refresh reads each of the previous day’s half-hours from Elexon: each station’s notified output, the grid operator’s accepted instructions and the bid prices. For each mapped station, <b>turn-down</b> is the gap between its notified output and the level it was instructed to, and <b>payments</b> use its bid price for that half-hour. The daily totals cover the wind farms on the map with a known Elexon unit, so they understate the total for Britain.</p><p>Station history shows the last 14 days, hour by hour: notified output, with the part that was turned down shaded. The tracker keeps each wind farm’s daily figures for about four months and the daily totals for just over two years.</p>"], ["records", "Records and milestones", "<p>Britain’s records come from NESO’s historic generation mix, half-hour by half-hour since 2009, refreshed daily. Every record and milestone uses that one dataset, so nothing is ever a “record” just because two measures differ. A milestone appears when a day sets an all-time record, or is the cleanest day for at least 30 days.</p><p>Wales isn’t split out in that dataset, so the Wales row uses NESO’s live regional estimates, recorded daily, and is only ever compared with itself.</p>"], ["share", "Sharing a view", "<p><b>Share this view</b> copies a link that opens the map as you see it: the tab, the selected site or region, the year, the Wales view, your simulator settings or the digest week. Nothing is stored anywhere. Everything is in the link itself.</p>"], ["subsidy", "Switch-off prices and support schemes", "<p>A wind farm paid to turn down names its price in the Balancing Mechanism. That price is roughly the income it gives up by not generating, and for most wind farms that is subsidy:</p><ul><li><b>Renewables Obligation</b> (older wind farms): every MWh earns certificates worth well over £50, often more than one per MWh offshore.</li><li><b>Early Contracts for Difference</b> (the 2014 investment contracts): a guaranteed price of £140–150/MWh in 2012 prices, far above today’s market, topped up on every MWh generated.</li><li><b>Auction Contracts for Difference</b>: guaranteed prices near or below today’s market price, so little is lost when switched off.</li></ul><p>The switch-off price shown is a wind farm’s payments divided by the energy it was turned down by, over the last 30 days. Farms turned down by less than 200 MWh are left out, because a few half-hours can give a misleading price. Each farm’s scheme, award year and strike price are listed in <code>data/subsidy.json</code>, with sources.</p>"], ["replay", "Replaying the last 7 days", "<p>The replay uses the hourly history the daily refresh stores for every station that reports to Elexon: the output it planned and the part the grid operator paid it to turn down. Output shown on the map is planned output minus turn-down. Sites that don’t report to Elexon are hidden, because their output would be an estimate for the present, not for that hour.</p>"], ["queue", "The connection queue", "<p>NESO’s Transmission Entry Capacity (TEC) register lists every project with a contract to connect to the transmission grid. The refresh reads it every day. A project counts as queued if its contracted capacity is due to increase and it isn’t marked as built. NESO notes that some capacity is repeated across stages and technologies, so rows with the same project, stage, size and date are counted once.</p><p>Each connection site is placed on the map by matching its name to substations and power stations in OpenStreetMap, and to the map’s own sites. Sites that can’t be matched are still counted, and listed as not on the map. “Contracted date passed” is capacity whose contracted connection date is already in the past but isn’t built. Plenty of it is waiting for the grid to be reinforced, not for the developer.</p><p>A contract to connect is not a promise to build; many projects in the queue never are. Connections reform is re-ordering the queue into Gate 1 and Gate 2 projects, so expect large changes.</p>"], ["official", "Checking the tracker against NESO", "<p>NESO publishes its daily constraint costs by category each week. The tracker compares its own daily payments to wind farms with NESO’s <b>thermal constraint</b> cost, the category that covers turning wind down when the grid can’t carry its power. The two are not expected to match. NESO’s figure also includes turning other generators up to replace the lost power (usually gas in England), trades, and wind farms this map doesn’t track. The share should be broadly steady; a sudden change is a sign something has gone wrong, in either dataset.</p>"], ["wales", "Wales against its targets", "<p>The Welsh Government measures its targets as renewable generation in Wales in a year, divided by electricity consumed in Wales in that year. The figures come from its <i>Energy Generation and Energy Use in Wales</i> report (2026 edition, data to 2024). The report gives 54% in some places and 55% in others; the map uses 54%, the figure in the ministerial statement. The live Welsh mix comes from NESO’s regional estimates, which measure a different thing (the mix of electricity used in Wales in each half-hour), so it can’t be compared directly with the targets.</p>"], ["open", "Open data", "<p>Everything the map collects is published as CSV files, refreshed daily, at stable addresses. <a href=\"data/open/index.json\">index.json</a> describes each file and its columns.</p><ul><li><a href=\"data/open/curtailment-daily.csv\" download>Wind turned down, daily totals</a> <code>curtailment-daily.csv</code></li><li><a href=\"data/open/curtailment-by-windfarm.csv\" download>Wind turned down, by wind farm, with support scheme and £/MWh</a> <code>curtailment-by-windfarm.csv</code></li><li><a href=\"data/open/station-output-hourly.csv\" download>Station output and turn-down, hourly, last 14 days</a> <code>station-output-hourly.csv</code></li><li><a href=\"data/open/carbon-daily.csv\" download>Carbon intensity and wind share, daily</a> <code>carbon-daily.csv</code></li><li><a href=\"data/open/weekly-digest.csv\" download>Weekly summary</a> <code>weekly-digest.csv</code></li><li><a href=\"data/open/forecast-accuracy.csv\" download>Forecast accuracy</a> <code>forecast-accuracy.csv</code></li><li><a href=\"data/open/records.csv\" download>Britain’s electricity records</a> <code>records.csv</code></li><li><a href=\"data/open/connection-queue-by-site.csv\" download>Connection queue, by connection site</a> <code>connection-queue-by-site.csv</code></li><li><a href=\"data/open/official-constraint-costs.csv\" download>NESO constraint costs beside the tracked wind payments</a> <code>official-constraint-costs.csv</code></li></ul><p>This compilation is shared under CC BY 4.0. Please credit “UK power, source to socket” with a link, and the original sources: NESO (NESO Open Data Licence), Elexon (contains BMRS data © Elexon Limited copyright and database right), and OpenStreetMap contributors (ODbL) for anything with locations.</p>"], ["limits", "Known limitations", "<ul><li>Future dates are developer or government targets, and they often slip.</li><li>OpenStreetMap is mapped by volunteers, so some entries are out of date.</li><li>Northern Ireland runs a separate grid shared with Ireland.</li><li>Estimated outputs assume every site of a technology runs equally hard, which is never quite true.</li></ul>"]], "cy": [["data", "Beth mae’r map yn ei ddangos", "<p>Mae’r map yn dod â data cyhoeddus am system drydan Prydain at ei gilydd. Mae’r prif safleoedd (gorsafoedd pŵer, rhyng-gysylltwyr a chysylltiadau grid) wedi’u casglu â llaw o gyhoeddiadau cyhoeddus a’u gwirio yn erbyn OpenStreetMap. Daw llinellau’r grid, is-orsafoedd, cynhyrchwyr llai ac amlinellau ffermydd gwynt o OpenStreetMap, ac maen nhw’n cael eu diweddaru’n fisol. Daw’r ffigurau byw gan NESO ac Elexon bob pum munud. Mae panel pob safle yn rhestru ei ffynonellau ei hun.</p><p>Os na ellir cyrraedd y ffrydiau byw, mae’r map yn dangos y ciplun diweddaraf sydd wedi’i gadw, ac mae’r bilsen statws yn dweud hynny.</p>"], ["live", "Allbwn byw pob gorsaf bŵer", "<p>Lle mae gorsaf yn adrodd i Elexon, y ffigur yw ei <b>hysbysiad ffisegol</b>: yr allbwn y dywedodd yr orsaf wrth weithredwr y grid ei bod yn bwriadu ei gynhyrchu ar gyfer yr hanner awr honno. Nid darlleniad mesurydd yw hwn. Pan fydd gweithredwr y grid yn talu gorsaf i droi i lawr, mae’r cyfarwyddyd hwnnw’n cael ei ddangos ar wahân fel cwtogi.</p><p>Lle nad oes adroddiad ar gael, mae’r allbwn yn <b>amcangyfrif</b>: capasiti’r orsaf wedi’i luosi â pha mor galed mae’r dechnoleg honno’n rhedeg ar draws Prydain, o gymysgedd cenedlaethol NESO. Mae’r panel yn dweud pa ddull a ddefnyddiwyd.</p>"], ["routes", "I ble mae’r trydan yn mynd", "<p>Mae’r llwybrau’n dilyn llinellau peilonau 400 kV a 275 kV go iawn o OpenStreetMap, wedi’u canfod drwy chwilio am y llwybr byrraf ar rwydwaith y llinellau. Unwaith y bydd trydan yn ymuno â’r grid mae’n cymysgu â phopeth arall, felly mae llwybr yn dangos <b>cyfeiriad arferol y llif</b>, nid pen draw penodol.</p>"], ["carbon", "Dwysedd carbon", "<p>Dwysedd carbon yw’r CO₂ a allyrrir am bob cilowat-awr o drydan (gCO₂/kWh). Mae dau fesur ar y map. Mae’r <b>hanes</b> yn defnyddio cymysgedd cynhyrchu hanesyddol NESO, sy’n cyfrif y trydan a gynhyrchir ym Mhrydain ynghyd â mewnforion. Daw’r ffigurau <b>byw a’r rhagolygon</b> o API Dwysedd Carbon NESO, sy’n amcangyfrif y trydan a ddefnyddir, gan gynnwys mewnforion. Maen nhw fel arfer yn wahanol o 10 i 30 g.</p><p>Amcangyfrifon NESO ar gyfer ei 14 rhanbarth yw’r ffigurau rhanbarthol. Mae’r ffigurau mewnforio yn defnyddio ffactor cyfartalog NESO ar gyfer pob gwlad, nid data byw o’r wlad honno.</p>"], ["why", "“Pam nawr”", "<p>“Arferol” yw’r cyfartaledd ar gyfer yr un mis a’r un hanner awr o’r dydd dros ddwy flynedd ddiwethaf data hanesyddol NESO. Mae’r cerdyn yn galw darlleniad yn anarferol os yw ymhlith y 10% glanaf neu fwyaf budr ar gyfer yr adeg honno. Yna mae’n rhestru’r ffynonellau y mae eu cyfran fwyaf gwahanol i’r arfer.</p>"], ["curt", "Cwtogi, taliadau a CO₂", "<p>Mae cwtogi’n cael ei ddarllen o gyfarwyddiadau derbyniedig gweithredwr y grid i leihau allbwn (derbyniadau cydbwyso Elexon). Mae’r taliadau’n defnyddio pris cynnig pob gorsaf ar gyfer yr hanner awr. Mae’r CO₂ ychwanegol yn tybio bod nwy cylch cyfun yn cymryd lle’r pŵer a gollwyd, ar ffactor NESO o 394 gCO₂/kWh, ac amcangyfrif yw hynny. Mae senario Cyswllt Gwyrdd y Dwyrain yn tybio bod y capasiti newydd yn cludo gwynt yr Alban a gafodd ei gwtogi yn syth i’r galw yn Lloegr. Yn ymarferol, gall tagfeydd eraill gyfyngu ar hyn.</p>"], ["plan", "Pryd i’w redeg", "<p>Mae’r tab Cynllunio yn cyfartalu rhagolwg dwysedd carbon 48 awr NESO dros bob amser cychwyn posibl ar gyfer eich amser rhedeg, ac yna’n dewis yr isaf. CO₂ yw eich pŵer wedi’i luosi â’r oriau, wedi’i luosi â’r cyfartaledd hwnnw. Nid yw’r gost wedi’i chynnwys, gan nad yw prisiau cyfanwerthu’n cael eu rhagweld yn gyhoeddus.</p>"], ["acc", "Cywirdeb y rhagolygon", "<p>Bob bore tua 05:15 UTC, mae’r diweddariad dyddiol yn cadw rhagolwg cenedlaethol NESO ar gyfer y 24 awr nesaf. Ar ôl i’r 24 awr hynny fynd heibio, mae’n cymharu pob hanner awr â ffigur mesuredig NESO. Y <b>gwall arferol</b> yw maint cyfartalog y methiant i’r naill gyfeiriad neu’r llall, a’r <b>gogwydd</b> yw’r methiant cyfartalog gyda’i arwydd.</p><p>Mae “cyfnod glanaf wedi’i ganfod” yn gofyn y cwestiwn ymarferol y tu ôl i’r tab Cynllunio: pe baech wedi dechrau ar gyfnod 3 awr glanaf y rhagolwg, a fyddech o fewn 10 g i’r cyfnod glanaf go iawn? Mae’r cofnod yn cael ei gadw yn <code>data/accuracy.json</code> yn ystorfa’r map.</p>"], ["sim", "Efelychydd 2030", "<p>Mae’r efelychydd yn ail-chwarae un flwyddyn go iawn, awr wrth awr: y galw ac allbwn gwynt, solar, niwclear, biomas a dŵr o gymysgedd cynhyrchu hanesyddol NESO. Mae’n graddio allbwn pob awr yn ôl y capasiti rydych chi’n ei ddewis, o’i gymharu â’r capasiti a oedd yn bodoli go iawn y flwyddyn honno (o atodiad Cynllun Gweithredu Pŵer Glân 2030). Mae gwynt yn cael ei raddio yn ôl yr allbwn disgwyliedig, nid y capasiti yn unig, gan fod tyrbinau ar y môr yn cynhyrchu mwy am bob gigawat (40% o’r capasiti ar gyfartaledd, o’i gymharu â 27% ar y tir).</p><p>Bob awr, mae’n diwallu’r galw yn y drefn hon:</p><ol><li>cynhyrchu glân</li><li>batris (2 awr o storio, 85% yr holl ffordd) a storio hirdymor (8 awr, 75%)</li><li>pŵer carbon isel newydd ar alw (gan dybio 50 g/kWh)</li><li>mewnforion, yn dilyn patrwm yr un flwyddyn wedi’i raddio i’ch capasiti rhyng-gysylltu</li><li>nwy</li></ol><p>Mae pŵer dros ben yn gwefru’r storfeydd yn gyntaf, yna’n cael ei allforio (hyd at 60% o gapasiti’r rhyng-gysylltwyr), ac mae unrhyw beth sy’n weddill yn cael ei droi i lawr. Mae dwysedd carbon yn cyfrif cynhyrchu ym Mhrydain ynghyd â mewnforion, fel y mae ffigurau hanesyddol NESO yn ei wneud: nwy ar 394 g, biomas ar 120 g, tanwyddau eraill ar 300 g a mewnforion ar 50 g, i gyd am bob kWh. Ffigur y mewnforion yw’r un sy’n atgynhyrchu dwysedd carbon dyddiol 2024 orau, ac mae’n gweddu i fewnforion sy’n dod yn bennaf o ynni niwclear Ffrainc a dŵr Norwy.</p><p><b>Beth nad yw’n ei gynnwys:</b></p><ul><li>cyfyngiadau’r grid y tu mewn i Brydain, felly mae’n tanamcangyfrif cwtogi</li><li>y gweithfeydd nwy sydd eu hangen ar y grid er mwyn sefydlogrwydd</li><li>galw sy’n newid ei amseriad</li><li>tywydd blynyddoedd eraill</li><li>costau</li></ul><p>Mae gwirio’r model yn dangos pa mor agos y mae’n atgynhyrchu’r flwyddyn sylfaen go iawn: ar gyfer 2024 mae ei gyfartaledd o fewn tua 1 g i’r hyn a fesurwyd, ac mae ei ffigurau dyddiol fel arfer o fewn 5 g. Gyda chapasiti 2030 NESO mae’n glanio ychydig yn is na chanlyniad NESO ei hun o 95% glân, yn bennaf am nad yw’n symud unrhyw alw mewn amser. Mae senarios NESO yn dibynnu ar 10–12 GW o alw hyblyg, fel gwefru cerbydau trydan yn glyfar.</p>"], ["digest", "Crynodeb wythnosol", "<p>Bob dydd mae’r diweddariad yn gwirio a oes wythnos lawn o ddydd Llun i ddydd Sul (amser y DU) wedi dod i ben. Os oes, mae’n crynhoi’r wythnos honno o API Dwysedd Carbon NESO: y dwysedd a fesurwyd lle mae ar gael (y rhagolwg fel arall), y cymysgedd cynhyrchu a’r amcangyfrifon rhanbarthol. Mae’r testun yn cael ei ysgrifennu o’r rhifau hynny yn ôl rheolau penodol, nid â llaw. Mae’r recordiau’n cymharu â’r wythnosau sydd wedi’u cadw ers i’r crynodeb ddechrau, ac â’r hanner awr isaf yn hanes NESO ers 2009.</p>"], ["history", "Traciwr cwtogi a hanes gorsafoedd", "<p>Bob bore mae’r diweddariad yn darllen pob hanner awr o’r diwrnod blaenorol o Elexon: allbwn hysbysedig pob gorsaf, cyfarwyddiadau derbyniedig gweithredwr y grid a’r prisiau cynnig. Ar gyfer pob gorsaf ar y map, <b>troi i lawr</b> yw’r bwlch rhwng ei hallbwn hysbysedig a’r lefel y cafodd gyfarwyddyd iddi, ac mae’r <b>taliadau</b> yn defnyddio ei phris cynnig ar gyfer yr hanner awr honno. Mae’r cyfansymiau dyddiol yn cynnwys y ffermydd gwynt ar y map sydd ag uned Elexon hysbys, felly maen nhw’n tanamcangyfrif y cyfanswm i Brydain.</p><p>Mae hanes gorsaf yn dangos y 14 diwrnod diwethaf, awr wrth awr: yr allbwn hysbysedig, gyda’r rhan a gafodd ei throi i lawr wedi’i thywyllu. Mae’r traciwr yn cadw ffigurau dyddiol pob fferm wynt am tua phedwar mis a’r cyfansymiau dyddiol am ychydig dros ddwy flynedd.</p>"], ["records", "Recordiau a cherrig milltir", "<p>Daw recordiau Prydain o gymysgedd cynhyrchu hanesyddol NESO, fesul hanner awr ers 2009, wedi’i ddiweddaru’n ddyddiol. Mae pob record a charreg filltir yn defnyddio’r un set ddata honno, felly nid yw dim byth yn “record” dim ond am fod dau fesur yn wahanol. Mae carreg filltir yn ymddangos pan fydd diwrnod yn gosod record erioed, neu’n ddiwrnod glanaf am o leiaf 30 diwrnod.</p><p>Nid yw Cymru ar wahân yn y set ddata honno, felly mae rhes Cymru yn defnyddio amcangyfrifon rhanbarthol byw NESO, wedi’u cofnodi’n ddyddiol, a dim ond â hi ei hun y caiff ei chymharu.</p>"], ["share", "Rhannu golwg", "<p>Mae <b>Rhannu’r olwg hon</b> yn copïo dolen sy’n agor y map fel rydych chi’n ei weld: y tab, y safle neu’r rhanbarth a ddewiswyd, y flwyddyn, golwg Cymru, gosodiadau eich efelychydd neu wythnos y crynodeb. Does dim yn cael ei storio yn unman. Mae popeth yn y ddolen ei hun.</p>"], ["subsidy", "Prisiau diffodd a chynlluniau cymorth", "<p>Mae fferm wynt sy’n cael ei thalu i droi i lawr yn nodi ei phris yn y Mecanwaith Cydbwyso. Mae’r pris hwnnw’n fras yr incwm y mae’n ei golli drwy beidio â chynhyrchu, ac i’r rhan fwyaf o ffermydd gwynt cymhorthdal yw hwnnw:</p><ul><li><b>Rhwymedigaeth Ynni Adnewyddadwy</b> (ffermydd gwynt hŷn): mae pob MWh yn ennill tystysgrifau sy’n werth ymhell dros £50, yn aml mwy nag un am bob MWh ar y môr.</li><li><b>Contractau Gwahaniaeth cynnar</b> (contractau buddsoddi 2014): pris gwarantedig o £140–150/MWh ym mhrisiau 2012, ymhell uwchlaw’r farchnad heddiw, gydag atodiad ar bob MWh a gynhyrchir.</li><li><b>Contractau Gwahaniaeth drwy arwerthiant</b>: prisiau gwarantedig yn agos at bris y farchnad heddiw neu’n is, felly ychydig sy’n cael ei golli wrth ddiffodd.</li></ul><p>Y pris diffodd a ddangosir yw taliadau fferm wynt wedi’u rhannu â’r ynni y cafodd ei throi i lawr, dros y 30 diwrnod diwethaf. Mae ffermydd a gafodd eu troi i lawr o lai na 200 MWh wedi’u gadael allan, gan y gall ychydig o hanner awrau roi pris camarweiniol. Mae cynllun, blwyddyn a phris streic pob fferm wedi’u rhestru yn <code>data/subsidy.json</code>, gyda ffynonellau.</p>"], ["replay", "Ail-chwarae’r 7 diwrnod diwethaf", "<p>Mae’r ail-chwarae yn defnyddio’r hanes fesul awr y mae’r diweddariad dyddiol yn ei gadw ar gyfer pob gorsaf sy’n adrodd i Elexon: yr allbwn a gynlluniwyd a’r rhan y talodd gweithredwr y grid iddi ei throi i lawr. Yr allbwn a ddangosir ar y map yw’r allbwn a gynlluniwyd heb y troi i lawr. Mae safleoedd nad ydyn nhw’n adrodd i Elexon wedi’u cuddio, gan mai amcangyfrif ar gyfer y presennol fyddai eu hallbwn, nid ar gyfer yr awr honno.</p>"], ["queue", "Y ciw cysylltu", "<p>Mae cofrestr Capasiti Mynediad Trawsyrru (TEC) NESO yn rhestru pob prosiect sydd â chontract i gysylltu â’r grid trawsyrru. Mae’r diweddariad yn ei darllen bob dydd. Mae prosiect yn cyfrif fel un yn y ciw os yw ei gapasiti dan gontract i fod i gynyddu ac nad yw wedi’i nodi fel un wedi’i adeiladu. Mae NESO yn nodi bod rhywfaint o gapasiti’n cael ei ailadrodd ar draws camau a thechnolegau, felly mae rhesi gyda’r un prosiect, cam, maint a dyddiad yn cael eu cyfrif unwaith.</p><p>Mae pob safle cysylltu’n cael ei leoli ar y map drwy gyfateb ei enw ag is-orsafoedd a gorsafoedd pŵer yn OpenStreetMap, ac â safleoedd y map ei hun. Mae safleoedd na ellir eu cyfateb yn dal i gael eu cyfrif, ac yn cael eu rhestru fel rhai nad ydyn nhw ar y map. “Dyddiad contract wedi pasio” yw capasiti y mae ei ddyddiad cysylltu dan gontract eisoes yn y gorffennol ond nad yw wedi’i adeiladu. Mae llawer ohono’n aros i’r grid gael ei atgyfnerthu, nid am y datblygwr.</p><p>Nid yw contract i gysylltu yn addewid i adeiladu; nid yw llawer o brosiectau yn y ciw byth yn cael eu hadeiladu. Mae diwygio cysylltiadau yn ail-drefnu’r ciw yn brosiectau Porth 1 a Phorth 2, felly disgwyliwch newidiadau mawr.</p>"], ["official", "Gwirio’r traciwr yn erbyn NESO", "<p>Mae NESO yn cyhoeddi ei gostau cyfyngiadau dyddiol fesul categori bob wythnos. Mae’r traciwr yn cymharu ei daliadau dyddiol ei hun i ffermydd gwynt â chost <b>cyfyngiadau thermol</b> NESO, y categori sy’n cynnwys troi gwynt i lawr pan na all y grid gludo’i bŵer. Nid oes disgwyl i’r ddau gyfateb. Mae ffigur NESO hefyd yn cynnwys troi cynhyrchwyr eraill i fyny yn lle’r pŵer a gollwyd (nwy yn Lloegr fel arfer), masnachu, a ffermydd gwynt nad yw’r map hwn yn eu tracio. Dylai’r gyfran fod yn weddol sefydlog; mae newid sydyn yn arwydd bod rhywbeth wedi mynd o’i le, yn y naill set ddata neu’r llall.</p>"], ["wales", "Cymru yn erbyn ei thargedau", "<p>Mae Llywodraeth Cymru yn mesur ei thargedau fel cynhyrchu adnewyddadwy yng Nghymru mewn blwyddyn, wedi’i rannu â’r trydan a ddefnyddiwyd yng Nghymru yn y flwyddyn honno. Daw’r ffigurau o’i hadroddiad <i>Cynhyrchu Ynni a Defnyddio Ynni yng Nghymru</i> (argraffiad 2026, data hyd at 2024). Mae’r adroddiad yn rhoi 54% mewn rhai mannau a 55% mewn eraill; mae’r map yn defnyddio 54%, y ffigur yn y datganiad gweinidogol. Daw’r cymysgedd byw yng Nghymru o amcangyfrifon rhanbarthol NESO, sy’n mesur rhywbeth gwahanol (cymysgedd y trydan a ddefnyddir yng Nghymru bob hanner awr), felly ni ellir ei gymharu’n uniongyrchol â’r targedau.</p>"], ["open", "Data agored", "<p>Mae popeth y mae’r map yn ei gasglu yn cael ei gyhoeddi fel ffeiliau CSV, wedi’u diweddaru’n ddyddiol, mewn cyfeiriadau sefydlog. Mae <a href=\"data/open/index.json\">index.json</a> yn disgrifio pob ffeil a’i cholofnau.</p><ul><li><a href=\"data/open/curtailment-daily.csv\" download>Gwynt wedi’i droi i lawr, cyfansymiau dyddiol</a> <code>curtailment-daily.csv</code></li><li><a href=\"data/open/curtailment-by-windfarm.csv\" download>Gwynt wedi’i droi i lawr, fesul fferm wynt, gyda’r cynllun cymorth a £/MWh</a> <code>curtailment-by-windfarm.csv</code></li><li><a href=\"data/open/station-output-hourly.csv\" download>Allbwn gorsafoedd a throi i lawr, fesul awr, y 14 diwrnod diwethaf</a> <code>station-output-hourly.csv</code></li><li><a href=\"data/open/carbon-daily.csv\" download>Dwysedd carbon a chyfran y gwynt, yn ddyddiol</a> <code>carbon-daily.csv</code></li><li><a href=\"data/open/weekly-digest.csv\" download>Crynodeb wythnosol</a> <code>weekly-digest.csv</code></li><li><a href=\"data/open/forecast-accuracy.csv\" download>Cywirdeb y rhagolygon</a> <code>forecast-accuracy.csv</code></li><li><a href=\"data/open/records.csv\" download>Recordiau trydan Prydain</a> <code>records.csv</code></li><li><a href=\"data/open/connection-queue-by-site.csv\" download>Ciw cysylltu, fesul safle cysylltu</a> <code>connection-queue-by-site.csv</code></li><li><a href=\"data/open/official-constraint-costs.csv\" download>Costau cyfyngiadau NESO wrth ymyl y taliadau gwynt sy’n cael eu tracio</a> <code>official-constraint-costs.csv</code></li></ul><p>Mae’r casgliad hwn yn cael ei rannu dan CC BY 4.0. Cofiwch gydnabod “UK power, source to socket” gyda dolen, a’r ffynonellau gwreiddiol: NESO (Trwydded Data Agored NESO), Elexon (yn cynnwys data BMRS © hawlfraint a hawl cronfa ddata Elexon Limited), a chyfranwyr OpenStreetMap (ODbL) ar gyfer unrhyw beth gyda lleoliadau.</p>"], ["limits", "Cyfyngiadau hysbys", "<ul><li>Targedau datblygwyr neu’r llywodraeth yw’r dyddiadau yn y dyfodol, ac maen nhw’n aml yn llithro.</li><li>Gwirfoddolwyr sy’n mapio OpenStreetMap, felly mae rhai cofnodion wedi dyddio.</li><li>Mae gan Ogledd Iwerddon grid ar wahân sy’n cael ei rannu ag Iwerddon.</li><li>Mae allbynnau amcangyfrifedig yn tybio bod pob safle o’r un dechnoleg yn rhedeg yr un mor galed, sydd byth yn hollol wir.</li></ul>"]]};
 const REG = [[1,'North Scotland','Gogledd yr Alban',57.35,-4.5],[2,'South Scotland','De’r Alban',55.6,-3.7],[3,'North West England','Gogledd-orllewin Lloegr',53.95,-2.65],[4,'North East England','Gogledd-ddwyrain Lloegr',54.85,-1.75],[5,'Yorkshire','Swydd Efrog',53.8,-1.15],[6,'North Wales & Merseyside','Gogledd Cymru a Glannau Merswy',53.05,-3.45],[7,'South Wales','De Cymru',51.8,-3.7],[8,'West Midlands','Gorllewin Canolbarth Lloegr',52.45,-2.35],[9,'East Midlands','Dwyrain Canolbarth Lloegr',52.9,-0.95],[10,'East England','Dwyrain Lloegr',52.4,0.75],[11,'South West England','De-orllewin Lloegr',50.75,-3.85],[12,'South England','De Lloegr',51.2,-1.45],[13,'London','Llundain',51.5,-0.12],[14,'South East England','De-ddwyrain Lloegr',51.15,0.7]];
 const REG_SNAP = SNAPSHOT.region;
 const QUEUE = {before:722, pipeline:283, needLo:204, needHi:231, demand:99, src:[['Knight Frank, Dec 2025','https://www.knightfrank.co.uk/research/article/2025/12/connection-reform-update-a-new-pipeline-announced'],['NESO: connections reform','https://www.neso.energy/neso-implements-electricity-grid-connection-reforms-unlock-investment-great-britain'],['Curvature Energy, Sep 2026','https://curvature.energy/insight-uk-bess-grid-connection-reform']]};
@@ -1044,7 +1151,7 @@ function curMix(){ return (S.replayIdx!=null && LIVE.hist) ? LIVE.hist[S.replayI
 function curWhen(){ return (S.replayIdx!=null && LIVE.hist) ? LIVE.hist[S.replayIdx].from : LIVE.nat.from; }
 function fleet(t){ const f=FUEL[t]; if(!f) return 0; const m=curMix(); return Math.max(0,Math.min(.95,(m[f]||0)/100*LIVE.demandGW/LIVE.installedGW[f])); }
 function realMW(d){ if(S.replayIdx!=null||!LIVE.bmu||!d.bmu) return null; const v=LIVE.bmu[d.id]; return v==null?null:v; }
-function liveMW(d){ const r=realMW(d); if(r!=null) return r; if(d.ps) return 0; return d.mw*fleet(d.t); }
+function liveMW(d){ if(S.wk&&WK) return wkMW(d); const r=realMW(d); if(r!=null) return r; if(d.ps) return 0; return d.mw*fleet(d.t); }
 const liveNow = () => S.live && S.year===2026;
 
 /* ---------------- state + helpers ---------------- */
@@ -1212,7 +1319,7 @@ function render(){
     g.on('click',(e,d)=>pickAt(e,d))
      .on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(d.key);}});
     return g;});
-  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+(liveNow()&&S.replayIdx==null&&LIVE.curt&&LIVE.curt[d.id]>5?' curtailed':''))
+  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+((S.wk&&WK)?(wkCut(d)>5?' curtailed':''):(liveNow()&&S.replayIdx==null&&LIVE.curt&&LIVE.curt[d.id]>5?' curtailed':'')))
     .attr('aria-label',d=>nm(d)+', '+tr('t_'+d.t)+', '+fmtMW(d.mw))
     .style('--c',d=>col(d.t));
   mg.select('.dot').attr('fill',d=>col(d.t));
@@ -1222,11 +1329,12 @@ function render(){
   mg.sort((a,b)=>b.mw-a.mw);
   if(sel&&!sel.osm&&!sel.sub&&!sel.region) mg.filter(d=>d===sel).raise();
   gReg.raise();
+  drawQueue();
   // live flows for everything
   const lf=[];
   if(liveNow()) vis.forEach(d=>{
     if(d.t==='grid'||!active(d)) return;
-    if(d.t==='ic'){ const v=(S.replayIdx==null&&LIVE.ic)?LIVE.ic[d.id]:null;
+    if(d.t==='ic'){ if(S.wk) return; const v=(S.replayIdx==null&&LIVE.ic)?LIVE.ic[d.id]:null;
       lf.push({key:d.key,pts:icGeom(d),c:col('ic'),w:v!=null?0.9+Math.min(2,Math.sqrt(Math.max(v,60))/14):1.1,dur:1.3}); return; }
     const mw=liveMW(d); if(mw<2) return;
     const fac=d.mw?Math.min(1,mw/d.mw):0;
@@ -1257,6 +1365,7 @@ function position(){
   gMarks.selectAll('g.mk').attr('transform',d=>{const p=xy(d.t==='ic'?pc(d.g).c:d.c);return `translate(${p[0]},${p[1]})`;});
   gLive.selectAll('path').attr('d',d=>pathD(d.pts));
   gReg.selectAll('g.rg').attr('transform',d=>{const p=xy(d.c);return `translate(${p[0]},${p[1]})`;});
+  positionQueue();
   gRoute.selectAll('path.flowbase,path.flow').attr('d',d=>pathD(d.pts));
   gRoute.selectAll('circle.st').attr('cx',d=>xy(d.c)[0]).attr('cy',d=>xy(d.c)[1]);
   gPc.selectAll('circle').attr('cx',d=>xy(d.c)[0]).attr('cy',d=>xy(d.c)[1]);
@@ -1480,20 +1589,23 @@ function whyNow(){
   h+=`<p class="fine">${tr('why_note',{from:fmtDate(HISTORY.typ_from)+' '+HISTORY.typ_from.slice(0,4)})}</p></div>`;
   return h;
 }
-function tabs(){ const fut=S.tab==='sim'||S.tab==='compare';
+function tabs(){ const fut=S.tab==='sim'||S.tab==='compare'||S.tab==='queue';
   const b=(k,label,sel,extra='')=>`<button role="tab" data-tab="${k}" aria-selected="${sel}" ${extra}>${label}</button>`;
   let h=`<div class="tabs" role="tablist">${b('map',tr('tab_map'),S.tab==='map')}${b('carbon','Carbon',S.tab==='carbon',`aria-label="${tr('tab_ci')}"`)}${b('stories',tr('tab_st'),S.tab==='stories')}${b('plan',tr('plan'),S.tab==='plan')}${b('future',tr('tab_fut'),fut)}</div>`;
-  if(fut) h+=`<div class="seg" role="tablist" aria-label="${tr('tab_fut')}"><button role="tab" data-fut="sim" aria-selected="${S.tab==='sim'}">${tr('fut_sim')}</button><button role="tab" data-fut="compare" aria-selected="${S.tab==='compare'}">${tr('fut_cmp')}</button></div>`;
+  if(fut) h+=`<div class="seg" role="tablist" aria-label="${tr('tab_fut')}"><button role="tab" data-fut="sim" aria-selected="${S.tab==='sim'}">${tr('fut_sim')}</button><button role="tab" data-fut="compare" aria-selected="${S.tab==='compare'}">${tr('fut_cmp')}</button><button role="tab" data-fut="queue" aria-selected="${S.tab==='queue'}">${tr('fut_q')}</button></div>`;
   return h; }
 function wireTabs(){
-  $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ S.tab=b.dataset.tab==='future'?(S.fut||'sim'):b.dataset.tab; panel(); $p.scrollTop=0; if(S.tab==='carbon') loadYTD(); });
-  $p.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{ S.tab=S.fut=b.dataset.fut; panel(); $p.scrollTop=0; }); }
+  const leave=()=>{ if(S.wk){ clearInterval(S.wkTimer); S.wk=null; wkChip(); } S.qsel=null; };
+  $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ leave(); S.tab=b.dataset.tab==='future'?(S.fut||'sim'):b.dataset.tab; render(); panel(); $p.scrollTop=0; if(S.tab==='carbon') loadYTD(); });
+  $p.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{ leave(); S.tab=S.fut=b.dataset.fut; render(); panel(); $p.scrollTop=0; }); }
 function overview(){
   if(S.tab==='carbon') return carbonPanel();
   if(S.tab==='stories') return storiesPanel();
   if(S.tab==='compare') return comparePanel();
   if(S.tab==='plan') return planPanel();
   if(S.tab==='sim') return simPanel();
+  if(S.tab==='queue') return queuePanel();
+  if(S.wk&&WK) return wkPanel();
   const y=S.year, act=SITES.filter(active);
   const by={}; act.forEach(d=>{ if(!d.ps||true) by[d.t]=(by[d.t]||0)+d.mw; });
   const tot=Object.values(by).reduce((a,b)=>a+b,0);
@@ -1504,6 +1616,7 @@ function overview(){
     const when=fmtWhen(curWhen());
     h+=`<h2>${LIVE.mode==='live'&&S.replayIdx==null?tr('live'):tr('snap')}</h2><div class="meta">${tr('gbelec',{when})}</div>${mixBlock(curMix())}`;
     h+=replayBlock();
+    if(location.protocol.startsWith('http')) h+=wkButton();
     const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
     if(tc>5&&S.replayIdx==null){ const tp=LIVE.curtPay?Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0):0;
       h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(tc*0.394)})}</b><span>${tr('curt_s_all')}</span>${curtList()}</div>`; }
@@ -1625,12 +1738,15 @@ function storiesPanel(){
   <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>10.2 TWh</b><span>${tr('st_c_twh')}</span></div><div><b>≈4.0 Mt</b><span>${tr('st_c_co2')}</span></div></div>
   <p class="fine">${tr('st_c_ctx')} <a href="https://www.wind-watch.org/news/2025/12/30/britain-spent-1-5bn-in-2025-to-turn-off-wind-farms-and-fire-up-gas-plants-when-electric-grid-couldnt-cope/" target="_blank" rel="noopener">${tr('st_c_src')} ↗</a> · <a href="https://eandt.theiet.org/2026/01/22/record-wasted-wind-power-2025-could-have-powered-every-home-london" target="_blank" rel="noopener">${tr('st_c_src2')} ↗</a> ${tr('st_c_co2note')}</p>
   ${curtTrack()}
+  ${location.protocol.startsWith('http')?wkButton():''}
+  ${HIST.cur&&HIST.cur.days&&HIST.cur.days.length?pricesBlock()+officialBlock():''}
   ${scenarioBlock()}
   <button class="pbtn ghost" data-k="egl2|grid">${tr('st_c_btn')}</button></div>`;
   const qmax=QUEUE.before;
   const qb=(lab,v,c,txt)=>`<span>${lab}</span><div class="b" style="width:${v/qmax*100}%;--c:${c}"></div><b>${txt||v+' GW'}</b>`;
   h+=`<div class="story"><h3>${tr('st_q_h')}</h3><p>${tr('st_q_t')}</p>
   <div class="hbar" style="grid-template-columns:10.5em 1fr auto">${qb(tr('st_q_a'),QUEUE.before,'#b9c3c7')}${qb(tr('st_q_b'),QUEUE.pipeline,'#4f5bd5')}${qb(tr('st_q_c'),QUEUE.needHi,'#2fa84f',QUEUE.needLo+'–'+QUEUE.needHi+' GW')}${qb(tr('st_q_d'),QUEUE.demand,'#c77700')}</div>
+  <button class="pbtn ghost" id="qgo">${tr('q_explore')}</button>
   <p class="fine">${tr('st_q_note')} ${QUEUE.src.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]} ↗</a>`).join(' · ')}</p></div>`;
   h+=`<div class="story"><h3>${tr('st_p_h')}</h3><p>${tr('st_p_t')}</p>`;
   if(LIVE.price&&LIVE.price.length>4) h+=`<div class="key"><span><i></i>gCO₂/kWh</span><span><i class="g"></i>${tr('price')}</span></div><div class="chart" id="ch3"></div>`;
@@ -1638,6 +1754,8 @@ function storiesPanel(){
   h+=`</div>`;
   $p.innerHTML=h; wireTabs(); wirePanel(); wireDigest();
   const chc=document.getElementById('chcurt'); if(chc){ drawCurt(chc); makeZoomable(chc,'curtd'); }
+  const coc=document.getElementById('choc'); if(coc){ drawOC(coc); makeZoomable(coc,'oc'); }
+  const qgo=document.getElementById('qgo'); if(qgo) qgo.onclick=()=>{ S.tab=S.fut='queue'; S.qWales=false; render(); panel(); $p.scrollTop=0; };
   const rb=document.getElementById('regbtn'); if(rb) rb.onclick=()=>{ S.reg=!S.reg; syncChip('reg'); render(); storiesPanel(); if(S.reg) svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); };
   $p.querySelectorAll('.story button[data-k]').forEach(b=>b.onclick=()=>select(b.dataset.k));
   $p.querySelectorAll('[data-scen]').forEach(b=>b.onclick=()=>{ S.scen[b.dataset.scen]=!S.scen[b.dataset.scen]; const y=$p.scrollTop; storiesPanel(); $p.scrollTop=y; });
@@ -1881,12 +1999,15 @@ function walesPanel(){
   h+=`<h3>${tr('w_mix',{when:fmtWhen(LIVE.wales.from)})}</h3>${mixBlock(LIVE.wales.mix)}`;
   if(LIVE.wales.ci!=null) h+=`<p class="meta">${tr('w_ci',{g:LIVE.wales.ci,idx:tIdx(LIVE.wales.idx)})}</p>`;
   if(liveNow()) h+=`<p>${tr('w_now',{v:fmtLive(now)})}</p>`;
+  h+=walesTargets()+walesExtra();
   h+=`<h3>${tr('w_cap')}</h3><div class="bar">${order.map(t=>by[t]?`<div style="width:${by[t]/tot*100}%;background:${col(t)}"></div>`:'').join('')}</div>
   <div class="legend">${order.filter(t=>by[t]).map(t=>`<span style="--c:${col(t)}">${icon(t)}${tr('t_'+t)}</span><b>${fmtMW(by[t])}</b>`).join('')}</div>`;
   h+=`<h3>${tr('w_sites')}</h3><ul class="sitelist">${SITES.filter(d=>d.w&&(active(d)||S.future)).sort((a,b)=>b.mw-a.mw).slice(0,14).map(d=>`<li><button data-k="${d.key}" style="--c:${col(d.t)}">${icon(d.t)}${nm(d)}${future(d)?' ('+d.on+')':''}<b>${fmtMW(d.mw)}</b></button></li>`).join('')}</ul>`;
   h+=`<p class="meta">${tr('w_osm',{n:wo.length})}</p>`;
   h+=`<h3>${tr('w_links')}</h3><p>${tr('w_links_t')}</p>`;
   $p.innerHTML=h; document.getElementById('back').onclick=()=>{S.view='overview';select(null);svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity);}; wirePanel();
+  drawWT(document.getElementById('chwt'));
+  const wq=document.getElementById('wqgo'); if(wq) wq.onclick=()=>{ S.view='overview'; S.tab=S.fut='queue'; S.qWales=true; render(); panel(); $p.scrollTop=0; zoomToWales(); };
 }
 /* ---------- which sites are being turned down ---------- */
 const fmtN = v => Math.round(v).toLocaleString('en-GB');
@@ -1903,7 +2024,7 @@ function curtList(){
   const where=regs.slice(0,3).map(([r,mw])=>`${regName(r==='null'?null:+r)} (${fmtLive(mw)})`);
   const lead=regs[0][1]/tot>=.6?tr('curt_where1',{r:where[0]}):tr('curt_where',{r:where.length>1?where.slice(0,-1).join(', ')+' '+tr('and')+' '+where[where.length-1]:where[0]});
   const open=!!S.curtAll, shown=open?rows:rows.slice(0,6);
-  return `<p class="curtwhere">${lead}</p><ul class="curtlist" aria-label="${tr('curt_list')}">${shown.map(x=>`<li><button data-k="${x.s.key}"><span class="cn"><span class="ti" style="--c:${col(x.s.t)}">${icon(x.s.t)}</span><span><b>${nm(x.s)}</b><small>${regName(x.r)}</small></span></span><span class="cv"><b>${fmtLive(x.mw)}</b>${x.pay?`<small>${tr('curt_ph',{p:fmtGBP(x.pay)})}</small>`:''}</span></button></li>`).join('')}</ul>`+
+  return `<p class="curtwhere">${lead}</p><ul class="curtlist" aria-label="${tr('curt_list')}">${shown.map(x=>`<li><button data-k="${x.s.key}"><span class="cn"><span class="ti" style="--c:${col(x.s.t)}">${icon(x.s.t)}</span><span><b>${nm(x.s)}</b><small>${regName(x.r)}</small></span></span><span class="cv"><b>${fmtLive(x.mw)}</b>${x.pay?`<small>${tr('curt_ph',{p:fmtGBP(x.pay)})} (${perMWh(x.pay/x.mw)})</small>`:''}</span></button></li>`).join('')}</ul>`+
     (rows.length>6?`<button class="linkbtn" id="curtall">${open?tr('curt_fewer'):tr('curt_all',{n:rows.length})}</button>`:'')+`<span>${tr('curt_tap')}</span>`;
 }
 function wirePanel(){
@@ -2040,6 +2161,7 @@ function buildChrome(){
   document.getElementById('lg-ovl-t').textContent=tr('g_ovl'); document.getElementById('lg-gen-t').textContent=tr('g_gen'); document.getElementById('lg-net-t').textContent=tr('g_net');
   document.getElementById('tipsagain').textContent=tr('tips_again');
   document.getElementById('methodsbtn').textContent=tr('m_btn');
+  document.getElementById('opendatabtn').textContent=tr('od_btn');
   labelGrab(); placeSearch();
   document.getElementById('zin').setAttribute('aria-label',tr('zin'));
   document.getElementById('zout').setAttribute('aria-label',tr('zout'));
@@ -2200,6 +2322,8 @@ const CSV = {
       Array.from(R.daily,(v,i)=>[new Date(t0+i*864e5).toISOString().slice(0,10),Math.round(v),D.daily[i],Math.round(R.dgas[i]/1e3),Math.round(R.dcurt[i]/1e3)])]; },
   hist:()=>{ const d=byId[S.sel], p=d?stationSeries(d.id,14)||[]:[]; return ['station-'+(d?d.id:''),['time_utc','notified_mw','turned_down_mw'],p.filter(x=>x.pn!=null).map(x=>[isoT(x.t),Math.round(x.pn),Math.round(x.cu)])]; },
   curtd:()=>{ const J=HIST.cur||{days:[]}; return ['curtailment-daily',['date','turned_down_mwh','payments_gbp'],J.days.map(x=>[x.d,x.mwh,x.gbp])]; },
+  qyears:()=>['queue-by-year',['contracted_year','queued_mw'],Object.entries((HIST.queue&&HIST.queue.tot.years)||{})],
+  oc:()=>['official-check',['date','neso_thermal_cost_gbp','tracked_wind_payments_gbp'],S._oc||[]],
   acc:()=>['forecast-accuracy',['date','mean_abs_error_g','bias_g','within_20g_pct','cleanest_3h_window_gap_g','half_hours'],(ACCURACY.days||[]).map(d=>[d.d,d.mae,d.bias,d.w20,d.gap,d.n])],
   digest:()=>{ const x=dgWeek(); return ['week-'+(x?x.w.start:''),['date','average_gco2_kwh'],x?x.w.days:[]]; }
 };
@@ -2461,12 +2585,277 @@ async function dgImage(x){
 /* ======================= lazily loaded history files ======================= */
 const LAZY={};
 function lazyJSON(name){ return LAZY[name]||(LAZY[name]=fetch(`data/${name}.json`,{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null)); }
-const HIST={cur:null,sta:null,day:null,ready:{}};
+const HIST={cur:null,sta:null,day:null,queue:null,con:null,ready:{}};
+const HIST_FILE={cur:'curtail',sta:'stations',day:'daily',queue:'queue',con:'constraints'};
 function need(names,after){ const todo=names.filter(n=>!HIST.ready[n]); if(!todo.length) return true;
-  Promise.all(todo.map(n=>lazyJSON(n==='cur'?'curtail':n==='sta'?'stations':'daily').then(j=>{ HIST[n]=j; HIST.ready[n]=true; }))).then(after); return false; }
+  Promise.all(todo.map(n=>lazyJSON(HIST_FILE[n]).then(j=>{ HIST[n]=j; HIST.ready[n]=true; }))).then(after); return false; }
 const rerender = () => { const y=$p.scrollTop; panel(); $p.scrollTop=y; };
 const fmtGWh = mwh => mwh>=1000 ? (mwh/1000).toFixed(mwh>=100000?0:1)+' GWh' : Math.round(mwh)+' MWh';
 const fmtT = t => t>=1e6 ? (t/1e6).toFixed(1)+' Mt' : Math.round(t).toLocaleString('en-GB')+' t';
+
+/* ======================= switch-off prices and subsidy schemes ======================= */
+const SUBSIDY = (SUBSIDY_DOC&&SUBSIDY_DOC.farms)||{};
+const SCHEME_COL = {ro:'#b4541f', ic:'#c9a227', cfd:'#2f7ea8', part:'#7fb3d1'};
+function schemeLabel(f){ if(!f) return '';
+  return f.s==='ro'?tr('sc_ro'):f.s==='ic'?tr('sc_ic',{k:f.k}):f.s==='part'?tr('sc_part',{mw:f.mw,y:f.y,k:f.k}):tr('sc_cfd',{y:f.y,k:f.k}); }
+const schemeShort = f => f ? tr('scs_'+f.s) : '';
+function farmPrices(days=30){
+  const J=HIST.cur; if(!J||!J.days) return {};
+  const out={}; J.days.slice(-days).forEach(x=>{ for(const k in (x.s||{})){ const o=out[k]||(out[k]={mwh:0,gbp:0,n:0}); o.mwh+=x.s[k][0]; o.gbp+=x.s[k][1]; o.n++; } });
+  for(const k in out) out[k].p = out[k].mwh>=200 ? out[k].gbp/out[k].mwh : null;
+  return out;
+}
+const perMWh = p => p==null?'–':'£'+Math.round(p)+'/MWh';
+function pricesBlock(){
+  const P=farmPrices(30), rows=Object.entries(P).filter(([k,v])=>v.p!=null&&SUBSIDY[k]).map(([k,v])=>({s:SITES.find(z=>z.id===k),f:SUBSIDY[k],...v})).filter(r=>r.s).sort((a,b)=>b.p-a.p);
+  if(rows.length<3) return '';
+  const avg=s=>{ const r=rows.filter(x=>x.f.s===s||(s==='cfd'&&x.f.s==='part')); const m=d3.sum(r,x=>x.mwh); return m?d3.sum(r,x=>x.gbp)/m:null; };
+  const a={ro:avg('ro'),ic:avg('ic'),cfd:avg('cfd')};
+  let h=`<h4 class="cth">${tr('pr_h')}</h4><p>${tr('pr_t')}</p>`;
+  const bits=[['ro',a.ro],['ic',a.ic],['cfd',a.cfd]].filter(e=>e[1]!=null).map(([s,v])=>tr('pr_avg_'+s,{v:perMWh(v)}));
+  if(bits.length>1) h+=`<p><b>${tr('pr_avg',{list:bits.join('; ')})}</b></p>`;
+  h+=`<div class="key">${['ro','ic','cfd','part'].filter(s=>rows.some(r=>r.f.s===s)).map(s=>`<span><i class="sq" style="background:${SCHEME_COL[s]}"></i>${tr('scs_'+s)}</span>`).join('')}</div>`;
+  h+=`<ul class="prbars" aria-label="${tr('pr_h')}">${rows.map(r=>`<li><button data-k="${r.s.key}"><span class="pn">${nm(r.s)}</span><span class="pb"><i style="width:${Math.min(100,r.p/Math.max(...rows.map(x=>x.p))*100)}%;background:${SCHEME_COL[r.f.s]}"></i></span><b>${perMWh(r.p)}</b></button></li>`).join('')}</ul>`;
+  h+=`<p class="fine">${tr('pr_note')} <button class="linkbtn inl" data-methods="subsidy">${tr('m_link')}</button></p>`;
+  return h;
+}
+function subsidyLine(d){
+  const f=SUBSIDY[d.id]; if(!f) return '';
+  const P=HIST.cur?farmPrices(30)[d.id]:null;
+  return `<div class="subs"><b>${tr('sub_h')}</b> ${schemeLabel(f)}${P&&P.p!=null?` ${tr('sub_price',{v:perMWh(P.p)})}`:''}<br><span>${tr('sub_why_'+f.s)}</span></div>`;
+}
+
+/* ======================= the last 7 days, hour by hour ======================= */
+let WK=null;
+function wkBuild(){
+  const J=HIST.sta; if(!J||!J.days||!J.days.length) return null;
+  const days=J.days.slice(-7), t=[], st={};
+  let off=0; const total=d3.sum(days,d=>d.h);
+  days.forEach(d=>{ const t0=Date.parse(d.from);
+    for(let i=0;i<d.h;i++) t.push(t0+i*36e5);
+    for(const id in d.s){ const o=st[id]||(st[id]={pn:new Float32Array(total).fill(NaN),cu:new Float32Array(total)});
+      const pn=unpack(d.s[id][0],J.unit), cu=unpack(d.s[id][1],J.unit);
+      for(let i=0;i<d.h;i++){ o.pn[off+i]=pn[i]; o.cu[off+i]=cu[i]; } }
+    off+=d.h; });
+  const out=new Float32Array(total), cut=new Float32Array(total);
+  for(const id in st){ const s=st[id], site=SITES.find(z=>z.id===id), wind=site&&(site.t==='ow'||site.t==='nw');
+    for(let i=0;i<total;i++){ if(!isNaN(s.pn[i])) out[i]+=Math.max(0,s.pn[i]-s.cu[i]); if(wind) cut[i]+=s.cu[i]; } }
+  return {t,st,out,cut,n:Object.keys(st).length};
+}
+const wkMW = d => { const s=WK&&WK.st[d.id]; if(!s) return 0; const p=s.pn[S.wk.i]; return isNaN(p)?0:Math.max(0,p-s.cu[S.wk.i]); };
+const wkCut = d => { const s=WK&&WK.st[d.id]; return s?s.cu[S.wk.i]:0; };
+function wkStart(){
+  if(!need(['sta','cur'],wkStart)) { toast(tr('sh_loading')); return; }
+  WK=WK||wkBuild(); if(!WK){ toast(tr(location.protocol.startsWith('http')?'sh_none':'sh_offline')); return; }
+  S.replayIdx=null; S.sel=null; S.view='overview'; S.tab='map'; S.live=true; if(typeof syncChip==='function') syncChip('live');
+  S.wk={i:0,playing:!matchMedia('(prefers-reduced-motion: reduce)').matches};
+  svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);
+  render(); panel(); $p.scrollTop=0; if(S.wk.playing) wkPlay(true);
+}
+function wkStop(){ clearInterval(S.wkTimer); S.wk=null; wkChip(); render(); panel(); }
+function wkPlay(on){ clearInterval(S.wkTimer); if(!S.wk) return; S.wk.playing=on;
+  if(on){ if(S.wk.i>=WK.t.length-1) S.wk.i=0; S.wkTimer=setInterval(()=>{ if(!S.wk){ clearInterval(S.wkTimer); return; } if(S.wk.i>=WK.t.length-1){ wkPlay(false); return; } S.wk.i++; wkTick(); },220); }
+  const b=document.getElementById('wkplay'); if(b){ b.textContent=on?tr('pause'):tr('play'); b.setAttribute('aria-pressed',on); } wkChip(); }
+function wkBlock(){
+  const i=S.wk.i, n=WK.t.length;
+  return `<div class="wk"><div class="dghead"><div><h2 style="margin:0">${tr('wk_h')}</h2><div class="meta">${tr('wk_meta',{n:WK.n})}</div></div><button class="pbtn ghost" id="wkstop">${tr('wk_live')}</button></div>
+    <div class="wkwhen" id="wkwhen" aria-live="off">${fmtWhen(new Date(WK.t[i]).toISOString())}</div>
+    <div class="row wkctl"><button class="pbtn" id="wkplay" aria-pressed="${S.wk.playing}">${S.wk.playing?tr('pause'):tr('play')}</button>
+    <input type="range" id="wkslider" min="0" max="${n-1}" value="${i}" aria-label="${tr('wk_slider')}" aria-valuetext="${fmtWhen(new Date(WK.t[i]).toISOString())}"></div>
+    <div class="chart" id="chwk"></div>
+    <div class="cibig"><div><b id="wkout">${fmtLive(WK.out[i])}</b><small>${tr('wk_gen_s')}</small><span>${tr('wk_gen')}</span></div><div><b id="wkcut" style="color:var(--warn)">${fmtLive(WK.cut[i])}</b><small>${tr('wk_cut_s')}</small><span>${tr('wk_cut')}</span></div></div>
+    <div id="wktop"></div><p class="fine">${tr('wk_note')}</p></div>`;
+}
+function wkTop(){
+  const i=S.wk.i, rows=SITES.filter(s=>WK.st[s.id]&&WK.st[s.id].cu[i]>5).map(s=>({s,v:WK.st[s.id].cu[i]})).sort((a,b)=>b.v-a.v).slice(0,5);
+  return rows.length?`<p class="curtwhere">${tr('wk_top')}</p><ul class="curtlist">${rows.map(r=>`<li><button data-k="${r.s.key}"><span class="cn"><span class="ti" style="--c:${col(r.s.t)}">${icon(r.s.t)}</span><span><b>${nm(r.s)}</b><small>${regName(siteRegion(r.s))}</small></span></span><span class="cv"><b>${fmtLive(r.v)}</b></span></button></li>`).join('')}</ul>`:`<p class="meta">${tr('wk_none')}</p>`;
+}
+function wkPanel(){
+  $p.innerHTML=tabs()+wkBlock(); wireTabs();
+  document.getElementById('wkstop').onclick=wkStop;
+  document.getElementById('wkplay').onclick=()=>wkPlay(!S.wk.playing);
+  const sl=document.getElementById('wkslider'); sl.oninput=()=>{ wkPlay(false); S.wk.i=+sl.value; wkTick(); };
+  drawWk(document.getElementById('chwk')); wkTick(true);
+}
+function wkChip(){ const c=document.getElementById('wkchip'); if(!c) return;
+  if(!S.wk||!WK){ c.hidden=true; return; } const i=S.wk.i; c.hidden=false;
+  c.innerHTML=`<b>${fmtWhen(new Date(WK.t[i]).toISOString())}</b><span>${tr('wk_chip',{v:fmtLive(WK.cut[i])})}</span><i aria-hidden="true">${S.wk.playing?'❚❚':'▶'}</i>`;
+  c.setAttribute('aria-label',(S.wk.playing?tr('pause'):tr('play'))+': '+c.textContent); }
+document.getElementById('wkchip').onclick=()=>{ if(S.wk) wkPlay(!S.wk.playing); };
+function wkTick(first){
+  if(!S.wk) return; const i=S.wk.i, when=fmtWhen(new Date(WK.t[i]).toISOString());
+  const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  set('wkwhen',when); set('wkout',fmtLive(WK.out[i])); set('wkcut',fmtLive(WK.cut[i]));
+  const sl=document.getElementById('wkslider'); if(sl&&!first){ sl.value=i; } if(sl) sl.setAttribute('aria-valuetext',when);
+  const tp=document.getElementById('wktop'); if(tp){ tp.innerHTML=wkTop(); tp.querySelectorAll('button[data-k]').forEach(b=>b.onclick=()=>{ wkPlay(false); select(b.dataset.k); }); }
+  wkChip();
+  const cur=d3.select('#chwk .wkcur'); if(!cur.empty()) cur.attr('x1',S.wkX(WK.t[i])).attr('x2',S.wkX(WK.t[i]));
+  render();
+}
+function drawWk(el){
+  if(!el) return; const w=el.clientWidth||320, h=90, m={l:30,r:8,t:8,b:18};
+  const x=d3.scaleTime().domain(d3.extent(WK.t)).range([m.l,w-m.r]); S.wkX=x;
+  const y=d3.scaleLinear().domain([0,Math.max(500,d3.max(WK.cut))*1.1]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h).attr('role','img').attr('aria-label',tr('wk_chart'));
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(d3.timeDay.every(w<420?2:1)).tickFormat(t=>{const p=ukParts(t); return (LANG==='cy'?CY_D[EN_D[p.wd]]:p.wd)+' '+p.d;}).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(2).tickFormat(v=>v>=1000?(v/1000)+'k':v).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.append('path').attr('d',d3.area().x((v,i)=>x(WK.t[i])).y0(y(0)).y1(v=>y(v)).curve(d3.curveStepAfter)(Array.from(WK.cut))).attr('fill',col('warn')).attr('opacity',.75);
+  s.append('line').attr('class','wkcur').attr('y1',m.t).attr('y2',h-m.b).attr('stroke',col('ink')).attr('stroke-width',1.5);
+  s.append('rect').attr('x',m.l).attr('y',0).attr('width',w-m.l-m.r).attr('height',h).attr('fill','transparent').style('cursor','pointer')
+    .on('click',e=>{ const t=x.invert(d3.pointer(e)[0]); wkPlay(false); S.wk.i=Math.max(0,Math.min(WK.t.length-1,d3.bisectLeft(WK.t,+t))); wkTick(); });
+}
+const wkButton = () => `<button class="pbtn ghost wkbtn" data-wk="1">${tr('wk_btn')}</button>`;
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-wk]'); if(b){ e.preventDefault(); wkStart(); } });
+
+/* ======================= connection queue ======================= */
+const QCOL = t => ({dem:'#8a8f98',oth:'#a3a9ad'})[t]||col(t)||'#a3a9ad';
+const qName = t => t==='dem'?tr('q_dem'):t==='oth'?tr('q_oth'):tr('t_'+t);
+function queueSites(){ const Q=HIST.queue; if(!Q) return []; return Q.sites.filter(s=>!S.qWales||s[10]); }
+function queuePanel(){
+  let h=tabs();
+  if(!need(['queue'],()=>{ if(S.tab==='queue') { render(); rerender(); } })){ $p.innerHTML=h+`<p class="meta">${tr('sh_loading')}</p>`; wireTabs(); return; }
+  const Q=HIST.queue;
+  if(!Q||!Q.sites){ $p.innerHTML=h+`<h2>${tr('q_h')}</h2><p class="meta">${tr(location.protocol.startsWith('http')?'q_none':'sh_offline')}</p>`; wireTabs(); return; }
+  if(S.qsel!=null){ const s=Q.sites.find(x=>x[0]===S.qsel); if(s){ $p.innerHTML=h+queueSite(s); wireTabs(); wireQueue(); return; } S.qsel=null; }
+  const sites=queueSites(), q=d3.sum(sites,s=>s[4]), n=d3.sum(sites,s=>s[6]), late=d3.sum(sites,s=>s[12]||0);
+  const types={}; sites.forEach(s=>{ for(const k in s[7]) types[k]=(types[k]||0)+s[7][k]; });
+  const tt=Object.entries(types).sort((a,b)=>b[1]-a[1]);
+  const years={}; sites.forEach(s=>s[11].forEach(()=>{})); // per-site project lists are truncated, so years come from the totals
+  h+=`<h2>${tr('q_h')}</h2><p>${tr('q_t')}</p>
+    <div class="chips" role="group"><button class="chip" data-qw="0" aria-pressed="${!S.qWales}">${tr('q_all')}</button><button class="chip" data-qw="1" aria-pressed="${!!S.qWales}">${tr('q_wales')}</button></div>
+    <div class="cibig"><div><b>${fmtGW(q)}</b><small>${tr('q_queued_s')}</small><span>${tr('q_queued')}</span></div><div><b>${n.toLocaleString('en-GB')}</b><small>${tr('q_proj_s')}</small><span>${tr('q_proj')}</span></div><div><b>${fmtGW(late)}</b><small>${tr('q_late_s')}</small><span>${tr('q_late')}</span></div></div>
+    <h3>${tr('q_by_t')}</h3><div class="bar">${tt.map(([k,v])=>`<div style="width:${v/q*100}%;background:${QCOL(k)}" title="${qName(k)}"></div>`).join('')}</div>
+    <div class="legend">${tt.slice(0,8).map(([k,v])=>`<span style="--c:${QCOL(k)}">${k==='dem'||k==='oth'?'':icon(k)}${qName(k)}</span><b>${fmtGW(v)}</b>`).join('')}</div>`;
+  if(!S.qWales&&Q.tot.years){ h+=`<h3>${tr('q_by_y')}</h3><div class="chart" id="chqy"></div><p class="fine">${tr('q_by_y_note')}</p>`; }
+  const top=[...sites].sort((a,b)=>b[4]-a[4]).slice(0,S.qAll?60:10);
+  h+=`<h3>${tr('q_top')}</h3><ul class="curtlist qlist">${top.map(s=>`<li><button data-qs="${encodeURIComponent(s[0])}"><span class="cn"><span class="ti" style="--c:${QCOL(Object.keys(s[7])[0])}"></span><span><b>${qSite(s[0])}</b><small>${tr('q_row',{n:s[6],y:s[9]||'–'})}${s[1]==null?' · '+tr('q_unplaced'):''}</small></span></span><span class="cv"><b style="color:var(--ink)">${fmtGW(s[4])}</b></span></button></li>`).join('')}</ul>`;
+  if(sites.length>10) h+=`<button class="linkbtn" id="qall">${S.qAll?tr('curt_fewer'):tr('q_more',{n:Math.min(60,sites.length)})}</button>`;
+  h+=`<p class="fine">${tr('q_note',{d:fmtDate(Q.updated.slice(0,10))+' '+Q.updated.slice(0,4),u:fmtGW(Q.tot.unplaced||0)})} <button class="linkbtn inl" data-methods="queue">${tr('m_link')}</button></p>`;
+  $p.innerHTML=h; wireTabs(); wireQueue();
+  const cy=document.getElementById('chqy'); if(cy){ drawQYears(cy); makeZoomable(cy,'qyears'); }
+}
+const fmtGW = mw => mw>=1000 ? (mw/1000).toFixed(mw>=100000?0:1).replace(/\.0$/,'')+' GW' : Math.round(mw)+' MW';
+const qSite = n => n.replace(/\s*\d+(\.\d+)?\s*kV/i,'').replace(/\s+Substation$/i,'').replace(/\s+Sub Station$/i,'').trim();
+function queueSite(s){
+  const [name,lat,lon,host,q,conn,n,types,y1,ym,w,projs,late]=s, tt=Object.entries(types);
+  let h=`<button class="back" id="qback">${tr('q_back')}</button><h2>${qSite(name)}</h2><div class="meta">${tr('q_site_meta',{h:host||'–'})}</div>
+    <div class="cibig"><div><b>${fmtGW(q)}</b><small>${tr('q_queued_s')}</small><span>${tr('q_queued')}</span></div><div><b>${n}</b><small>${tr('q_proj_s')}</small><span>${tr('q_proj')}</span></div><div><b>${fmtGW(conn||0)}</b><small>${tr('q_conn_s')}</small><span>${tr('q_conn')}</span></div></div>
+    <div class="bar">${tt.map(([k,v])=>`<div style="width:${v/q*100}%;background:${QCOL(k)}"></div>`).join('')}</div>
+    <div class="legend">${tt.map(([k,v])=>`<span style="--c:${QCOL(k)}">${k==='dem'||k==='oth'?'':icon(k)}${qName(k)}</span><b>${fmtGW(v)}</b>`).join('')}</div>
+    <p>${y1?tr('q_years',{a:y1,m:ym}):''}${late?' '+tr('q_site_late',{v:fmtGW(late)}):''}</p>
+    <h3>${tr('q_largest')}</h3><table class="qt"><thead><tr><th>${tr('q_c_name')}</th><th>${tr('q_c_mw')}</th><th>${tr('q_c_date')}</th><th>${tr('q_c_status')}</th></tr></thead><tbody>
+    ${projs.map(p=>`<tr><td><span class="ti sm" style="--c:${QCOL(p[2])}"></span>${p[0]}</td><td>${fmtMW(p[1])}</td><td>${p[3]?fmtMonth(p[3]):'–'}</td><td>${tr('qs_'+(p[4]||'x'))}</td></tr>`).join('')}</tbody></table>
+    ${n>projs.length?`<p class="fine">${tr('q_shown',{a:projs.length,n})}</p>`:''}
+    <p class="fine">${lat==null?tr('q_unplaced_l')+' ':''}${tr('q_site_note')} <button class="linkbtn inl" data-methods="queue">${tr('m_link')}</button></p>`;
+  return h;
+}
+const fmtMonth = ym => { const [y,m]=ym.split('-').map(Number); return (LANG==='cy'?CY_M:EN_M)[m-1]+' '+y; };
+function wireQueue(){
+  $p.querySelectorAll('[data-qw]').forEach(b=>b.onclick=()=>{ S.qWales=b.dataset.qw==='1'; render(); rerender(); if(S.qWales) zoomToWales(); else svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); });
+  $p.querySelectorAll('[data-qs]').forEach(b=>b.onclick=()=>qSelect(decodeURIComponent(b.dataset.qs)));
+  const qa=document.getElementById('qall'); if(qa) qa.onclick=()=>{ S.qAll=!S.qAll; rerender(); };
+  const qb=document.getElementById('qback'); if(qb) qb.onclick=()=>{ S.qsel=null; render(); panel(); };
+}
+function qSelect(name){
+  S.qsel=name; render(); panel(); $p.scrollTop=0;
+  const s=HIST.queue.sites.find(x=>x[0]===name); if(!s||s[1]==null) return;
+  const k=Math.max(zt.k,3.2), p=P0([s[1],s[2]]); svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity.translate(W/2-k*p[0],(visH()-40)/2-k*p[1]).scale(k));
+}
+function zoomToWales(){ const k=3, p=P0([52.35,-3.7]); svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity.translate(W/2-k*p[0],(visH()-40)/2-k*p[1]).scale(k)); }
+let gQueue=null;
+function drawQueue(){
+  if(!gQueue) gQueue=gOver.insert('g',()=>gPc.node()).attr('class','qlayer');
+  const on=S.tab==='queue'&&!S.sel&&HIST.queue&&HIST.queue.sites;
+  d3.select('#map').classed('queueon',!!on);
+  const data=on?queueSites().filter(s=>s[1]!=null):[];
+  const g=gQueue.selectAll('g.qs').data(data,s=>s[0]).join(en=>{ const g=en.append('g').attr('class','qs').attr('tabindex',0).attr('role','button');
+      g.append('circle'); g.on('click',(e,s)=>{ e.stopPropagation(); qSelect(s[0]); }).on('keydown',(e,s)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); qSelect(s[0]); } }); return g; });
+  const k=Math.sqrt(Math.max(1,zt.k));
+  g.attr('aria-label',s=>`${qSite(s[0])}: ${fmtGW(s[4])} ${tr('q_queued')}`).classed('on',s=>s[0]===S.qsel)
+   .select('circle').attr('r',s=>Math.max(3,Math.sqrt(s[4])/5.5)*(phoneW()?.8:1)*Math.min(1.6,k)).attr('fill',s=>QCOL(Object.keys(s[7])[0]));
+  g.sort((a,b)=>b[4]-a[4]);
+  positionQueue();
+}
+function positionQueue(){ if(gQueue) gQueue.selectAll('g.qs').attr('transform',s=>{ const p=xy([s[1],s[2]]); return `translate(${p[0]},${p[1]})`; }); }
+function drawQYears(el,o={}){
+  const Y=HIST.queue.tot.years, now=new Date().getFullYear();
+  const b={}; for(const [k,v] of Object.entries(Y)){ const y=+k; const key=isNaN(y)?null:y<now?'≤'+(now-1):y>2040?'2041+':String(y); if(key) b[key]=(b[key]||0)+v; }
+  const d=Object.entries(b).sort((a,z)=>(a[0].replace('≤','').replace('+',''))-(z[0].replace('≤','').replace('+','')));
+  const w=el.clientWidth||320, h=o.h||120, m={l:34,r:8,t:10,b:20};
+  const x=d3.scaleBand().domain(d.map(e=>e[0])).range([m.l,w-m.r]).padding(.18), y=d3.scaleLinear().domain([0,d3.max(d,e=>e[1])*1.1]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  const every=Math.ceil(d.length/Math.max(4,Math.floor(w/44)));
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickValues(d.map(e=>e[0]).filter((e,i)=>i%every===0||e.startsWith('≤'))).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickFormat(v=>v>=1000?(v/1000)+'k':v).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.selectAll('rect.b').data(d).join('rect').attr('class','b').attr('x',e=>x(e[0])).attr('width',x.bandwidth()).attr('y',e=>y(e[1])).attr('height',e=>y(0)-y(e[1])).attr('fill',e=>e[0].startsWith('≤')?col('warn'):col('ink')).attr('opacity',e=>e[0].startsWith('≤')?.85:.55).attr('rx',1.5);
+  if(o.big) addHover(s,v=>x(v)+x.bandwidth()/2,[{name:tr('q_queued'),color:col('ink'),pts:d,y}],{m,w,h,unit:' MW',band:x,fx:v=>v});
+}
+
+/* ======================= Wales against its targets ======================= */
+const WALES_T = {pts:[[2016,43],[2022,59],[2024,54]], t2030:70, t2035:100, dem24:14.5, dem35:23.8, own:0.99, ownT:1.5, hp:31000, hpT:580000,
+  src:'https://www.gov.wales/sites/default/files/publications/2026-08/energy-generation-use-wales-first-combined-edition.pdf'};
+function walesTargets(){
+  const W=WALES_T, last=W.pts[W.pts.length-1];
+  let h=`<h3>${tr('wt_h')}</h3><p>${tr('wt_t',{p:last[1],y:last[0]})}</p>
+    <div class="wtbar" role="img" aria-label="${tr('wt_aria',{p:last[1]})}"><i style="width:${last[1]}%"></i><span class="wtm" style="left:70%"><b>70%</b>2030</span><span class="wtm" style="left:99.5%"><b>100%</b>2035</span></div>
+    <div class="chart" id="chwt"></div>
+    <ul class="simtxt"><li>${tr('wt_dem',{a:W.dem24,b:W.dem35})}</li><li>${tr('wt_own',{a:W.own,b:W.ownT,p:Math.round(W.own/W.ownT*100)})}</li><li>${tr('wt_hp',{a:W.hp.toLocaleString('en-GB'),b:W.hpT.toLocaleString('en-GB')})}</li></ul>
+    <p class="fine">${tr('wt_src')} <a href="${W.src}" target="_blank" rel="noopener">gov.wales ↗</a></p>`;
+  return h;
+}
+function drawWT(el){
+  if(!el) return; const W=WALES_T, w=el.clientWidth||320, h=120, m={l:30,r:14,t:10,b:20};
+  const x=d3.scaleLinear().domain([2015,2036]).range([m.l,w-m.r]), y=d3.scaleLinear().domain([0,105]).range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h).attr('role','img').attr('aria-label',tr('wt_chart'));
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickValues([2016,2020,2024,2030,2035]).tickFormat(d3.format('d')).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues([0,50,100]).tickFormat(v=>v+'%').tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  const last=W.pts[W.pts.length-1];
+  s.append('path').attr('d',d3.line()([[x(last[0]),y(last[1])],[x(2030),y(W.t2030)],[x(2035),y(W.t2035)]])).attr('fill','none').attr('stroke','#2fa84f').attr('stroke-dasharray','5 4').attr('stroke-width',1.5);
+  s.append('path').attr('d',d3.line().x(p=>x(p[0])).y(p=>y(p[1]))(W.pts)).attr('fill','none').attr('stroke',col('ink')).attr('stroke-width',1.6);
+  s.selectAll('circle.p').data(W.pts).join('circle').attr('cx',p=>x(p[0])).attr('cy',p=>y(p[1])).attr('r',3.5).attr('fill',col('ink'));
+  s.selectAll('text.p').data(W.pts).join('text').attr('class','vl').attr('x',p=>x(p[0])).attr('y',p=>y(p[1])-7).attr('text-anchor','middle').text(p=>p[1]+'%');
+  s.selectAll('circle.t').data([[2030,W.t2030],[2035,W.t2035]]).join('circle').attr('cx',p=>x(p[0])).attr('cy',p=>y(p[1])).attr('r',4).attr('fill','none').attr('stroke','#2fa84f').attr('stroke-width',2);
+}
+function walesExtra(){
+  let h='';
+  const have=need(['day','cur','queue'],()=>{ if(S.view==='wales'&&!S.sel) rerender(); });
+  const D=have&&HIST.day&&HIST.day.days?HIST.day.days.filter(x=>x.wales):[];
+  if(D.length){ const y=D[D.length-1], wk=D.slice(-7);
+    h+=`<h3>${tr('wy_h')}</h3><p>${tr('wy_t',{d:fmtDate(y.d),w:Math.round(y.wales.wind),m:Math.round(y.wales.max),h:y.wales.h80})}</p>
+      <p class="meta">${tr('wy_wk',{w:Math.round(d3.mean(wk,x=>x.wales.wind)),h:d3.sum(wk,x=>x.wales.h80)})}</p>`; }
+  if(have&&HIST.cur&&HIST.cur.days){ const P=farmPrices(30), rows=SITES.filter(s=>s.w&&P[s.id]).map(s=>({s,v:P[s.id]})).sort((a,b)=>b.v.mwh-a.v.mwh);
+    h+=`<h3>${tr('wc_h')}</h3>`+(rows.length?`<ul class="curtlist">${rows.map(r=>`<li><button data-k="${r.s.key}"><span class="cn"><span class="ti" style="--c:${col(r.s.t)}">${icon(r.s.t)}</span><span><b>${nm(r.s)}</b><small>${tr('ct_days',{n:r.v.n})}${SUBSIDY[r.s.id]?' · '+schemeShort(SUBSIDY[r.s.id]):''}</small></span></span><span class="cv"><b>${fmtGWh(r.v.mwh)}</b><small>${fmtGBP(r.v.gbp)}</small></span></button></li>`).join('')}</ul>`:`<p class="meta">${tr('wc_none')}</p>`); }
+  if(have&&HIST.queue&&HIST.queue.sites){ const ws=HIST.queue.sites.filter(s=>s[10]).sort((a,b)=>b[4]-a[4]), q=d3.sum(ws,s=>s[4]);
+    if(ws.length) h+=`<h3>${tr('wq_h')}</h3><p>${tr('wq_t',{q:fmtGW(q),n:d3.sum(ws,s=>s[6]),s:ws.slice(0,3).map(s=>qSite(s[0])).join(', ')})}</p><button class="pbtn ghost" id="wqgo">${tr('wq_go')}</button>`; }
+  return h;
+}
+
+/* ======================= cross-check with NESO's official figures ======================= */
+function officialBlock(){
+  if(!need(['con'],()=>{ if(S.tab==='stories'&&!S.sel) rerender(); })) return '';
+  const C=HIST.con, J=HIST.cur; if(!C||!C.days||!J||!J.days) return '';
+  const ours={}; J.days.forEach(x=>ours[x.d]=x);
+  const both=C.days.filter(r=>ours[r[0]]).slice(-30);
+  let h=`<h4 class="cth">${tr('oc_h')}</h4>`;
+  if(!both.length) return h+`<p class="meta">${tr('oc_wait',{d:fmtDate(C.days[C.days.length-1][0])})}</p>`;
+  const og=d3.sum(both,r=>ours[r[0]].gbp), ng=d3.sum(both,r=>r[1]), share=ng>0?og/ng*100:null;
+  h+=`<p>${tr('oc_t',{n:both.length,o:fmtGBP(og),g:fmtGBP(ng),p:share==null?'–':Math.round(share)})}</p><div class="key"><span><i class="sq" style="background:var(--muted)"></i>${tr('oc_k_neso')}</span><span><i class="sq" style="background:var(--warn)"></i>${tr('oc_k_ours')}</span></div><div class="chart" id="choc"></div>
+    <p class="fine">${tr('oc_note')} <button class="linkbtn inl" data-methods="official">${tr('m_link')}</button></p>`;
+  S._oc=both.map(r=>[r[0],r[1],ours[r[0]].gbp]);
+  return h;
+}
+function drawOC(el,o={}){
+  const d=S._oc; if(!el||!d||!d.length) return;
+  const w=el.clientWidth||320, h=o.h||110, m={l:38,r:8,t:10,b:20};
+  const x=d3.scaleBand().domain(d.map(e=>e[0])).range([m.l,w-m.r]).padding(.2), y=d3.scaleLinear().domain([0,d3.max(d,e=>Math.max(e[1],e[2]))*1.1]).nice().range([h-m.b,m.t]);
+  const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  const every=Math.ceil(d.length/Math.max(3,Math.floor(w/70)));
+  s.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).tickValues(d.map(e=>e[0]).filter((e,i)=>i%every===0)).tickFormat(v=>fmtDate(v).replace(/ (\S{3})\S*$/,' $1')).tickSizeOuter(0));
+  s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickFormat(v=>v>=1e6?'£'+(v/1e6)+'m':v>=1000?'£'+(v/1000)+'k':'£'+v).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
+  s.selectAll('rect.n').data(d).join('rect').attr('class','n').attr('x',e=>x(e[0])).attr('width',x.bandwidth()).attr('y',e=>y(e[1])).attr('height',e=>y(0)-y(e[1])).attr('fill',col('muted')).attr('opacity',.45).attr('rx',1.5);
+  s.selectAll('rect.o').data(d).join('rect').attr('class','o').attr('x',e=>x(e[0])+x.bandwidth()*.22).attr('width',x.bandwidth()*.56).attr('y',e=>y(e[2])).attr('height',e=>y(0)-y(e[2])).attr('fill',col('warn')).attr('rx',1.5);
+  if(o.big) addHover(s,v=>x(v)+x.bandwidth()/2,[{name:tr('oc_k_neso'),pre:'£',color:col('muted'),pts:d.map(e=>[e[0],e[1]]),y},{name:tr('oc_k_ours'),pre:'£',color:col('warn'),pts:d.map(e=>[e[0],e[2]]),y}],{m,w,h,unit:'',band:x,fx:v=>fmtDate(v)});
+}
 
 /* ======================= station history (site panel) ======================= */
 function stationSeries(id,days=7){
@@ -2488,6 +2877,7 @@ function histBlock(d){
   h+=`<p class="meta">${tr('sh_sum',{a:fmtMW(avg),p:Math.round(avg/d.mw*100),m:fmtMW(peak)})}${cut>0?' '+tr('sh_cutsum',{v:fmtGWh(cut)}):''}</p>`;
   if(wind&&HIST.cur&&HIST.cur.days&&HIST.cur.days.length){ const last=HIST.cur.days.slice(-30).filter(x=>x.s), mine=last.map(x=>x.s[d.id]).filter(Boolean);
     h+=`<p>${mine.length?tr('sh_30',{n:mine.length,t:last.length,v:fmtGWh(d3.sum(mine,x=>x[0])),p:fmtGBP(d3.sum(mine,x=>x[1]))}):tr('sh_30none',{t:last.length})}</p>`; }
+  h+=subsidyLine(d);
   h+=`<p class="fine">${tr('sh_note')} <button class="linkbtn inl" data-methods="history">${tr('m_link')}</button></p>`;
   return h;
 }
@@ -2569,6 +2959,7 @@ function stateHash(){
   const p=new URLSearchParams();
   if(S.sel) p.set('s',S.sel); else { if(S.view==='wales') p.set('v','wales'); if(S.tab!=='map') p.set('t',S.tab); }
   if(S.year!==2026) p.set('y',S.year);
+  if(!S.sel&&S.tab==='queue'){ if(S.qWales) p.set('qw','1'); if(S.qsel) p.set('qs',S.qsel); }
   if(!S.sel&&S.tab==='sim'&&S_SIM.v) p.set('sim',SIM_SL.map(([k])=>S_SIM.v[k]).join('_'));
   if(!S.sel&&S.tab==='stories'&&S.dw!=null&&DIGEST.weeks&&DIGEST.weeks[S.dw]) p.set('w',DIGEST.weeks[S.dw].start);
   if(LANG==='cy') p.set('l','cy');
@@ -2580,7 +2971,8 @@ function applyHash(first){
   const p=new URLSearchParams(location.hash.slice(1)); if(![...p.keys()].length) return false;
   hashBusy=true;
   if(!first){ S.sel=null; S.view='overview'; S.tab='map'; }   // a new link replaces the whole view
-  const t=p.get('t'); if(t&&['map','carbon','stories','plan','sim','compare'].includes(t)) S.tab=t;
+  const t=p.get('t'); if(t&&['map','carbon','stories','plan','sim','compare','queue'].includes(t)) S.tab=t;
+  if(S.tab==='queue'){ S.fut='queue'; S.qWales=p.get('qw')==='1'; S.qsel=p.get('qs')||null; }
   if(p.get('v')==='wales') S.view='wales';
   const y=+p.get('y'); if(y>=2026&&y<=2040){ S.year=y; const yr=document.getElementById('yr'); if(yr){ yr.value=y; updYear(); } }
   const sim=p.get('sim'); if(sim){ const v=sim.split('_').map(Number); if(v.length===SIM_SL.length&&v.every(n=>!isNaN(n))){ S_SIM.v={}; SIM_SL.forEach(([k],i)=>S_SIM.v[k]=v[i]); S_SIM.preset=null; } }
@@ -2640,6 +3032,8 @@ const CHARTS = {
   long:{t:()=>tr('ci_long'), draw:(el,o)=>drawLong(el,o)},
   clean:{t:()=>tr('st_h_h'), draw:(el,o)=>drawClean(el,o)},
   price:{t:()=>tr('st_p_h'), draw:(el,o)=>drawPrice(el,o)},
+  qyears:{t:()=>tr('q_by_y'), draw:(el,o)=>drawQYears(el,o)},
+  oc:{t:()=>tr('oc_h'), draw:(el,o)=>drawOC(el,o)},
   sim:{t:()=>tr('sim_ch'), draw:(el,o)=>drawSim(el,o)},
   hist:{t:()=>{ const d=byId[S.sel]; return (d?nm(d)+' · ':'')+tr('sh_out'); }, draw:(el,o)=>{ const d=byId[S.sel]; if(d) drawHist(el,d,o); }},
   curtd:{t:()=>tr('ct_down'), draw:(el,o)=>drawCurt(el,o)},

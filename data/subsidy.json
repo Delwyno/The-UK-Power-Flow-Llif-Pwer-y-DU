@@ -1,0 +1,34 @@
+{
+ "note": "Support scheme for each wind farm the curtailment tracker covers. s: ro = Renewables Obligation; ic = early Contract for Difference (2014 investment contract); cfd = Contract for Difference won at auction; part = CfD on part of the capacity, the rest sold under corporate power purchase agreements. y: year awarded. k: strike price in £/MWh, 2012 prices. mw: capacity under the CfD where only part is covered.",
+ "src": [
+  ["DESNZ/LCCC: Contracts for Difference register", "https://www.lowcarboncontracts.uk/our-schemes/contracts-for-difference/"],
+  ["Ofgem: Renewables Obligation", "https://www.ofgem.gov.uk/environmental-and-social-schemes/renewables-obligation-ro"],
+  ["Ocean Winds: Moray West CfD, 294 of 882 MW at £37.35", "https://www.oceanwinds.com/news/uncategorized/ocean-winds-awarded-cfd-for-its-moray-west-project/"],
+  ["Walney Extension: two £150/MWh CfDs awarded 2014 (WFW)", "https://www.wfw.com/media-centre/news/wfw-advises-on-1-3bn-investment-grade-bond-acquisition-of-50-stake-in-659-mw-walney-extension-offshore-wind-farm/"]
+ ],
+ "farms": {
+  "hornsea1": {"s": "ic", "y": 2014, "k": 140},
+  "hornsea2": {"s": "cfd", "y": 2017, "k": 57.5},
+  "doggerA": {"s": "cfd", "y": 2019, "k": 39.65},
+  "doggerB": {"s": "cfd", "y": 2019, "k": 41.61},
+  "triton": {"s": "cfd", "y": 2015, "k": 74.75},
+  "racebank": {"s": "ro"},
+  "ea1": {"s": "cfd", "y": 2015, "k": 119.89},
+  "gabbard": {"s": "ro"},
+  "galloper": {"s": "ro"},
+  "londonarray": {"s": "ro"},
+  "rampion": {"s": "ro"},
+  "walneyx": {"s": "ic", "y": 2014, "k": 150},
+  "walney": {"s": "ro"},
+  "gym": {"s": "ro"},
+  "burbo": {"s": "ic", "y": 2014, "k": 150},
+  "morayeast": {"s": "cfd", "y": 2017, "k": 57.5},
+  "moraywest": {"s": "part", "y": 2022, "k": 37.35, "mw": 294},
+  "beatrice": {"s": "ic", "y": 2014, "k": 140},
+  "seagreen": {"s": "part", "y": 2019, "k": 41.61, "mw": 454},
+  "nng": {"s": "cfd", "y": 2015, "k": 114.39},
+  "whitelee": {"s": "ro"},
+  "clyde": {"s": "ro"},
+  "penycymoedd": {"s": "ro"}
+ }
+}

@@ -8,6 +8,8 @@ Outputs (in data/):
   plants.json      smaller generators not in src/sites.js
   routes.json      each curated site's route along the real grid
   xchk.json        curated capacities cross-checked against OpenStreetMap
+  gazetteer.json   every named substation of 132 kV and above, and named power stations,
+                   used by tools/update_neso.py to place connection-queue sites on the map
 
 Usage:
   python tools/update_osm.py                    # downloads the UK extract from Geofabrik (~2.3 GB)
@@ -67,6 +69,7 @@ def load_sites():
 def extract(pbf, work, index="flex_mem"):
     t0 = time.time()
     lines, subs, plants, wind = [], [], [], []
+    gaz = []  # named substations of 132 kV and above, for the connection-queue gazetteer
     rel_plant, rel_nodes, rel_wind = {}, {}, {}
     for o in osmium.FileProcessor(pbf, osmium.osm.RELATION).with_filter(osmium.filter.KeyFilter("power")):
         t = o.tags
@@ -94,6 +97,8 @@ def extract(pbf, work, index="flex_mem"):
             if p == "plant": plants.append({"id": "n%d" % o.id, "tags": dict(t), "c": list(ll)})
             elif p == "substation":
                 v = volts(t.get("voltage"))
+                if v and max(v) >= 132000 and t.get("name"):
+                    gaz.append([t.get("name")[:60], round(ll[0], 4), round(ll[1], 4), max(v) // 1000])
                 if v and max(v) >= 220000:
                     subs.append({"n": t.get("name"), "v": max(v), "c": list(ll), "id": "n%d" % o.id, "op": t.get("operator")})
         elif o.is_way():
@@ -101,6 +106,8 @@ def extract(pbf, work, index="flex_mem"):
             except Exception: continue
             if not pts: continue
             v = volts(t.get("voltage"))
+            if p == "substation" and v and max(v) >= 132000 and t.get("name"):
+                c = centroid(pts); gaz.append([t.get("name")[:60], round(c[0], 4), round(c[1], 4), max(v) // 1000])
             if p in ("line", "cable") and v and max(v) >= 220000:
                 lines.append({"v": max(v), "pts": pts, "dc": t.get("frequency") == "0" or max(v) in (320000, 450000, 515000, 525000, 600000)})
             elif p == "substation" and v and max(v) >= 220000:
@@ -124,6 +131,7 @@ def extract(pbf, work, index="flex_mem"):
             if o.id in rel_wind: wind[rel_wind[o.id]]["rings"].append(pts)
     if os.path.exists(idx): os.remove(idx)
     print(f"  extraction done ({time.time()-t0:.0f}s)", flush=True)
+    extract.gaz = gaz
     return lines, subs, plants, wind
 
 # ---------------------------------------------------------------- outputs
@@ -154,6 +162,18 @@ def build(lines, subs, plants, wind, D, out):
         if any(abs(c[0] - o[2]) < 0.004 and abs(c[1] - o[3]) < 0.006 for o in so): continue
         so.append([(s["n"] or "")[:50], s["v"] // 1000, round(c[0], 4), round(c[1], 4), (s["op"] or "")[:40], s["id"]])
     dump("subs.json", so)
+
+    # gazetteer for the connection queue: named substations (132 kV+) and named power stations
+    gz, seen = [], set()
+    for n, la, lo, kv in sorted(getattr(extract, "gaz", []), key=lambda g: -g[3]):
+        k = (n.lower(), round(la, 2), round(lo, 2))
+        if k not in seen: seen.add(k); gz.append([n, la, lo, kv])
+    for pl in plants:
+        n = pl["tags"].get("name"); c = pl.get("c") or (centroid(pl["pts"]) if pl.get("pts") else None)
+        if n and c:
+            k = (n.lower()[:60], round(c[0], 2), round(c[1], 2))
+            if k not in seen: seen.add(k); gz.append([n[:60], round(c[0], 4), round(c[1], 4), 0])
+    dump("gazetteer.json", gz)
 
     # offshore wind areas
     W = []
