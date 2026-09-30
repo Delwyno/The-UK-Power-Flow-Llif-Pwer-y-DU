@@ -27,6 +27,12 @@ The map is a single self-contained web page (`index.html`). The `src/`, `data/` 
 - The grid connection queue.
 - Clean hours are cheap hours (carbon against wholesale price).
 
+**Why now.** The Map and Carbon tabs explain whether carbon intensity is higher or lower than typical for the month and time of day, and which sources are driving the difference. "Typical" comes from the last two years of NESO's historic generation mix.
+
+**Curtailment.** Wind farms being turned down show the megawatts, the estimated payment (from Elexon bid prices) and the extra CO₂ from replacing that power with gas. A scenario block in Stories estimates how much of today's curtailed Scottish wind Eastern Green Link 1 and 2 could carry south.
+
+**Plan tab.** "When to run it" finds the cleanest time to run a flexible load (EV charging, a kiln, a cold store) in any region over the next 48 hours, shows the CO₂ saved compared with starting now, and can add the best window to a calendar.
+
 **Compare tab.** Pick two years to see capacity by technology side by side, what's new and what closes. You can also highlight the changes on the map: a green ring means new and a red dashed ring means closed.
 
 **Also:**
@@ -55,6 +61,17 @@ tools/update_history.py    refreshes carbon history from NESO (monthly)
 tools/update_osm.py        refreshes grid, substations, smaller sites and routes from OpenStreetMap (monthly)
 tools/requirements.txt
 ```
+
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
 
 ## Keeping the data fresh automatically
 

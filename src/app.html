@@ -32,12 +32,13 @@
   --grid:#9fb1b7; --hub:#e6edef; --pyl:#5d7078; --bat:#8fa3b0;
 }
 *,*::before,*::after{box-sizing:inherit}
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+[hidden]{display:none!important}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);touch-action:pan-x pan-y}
 @supports (font: -apple-system-body){ html{font:-apple-system-body;font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif} }
 body{height:100%;margin:0;background:var(--panel);overflow:hidden;max-width:100vw}
 .app{max-width:100vw;overflow:hidden}
 .app{height:100%;display:flex;flex-direction:column}
-@media (max-width:899px){ .app{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);height:auto} }
+@media (max-width:899px) and (orientation:portrait), (max-width:699px){ .app{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);height:auto} }
 header{padding:10px 14px 8px;border-bottom:1px solid var(--rule);background:var(--panel)}
 .titlerow{display:flex;align-items:center;gap:8px;justify-content:space-between}
 h1{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.01em;margin:0;line-height:1.1;flex:1;min-width:0}
@@ -75,6 +76,19 @@ select,.tbtn{font:inherit;font-size:.9rem;color:var(--ink);background:var(--soft
 .linkbtn{font:inherit;font-size:.85rem;background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;margin-top:12px}
 .lgrab{display:none}
 @media (max-width:599px){ .lgrab{display:flex;justify-content:center;height:24px;margin:-8px 0 2px;touch-action:none;cursor:grab} .lgrab::before{content:"";width:40px;height:5px;border-radius:3px;background:var(--rule);margin-top:6px} }
+.chooser{position:absolute;z-index:26;background:var(--panel);border:1px solid var(--rule);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.2);padding:4px;min-width:220px;max-width:280px}
+.chooser .ch{font-size:.78rem;color:var(--muted);padding:4px 8px 2px}
+.chooser button{all:unset;box-sizing:border-box;display:flex;gap:8px;align-items:center;width:100%;min-height:44px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.92rem}
+.chooser button:hover,.chooser button:focus-visible{background:var(--soft)}
+.chooser .ri{width:22px;height:22px;border-radius:50%;background:var(--c);display:grid;place-items:center;flex:none;color:#fff;font:700 .7rem "Barlow Semi Condensed",sans-serif}
+.chooser .ri svg{width:14px;height:14px;color:#fff}
+.chooser small{margin-left:auto;color:var(--muted);white-space:nowrap}
+.coach{position:absolute;left:10px;bottom:calc(var(--sheet,0px) + 86px);z-index:25;max-width:320px;background:var(--ink);color:var(--panel);border-radius:10px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:flex;gap:10px;align-items:flex-end}
+.coach p{margin:0;font-size:.92rem;line-height:1.4}
+.coach .pbtn{background:var(--panel);color:var(--ink);border-color:var(--panel);flex:none}
+.coach::after{content:"";position:absolute;left:28px;bottom:-6px;width:12px;height:12px;background:var(--ink);transform:rotate(45deg)}
+.coach.insheet{position:relative;left:auto;bottom:auto;margin:4px 16px 10px;max-width:none}
+.coach.insheet::after{bottom:auto;top:-6px}
 .scrim{position:fixed;inset:0;background:rgba(10,20,25,.35);z-index:35;display:none}
 .scrim.open{display:block}
 #intro{left:50%;top:50%;transform:translate(-50%,-50%);width:min(420px,calc(100vw - 28px));padding:20px 22px}
@@ -106,6 +120,7 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 /* credits */
 .attrib{position:absolute;right:6px;bottom:calc(var(--sheet,0px) + 2px);font:500 max(11px,.69rem) "Barlow",sans-serif;color:var(--muted);background:color-mix(in srgb,var(--panel) 88%,transparent);padding:1px 6px;border-radius:4px;z-index:3;max-width:calc(100% - 12px);text-align:right}
 .attrib a{color:inherit}
+.ashort{display:none}
 /* compare */
 .cmprow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
 .cmprow select{font:inherit;padding:5px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--soft);color:var(--ink)}
@@ -114,7 +129,11 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .ctab th:first-child,.ctab td:first-child{text-align:left}
 .ctab td:first-child{display:flex;gap:6px;align-items:center}
 .ctab td svg{width:14px;height:14px;color:var(--c)}
-.ctab .up{color:#2fa84f}.ctab .down{color:var(--warn)}
+.ctab .up{color:#2fa84f}
+.ctab4 td:first-child{align-items:flex-start}
+.ctab4 td:first-child svg{margin-top:3px}
+.ctab4 td small{display:block;color:var(--muted);font-size:.75rem;white-space:normal;line-height:1.3}
+.ctab4 td:first-child span{white-space:normal}.ctab .down{color:var(--warn)}
 .ctab tfoot td{font-weight:600;border-bottom:0}
 .mk.cmp-new .ring{display:block;stroke:#2fa84f;stroke-width:3}
 .mk.cmp-gone .dot{fill:var(--muted)!important}
@@ -169,6 +188,12 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .ilegend i.a{width:14px;height:10px;background:#cfe6e2;border:1px solid #8fbdb5;margin-right:10px}
 @media (max-width:599px){.ilegend{top:auto;bottom:calc(var(--sheet,0px) + 82px);right:10px}}
 .regdot{stroke:var(--panel);stroke-width:2}
+.rg{cursor:pointer;outline:none}
+.reghit{fill:transparent}
+.rg.on .regdot{stroke:var(--ink);stroke-width:3}
+.rg:focus-visible .regdot{stroke:var(--ic);stroke-width:3}
+.rega path.on{fill-opacity:.55;stroke:var(--ink);stroke-width:2}
+.rega path.off{fill-opacity:.12}
 .rega path{fill-opacity:.38;stroke:var(--panel);stroke-width:1.2;vector-effect:non-scaling-stroke}
 .regtxt{font:700 11px "Barlow Semi Condensed",sans-serif;fill:#fff;pointer-events:none;text-anchor:middle}
 .srcs{list-style:none;padding:0;margin:4px 0;font-size:.85rem}
@@ -181,6 +206,13 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .hbar b{font-variant-numeric:tabular-nums;font-weight:600}
 .story{border-top:1px solid var(--rule);padding-top:10px;margin-top:14px}
 .story h3{margin-top:0;font-size:1.05rem}
+.plan{display:flex;flex-direction:column;gap:10px;margin:10px 0}
+.plan label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;font-weight:600}
+.plan select,.plan input{font:inherit;font-size:1rem;font-weight:400;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--soft);color:var(--ink);min-height:40px}
+.plrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plan .pbtn{min-height:44px;font-size:1rem}
+.scen{border:1px dashed var(--rule);border-radius:10px;padding:10px 12px;margin:10px 0}
+.scen h4{margin:0 0 8px;font-size:.95rem}
 .ctl{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:4px}
 @media (pointer:coarse){ #zin,#zout{display:none} }
 .ctl button{width:34px;height:34px;border-radius:6px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);font:600 1.1rem "Barlow",sans-serif;cursor:pointer;display:grid;place-items:center}
@@ -189,6 +221,14 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .cipill::after,.status::after{content:"";position:absolute;inset:-6px -2px}
 .cipill{background:var(--panel);border:1px solid var(--rule);border-left:5px solid var(--cic,var(--muted));border-radius:999px;padding:3px 10px 3px 8px;font:500 .8rem "Barlow",sans-serif;color:var(--ink);cursor:pointer;display:flex;gap:5px;align-items:baseline}
 .cipill b{font:700 1rem "Barlow Semi Condensed",sans-serif}
+.cipill{display:grid!important;grid-template-columns:auto auto auto;grid-template-rows:auto auto;column-gap:6px;row-gap:0;align-items:center;border-radius:16px;padding:4px 12px 4px 9px;text-align:left}
+.cipill .ldot{grid-row:1/3;grid-column:1}
+.cipill b{grid-row:1/3;grid-column:2;font-size:1.25rem!important;line-height:1}
+.cipill .ciu{grid-row:1;grid-column:3;line-height:1.2}
+.cipill .cist{grid-row:2;grid-column:3;font:500 max(11px,.7rem) "Barlow",sans-serif;color:var(--muted);line-height:1.2;white-space:nowrap}
+.ldot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
+.cipill.live .ldot{background:#2fa84f;box-shadow:0 0 0 3px color-mix(in srgb,#2fa84f 30%,transparent)}
+@media (prefers-reduced-motion:no-preference){ .cipill.live .ldot{animation:pulse 2s ease-in-out infinite} }
 .status{background:var(--panel);border:1px solid var(--rule);border-radius:999px;padding:4px 10px 4px 8px;font:500 .8rem "Barlow",sans-serif;color:var(--ink);display:flex;gap:6px;align-items:center;cursor:pointer;max-width:100%}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
 .status.live i{background:#2fa84f;box-shadow:0 0 0 3px color-mix(in srgb,#2fa84f 30%,transparent)}
@@ -233,6 +273,16 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .livebox span{display:block;font-size:.85rem;color:var(--muted)}
 .livebox.warn{--c:var(--warn)}
 .livebox.warn b{color:var(--warn)}
+.why{border:1px solid var(--rule);border-radius:10px;padding:10px 12px;margin:12px 0;background:var(--soft)}
+.whyh{font:700 1.05rem "Barlow Semi Condensed",sans-serif;display:flex;gap:8px;align-items:center}
+.whyh::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--wc,var(--muted))}
+.why.vclean,.why.clean{--wc:#2fa84f}.why.typical{--wc:#8a9aa0}.why.dirty{--wc:#e8772e}.why.vdirty{--wc:#d6333a}
+.why p{margin:.35em 0}
+.whyl{list-style:none;padding:0;margin:6px 0;font-size:.9rem}
+.whyl li{display:flex;gap:8px;align-items:baseline;padding:2px 0}
+.whyl .good{color:#2fa84f}.whyl .bad{color:var(--warn)}
+.whyc{font-size:.9rem}
+.livebox b.paid{display:block;font-size:1rem;color:var(--ink);margin-top:2px}
 .hicon{width:26px;height:26px;border-radius:50%;background:var(--c);display:inline-grid;place-items:center;vertical-align:-6px;margin-right:6px}
 .hicon svg{width:16px;height:16px;color:#fff}
 .row{display:flex;gap:8px;align-items:center;margin:8px 0}
@@ -250,7 +300,9 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .feeds li{display:flex;gap:8px;padding:2px 0;color:var(--muted)}
 .feeds li b{color:var(--ink);font-weight:600}
 .ok{color:#2fa84f}.bad{color:var(--warn)}
-.tabs{display:flex;gap:4px;margin:-4px 0 14px;border-bottom:1px solid var(--rule)}
+.tabs{display:flex;gap:2px;margin:-4px 0 14px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;white-space:nowrap}
 .tabs button{font:inherit;font-weight:600;font-size:.95rem;background:none;border:0;border-bottom:3px solid transparent;padding:6px 10px;color:var(--muted);cursor:pointer;margin-bottom:-1px}
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
 .cibig{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:10px 0}
@@ -259,7 +311,16 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .cibig small{display:block;font-size:.75rem;color:var(--muted);margin-top:2px}
 .cibig span{display:flex;gap:6px;align-items:baseline;font-size:.82rem;font-weight:600;margin-top:6px}
 .rdot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;display:inline-block;align-self:center}
-.chart{width:100%;margin:6px 0 2px}
+.chart{width:100%;margin:6px 0 2px;position:relative}
+.chart.zoomable{cursor:zoom-in}
+.cexp{position:absolute;top:-2px;right:0;width:32px;height:32px;border-radius:8px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.cexp svg{width:16px;height:16px}
+#chartv{inset:calc(env(safe-area-inset-top,0px) + 24px) 24px auto;max-width:900px;margin:0 auto;padding:14px 18px;max-height:calc(100% - 48px);overflow:auto}
+@media (max-width:599px){ #chartv{inset:calc(env(safe-area-inset-top,0px) + 8px) 8px auto;padding:12px} }
+.chart.big{margin:4px 0 6px;cursor:crosshair}
+.chart .hvl{stroke:var(--ink);stroke-width:1;stroke-dasharray:3 3}
+.chart .hvbox{fill:var(--panel);stroke:var(--rule)}
+.chart .hvt{font:12px "Barlow",sans-serif;fill:var(--ink)}
 .chart svg{display:block;width:100%;overflow:visible}
 .chart .ax text{font:500 10.5px "Barlow",sans-serif;fill:var(--muted)}
 .chart .ax line,.chart .ax path{stroke:var(--rule)}
@@ -300,7 +361,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .od{cursor:pointer;stroke:var(--panel);stroke-width:.8}
 .wview .od.nw{opacity:.35}
 .od.on{stroke:var(--ink);stroke-width:2}
-.lf{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 8;opacity:.8;animation:run linear infinite}
+.lf{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.5 7;opacity:.8;animation:run linear infinite}
 .lf.rev{animation-direction:reverse}
 .dim .lf{opacity:.1}
 .flowbase{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.25}
@@ -313,7 +374,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .pcpin{fill:var(--ink);stroke:var(--panel);stroke-width:3}
 .lbl{font:600 11.5px "Barlow",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--land-uk);stroke-width:3.5px;stroke-linejoin:round;pointer-events:none}
 .lbl.hub{font-size:12.5px;font-weight:700}
-.lbl.site{font-weight:500;font-size:11px;fill:var(--muted)}
+.lbl.site{font-weight:600;font-size:11px;fill:var(--ink);opacity:.85}
 @media (max-width:599px){
   h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .titlerow{flex-wrap:wrap;gap:6px}
@@ -324,7 +385,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   #layers{top:auto;bottom:0;right:0;left:0;width:auto;border-radius:14px 14px 0 0;max-height:75%;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
   #tablev{inset:calc(env(safe-area-inset-top,0px) + 6px) 6px calc(env(safe-area-inset-bottom,0px) + 6px)}
 }
-@media (max-width:899px){
+@media (max-width:899px) and (orientation:portrait), (max-width:699px){
   .stage{position:relative;display:block}
   .mapwrap{position:absolute;inset:0}
   .sheet{position:absolute;left:0;right:0;bottom:0;height:var(--sheet,42%);z-index:6;background:var(--panel);border-radius:14px 14px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.15);transition:height .22s ease}
@@ -334,7 +395,26 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   .panel{flex:1;max-height:none;border-top:0;padding-top:2px;overscroll-behavior:contain}
 }
 @media (prefers-reduced-motion:reduce){.sheet{transition:none}}
-@media (min-width:900px){
+@media (max-width:599px){
+  header{display:none}
+  .ashort{display:inline} .afull{display:none}
+  .attrib{left:8px;right:auto;bottom:calc(var(--sheet,0px) + 4px);white-space:nowrap}
+  .ctl{top:10px;right:10px;gap:8px}
+  .ctl button,.ctl .tbtn{width:44px;height:44px;border-radius:12px;padding:0;display:grid;place-items:center;background:color-mix(in srgb,var(--panel) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--rule);box-shadow:0 2px 8px rgba(0,0,0,.12);color:var(--ink);font:700 .85rem "Barlow",sans-serif}
+  .ctl .tbtn .lab{display:none}
+  .ctl #langbtn .lab{display:inline;margin:0}
+  .ctl svg{width:20px;height:20px}
+  .srow{display:flex;gap:8px;align-items:center;margin:0 16px 6px}
+  .srow .search.insheet{margin:0;flex:1}
+  .srow #walesbtn{min-height:38px;padding:0 12px;border-radius:8px}
+  .yearbar.insheet{position:static;margin:0 16px 4px;padding:0;border:0;background:none;max-width:none;gap:10px}
+  .yearbar.insheet label{font-size:1.05rem;min-width:3.6em}
+  .yearbar.insheet label small{display:inline;margin-left:4px}
+  .panel{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 96px)}
+  .pills{max-width:calc(100% - 70px)}
+}
+@media (prefers-reduced-transparency:reduce){ .ctl button,.ctl .tbtn{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--panel)} }
+@media (min-width:900px), (min-width:700px) and (orientation:landscape){
   .stage{flex-direction:row}
   .sheet{width:390px;border-left:1px solid var(--rule)}
   .panel{flex:1;max-height:none;border-top:0;padding:18px 22px}
@@ -382,14 +462,14 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
       <canvas id="dots" aria-hidden="true"></canvas>
       <svg id="map" role="img"></svg>
       <div class="ilegend" id="ilegend"></div>
-      <div class="pills"><button class="cipill" id="cipill"><b></b><span></span></button><button class="status" id="status"><i></i><span></span></button></div>
+      <div class="pills"><button class="cipill" id="cipill"><i class="ldot" aria-hidden="true"></i><b></b><span class="ciu"></span><small class="cist"></small></button><button class="status" id="status" hidden><i></i><span></span></button></div>
       <div class="ctl">
         <button id="zin">+</button>
         <button id="zout">−</button>
         <button id="zreset" style="font-size:.9rem">⟲</button>
       </div>
       <div class="tip" id="tip" role="tooltip"></div>
-      <div class="attrib">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · Contains BMRS data © Elexon Limited · NESO</div>
+      <div class="attrib">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a><span class="afull"> · Contains BMRS data © Elexon Limited · NESO</span><span class="ashort"> · © Elexon · NESO</span></div>
       <div class="yearbar">
         <label for="year"><span id="yv">2026</span><small id="ys"></small></label>
         <input id="year" type="range" min="2026" max="2040" step="1" value="2026">
@@ -405,12 +485,16 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   <h4 id="lg-net-t"></h4><div class="chips" id="lg-net"></div>
   <button class="linkbtn" id="tipsagain"></button>
 </div>
+<div class="pop" id="chartv" role="dialog" aria-modal="true" aria-labelledby="chartv-t"><div class="pophead"><b id="chartv-t"></b><button class="xbtn" data-close="chartv" aria-label="Close">×</button></div>
+  <div class="chart big" id="chartbig"></div><p class="meta" id="chartv-hint"></p><div class="row" id="chartv-actions"></div>
+</div>
 <div class="pop" id="tablev" role="dialog" aria-modal="true"><div class="pophead"><b id="tablev-t"></b><button class="xbtn" data-close="tablev" aria-label="Close">×</button></div>
   <div class="tcontrols"><input type="text" id="tfilter"><select id="ttype"></select><label><input type="checkbox" id="tosm"><span id="tosm-l"></span></label></div>
   <div class="twrap"><table class="sites" id="ttable"><thead></thead><tbody></tbody></table></div>
   <div class="tcount" id="tcount"></div>
 </div>
-<div class="pop" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-t"><h2 id="intro-t"></h2><ol id="intro-l"></ol><button class="pbtn" id="intro-ok"></button></div>
+<div class="chooser" id="chooser" role="menu" hidden></div>
+      <div class="coach" id="coach" role="note" hidden><p id="coach-t"></p><button class="pbtn" id="coach-ok"></button></div>
 <script>
 const GEO = __GEO__;
 const PYL = __PYL__;
@@ -469,6 +553,43 @@ en:{title:'UK power, source to socket', tag:'· tap a site to trace its electric
  s_ph:'Search sites, places or postcodes…',s_place:'Place',s_region:'Region',s_pc:'Postcode',s_pc_go:'Check this postcode',s_none:'No matches',
  sh_lab:'Resize panel',sh_peek:'collapsed',sh_half:'half height',sh_full:'full height',
  layers:'Layers',g_ovl:'Overlays',g_gen:'Generation',g_net:'Network',tips_again:'Show the tips again',table:'Table',compare:'Compare',
+ reg_lower_gb:'{n} gCO₂/kWh cleaner than Great Britain as a whole at the same time ({g}).',reg_higher_gb:'{n} gCO₂/kWh dirtier than Great Britain as a whole at the same time ({g}).',reg_same_gb:'The same as Great Britain as a whole ({g}).',
+ reg_ct:'Carbon by source',rc_src:'Source',rc_share:'Share',rc_f:'g/kWh',rc_add:'Adds',rc_total:'Estimated total',rc_neso:'NESO figure',fuel_coal:'Coal',choose:'Which one?',
+ imp_via:'via {l}',imp_gb:'reaches this region through the wider grid, so this uses the average for all interconnectors',
+ reg_ct_note:'Each source’s share of the electricity used here, multiplied by NESO’s carbon factor for that fuel, gives how much it adds to the regional figure. Wind, solar, nuclear and hydro add nothing at the point of generation. Gas uses the factor for combined-cycle plants, so the total can differ slightly from NESO’s own figure.',
+ reg_flow_note:'Exports aren’t counted against a region: NESO models the power flowing between regions, so electricity sent elsewhere is counted where it’s used.',
+ reg_lower:'{n} gCO₂/kWh cleaner than the average across all regions at the same time ({g}).',reg_higher:'{n} gCO₂/kWh dirtier than the average across all regions at the same time ({g}).',reg_same:'The same as the average across all regions ({g}).',
+ reg_rank:'Ranked {r} of {n} regions, where 1 is cleanest.',reg_mix:'Electricity used in this region',reg_fc:'Forecast, next 24 hours',reg_fc_need:'The 24-hour forecast for each region appears on the hosted version of the map.',
+ reg_sites:'Mapped sites connected in this region',reg_cap:'{c} of major mapped capacity, plus {n} smaller sites.',
+ reg_note:'NESO estimates each region’s carbon intensity from the electricity generated in and imported into it. Windy regions like Scotland can sit near zero while their surplus flows south. Offshore sites are counted where they connect to the grid.',
+ why_vclean:'Unusually clean right now',why_clean:'Cleaner than usual',why_typical:'About typical for the time',why_dirty:'Dirtier than usual',why_vdirty:'Unusually dirty right now',
+ why_below:'At {ci} gCO₂/kWh, electricity is {p}% cleaner than a typical {mon} {when} ({typ}).',why_above:'At {ci} gCO₂/kWh, electricity is {p}% dirtier than a typical {mon} {when} ({typ}).',
+ why_line:'{f}: {now}% now, typically {typ}%',why_curt:'Meanwhile about {v} of wind is being turned down because the grid can’t carry it south.',
+ why_note:'“Typical” is the average for the same month and time of day since {from}, from NESO’s historic generation mix. That dataset measures generation rather than consumption, so small differences are within the margin.',
+ pod_night:'night',pod_morning:'morning',pod_afternoon:'afternoon',pod_evening:'evening',
+ curt_co2:'Replacing it with gas adds about {t} tonnes of CO₂ an hour.',
+ st_c_twh:'of wind turned down in GB in 2025, 98% of it in Scotland',st_c_co2:'of CO₂ if that power was replaced by gas (estimate)',st_c_src2:'Montel EnAppSys curtailment report, January 2026',
+ st_c_co2note:'The CO₂ figure assumes combined-cycle gas at NESO’s factor of 394 g/kWh.',
+ sc_h:'What would the new subsea links change right now?',sc_need:'On the hosted version, this uses live curtailment to show how much of it {c} of new capacity south could carry.',
+ sc_none:'No Scottish wind is being turned down right now, so there is nothing for the new links to carry.',
+ sc_mw:'could flow south instead of being turned down (of {of})',sc_gbp:'an hour in switch-off payments avoided',sc_co2:'of CO₂ an hour avoided',
+ sc_note:'Simplified: it assumes the extra capacity carries curtailed Scottish wind straight to demand in England. In practice other bottlenecks further south can also limit flows.',
+ plan:'Plan',pl_h:'When to run it',pl_t:'Find the cleanest time to run something that can wait, such as charging an EV, firing a kiln or pre-cooling a cold store.',
+ pl_where:'Where',pl_gb:'Great Britain (national)',pl_kw:'Power (kW)',pl_hrs:'Running time (hours)',pl_go:'Find the cleanest time',
+ p_ev:'EV charge (7 kW, 4 h)',p_kiln:'Kiln (20 kW, 6 h)',p_cold:'Cold store pre-cool (10 kW, 3 h)',p_wash:'Dishwasher (1.5 kW, 2 h)',p_hp:'Hot water cylinder (3 kW, 5 h)',
+ pl_best:'Best start: {t}',pl_best_s:'Finish by {end}. Average {g} gCO₂/kWh over the run.',pl_at_best:'CO₂ at the best time',pl_at_now:'CO₂ if you start now',pl_saved:'saved ({p}% less)',pl_nosave:'now is already the cleanest time',
+ pl_band:'Best window',pl_alts:'Other good windows',pl_avg:'average {g} gCO₂/kWh',pl_worst:'Worst time to start: {t} (average {g} gCO₂/kWh).',
+ pl_ics:'Add the best time to my calendar',pl_ics_t:'Clean power window',pl_nodata:'No forecast is available for the rest of the period. Try a shorter running time.',
+ pl_src_reg:'Uses NESO’s regional carbon intensity forecast for the next 48 hours.',pl_src_gb:'Uses NESO’s national carbon intensity forecast for the next 48 hours.',
+ pl_src_snap:'Uses the stored forecast for the rest of today. The hosted version looks 48 hours ahead.',pl_src_fallback:'Regional forecasts need the hosted version, so this uses the national forecast for the rest of today.',
+ pl_src_typ:'Live forecasts need the hosted version, so this uses the typical pattern for this time of year from NESO’s history. Treat it as a guide rather than a forecast.',
+ pl_note:'Cost isn’t included, because wholesale prices aren’t forecast publicly; on a time-of-use tariff the cleanest hours are usually also the cheapest.',
+ curt_pay:'Paid about {p} an hour to do so (bid price £{b}/MWh).',curt_tot_pay:'Payments to switch off are running at about {p} an hour.',
+ curt_est:'The payment is estimated from Elexon bid prices: the output turned down multiplied by the price the wind farm set for turning down.',
+ st_c_wind:'paid to wind farms to switch off in 2025',st_c_gas:'spent replacing their output, mostly with gas',
+ st_c_ctx:'Both costs are passed on through everyone’s electricity bills.',st_c_src:'Octopus Energy Wasted Wind tracker, reported December 2025',
+ enlarge:'Enlarge chart',chart_hint:'Move across the chart, or drag with a finger, to see the values.',save_img:'Save as image',
+ coach:'Tap any site to see where its power goes. Drag the year to see what opens and closes up to 2040.',
  in_t:'Welcome',in_1:'Tap any power station, interconnector or substation to see where its electricity goes.',in_2:'Drag the year slider to see what comes on and what closes, up to 2040.',in_3:'Open Layers to choose what’s shown, and try the Carbon, Stories and Compare tabs.',in_ok:'Got it',
  t_title:'All sites',t_filter:'Filter by name…',t_all:'All types',t_osm:'Include smaller sites from OpenStreetMap',t_count:'{n} sites',
  c_name:'Name',c_type:'Type',c_cap:'Capacity (MW)',c_status:'Status',c_on:'Opens',c_off:'Closes',c_wales:'Wales',c_now:'Output now (MW)',
@@ -547,6 +668,43 @@ cy:{title:'Pŵer y DU, o’r ffynhonnell i’r soced', tag:'· tapiwch safle i d
  s_ph:'Chwilio am safle, lle neu god post…',s_place:'Lle',s_region:'Rhanbarth',s_pc:'Cod post',s_pc_go:'Gwirio’r cod post hwn',s_none:'Dim canlyniadau',
  sh_lab:'Newid maint y panel',sh_peek:'wedi’i leihau',sh_half:'hanner uchder',sh_full:'uchder llawn',
  layers:'Haenau',g_ovl:'Troshaenau',g_gen:'Cynhyrchu',g_net:'Rhwydwaith',tips_again:'Dangos yr awgrymiadau eto',table:'Tabl',compare:'Cymharu',
+ reg_lower_gb:'{n} gCO₂/kWh yn lanach na Phrydain gyfan ar yr un pryd ({g}).',reg_higher_gb:'{n} gCO₂/kWh yn fwy budr na Phrydain gyfan ar yr un pryd ({g}).',reg_same_gb:'Yr un fath â Phrydain gyfan ({g}).',
+ reg_ct:'Carbon fesul ffynhonnell',rc_src:'Ffynhonnell',rc_share:'Cyfran',rc_f:'g/kWh',rc_add:'Yn ychwanegu',rc_total:'Cyfanswm amcangyfrifedig',rc_neso:'Ffigur NESO',fuel_coal:'Glo',choose:'Pa un?',
+ imp_via:'drwy {l}',imp_gb:'yn cyrraedd y rhanbarth hwn drwy’r grid ehangach, felly defnyddir y cyfartaledd ar gyfer pob rhyng-gysylltydd',
+ reg_ct_note:'Mae cyfran pob ffynhonnell o’r trydan a ddefnyddir yma, wedi’i lluosi â ffactor carbon NESO ar gyfer y tanwydd hwnnw, yn rhoi faint y mae’n ei ychwanegu at y ffigur rhanbarthol. Nid yw gwynt, solar, niwclear a dŵr yn ychwanegu dim wrth gynhyrchu. Mae nwy yn defnyddio’r ffactor ar gyfer gorsafoedd cylch cyfun, felly gall y cyfanswm fod ychydig yn wahanol i ffigur NESO ei hun.',
+ reg_flow_note:'Nid yw allforion yn cael eu cyfrif yn erbyn rhanbarth: mae NESO yn modelu’r pŵer sy’n llifo rhwng rhanbarthau, felly caiff trydan a anfonir i rywle arall ei gyfrif lle caiff ei ddefnyddio.',
+ reg_lower:'{n} gCO₂/kWh yn lanach na’r cyfartaledd ar draws pob rhanbarth ar yr un pryd ({g}).',reg_higher:'{n} gCO₂/kWh yn fwy budr na’r cyfartaledd ar draws pob rhanbarth ar yr un pryd ({g}).',reg_same:'Yr un fath â’r cyfartaledd ar draws pob rhanbarth ({g}).',
+ reg_rank:'Safle {r} o {n} rhanbarth, lle 1 yw’r glanaf.',reg_mix:'Trydan a ddefnyddir yn y rhanbarth hwn',reg_fc:'Rhagolwg, y 24 awr nesaf',reg_fc_need:'Mae’r rhagolwg 24 awr ar gyfer pob rhanbarth yn ymddangos ar fersiwn gwe’r map.',
+ reg_sites:'Safleoedd ar y map sydd wedi’u cysylltu yn y rhanbarth hwn',reg_cap:'{c} o’r prif gapasiti ar y map, a {n} o safleoedd llai.',
+ reg_note:'Mae NESO yn amcangyfrif dwysedd carbon pob rhanbarth o’r trydan a gynhyrchir ynddo ac a fewnforir iddo. Gall rhanbarthau gwyntog fel yr Alban fod yn agos at sero tra bo’u gwarged yn llifo tua’r de. Caiff safleoedd ar y môr eu cyfrif lle maen nhw’n cysylltu â’r grid.',
+ why_vclean:'Anarferol o lân ar hyn o bryd',why_clean:'Glanach nag arfer',why_typical:'Tua’r arfer ar gyfer yr adeg hon',why_dirty:'Mwy budr nag arfer',why_vdirty:'Anarferol o fudr ar hyn o bryd',
+ why_below:'Ar {ci} gCO₂/kWh, mae’r trydan {p}% yn lanach na {when} arferol ym mis {mon} ({typ}).',why_above:'Ar {ci} gCO₂/kWh, mae’r trydan {p}% yn fwy budr na {when} arferol ym mis {mon} ({typ}).',
+ why_line:'{f}: {now}% nawr, {typ}% fel arfer',why_curt:'Yn y cyfamser mae tua {v} o wynt yn cael ei droi i lawr am nad yw’r grid yn gallu ei gludo tua’r de.',
+ why_note:'“Arferol” yw’r cyfartaledd ar gyfer yr un mis ac amser o’r dydd ers {from}, o gymysgedd cynhyrchu hanesyddol NESO. Mae’r set ddata honno’n mesur cynhyrchu yn hytrach na defnydd, felly mae gwahaniaethau bach o fewn yr ymyl.',
+ pod_night:'noson',pod_morning:'bore',pod_afternoon:'prynhawn',pod_evening:'min nos',
+ curt_co2:'Mae defnyddio nwy yn ei le yn ychwanegu tua {t} tunnell o CO₂ yr awr.',
+ st_c_twh:'o wynt wedi’i droi i lawr ym Mhrydain yn 2025, 98% ohono yn yr Alban',st_c_co2:'o CO₂ pe bai nwy wedi cymryd lle’r pŵer hwnnw (amcangyfrif)',st_c_src2:'Adroddiad cwtogi Montel EnAppSys, Ionawr 2026',
+ st_c_co2note:'Mae ffigur CO₂ yn tybio nwy cylch cyfun ar ffactor NESO o 394 g/kWh.',
+ sc_h:'Beth fyddai’r cysylltiadau tanfor newydd yn ei newid nawr?',sc_need:'Ar fersiwn gwe’r map, mae hwn yn defnyddio cwtogi byw i ddangos faint ohono y gallai {c} o gapasiti newydd tua’r de ei gludo.',
+ sc_none:'Nid oes gwynt yn yr Alban yn cael ei droi i lawr ar hyn o bryd, felly does dim i’r cysylltiadau newydd ei gludo.',
+ sc_mw:'a allai lifo tua’r de yn hytrach na chael ei droi i lawr (o {of})',sc_gbp:'yr awr mewn taliadau diffodd a osgoir',sc_co2:'o CO₂ yr awr a osgoir',
+ sc_note:'Wedi’i symleiddio: mae’n tybio bod y capasiti ychwanegol yn cludo gwynt yr Alban yn syth i’r galw yn Lloegr. Yn ymarferol gall tagfeydd eraill ymhellach i’r de gyfyngu ar y llif hefyd.',
+ plan:'Cynllunio',pl_h:'Pryd i’w redeg',pl_t:'Dewch o hyd i’r amser glanaf i redeg rhywbeth sy’n gallu aros, fel gwefru car trydan, tanio odyn neu oeri storfa oer ymlaen llaw.',
+ pl_where:'Ble',pl_gb:'Prydain (cenedlaethol)',pl_kw:'Pŵer (kW)',pl_hrs:'Amser rhedeg (oriau)',pl_go:'Dod o hyd i’r amser glanaf',
+ p_ev:'Gwefru car trydan (7 kW, 4 awr)',p_kiln:'Odyn (20 kW, 6 awr)',p_cold:'Oeri storfa oer (10 kW, 3 awr)',p_wash:'Peiriant golchi llestri (1.5 kW, 2 awr)',p_hp:'Silindr dŵr poeth (3 kW, 5 awr)',
+ pl_best:'Yr amser gorau i ddechrau: {t}',pl_best_s:'Gorffen erbyn {end}. Cyfartaledd o {g} gCO₂/kWh dros y cyfnod.',pl_at_best:'CO₂ ar yr amser gorau',pl_at_now:'CO₂ os dechreuwch nawr',pl_saved:'wedi’i arbed ({p}% yn llai)',pl_nosave:'nawr yw’r amser glanaf yn barod',
+ pl_band:'Y cyfnod gorau',pl_alts:'Cyfnodau da eraill',pl_avg:'cyfartaledd {g} gCO₂/kWh',pl_worst:'Yr amser gwaethaf i ddechrau: {t} (cyfartaledd {g} gCO₂/kWh).',
+ pl_ics:'Ychwanegu’r amser gorau at fy nghalendr',pl_ics_t:'Cyfnod pŵer glân',pl_nodata:'Does dim rhagolwg ar gael ar gyfer gweddill y cyfnod. Rhowch gynnig ar amser rhedeg byrrach.',
+ pl_src_reg:'Yn defnyddio rhagolwg dwysedd carbon rhanbarthol NESO ar gyfer y 48 awr nesaf.',pl_src_gb:'Yn defnyddio rhagolwg dwysedd carbon cenedlaethol NESO ar gyfer y 48 awr nesaf.',
+ pl_src_snap:'Yn defnyddio’r rhagolwg sydd wedi’i storio ar gyfer gweddill heddiw. Mae’r fersiwn ar y we yn edrych 48 awr ymlaen.',pl_src_fallback:'Mae angen fersiwn gwe’r map ar gyfer rhagolygon rhanbarthol, felly mae hwn yn defnyddio’r rhagolwg cenedlaethol ar gyfer gweddill heddiw.',
+ pl_src_typ:'Mae angen fersiwn gwe’r map ar gyfer rhagolygon byw, felly mae hwn yn defnyddio’r patrwm arferol ar gyfer yr adeg hon o’r flwyddyn o hanes NESO. Canllaw yw hwn yn hytrach na rhagolwg.',
+ pl_note:'Nid yw’r gost wedi’i chynnwys, gan nad yw prisiau cyfanwerthu’n cael eu rhagweld yn gyhoeddus; ar dariff amser defnydd, yr oriau glanaf yw’r rhataf fel arfer.',
+ curt_pay:'Yn cael tua {p} yr awr i wneud hynny (pris cynnig £{b}/MWh).',curt_tot_pay:'Mae’r taliadau i ddiffodd yn rhedeg ar tua {p} yr awr.',
+ curt_est:'Amcangyfrif yw’r taliad o brisiau cynnig Elexon: yr allbwn a drowyd i lawr wedi’i luosi â’r pris a osododd y fferm wynt am droi i lawr.',
+ st_c_wind:'a dalwyd i ffermydd gwynt i ddiffodd yn 2025',st_c_gas:'a wariwyd i gymryd lle eu hallbwn, gyda nwy yn bennaf',
+ st_c_ctx:'Caiff y ddwy gost eu trosglwyddo drwy filiau trydan pawb.',st_c_src:'Traciwr Wasted Wind Octopus Energy, adroddwyd Rhagfyr 2025',
+ enlarge:'Chwyddo’r siart',chart_hint:'Symudwch ar draws y siart, neu llusgwch â bys, i weld y gwerthoedd.',save_img:'Cadw fel delwedd',
+ coach:'Tapiwch unrhyw safle i weld i ble mae ei bŵer yn mynd. Llusgwch y flwyddyn i weld beth sy’n agor a chau hyd at 2040.',
  in_t:'Croeso',in_1:'Tapiwch unrhyw orsaf bŵer, rhyng-gysylltydd neu is-orsaf i weld i ble mae ei drydan yn mynd.',in_2:'Llusgwch y llithrydd blwyddyn i weld beth sy’n agor a beth sy’n cau, hyd at 2040.',in_3:'Agorwch Haenau i ddewis beth sy’n cael ei ddangos, a rhowch gynnig ar y tabiau Carbon, Straeon a Cymharu.',in_ok:'Iawn',
  t_title:'Pob safle',t_filter:'Hidlo yn ôl enw…',t_all:'Pob math',t_osm:'Cynnwys safleoedd llai o OpenStreetMap',t_count:'{n} safle',
  c_name:'Enw',c_type:'Math',c_cap:'Capasiti (MW)',c_status:'Statws',c_on:'Agor',c_off:'Cau',c_wales:'Cymru',c_now:'Allbwn nawr (MW)',
@@ -642,6 +800,7 @@ const METHODS = [
  ['OpenStreetMap contributors, via Geofabrik (28 Sep 2026): power lines, substations, smaller sites, wind farm areas','https://www.openstreetmap.org/copyright'],
  ['NESO data portal: historic GB generation mix, half-hourly since 2009','https://www.neso.energy/data-portal/historic-generation-mix'],
  ['NESO data portal: GSP region boundaries (Feb 2026), grouped into the 14 regions','https://www.neso.energy/data-portal'],
+ ['Montel EnAppSys: curtailed renewables in GB and Ireland, 2025','https://eandt.theiet.org/2026/01/22/record-wasted-wind-power-2025-could-have-powered-every-home-london'],
  ['NESO: connections reform results','https://www.neso.energy/industry-information/connections-reform/connections-reform-results'],
  ['postcodes.io: postcode locations','https://postcodes.io/']
 ];
@@ -654,11 +813,18 @@ const ALL = [...SITES, ...LINKS, ...GRID];
 ALL.forEach(d=>{ d.key=d.id+'|'+d.t; d.w=WELSH.has(d.id); d.bmu=BMU[d.id]; });
 const byId = Object.fromEntries(ALL.map(d=>[d.key,d]));
 const OTHERS = OSMP.map((a,i)=>({key:'osm'+i,t:a[1],c:[a[2],a[3]],mw:a[4],w:!!a[5],op:a[6],nen:a[0],ncy:a[7],oid:a[8],osm:1,on:0}));
+const OTHERS_BY_SIZE = [];   // filled after OTHERS is built
 const SUBOBJ = SUBS.map((s,i)=>({key:'sub'+i,sub:1,t:'sub',nen:s[0],kv:s[1],c:[s[2],s[3]],op:s[4],oid:s[5],mw:0,on:0,osm:0}));
 OTHERS.forEach(o=>byId[o.key]=o); SUBOBJ.forEach(o=>byId[o.key]=o);
+OTHERS_BY_SIZE.push(...OTHERS.slice().sort((a,b)=>(b.mw||0)-(a.mw||0)));
+const REGOBJ = REG.map(r=>({key:'reg'+r[0],region:1,rid:r[0],t:'reg',nen:r[1],ncy:r[2],c:[r[3],r[4]],mw:0,on:0}));
+REGOBJ.forEach(o=>byId[o.key]=o);
+const regFeat = id => REGGEO.features.find(f=>f.properties.id===id);
+function inRegion(id,c){ const f=regFeat(id); if(!f) return false; return f.geometry.coordinates.some(poly=>d3.polygonContains(poly[0],[c[1],c[0]])); }
+function regionOf(c){ for(const r of REG) if(inRegion(r[0],c)) return r[0]; return null; }
 const osmUrl = id => id ? 'https://www.openstreetmap.org/'+({n:'node',w:'way',r:'relation'}[id[0]])+'/'+id.slice(1) : null;
 
-const nm = d => d.sub ? (d.nen||tr('sub_t')) : d.osm ? ((LANG==='cy'&&d.ncy)||d.nen||tr('osm_unnamed',{t:tr('t_'+d.t).toLowerCase()})) : (LANG==='cy'&&NCY[d.id])||d.n;
+const nm = d => d.region ? (LANG==='cy'?d.ncy:d.nen) : d.sub ? (d.nen||tr('sub_t')) : d.osm ? ((LANG==='cy'&&d.ncy)||d.nen||tr('osm_unnamed',{t:tr('t_'+d.t).toLowerCase()})) : (LANG==='cy'&&NCY[d.id])||d.n;
 const pn = k => (LANG==='cy'&&PCY[k])||P[k][0];
 const country = c => LANG==='cy'?(COUNTRY_CY[c]||c):c;
 
@@ -689,6 +855,7 @@ const CY_D=['Sul','Llun','Maw','Mer','Iau','Gwe','Sad'], CY_M=['Ion','Chwef','Ma
 function ukParts(dt){ const f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,weekday:'short'}).formatToParts(dt); const g=k=>(f.find(p=>p.type===k)||{}).value; return {wd:g('weekday'),d:+g('day'),m:+g('month'),hh:String(+g('hour')%24).padStart(2,'0'),mm:g('minute')}; }
 const EN_D={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}, EN_M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtWhen(iso){ try{ const p=ukParts(new Date(iso)); return LANG==='cy' ? `${CY_D[EN_D[p.wd]]} ${p.d} ${CY_M[p.m-1]}, ${p.hh}:${p.mm}` : `${p.wd} ${p.d} ${EN_M[p.m-1]}, ${p.hh}:${p.mm}`; }catch(e){ return iso; } }
+function fmtGBP(v){ if(v>=1e6) return '£'+(v/1e6).toFixed(1)+(LANG==='cy'?' miliwn':' million'); if(v>=1000) return '£'+(Math.round(v/100)*100).toLocaleString('en-GB'); return '£'+Math.round(v); }
 function fmtDate(d){ const p=d.split('-'); const m=+p[1]; return LANG==='cy' ? `${+p[2]} ${['Ionawr','Chwefror','Mawrth','Ebrill','Mai','Mehefin','Gorffennaf','Awst','Medi','Hydref','Tachwedd','Rhagfyr'][m-1]}` : `${+p[2]} ${['January','February','March','April','May','June','July','August','September','October','November','December'][m-1]}`; }
 function fmtTime(iso){ try{ const p=ukParts(new Date(iso)); return p.hh+':'+p.mm; }catch(e){ return ''; } }
 function curMix(){ return (S.replayIdx!=null && LIVE.hist) ? LIVE.hist[S.replayIdx].mix : LIVE.nat.mix; }
@@ -699,7 +866,7 @@ function liveMW(d){ const r=realMW(d); if(r!=null) return r; if(d.ps) return 0; 
 const liveNow = () => S.live && S.year===2026;
 
 /* ---------------- state + helpers ---------------- */
-const S = {year:2026, types:new Set(Object.keys(T)), future:true, grid:true, live:true, pyl:true, osm:true, sel:null, view:'overview', tab:'map', replayIdx:null, pc:null, infra:false, reg:false, cmpA:2026, cmpB:2035, cmp:false};
+const S = {year:2026, types:new Set(Object.keys(T)), future:true, grid:true, live:true, pyl:true, osm:true, sel:null, view:'overview', tab:'map', replayIdx:null, pc:null, infra:false, reg:true, cmpA:2026, cmpB:2035, cmp:false};
 const pc = k => Array.isArray(k) ? {c:k} : {n:pn(k), c:[P[k][1],P[k][2]], hub:!!P[k][3], k};
 const fmtMW = mw => mw>=1000 ? (mw/1000).toFixed(mw>=10000?0:1).replace(/\.0$/,'')+' GW' : Math.round(mw)+' MW';
 const fmtLive = mw => mw>=1000 ? fmtMW(Math.round(mw/10)*10) : (mw<20? Math.round(mw) : Math.round(mw/5)*5)+' MW';
@@ -734,6 +901,7 @@ function icGeom(d){ let g=geom(d).main.slice(); if(d.dir==='export') g.reverse()
 const activeAt = (d,y) => d.on<=y && !(d.off && y>=d.off);
 function visible(d){
   if(S.cmp && d.t!=='grid'){ if(!S.types.has(d.t)) return false; return activeAt(d,S.cmpA)||activeAt(d,S.cmpB); }
+  if(phoneW() && zt.k<SMALLK && future(d) && S.sel!==d.key) return false;   // future projects appear once you zoom in on phones
   if(d.t==='grid') return S.grid && (active(d) || (S.future && future(d)));
   if(!S.types.has(d.t)) return false;
   if(d.off && S.year>=d.off) return false;
@@ -757,8 +925,10 @@ const lineGen=d3.line().curve(d3.curveCatmullRom.alpha(.5));
 const polyGen=d3.line();
 const xy = c => zt.apply(proj([c[1],c[0]]));
 const P0 = c => proj([c[1],c[0]]);
+const phoneW = () => W<600;
 const OSMK=4, SMALLK=1.8;
-const zb = k => k<SMALLK?0:k<OSMK?1:2;
+const zb = k => [1.25,1.6,SMALLK,OSMK].filter(v=>k>=v).length;
+const discR = () => phoneW() ? (zt.k<1.6?6:12) : (zt.k<1.25?11:13);
 let zbNow=0;
 const zoom=d3.zoom().scaleExtent([.45,40])
   .on('start',()=>{ document.querySelector('.mapwrap').classList.add('moving'); if(typeof hideTip==='function') hideTip(); })
@@ -785,11 +955,16 @@ function drawDots(){
   }
   if(!showOsm()){ dotQT=pts.length?d3.quadtree(pts,d=>d[0],d=>d[1]):null; return; }
   const wOnly = S.view==='wales' && zt.k<OSMK;
-  for(const o of OTHERS){
+  const minMW = zt.k<6 ? 5 : zt.k<9 ? 1 : 0, cell = zt.k<6 ? 12 : zt.k<9 ? 9 : 6, used=new Set();
+  const phoneScale = phoneW() ? .8 : 1;
+  for(const o of OTHERS_BY_SIZE){
     if(!S.types.has(o.t) || (wOnly && !o.w)) continue;
+    if(o.key!==sel && (o.mw||0)<minMW && !(S.view==='wales'&&o.w&&zt.k>=6)) continue;
     const p=xy(o.c); if(p[0]<-6||p[1]<-6||p[0]>W+6||p[1]>H+6) continue;
-    ctx.globalAlpha = S.sel? .3 : .8; ctx.fillStyle=col(o.t);
-    ctx.beginPath(); ctx.arc(p[0],p[1],osmR(o),0,6.2832); ctx.fill();
+    const ck=Math.floor(p[0]/cell)+','+Math.floor(p[1]/cell);
+    if(used.has(ck) && o.key!==sel) continue; used.add(ck);
+    ctx.globalAlpha = S.sel? .3 : .7; ctx.fillStyle=col(o.t);
+    ctx.beginPath(); ctx.arc(p[0],p[1],osmR(o)*phoneScale,0,6.2832); ctx.fill();
     pts.push([p[0],p[1],o]);
     if(o.key===sel){ ctx.globalAlpha=1; ctx.strokeStyle=col('ink'); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(p[0],p[1],osmR(o)+3,0,6.2832); ctx.stroke(); }
   }
@@ -799,7 +974,7 @@ function drawDots(){
 function setup(){
   W=node.clientWidth; H=node.clientHeight;
   DPR=window.devicePixelRatio||1; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
-  proj=d3.geoConicConformal().parallels([50,60]).rotate([3,0]).fitExtent([[16,50],[W-16,visH()-70]],ukBox);
+  proj=d3.geoConicConformal().parallels([50,60]).rotate([3,0]).fitExtent([[16,phoneW()?58:50],[W-(phoneW()?60:16),visH()-(phoneW()?24:70)]],ukBox);
   const gp=d3.geoPath(proj);
   gLand.selectAll('path').data(GEO.features).join('path').attr('class',f=>f.properties.uk?'uk':null).attr('d',gp);
   const pl=[]; ['220','275','400','dc'].forEach(k=>(PYL[k]||[]).forEach(l=>pl.push({k,l})));
@@ -812,8 +987,8 @@ function setup(){
   render();
 }
 function markerR(d){ return d.t==='ic'?8:Math.max(7.5,3.4+Math.sqrt(d.mw)/6); }
-const compact = d => zt.k<SMALLK && d.t!=='ic' && d.mw<300 && S.sel!==d.key;
-const mR = d => compact(d) ? 4 : markerR(d);
+const compact = d => zt.k<SMALLK && d.t!=='ic' && d.mw<(phoneW()?600:300) && S.sel!==d.key;
+const mR = d => compact(d) ? (phoneW()?3.5:4) : markerR(d)*(phoneW()&&zt.k<SMALLK?.85:1);
 function osmR(d){ return d.mw? Math.max(2.6,Math.min(6,1.8+Math.sqrt(d.mw)/4)) : 2.6; }
 
 function render(){
@@ -831,10 +1006,18 @@ function render(){
   gPyl.style('opacity', S.infra ? 1 : zt.k<SMALLK ? .45 : zt.k<OSMK ? .75 : 1);
   gPyl.style('display',(S.pyl||S.infra)?null:'none');
   d3.select('#base').classed('infra',S.infra); document.querySelector('.mapwrap').classList.toggle('infra-on',S.infra);
-  const rg = S.reg ? REG.map(r=>({id:r[0],c:[r[3],r[4]],v:regVal(r[0])})).filter(r=>r.v!=null) : [];
-  const rgs=gReg.selectAll('g.rg').data(rg,d=>d.id).join(en=>{ const g=en.append('g').attr('class','rg'); g.append('circle').attr('class','regdot').attr('r',13); g.append('text').attr('class','regtxt').attr('dy',4); return g; });
-  rgs.select('circle').attr('fill',d=>CI_IDX_COL[ciIndex(d.v)]); rgs.select('text').text(d=>d.v).style('fill',d=>ciIndex(d.v)==='very high'?'#fff':'#1b282e');
-  gRegA.style('display',S.reg?null:'none').selectAll('path').attr('fill',f=>{ const v=regVal(f.properties.id); return v==null?'none':CI_IDX_COL[ciIndex(v)]; });
+  const selR = S.sel&&byId[S.sel]&&byId[S.sel].region ? byId[S.sel].rid : null;
+  const rg = (S.reg||selR) ? REG.map(r=>({id:r[0],key:'reg'+r[0],c:[r[3],r[4]],v:regVal(r[0]),n:LANG==='cy'?r[2]:r[1]})).filter(r=>r.v!=null&&(S.reg||r.id===selR)) : [];
+  const rgs=gReg.selectAll('g.rg').data(rg,d=>d.id).join(en=>{ const g=en.append('g').attr('class','rg').attr('tabindex',0).attr('role','button');
+      g.append('circle').attr('class','reghit').attr('r',22); g.append('circle').attr('class','regdot').attr('r',13); g.append('text').attr('class','regtxt').attr('dy',4);
+      g.on('click',(e,d)=>pickAt(e,byId[d.key])).on('keydown',(e,d)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(d.key); } });
+      return g; });
+  rgs.classed('on',d=>d.id===selR).attr('aria-label',d=>`${d.n}: ${d.v} ${tr('ci_unit')}`);
+  rgs.select('.regdot').attr('fill',d=>CI_IDX_COL[ciIndex(d.v)]).attr('r',d=>d.id===selR?Math.max(12,discR()):discR());
+  rgs.select('text').style('display',d=>(discR()<10&&d.id!==selR)?'none':null); rgs.select('text').text(d=>d.v).style('fill',d=>ciIndex(d.v)==='very high'?'#fff':'#1b282e');
+  gRegA.style('opacity', selR ? 1 : zt.k<SMALLK ? 1 : zt.k<OSMK ? .65 : .35);
+  gRegA.style('display',(S.reg||selR)?null:'none').selectAll('path').attr('fill',f=>{ const v=regVal(f.properties.id); return v==null?'none':CI_IDX_COL[ciIndex(v)]; })
+    .classed('on',f=>f.properties.id===selR).classed('off',f=>selR!=null&&f.properties.id!==selR);
   // markers
   const mk=vis.filter(d=>d.t!=='grid');
   const mg=gMarks.selectAll('g.mk').data(mk,d=>d.key).join(en=>{
@@ -844,7 +1027,7 @@ function render(){
     g.append('circle').attr('class','ring');
     g.append('circle').attr('class','dot');
     g.append('use').attr('class','ico').attr('href',d=>'#i-'+d.t);
-    g.on('click',(e,d)=>{e.stopPropagation();select(d.key);})
+    g.on('click',(e,d)=>pickAt(e,d))
      .on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(d.key);}});
     return g;});
   mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+(liveNow()&&S.replayIdx==null&&LIVE.curt&&LIVE.curt[d.id]>5?' curtailed':''))
@@ -852,10 +1035,11 @@ function render(){
     .style('--c',d=>col(d.t));
   mg.select('.dot').attr('fill',d=>col(d.t));
   mg.each(function(d){const s=d3.select(this),r=mR(d),q=r*1.25;
-    s.select('.hitc').attr('r',Math.max(r+4,13)); s.select('.ring').attr('r',r+4); s.select('.curt').attr('r',r+7);
+    s.select('.hitc').attr('r',Math.max(r+4,13)); s.select('.ring').attr('r',r+4); s.select('.curt').attr('r',r+5);
     s.select('.dot').attr('r',r); s.select('.ico').attr('x',-q/2).attr('y',-q/2).attr('width',q).attr('height',q);});
   mg.sort((a,b)=>b.mw-a.mw);
-  if(sel&&!sel.osm&&!sel.sub) mg.filter(d=>d===sel).raise();
+  if(sel&&!sel.osm&&!sel.sub&&!sel.region) mg.filter(d=>d===sel).raise();
+  gReg.raise();
   // live flows for everything
   const lf=[];
   if(liveNow()) vis.forEach(d=>{
@@ -864,13 +1048,13 @@ function render(){
       lf.push({key:d.key,pts:icGeom(d),c:col('ic'),w:v!=null?0.9+Math.min(2,Math.sqrt(Math.max(v,60))/14):1.1,dur:1.3}); return; }
     const mw=liveMW(d); if(mw<2) return;
     const fac=d.mw?Math.min(1,mw/d.mw):0;
-    lf.push({key:d.key,pts:geom(d).main,c:col(d.t),w:1.2+Math.min(5,Math.sqrt(mw)/7),dur:2.4-1.8*fac,still:zt.k<SMALLK&&mw<250});
+    lf.push({key:d.key,pts:geom(d).main,c:col(d.t),w:0.8+Math.min(2.4,Math.sqrt(mw)/13),dur:2.4-1.8*fac,still:zt.k<SMALLK&&mw<250});
   });
   gLive.selectAll('path').data(lf,d=>d.key).join('path').attr('class',d=>'lf'+(d.still?' still':''))
     .attr('stroke',d=>d.c).attr('stroke-width',d=>d.w).style('animation-duration',d=>d.dur.toFixed(2)+'s');
   // selected route
   let routes=[],stops=[];
-  if(sel&&!sel.osm&&!sel.sub){ const f=flowPts(sel), g=sel.t==='ic'?{main:icGeom(sel),sur:[]}:geom(sel); const c=col(sel.t==='grid'?'ic':sel.t);
+  if(sel&&!sel.osm&&!sel.sub&&!sel.region){ const f=flowPts(sel), g=sel.t==='ic'?{main:icGeom(sel),sur:[]}:geom(sel); const c=col(sel.t==='grid'?'ic':sel.t);
     routes.push({k:'m',pts:g.main,c,sur:false}); if(g.sur.length) routes.push({k:'s',pts:g.sur,c,sur:true});
     const seen=new Set();
     [...f.main.slice(1),...f.sur.slice(1)].forEach(p=>{ if(p.n&&!seen.has(p.n)){seen.add(p.n);stops.push(p);} });
@@ -896,17 +1080,27 @@ function position(){
   gPc.selectAll('circle').attr('cx',d=>xy(d.c)[0]).attr('cy',d=>xy(d.c)[1]);
   const lab=[];
   if(S.sel){ const sel=byId[S.sel];
-    if(sel.osm||sel.sub) lab.push({k:'sel',n:nm(sel),c:sel.c,cls:'hub',above:sel.sub?8:osmR(sel)+4});
+    if(sel.region) lab.push({k:'sel',n:nm(sel),c:sel.c,cls:'hub',above:18});
+    else if(sel.osm||sel.sub) lab.push({k:'sel',n:nm(sel),c:sel.c,cls:'hub',above:sel.sub?8:osmR(sel)+4});
     else { const p0=sel.t==='ic'?pc(sel.g).c:(sel.c||pc(sel.pts[0]).c);
       lab.push({k:'sel',n:nm(sel),c:p0,cls:'hub',above:sel.t==='ic'?8:(sel.t==='grid'?6:markerR(sel)+5)});
       (S._stops||[]).forEach(s=>lab.push({k:s.n,n:s.hub?s.n:s.n.split(',')[0],c:s.c,cls:s.hub?'hub':''})); }
   } else if(zt.k>=2.6){
-    gMarks.selectAll('g.mk').each(d=>{ if(d.mw>=400||zt.k>=4.5) lab.push({k:d.key,n:nm(d),c:d.t==='ic'?pc(d.g).c:d.c,cls:'site',r:mR(d)}); });
+    const minL = zt.k<4.5 ? 500 : zt.k<7 ? 150 : zt.k<10 ? 30 : 0;
+    const cand=[]; gMarks.selectAll('g.mk').each(d=>{ if(d.mw>=minL && d.t!=='ic') cand.push(d); });
+    cand.sort((a,b)=>b.mw-a.mw).slice(0, phoneW()?12:24).forEach(d=>lab.push({k:d.key,n:nm(d),c:d.c,cls:'site',r:mR(d)}));
   }
   if(S.pc&&S.pc.c) lab.unshift({k:'pc',n:S.pc.label,c:S.pc.c,cls:'hub',above:10});
   gLbl.selectAll('text').data(lab,d=>d.k).join('text').attr('class',d=>'lbl '+d.cls).text(d=>d.n)
     .each(function(d){ d._w=this.getComputedTextLength(); });
-  const boxes=[], fits=b=>b.x0>=2&&b.x1<=W-2&&b.y0>=2&&b.y1<=H-2, hit=b=>boxes.some(o=>b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0);
+  const boxes=[], fits=b=>b.x0>=2&&b.x1<=W-2&&b.y0>=2&&b.y1<=visH()-2, hit=b=>boxes.some(o=>b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0);
+  // keep labels off markers, region discs and the floating controls
+  const obst=[];
+  gMarks.selectAll('g.mk').each(d=>{ const p=xy(d.t==='ic'?pc(d.g).c:d.c), r=mR(d)+1; obst.push({x0:p[0]-r,x1:p[0]+r,y0:p[1]-r,y1:p[1]+r,k:d.key}); });
+  gReg.selectAll('g.rg').each(d=>{ const p=xy(d.c), r=discR()+1; obst.push({x0:p[0]-r,x1:p[0]+r,y0:p[1]-r,y1:p[1]+r}); });
+  const nr=node.getBoundingClientRect();
+  document.querySelectorAll('.pills .cipill, .ctl').forEach(el=>{ const r=el.getBoundingClientRect(); if(r.width) obst.push({x0:r.left-nr.left-4,x1:r.right-nr.left+4,y0:r.top-nr.top-4,y1:r.bottom-nr.top+4}); });
+  const hitObst=(b,self)=>obst.some(o=>o.k!==self&&b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0);
   gLbl.selectAll('text').each(function(d){
     const p=xy(d.c), r=d.above?d.above:(d.r||8)+3, w=d._w, h=13;
     const cand=[
@@ -915,7 +1109,7 @@ function position(){
       {x:p[0],y:p[1]-r-3,a:'middle',b:{x0:p[0]-w/2,x1:p[0]+w/2,y0:p[1]-r-3-h,y1:p[1]-r}},
       {x:p[0],y:p[1]+r+12,a:'middle',b:{x0:p[0]-w/2,x1:p[0]+w/2,y0:p[1]+r,y1:p[1]+r+h}}];
     if(d.above) cand.unshift(cand.splice(2,1)[0]);
-    let c=cand.find(c=>fits(c.b)&&!hit(c.b));
+    let c=cand.find(c=>fits(c.b)&&!hit(c.b)&&(d.cls!=='site'||!hitObst(c.b,d.k)));
     const must=d.cls==='hub'||d.k==='sel'||d.cls==='';
     if(!c && must){ c=cand.find(c=>fits(c.b))||cand[0];
       if(c.a==='middle'){ const sh=Math.max(0,w/2+4-c.x)-Math.max(0,c.x+w/2+4-W); c={...c,x:c.x+sh}; } }
@@ -934,10 +1128,12 @@ function fitPts(ll, kmax=7){
   svg.transition().duration(matchMedia('(prefers-reduced-motion: reduce)').matches?0:650).call(zoom.transform,t);
 }
 function fitTo(d){
+  if(d.region){ const f=regFeat(d.rid); const pts=[]; f.geometry.coordinates.forEach(p=>p[0].forEach((c,i)=>{ if(i%4===0) pts.push([c[1],c[0]]); })); fitPts(pts,6); return; }
   if(d.osm||d.sub||d.place){ const k=Math.max(zt.k,d.place?4.5:6), p=P0(d.c); svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity.translate(W/2-k*p[0],(visH()-40)/2-k*p[1]).scale(k)); return; }
   const g=d.t==='ic'?{main:icGeom(d),sur:[]}:geom(d); fitPts([...g.main,...g.sur]);
 }
 function select(key){
+  if(typeof hideChooser==='function') hideChooser();
   S.sel=key; if(key) S.view='overview';
   if(key && isSheet() && sheetState==='peek') setSheet('half');
   render(); panel();
@@ -964,7 +1160,8 @@ function liveBlock(d,c){
   }
   let h='';
   const curt=(S.replayIdx==null&&LIVE.curt)?LIVE.curt[d.id]:0;
-  if(curt>5) h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(curt)})}</b><span>${tr('curt_s')}</span></div>`;
+  if(curt>5){ const pay=LIVE.curtPay&&LIVE.curtPay[d.id];
+    h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(curt)})}</b>${pay?`<b class="paid">${tr('curt_pay',{p:fmtGBP(pay),b:Math.round(LIVE.curtBid[d.id])})}</b>`:''}<b class="paid">${tr('curt_co2',{t:Math.round(curt*0.394)})}</b><span>${tr('curt_s')}${pay?' '+tr('curt_est'):''}</span></div>`; }
   const r=realMW(d);
   if(r!=null){ const t = r<-2 ? tr('now_pump',{v:fmtLive(-r)}) : r<2 ? (d.ps?tr('now_idle'):tr('now_zero')) : tr('now_actual',{v:fmtLive(r)});
     return h+`<div class="livebox" style="--c:${c}"><b>${t}</b><span>${tr('now_real',{when:fmtWhen(LIVE.updated)})}</span></div>`; }
@@ -979,6 +1176,7 @@ function panel(){
   const d=byId[S.sel];
   if(d.osm) return osmPanel(d);
   if(d.sub) return subPanel(d);
+  if(d.region) return regionPanel(d);
   const f=flowPts(d), c=col(d.t==='grid'?'grid':d.t), g=geom(d);
   const note=(LANG==='cy'&&NOTECY[d.id])||d.note;
   let h=`<button class="back" id="back">${tr('back')}</button>
@@ -1072,15 +1270,39 @@ function pcBlock(){
   return h;
 }
 function feedsBlock(){
-  const names={ci_reg:'NESO Carbon Intensity: regions',ci_fac:'NESO Carbon Intensity: import factors',elx_mid:'Elexon: wholesale prices',ci_day:'NESO Carbon Intensity: today',ci_48:'NESO Carbon Intensity: 24 h back, 48 h ahead',ci_nat:'NESO Carbon Intensity: GB mix',ci_wales:'NESO Carbon Intensity: Wales',ci_hist:'NESO Carbon Intensity: last 24 h',elx_cur:'Elexon: generation by fuel & interconnectors',elx_pn:'Elexon: output per power station',elx_boa:'Elexon: balancing actions (curtailment)'};
+  const names={ci_reg:'NESO Carbon Intensity: regions',ci_fac:'NESO Carbon Intensity: import factors',elx_mid:'Elexon: wholesale prices',ci_day:'NESO Carbon Intensity: today',ci_48:'NESO Carbon Intensity: 24 h back, 48 h ahead',ci_nat:'NESO Carbon Intensity: GB mix',ci_wales:'NESO Carbon Intensity: Wales',ci_hist:'NESO Carbon Intensity: last 24 h',elx_cur:'Elexon: generation by fuel & interconnectors',elx_pn:'Elexon: output per power station',elx_boa:'Elexon: balancing actions (curtailment)',elx_bod:'Elexon: bid prices (curtailment payments)'};
   return `<h3>${tr('feeds')}</h3><ul class="feeds">${Object.keys(names).map(k=>{const s=LIVE.feeds[k]; return `<li><span class="${s===true?'ok':s===false?'bad':''}">${s===true?'●':s===false?'●':'○'}</span><b>${names[k]}</b>${s===true?tr('f_ok'):s===false?tr('f_fail'):tr('f_na')}</li>`;}).join('')}</ul>`;
 }
-function tabs(){ return `<div class="tabs" role="tablist"><button role="tab" data-tab="map" aria-selected="${S.tab==='map'}">${tr('tab_map')}</button><button role="tab" data-tab="carbon" aria-selected="${S.tab==='carbon'}">${tr('tab_ci')}</button><button role="tab" data-tab="stories" aria-selected="${S.tab==='stories'}">${tr('tab_st')}</button><button role="tab" data-tab="compare" aria-selected="${S.tab==='compare'}">${tr('compare')}</button></div>`; }
+const PART_OF_DAY = h => h<6?'night':h<12?'morning':h<17?'afternoon':h<22?'evening':'night';
+function whyNow(){
+  if(!HISTORY.typ) return '';
+  const t0=Date.parse(curWhen()); if(isNaN(t0)) return '';
+  const p=ukParts(new Date(t0)), m=p.m, slot=(+p.hh)*2+(+p.mm>=30?1:0), T=HISTORY.typ[m]||HISTORY.typ[String(m)];
+  if(!T||T.ci[slot]==null) return '';
+  const ser=LIVE.ci.series.find(x=>x.t<=t0&&t0<x.t+1800000);
+  const ci=ser?(ser.a!=null?ser.a:ser.f):ciNow().v; if(ci==null) return '';
+  const typ=T.ci[slot], lo=T.p10[slot], hi=T.p90[slot], pct=Math.round((ci-typ)/typ*100);
+  const level = ci<=lo?'vclean':ci>=hi?'vdirty':Math.abs(pct)<=10?'typical':pct<0?'clean':'dirty';
+  const mix=curMix();
+  const cand=[['wind','wind',1],['solar','solar',1],['nuclear','nuclear',1],['gas','gas',1],['imports','imports',.6],['biomass','biomass',.4]]
+    .map(([k,tk,w])=>({k,now:+(mix[k]||0),typ:+(T[tk]&&T[tk][slot]||0),w})).map(o=>({...o,d:o.now-o.typ,score:Math.abs(o.now-o.typ)*o.w}))
+    .filter(o=>o.score>=2).sort((a,b)=>b.score-a.score).slice(0,3);
+  const monthName=fmtDate(`2026-${String(m).padStart(2,'0')}-01`).replace(/^1 /,'');
+  let h=`<div class="why ${level}"><div class="whyh">${tr('why_'+level)}</div>
+    <p>${tr(pct<0?'why_below':'why_above',{ci,p:Math.abs(pct),typ,when:tr('pod_'+PART_OF_DAY(+p.hh)),mon:monthName})}</p>`;
+  if(cand.length) h+=`<ul class="whyl">${cand.map(o=>`<li><span class="${(o.k==='gas'||o.k==='biomass')===(o.d>0)?'bad':'good'}">${o.d>0?'▲':'▼'}</span>${tr('why_line',{f:tr('fuel_'+o.k),now:o.now.toFixed(0),typ:o.typ.toFixed(0)})}</li>`).join('')}</ul>`;
+  const tc=(S.replayIdx==null&&LIVE.curt)?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
+  if(tc>5) h+=`<p class="whyc">${tr('why_curt',{v:fmtLive(tc)})}</p>`;
+  h+=`<p class="fine">${tr('why_note',{from:fmtDate(HISTORY.typ_from)+' '+HISTORY.typ_from.slice(0,4)})}</p></div>`;
+  return h;
+}
+function tabs(){ return `<div class="tabs" role="tablist"><button role="tab" data-tab="map" aria-selected="${S.tab==='map'}">${tr('tab_map')}</button><button role="tab" data-tab="carbon" aria-selected="${S.tab==='carbon'}" aria-label="${tr('tab_ci')}">Carbon</button><button role="tab" data-tab="stories" aria-selected="${S.tab==='stories'}">${tr('tab_st')}</button><button role="tab" data-tab="compare" aria-selected="${S.tab==='compare'}">${tr('compare')}</button><button role="tab" data-tab="plan" aria-selected="${S.tab==='plan'}">${tr('plan')}</button></div>`; }
 function wireTabs(){ $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ S.tab=b.dataset.tab; panel(); $p.scrollTop=0; if(S.tab==='carbon') loadYTD(); }); }
 function overview(){
   if(S.tab==='carbon') return carbonPanel();
   if(S.tab==='stories') return storiesPanel();
   if(S.tab==='compare') return comparePanel();
+  if(S.tab==='plan') return planPanel();
   const y=S.year, act=SITES.filter(active);
   const by={}; act.forEach(d=>{ if(!d.ps||true) by[d.t]=(by[d.t]||0)+d.mw; });
   const tot=Object.values(by).reduce((a,b)=>a+b,0);
@@ -1092,7 +1314,9 @@ function overview(){
     h+=`<h2>${LIVE.mode==='live'&&S.replayIdx==null?tr('live'):tr('snap')}</h2><div class="meta">${tr('gbelec',{when})}</div>${mixBlock(curMix())}`;
     h+=replayBlock();
     const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
-    if(tc>5&&S.replayIdx==null) h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b><span>${tr('curt_s')}</span></div>`;
+    if(tc>5&&S.replayIdx==null){ const tp=LIVE.curtPay?Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0):0;
+      h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:Math.round(tc*0.394)})}</b><span>${tr('curt_s')}</span></div>`; }
+    h+=whyNow();
     h+=`<p class="fine">${tr('flows_note')}${LIVE.mode==='live'?'':' '+tr('snap_note')}</p>`;
   }
   h+=`<h2 style="margin-top:${liveNow()?'18px':'0'}">${y===2026?tr('mapped_today'):tr('mapped_y',{y})}</h2>
@@ -1115,6 +1339,86 @@ function overview(){
   $p.innerHTML=h; wirePanel(); wireTabs();
 }
 function regVal(id){ const s=LIVE.reg||REG_SNAP; const v=s.v[id]; return v==null?null:v; }
+const REGFC={};
+async function loadRegionFc(id){
+  const c=REGFC[id]; if(c&&Date.now()-c.at<30*60000) return c.s;
+  const iso=new Date().toISOString().slice(0,16)+'Z';
+  const x=await getJSON(`${CI}/regional/intensity/${iso}/fw24h/regionid/${id}`);
+  const r=Array.isArray(x.data)?x.data[0]:x.data; const rows=(r&&r.data)||[];
+  const s=rows.map(d=>({t:Date.parse(d.from),f:d.intensity&&d.intensity.forecast})).filter(d=>!isNaN(d.t)&&d.f!=null);
+  if(s.length<4) throw new Error('empty'); REGFC[id]={at:Date.now(),s}; return s;
+}
+function drawRegionFc(el,s,o={}){
+  const w=el.clientWidth||320, h=o.h||130, m={l:30,r:8,t:10,b:20};
+  const x=d3.scaleTime().domain(d3.extent(s,d=>d.t)).range([m.l,w-m.r]);
+  const y=d3.scaleLinear().domain([0,Math.max(100,d3.max(s,d=>d.f)*1.1)]).nice().range([h-m.b,m.t]);
+  const g=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  g.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(4).tickFormat(d=>{const p=ukParts(d);return p.hh+':'+p.mm;}).tickSizeOuter(0));
+  g.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(w-m.l-m.r))).call(a=>a.select('.domain').remove()).call(a=>a.selectAll('line').attr('stroke-opacity',.5));
+  g.append('path').attr('class','area').attr('d',d3.area().x(d=>x(d.t)).y0(y(0)).y1(d=>y(d.f)).curve(d3.curveMonotoneX)(s));
+  g.append('path').attr('class','fc').attr('d',d3.line().x(d=>x(d.t)).y(d=>y(d.f)).curve(d3.curveMonotoneX)(s));
+  if(o.big) addHover(g,x,[{name:tr('forecast'),color:col('ink'),pts:s.map(d=>[d.t,d.f]),y}],{m,w,h,unit:' gCO₂/kWh',fx:v=>fmtWhen(new Date(v).toISOString())});
+}
+const FUELF = {wind:0,solar:0,nuclear:0,hydro:0,biomass:120,gas:394,coal:937,other:300};
+function importFactor(rid){
+  const known=LINKS.filter(l=>active(l)&&IMPORT_CI[l.country]!=null);
+  const here=known.filter(l=>regionOf(pc(l.g).c)===rid);
+  const use=here.length?here:known, w=d3.sum(use,l=>l.mw);
+  return {f:w?Math.round(d3.sum(use,l=>l.mw*IMPORT_CI[l.country])/w):null, links:here, local:!!here.length};
+}
+function carbonTable(rid,mix,neso){
+  const imp=importFactor(rid);
+  const order=[['wind','ow'],['solar','so'],['nuclear','nu'],['hydro','hy'],['biomass','bio'],['gas','gas'],['coal','gas'],['other','bat'],['imports','ic']];
+  const rows=order.filter(([k])=>(mix[k]||0)>0).map(([k,t])=>{ const f=k==='imports'?imp.f:FUELF[k]; return {k,t,share:mix[k],f,add:f==null?null:mix[k]/100*f}; });
+  const total=d3.sum(rows,r=>r.add||0);
+  const fmt=x=>x==null?'–':x<0.5&&x>0?'<1':Math.round(x);
+  let h=`<h3>${tr('reg_ct')}</h3><table class="ctab ctab4"><thead><tr><th>${tr('rc_src')}</th><th>${tr('rc_share')}</th><th>${tr('rc_f')}</th><th>${tr('rc_add')}</th></tr></thead><tbody>`;
+  rows.forEach(r=>{ let sub='';
+    if(r.k==='imports') sub=imp.local?tr('imp_via',{l:imp.links.map(l=>nm(l)+' ('+country(l.country)+' '+IMPORT_CI[l.country]+')').join(', ')}):tr('imp_gb');
+    h+=`<tr><td style="--c:${col(r.t)}">${icon(r.t)}<span>${tr('fuel_'+r.k)}${sub?`<small>${sub}</small>`:''}</span></td><td>${r.share.toFixed(1).replace(/\.0$/,'')}%</td><td>${r.f==null?'–':r.f}</td><td>${fmt(r.add)}</td></tr>`; });
+  h+=`</tbody><tfoot><tr><td>${tr('rc_total')}</td><td></td><td></td><td>${Math.round(total)}</td></tr><tr><td>${tr('rc_neso')}</td><td></td><td></td><td>${neso}</td></tr></tfoot></table>
+  <p class="fine">${tr('reg_ct_note')} ${tr('reg_flow_note')}</p>`;
+  return h;
+}
+function regionPanel(d){
+  const v=regVal(d.rid), idx=ciIndex(v), src=LIVE.reg||REG_SNAP;
+  const ranked=REG.map(r=>[r[0],regVal(r[0])]).filter(r=>r[1]!=null).sort((a,b)=>a[1]-b[1]);
+  const rank=ranked.findIndex(r=>r[0]===d.rid)+1, hasGB=src.gb!=null, gb=hasGB?src.gb:Math.round(d3.mean(ranked,r=>r[1])), diff=Math.round(v-gb), sfx=hasGB?'_gb':'';
+  let h=`<button class="back" id="back">${tr('back')}</button><div class="pill" style="--c:${CI_IDX_COL[idx]}">${tr('s_region')}</div>
+  <h2>${nm(d)}</h2><div class="meta">${tr('st_reg_when',{when:fmtWhen(src.from)})}</div>
+  <div class="cibig" style="grid-template-columns:1fr 2fr"><div><b>${v}</b><small>${tr('ci_unit')}</small><span><i class="rdot" style="--c:${CI_IDX_COL[idx]}"></i>${tIdx(idx)}</span></div>
+  <div><span style="margin-top:0;font-weight:500;display:block">${diff===0?tr('reg_same'+sfx,{g:gb}):diff<0?tr('reg_lower'+sfx,{n:-diff,g:gb}):tr('reg_higher'+sfx,{n:diff,g:gb})}</span><span style="font-weight:500;display:block">${tr('reg_rank',{r:rank,n:ranked.length})}</span></div></div>`;
+  const mix=src.mix&&src.mix[d.rid];
+  if(mix){ h+=`<h3>${tr('reg_mix')}</h3>${mixBlock(mix)}`; h+=carbonTable(d.rid,mix,v); }
+  h+=`<h3>${tr('reg_fc')}</h3><div class="chart" id="regfc"><p class="meta">…</p></div><p id="regbest"></p>`;
+  // mapped sites connected in the region (offshore sites count where they connect)
+  const home=s=>{ let r=regionOf(s.c); if(r==null&&s.r&&s.r.length) r=regionOf(pc(s.r[0]).c); if(r==null&&s.h) r=regionOf(pc(s.h).c); return r; };
+  const here=SITES.filter(s=>active(s)&&home(s)===d.rid).sort((a,b)=>b.mw-a.mw);
+  const cap=here.reduce((a,s)=>a+s.mw,0), small=OTHERS.filter(o=>regionOf(o.c)===d.rid).length;
+  h+=`<h3>${tr('reg_sites')}</h3><p class="meta">${tr('reg_cap',{c:fmtMW(cap),n:small.toLocaleString('en-GB')})}</p>`;
+  if(here.length) h+=`<ul class="sitelist">${here.slice(0,10).map(s=>`<li><button data-k="${s.key}" style="--c:${col(s.t)}">${icon(s.t)}${nm(s)}<b>${fmtMW(s.mw)}</b></button></li>`).join('')}</ul>`;
+  h+=`<p class="fine">${tr('reg_note')}</p>`;
+  $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null); wirePanel();
+  loadRegionFc(d.rid).then(s=>{ if(S.sel!==d.key) return; const el=document.getElementById('regfc'); el.innerHTML=''; drawRegionFc(el,s); makeZoomable(el,'regfc');
+      const b=s.reduce((a,x)=>x.f<a.f?x:a); document.getElementById('regbest').innerHTML=`<b>${tr('ci_best',{t:fmtWhen(new Date(b.t).toISOString()),g:b.f})}</b>`; })
+    .catch(()=>{ const el=document.getElementById('regfc'); if(el&&S.sel===d.key) el.innerHTML=`<p class="meta">${tr('reg_fc_need')}</p>`; });
+}
+function scenarioBlock(){
+  const links=GRID.filter(g=>g.id==='egl1'||g.id==='egl2');
+  S.scen=S.scen||{egl1:true,egl2:true};
+  const cap=d3.sum(links.filter(l=>S.scen[l.id]),l=>l.mw);
+  let h=`<div class="scen"><h4>${tr('sc_h')}</h4><div class="chips">${links.map(l=>`<button class="chip" data-scen="${l.id}" aria-pressed="${!!S.scen[l.id]}"><i style="background:var(--grid)"></i>${nm(l)} · ${fmtMW(l.mw)}</button>`).join('')}</div>`;
+  const live=S.replayIdx==null&&LIVE.curt;
+  if(!live){ h+=`<p class="meta">${tr('sc_need',{c:fmtMW(cap)})}</p></div>`; return h; }
+  const scot=SITES.filter(s=>s.c[0]>55.3&&LIVE.curt[s.id]>5);
+  const sc=d3.sum(scot,s=>LIVE.curt[s.id]), use=Math.min(sc,cap);
+  const payS=d3.sum(scot,s=>(LIVE.curtPay&&LIVE.curtPay[s.id])||0), rate=sc?payS/sc:0;
+  if(sc<=5){ h+=`<p class="meta">${tr('sc_none')}</p></div>`; return h; }
+  h+=`<div class="cibig" style="grid-template-columns:repeat(3,1fr)"><div><b>${fmtLive(use)}</b><span>${tr('sc_mw',{of:fmtLive(sc)})}</span></div>
+    <div><b>${rate?fmtGBP(use*rate):'–'}</b><span>${tr('sc_gbp')}</span></div><div><b>${Math.round(use*0.394)} t</b><span>${tr('sc_co2')}</span></div></div>
+    <p class="fine">${tr('sc_note')}</p></div>`;
+  return h;
+}
 function storiesPanel(){
   let h=tabs();
   const rs=REG.map(r=>({id:r[0],n:LANG==='cy'?r[2]:r[1],v:regVal(r[0])})).filter(r=>r.v!=null).sort((a,b)=>a.v-b.v);
@@ -1125,7 +1429,12 @@ function storiesPanel(){
   <button class="pbtn ghost" id="regbtn">${S.reg?tr('st_reg_hide'):tr('st_reg_btn')}</button>`;
   h+=`<div class="story"><h3>${tr('st_h_h')}</h3><p>${tr('st_h_t')}</p><div class="chart" id="ch4"></div><p class="fine">${tr('st_h_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p></div>`;
   const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):null;
-  h+=`<div class="story"><h3>${tr('st_c_h')}</h3><p>${tr('st_c_t')}</p><p><b>${tc==null?tr('st_c_need'):tc>5?tr('st_c_live',{v:fmtLive(tc)}):tr('st_c_none')}</b></p><button class="pbtn ghost" data-k="egl2|grid">${tr('st_c_btn')}</button></div>`;
+  h+=`<div class="story"><h3>${tr('st_c_h')}</h3><p>${tr('st_c_t')}</p><p><b>${tc==null?tr('st_c_need'):tc>5?tr('st_c_live',{v:fmtLive(tc)}):tr('st_c_none')}</b>${tc>5&&LIVE.curtPay&&Object.keys(LIVE.curtPay).length?' '+tr('curt_tot_pay',{p:fmtGBP(Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0))}):''}</p>
+  <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>£380m</b><span>${tr('st_c_wind')}</span></div><div><b>£1.08bn</b><span>${tr('st_c_gas')}</span></div></div>
+  <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>10.2 TWh</b><span>${tr('st_c_twh')}</span></div><div><b>≈4.0 Mt</b><span>${tr('st_c_co2')}</span></div></div>
+  <p class="fine">${tr('st_c_ctx')} <a href="https://www.wind-watch.org/news/2025/12/30/britain-spent-1-5bn-in-2025-to-turn-off-wind-farms-and-fire-up-gas-plants-when-electric-grid-couldnt-cope/" target="_blank" rel="noopener">${tr('st_c_src')} ↗</a> · <a href="https://eandt.theiet.org/2026/01/22/record-wasted-wind-power-2025-could-have-powered-every-home-london" target="_blank" rel="noopener">${tr('st_c_src2')} ↗</a> ${tr('st_c_co2note')}</p>
+  ${scenarioBlock()}
+  <button class="pbtn ghost" data-k="egl2|grid">${tr('st_c_btn')}</button></div>`;
   const qmax=QUEUE.before;
   const qb=(lab,v,c,txt)=>`<span>${lab}</span><div class="b" style="width:${v/qmax*100}%;--c:${c}"></div><b>${txt||v+' GW'}</b>`;
   h+=`<div class="story"><h3>${tr('st_q_h')}</h3><p>${tr('st_q_t')}</p>
@@ -1138,12 +1447,38 @@ function storiesPanel(){
   $p.innerHTML=h; wireTabs(); wirePanel();
   const rb=document.getElementById('regbtn'); if(rb) rb.onclick=()=>{ S.reg=!S.reg; syncChip('reg'); render(); storiesPanel(); if(S.reg) svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); };
   $p.querySelectorAll('.story button[data-k]').forEach(b=>b.onclick=()=>select(b.dataset.k));
-  const c3=document.getElementById('ch3'); if(c3) drawPrice(c3);
-  const c4=document.getElementById('ch4'); if(c4) drawClean(c4);
+  $p.querySelectorAll('[data-scen]').forEach(b=>b.onclick=()=>{ S.scen[b.dataset.scen]=!S.scen[b.dataset.scen]; const y=$p.scrollTop; storiesPanel(); $p.scrollTop=y; });
+  const c3=document.getElementById('ch3'); if(c3){ drawPrice(c3); makeZoomable(c3,'price'); }
+  const c4=document.getElementById('ch4'); if(c4){ drawClean(c4); makeZoomable(c4,'clean'); }
 }
-function drawPrice(el){
+/* ---------- chart hover: a scrubbing line with values ---------- */
+function addHover(sv,x,series,cfg){
+  const {m,w,h}=cfg, X=typeof x==='function'&&x.invert?x:null, px=v=>typeof x==='function'?x(v):x(v);
+  const layer=sv.append('g').attr('class','hov').style('display','none');
+  layer.append('line').attr('class','hvl').attr('y1',m.t).attr('y2',h-m.b);
+  const dots=series.map(s=>layer.append('circle').attr('r',4.5).attr('fill',s.color).attr('stroke',col('panel')).attr('stroke-width',2));
+  const box=layer.append('g'); const bg=box.append('rect').attr('rx',6).attr('class','hvbox');
+  const txt=box.append('text').attr('class','hvt');
+  const all=[...new Set(series.flatMap(s=>s.pts.map(p=>p[0])))].sort((a,b)=>a-b);
+  const move=ev=>{
+    const [mx]=d3.pointer(ev,sv.node());
+    let best=null,bd=1e9; for(const v of all){ const dd=Math.abs(px(v)-mx); if(dd<bd){bd=dd;best=v;} }
+    if(best==null) return; const xx=px(best);
+    layer.style('display',null); layer.select('.hvl').attr('x1',xx).attr('x2',xx);
+    const lines=[cfg.fx(best)];
+    series.forEach((s,i)=>{ let p=s.pts.find(q=>q[0]===best); if(!p&&s.snap!=null){ p=s.pts.find(q=>Math.abs(q[0]-best)<=s.snap); }
+      if(p&&p[1]!=null){ dots[i].style('display',null).attr('cx',px(p[0])).attr('cy',s.y(p[1])); lines.push(`${s.name}: ${s.pre||''}${Math.round(p[1]).toLocaleString('en-GB')}${s.pre?'':cfg.unit}`); }
+      else dots[i].style('display','none'); });
+    txt.selectAll('tspan').data(lines).join('tspan').attr('x',8).attr('dy',(d,i)=>i?16:14).attr('font-weight',(d,i)=>i?500:700).text(d=>d);
+    const bb=txt.node().getBBox(); bg.attr('width',bb.width+16).attr('height',bb.height+10);
+    const bx=xx+12+bb.width+16>w-m.r?xx-bb.width-28:xx+12; box.attr('transform',`translate(${bx},${m.t})`);
+  };
+  sv.style('touch-action','none').on('pointermove',move).on('pointerdown',move).on('pointerleave',()=>layer.style('display','none'));
+  sv.append('text').attr('class','hvhint').attr('x',w-m.r).attr('y',h-2).attr('text-anchor','end');
+}
+function drawPrice(el,o={}){
   const PR=LIVE.price, C=LIVE.ci.series.filter(d=>d.a!=null);
-  const w=el.clientWidth||320, h=160, m={l:30,r:38,t:10,b:20};
+  const w=el.clientWidth||320, h=o.h||160, m={l:30,r:38,t:10,b:20};
   const t0=Math.max(d3.min(PR,d=>d.t),Date.now()-86400000), t1=Date.now();
   const x=d3.scaleTime().domain([t0,t1]).range([m.l,w-m.r]);
   const yc=d3.scaleLinear().domain([0,(d3.max(C,d=>d.a)||200)*1.1]).nice().range([h-m.b,m.t]);
@@ -1155,6 +1490,89 @@ function drawPrice(el){
   const inR=d=>d.t>=t0&&d.t<=t1;
   s.append('path').attr('class','act').attr('d',d3.line().x(d=>x(d.t)).y(d=>yc(d.a)).curve(d3.curveMonotoneX)(C.filter(inR)));
   s.append('path').attr('class','proj').attr('d',d3.line().x(d=>x(d.t)).y(d=>yp(d.p)).curve(d3.curveMonotoneX)(PR.filter(inR)));
+  if(o.big) addHover(s,x,[{name:'gCO₂/kWh',color:col('ink'),pts:C.filter(inR).map(d=>[d.t,d.a]),y:yc},{name:tr('price'),color:'#2fa84f',pts:PR.filter(inR).map(d=>[d.t,d.p]),y:yp,pre:'£'}],{m,w,h,unit:'',fx:v=>fmtWhen(new Date(v).toISOString())});
+}
+const PRESETS=[['p_ev',7,4],['p_kiln',20,6],['p_cold',10,3],['p_wash',1.5,2],['p_hp',3,5]];
+const S_PLAN={reg:0,kw:7,hrs:4,res:null,busy:false,err:null};
+async function planForecast(reg){
+  const iso=new Date().toISOString().slice(0,16)+'Z';
+  if(reg){ const x=await getJSON(`${CI}/regional/intensity/${iso}/fw48h/regionid/${reg}`); const r=Array.isArray(x.data)?x.data[0]:x.data;
+    return ((r&&r.data)||[]).map(d=>({t:Date.parse(d.from),f:d.intensity&&d.intensity.forecast})).filter(d=>!isNaN(d.t)&&d.f!=null); }
+  const x=await getJSON(`${CI}/intensity/${iso}/fw48h`); return arr(x).map(d=>({t:Date.parse(d.from),f:d.intensity&&d.intensity.forecast})).filter(d=>!isNaN(d.t)&&d.f!=null);
+}
+function planWindows(s,n){
+  const now=Date.now(); const out=[];
+  for(let i=0;i+n<=s.length;i++){ if(s[i].t+1800000<=now) continue; const seg=s.slice(i,i+n); if(seg.length<n) break; out.push({i,t:seg[0].t,end:seg[n-1].t+1800000,g:d3.mean(seg,d=>d.f)}); }
+  return out;
+}
+async function runPlan(){
+  const P=S_PLAN; P.busy=true; P.err=null; planPanel();
+  let s=null, src='';
+  try{ if(LIVE.mode==='live'){ s=await planForecast(P.reg); src=P.reg?'reg':'gb'; } }catch(e){ s=null; }
+  const n=Math.max(1,Math.round(P.hrs*2));
+  if(!s||s.length<4){ s=LIVE.ci.series.filter(d=>d.f!=null&&d.t+1800000>Date.now()).map(d=>({t:d.t,f:d.f})); src=P.reg?'fallback':'snap'; }
+  if(s.length<n+2 && HISTORY.typ){ const t0=Math.floor(Date.now()/1800000)*1800000; s=[];
+    for(let i=0;i<96;i++){ const tt=t0+i*1800000, p=ukParts(new Date(tt)), T=HISTORY.typ[p.m]; const v=T&&T.ci[(+p.hh)*2+(+p.mm>=30?1:0)]; if(v!=null) s.push({t:tt,f:v}); }
+    src='typ'; }
+  const w=planWindows(s,n);
+  P.busy=false;
+  if(!w.length){ P.res=null; P.err=tr('pl_nodata'); planPanel(); return; }
+  const sorted=w.slice().sort((a,b)=>a.g-b.g), best=sorted[0], worst=sorted[sorted.length-1], now=w[0];
+  const picks=[]; for(const x of sorted){ if(picks.every(p=>Math.abs(p.i-x.i)>=n)) picks.push(x); if(picks.length===3) break; }
+  const kwh=P.kw*P.hrs;
+  P.res={s,n,best,worst,now,picks,kwh,src}; planPanel();
+}
+function planPanel(){
+  const P=S_PLAN;
+  let h=tabs()+`<h2>${tr('pl_h')}</h2><p>${tr('pl_t')}</p>
+  <div class="plan"><label>${tr('pl_where')}<select id="plReg"><option value="0">${tr('pl_gb')}</option>${REG.map(r=>`<option value="${r[0]}" ${P.reg===r[0]?'selected':''}>${LANG==='cy'?r[2]:r[1]}</option>`).join('')}</select></label>
+  <div class="chips">${PRESETS.map(([k,kw,hr])=>`<button class="chip" data-pre="${k}" aria-pressed="${P.kw===kw&&P.hrs===hr}">${tr(k)}</button>`).join('')}</div>
+  <div class="plrow"><label>${tr('pl_kw')}<input type="number" id="plKw" min="0.1" max="10000" step="0.1" value="${P.kw}" inputmode="decimal"></label>
+  <label>${tr('pl_hrs')}<input type="number" id="plHrs" min="0.5" max="24" step="0.5" value="${P.hrs}" inputmode="decimal"></label></div>
+  <button class="pbtn" id="plGo">${P.busy?'…':tr('pl_go')}</button></div>`;
+  if(P.err) h+=`<p class="meta">${P.err}</p>`;
+  const r=P.res;
+  if(r){
+    const kg=g=>r.kwh*g/1000, fmtKg=v=>v>=1000?(v/1000).toFixed(2)+' t':Math.round(v)+' kg';
+    const save=kg(r.now.g)-kg(r.best.g), pct=r.now.g?Math.round((r.now.g-r.best.g)/r.now.g*100):0;
+    const tt=ms=>fmtWhen(new Date(ms).toISOString());
+    h+=`<div class="why clean"><div class="whyh">${tr('pl_best',{t:tt(r.best.t)})}</div>
+      <p>${tr('pl_best_s',{end:fmtTime(new Date(r.best.end).toISOString()),g:Math.round(r.best.g)})}</p>
+      <div class="cibig" style="grid-template-columns:repeat(3,1fr)"><div><b>${fmtKg(kg(r.best.g))}</b><span>${tr('pl_at_best')}</span></div>
+      <div><b>${fmtKg(kg(r.now.g))}</b><span>${tr('pl_at_now')}</span></div><div><b>${save>0?fmtKg(save):'–'}</b><span>${save>0?tr('pl_saved',{p:pct}):tr('pl_nosave')}</span></div></div></div>
+      <div class="key"><span><i class="d"></i>${tr('forecast')}</span><span><i style="border-top:8px solid color-mix(in srgb,#2fa84f 35%,transparent);width:14px"></i>${tr('pl_band')}</span></div>
+      <div class="chart" id="plch"></div>
+      <h3>${tr('pl_alts')}</h3><ol class="route">${r.picks.map(p=>`<li>${tt(p.t)} – ${fmtTime(new Date(p.end).toISOString())}<small>${tr('pl_avg',{g:Math.round(p.g)})} · ${fmtKg(kg(p.g))} CO₂</small></li>`).join('')}</ol>
+      <p class="meta">${tr('pl_worst',{t:tt(r.worst.t),g:Math.round(r.worst.g)})}</p>`;
+    if(LIVE.mode==='live') h+=`<button class="pbtn ghost" id="plIcs">${tr('pl_ics')}</button>`;
+    h+=`<p class="fine">${tr('pl_src_'+r.src)} ${tr('pl_note')}</p>`;
+  }
+  $p.innerHTML=h; wireTabs();
+  document.getElementById('plReg').onchange=e=>{ P.reg=+e.target.value; P.res=null; };
+  document.getElementById('plKw').onchange=e=>{ P.kw=Math.max(.1,+e.target.value||P.kw); };
+  document.getElementById('plHrs').onchange=e=>{ P.hrs=Math.min(24,Math.max(.5,Math.round((+e.target.value||P.hrs)*2)/2)); };
+  $p.querySelectorAll('[data-pre]').forEach(b=>b.onclick=()=>{ const pr=PRESETS.find(p=>p[0]===b.dataset.pre); P.kw=pr[1]; P.hrs=pr[2]; runPlan(); });
+  document.getElementById('plGo').onclick=()=>{ P.kw=Math.max(.1,+document.getElementById('plKw').value||P.kw); P.hrs=Math.min(24,Math.max(.5,Math.round((+document.getElementById('plHrs').value||P.hrs)*2)/2)); runPlan(); };
+  if(r){ const el=document.getElementById('plch'); drawPlan(el,r); makeZoomable(el,'plan');
+    const ics=document.getElementById('plIcs'); if(ics) ics.onclick=()=>downloadIcs(r.best); }
+}
+function drawPlan(el,r,o={}){
+  const s=r.s, w=el.clientWidth||320, h=o.h||140, m={l:30,r:8,t:10,b:20};
+  const x=d3.scaleTime().domain([s[0].t,s[s.length-1].t+1800000]).range([m.l,w-m.r]);
+  const y=d3.scaleLinear().domain([0,Math.max(100,d3.max(s,d=>d.f)*1.1)]).nice().range([h-m.b,m.t]);
+  const g=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
+  const long=(x.domain()[1]-x.domain()[0])>26*3600e3;
+  g.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(Math.max(3,Math.floor(w/95))).tickFormat(d=>{const p=ukParts(d); return long?(LANG==='cy'?CY_D[EN_D[p.wd]]:p.wd)+' '+p.hh+':'+p.mm:p.hh+':'+p.mm;}).tickSizeOuter(0));
+  g.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(w-m.l-m.r))).call(a=>a.select('.domain').remove()).call(a=>a.selectAll('line').attr('stroke-opacity',.5));
+  g.append('rect').attr('x',x(r.best.t)).attr('width',Math.max(2,x(r.best.end)-x(r.best.t))).attr('y',m.t).attr('height',h-m.b-m.t).attr('fill','#2fa84f').attr('fill-opacity',.22);
+  g.append('path').attr('class','fc').attr('d',d3.line().x(d=>x(d.t+900000)).y(d=>y(d.f)).curve(d3.curveMonotoneX)(s));
+  if(o.big) addHover(g,x,[{name:tr('forecast'),color:col('ink'),pts:s.map(d=>[d.t+900000,d.f]),y}],{m,w,h,unit:' gCO₂/kWh',fx:v=>fmtWhen(new Date(v).toISOString())});
+}
+function downloadIcs(b){
+  const f=ms=>new Date(ms).toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//UK power map//EN','BEGIN:VEVENT',`UID:${b.t}@uk-power-map`,`DTSTAMP:${f(Date.now())}`,`DTSTART:${f(b.t)}`,`DTEND:${f(b.end)}`,
+    `SUMMARY:${tr('pl_ics_t')}`,`DESCRIPTION:${tr('pl_avg',{g:Math.round(b.g)})}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='clean-power-window.ics'; document.body.appendChild(a); a.click(); a.remove();
 }
 function comparePanel(){
   const A=S.cmpA, B=S.cmpB, order=['ow','nw','nu','gas','bio','hy','so','ti'];
@@ -1184,6 +1602,7 @@ function carbonPanel(){
   const yv = CI_YTD.v, ylab = tr('ci_ytd',{y:CI_YTD.y});
   const cell=(v,lab)=>`<div><b>${v==null?'–':v}</b><small>${tr('ci_unit')}</small><span><i class="rdot" style="--c:${CI_IDX_COL[ciIndex(v)]}"></i>${lab}</span></div>`;
   let h=tabs()+`<h2>${tr('tab_ci')}</h2><div class="cibig">${cell(n.v,(n.stale?fmtWhen(new Date(n.t).toISOString()):tr('ci_now'))+' · '+tIdx(n.idx))}${cell(day,tr('ci_today'))}${cell(yv,ylab)}</div>`;
+  h+=whyNow();
   h+=`<p>${tr('ci_explain')}</p>`;
   const now=Date.now(), fut=LIVE.ci.series.filter(x=>x.t>=now-1800000&&x.f!=null);
   if(fut.length){ const b=fut.reduce((a,x)=>x.f<a.f?x:a); h+=`<p><b>${tr('ci_best',{t:fmtWhen(new Date(b.t).toISOString()),g:b.f})}</b></p>`; }
@@ -1195,15 +1614,16 @@ function carbonPanel(){
   h+=`<p class="fine">${tr('ci_year_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p>`;
   $p.innerHTML=h; wireTabs();
   drawShort(document.getElementById('ch1')); drawLong(document.getElementById('ch2'));
+  makeZoomable(document.getElementById('ch1'),'short'); makeZoomable(document.getElementById('ch2'),'long');
 }
-function drawShort(el){
+function drawShort(el,o={}){
   const s=LIVE.ci.series; if(!s.length) return;
-  const w=el.clientWidth||320, h=150, m={l:30,r:8,t:10,b:20};
+  const w=el.clientWidth||320, h=o.h||150, m={l:30,r:8,t:10,b:20};
   const x=d3.scaleTime().domain(d3.extent(s,d=>d.t+900000)).range([m.l,w-m.r]);
   const ymax=d3.max(s,d=>Math.max(d.a||0,d.f||0))||100;
   const y=d3.scaleLinear().domain([0,Math.max(100,ymax*1.1)]).nice().range([h-m.b,m.t]);
   const svgc=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
-  svgc.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(Math.max(3,Math.floor(w/80))).tickFormat(d=>{const p=ukParts(d); return p.hh+':'+p.mm;}).tickSizeOuter(0));
+  svgc.append('g').attr('class','ax').attr('transform',`translate(0,${h-m.b})`).call(d3.axisBottom(x).ticks(Math.max(3,Math.floor(w/95))).tickFormat(d=>{const p=ukParts(d); const long=(x.domain()[1]-x.domain()[0])>26*3600e3; return long?(LANG==='cy'?CY_D[EN_D[p.wd]]:p.wd)+' '+p.hh+':'+p.mm:p.hh+':'+p.mm;}).tickSizeOuter(0));
   svgc.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
   const A=s.filter(d=>d.a!=null), F=s.filter(d=>d.f!=null && (d.a==null || d.t>=Date.now()-1800000));
   const ln=k=>d3.line().x(d=>x(d.t+900000)).y(d=>y(d[k])).curve(d3.curveMonotoneX);
@@ -1211,9 +1631,10 @@ function drawShort(el){
   if(F.length) svgc.append('path').attr('class','fc').attr('d',ln('f')(F));
   if(A.length) svgc.append('path').attr('class','act').attr('d',ln('a')(A));
   const nx=x(Date.now()); if(nx>=m.l&&nx<=w-m.r){ svgc.append('line').attr('class','nowl').attr('x1',nx).attr('x2',nx).attr('y1',m.t).attr('y2',h-m.b); svgc.append('text').attr('class','nowt').attr('x',nx+3).attr('y',m.t+9).text(tr('now')); }
+  if(o.big) addHover(svgc,x,[{name:tr('actual'),color:col('ink'),pts:A.map(d=>[d.t+900000,d.a]),y},{name:tr('forecast'),color:col('muted'),pts:F.map(d=>[d.t+900000,d.f]),y}],{m,w,h,unit:' gCO₂/kWh',fx:v=>fmtWhen(new Date(v).toISOString())});
 }
-function drawLong(el){
-  const w=el.clientWidth||320, h=180, m={l:30,r:14,t:16,b:20};
+function drawLong(el,o={}){
+  const w=el.clientWidth||320, h=o.h||180, m={l:30,r:14,t:16,b:20};
   const x=d3.scaleLinear().domain([2009,2036]).range([m.l,w-m.r]);
   const y=d3.scaleLinear().domain([0,Math.max(560,d3.max(CI_MON,d=>d[2])+10)]).nice().range([h-m.b,m.t]);
   const svgc=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
@@ -1230,10 +1651,11 @@ function drawLong(el){
   lab(2012,'middle'); lab(2020,'middle'); lab(2024,'middle');
   svgc.append('text').attr('class','vlp').attr('x',x(2030.5)).attr('y',y(50)-8).attr('text-anchor','middle').text('≤50');
   svgc.append('text').attr('class','vlp').attr('x',x(2035.5)).attr('y',y(0)-7).attr('text-anchor','end').text('~0');
+  if(o.big) addHover(svgc,x,[{name:tr('monthly'),color:col('muted'),pts:CI_MON.map(d=>[d[0]+(d[1]-.5)/12,d[2]]),y},{name:tr('hist'),color:col('ink'),pts:CI_HIST.map(d=>[d[0]+.5,d[1]]),y,snap:.55},{name:tr('path'),color:'#2fa84f',pts:CI_PATH.slice(1).map(d=>[d[0]+.5,d[1]]),y,snap:.6}],{m,w,h,unit:' gCO₂/kWh',fx:v=>{ const yr=Math.floor(v), mo=Math.min(12,Math.max(1,Math.floor((v-yr)*12)+1)); return fmtDate(`${yr}-${String(mo).padStart(2,'0')}-01`).replace(/^1 /,'')+' '+yr; }});
 }
-function drawClean(el){
+function drawClean(el,o={}){
   const d=Object.entries(CI_CLEAN).map(([k,v])=>[+k,v]);
-  const w=el.clientWidth||320, h=130, m={l:30,r:8,t:14,b:20};
+  const w=el.clientWidth||320, h=o.h||130, m={l:30,r:8,t:14,b:20};
   const x=d3.scaleBand().domain(d.map(e=>e[0])).range([m.l,w-m.r]).padding(.25);
   const y=d3.scaleLinear().domain([0,d3.max(d,e=>e[1])*1.15]).nice().range([h-m.b,m.t]);
   const s=d3.select(el).append('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h);
@@ -1241,6 +1663,7 @@ function drawClean(el){
   s.append('g').attr('class','ax').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(-(w-m.l-m.r))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').attr('stroke-opacity',.5));
   s.selectAll('rect').data(d).join('rect').attr('x',e=>x(e[0])).attr('width',x.bandwidth()).attr('y',e=>y(e[1])).attr('height',e=>y(0)-y(e[1])).attr('fill',e=>e[0]===CI_YTD.y?'#8fcf9e':'#2fa84f').attr('rx',2);
   s.selectAll('text.v').data(d).join('text').attr('class','vl').attr('x',e=>x(e[0])+x.bandwidth()/2).attr('y',e=>y(e[1])-3).attr('text-anchor','middle').text(e=>e[1]);
+  if(o.big) addHover(s,v=>x(v)+x.bandwidth()/2,[{name:tr('st_h_h'),color:'#2fa84f',pts:d.map(e=>[e[0],e[1]]),y}],{m,w,h,unit:' h',band:x,fx:v=>String(v)});
 }
 async function loadYTD(){ return; // headline year figure now comes from NESO's historic dataset
   if(LIVE.mode!=='live'||LIVE.ci.ytd||loadYTD.busy) return; loadYTD.busy=true;
@@ -1319,8 +1742,8 @@ async function refreshLive(){
       const [b,f]=await Promise.all([getJSON(CI+'/intensity/'+iso+'/pt24h'),getJSON(CI+'/intensity/'+iso+'/fw48h')]);
       const m=new Map(); [...arr(b),...arr(f)].forEach(d=>{ const t=Date.parse(d.from); if(!isNaN(t)) m.set(t,{t,f:d.intensity&&d.intensity.forecast,a:d.intensity&&d.intensity.actual}); });
       const s=[...m.values()].sort((a,b)=>a.t-b.t); if(s.length<10) throw new Error('short'); LIVE.ci.series=s; LIVE.ci.live=true; },
-    ci_reg: async()=>{ const x=await getJSON(CI+'/regional'); const d=arr(x)[0]; const v={}; (d.regions||[]).forEach(r=>{ if(r.regionid<=14&&r.intensity) v[r.regionid]=r.intensity.forecast; }); if(!Object.keys(v).length) throw new Error('empty'); LIVE.reg={from:d.from,v}; },
-    ci_fac: async()=>{ const x=await getJSON(CI+'/intensity/factors'); const f=arr(x)[0]||{}; if(f['French Imports']!=null) IMPORT_CI['France']=f['French Imports']; if(f['Dutch Imports']!=null) IMPORT_CI['the Netherlands']=f['Dutch Imports']; if(f['Irish Imports']!=null){ IMPORT_CI['Ireland']=f['Irish Imports']; IMPORT_CI['Northern Ireland']=f['Irish Imports']; } },
+    ci_reg: async()=>{ const x=await getJSON(CI+'/regional'); const d=arr(x)[0]; const v={}; const mx={}; (d.regions||[]).forEach(r=>{ if(r.regionid<=14&&r.intensity){ v[r.regionid]=r.intensity.forecast; if(r.generationmix) mx[r.regionid]=mixObj(r.generationmix); } }); if(!Object.keys(v).length) throw new Error('empty'); const gbr=(d.regions||[]).find(r=>r.regionid===18); LIVE.reg={from:d.from,v,mix:mx,gb:gbr&&gbr.intensity?gbr.intensity.forecast:null}; },
+    ci_fac: async()=>{ const x=await getJSON(CI+'/intensity/factors'); const f=arr(x)[0]||{}; [['Biomass','biomass'],['Coal','coal'],['Gas (Combined Cycle)','gas'],['Other','other']].forEach(([a,b])=>{ if(f[a]!=null) FUELF[b]=f[a]; }); if(f['French Imports']!=null) IMPORT_CI['France']=f['French Imports']; if(f['Dutch Imports']!=null) IMPORT_CI['the Netherlands']=f['Dutch Imports']; if(f['Irish Imports']!=null){ IMPORT_CI['Ireland']=f['Irish Imports']; IMPORT_CI['Northern Ireland']=f['Irish Imports']; } },
     elx_mid: async()=>{ const iso=ms=>new Date(ms).toISOString().slice(0,19)+'Z';
       const x=await getJSON(`${ELX}/balancing/pricing/market-index?from=${iso(now-86400000)}&to=${iso(now)}&dataProviders=APXMIDP`,15000);
       const p=arr(x).map(r=>({t:Date.parse(r.startTime||r.timeFrom||r.settlementDate),p:+r.price,v:+(r.volume??1)})).filter(r=>!isNaN(r.t)&&!isNaN(r.p)&&r.v>0).sort((a,b)=>a.t-b.t);
@@ -1339,10 +1762,19 @@ async function refreshLive(){
       const x=await getJSON(`${ELX}/balancing/acceptances/all?settlementDate=${date}&settlementPeriod=${sp}`,15000);
       const g={}; arr(x).forEach(r=>{ const id=bmuId(r); if(id) (g[id]=g[id]||[]).push(r); });
       const cut={}; for(const id in g){ const pn=LIVE._pnLevels[id]; if(pn==null) continue; const acc=levelAt(g[id],now); if(acc!=null&&pn-acc>0) cut[id]=pn-acc; }
-      const bs=bySite(cut); const out={}; for(const k in bs){ const s=SITES.find(x=>x.id===k); if(s&&(s.t==='ow'||s.t==='nw')) out[k]=bs[k]; } LIVE.curt=out; }
+      const bs=bySite(cut); const out={}; for(const k in bs){ const s=SITES.find(x=>x.id===k); if(s&&(s.t==='ow'||s.t==='nw')) out[k]=bs[k]; } LIVE.curt=out; LIVE._cutIds=cut; },
+    elx_bod: async()=>{ if(!LIVE._cutIds||!Object.keys(LIVE._cutIds).length){ LIVE.curtPay={}; LIVE.curtBid={}; return 'skip'; }
+      // bid prices for the same half hour: a negative bid is what the grid operator pays per MWh to turn the unit down
+      const x=await getJSON(`${ELX}/balancing/bid-offer/all?settlementDate=${date}&settlementPeriod=${sp}`,15000);
+      const bid={}; arr(x).forEach(r=>{ const id=bmuId(r), p=+r.pairId; if(!id||!(p<0)||r.bid==null) return; if(!bid[id]||p>bid[id].p) bid[id]={p,b:+r.bid}; });
+      const pay={}, price={};
+      for(const s of SITES){ if(!s.bmu||!(LIVE.curt&&LIVE.curt[s.id]>5)) continue; let gbp=0, mwh=0;
+        for(const id in LIVE._cutIds){ if(!s.bmu.some(pr=>id.startsWith(pr))||!bid[id]) continue; const mw=LIVE._cutIds[id]; gbp+=mw*Math.max(0,-bid[id].b); mwh+=mw; }
+        if(mwh>0){ pay[s.id]=gbp; price[s.id]=gbp/mwh; } }
+      LIVE.curtPay=pay; LIVE.curtBid=price; }
   };
   // run in order so balancing can use PN levels
-  for(const [k,fn] of Object.entries(tasks)){ try{ await fn(); LIVE.feeds[k]=true; any=true; }catch(e){ LIVE.feeds[k]=false; } }
+  for(const [k,fn] of Object.entries(tasks)){ try{ const r=await fn(); if(r!=='skip'){ LIVE.feeds[k]=true; any=true; } }catch(e){ LIVE.feeds[k]=false; } }
   if(any){ LIVE.mode='live'; LIVE.updated=new Date().toISOString(); }
   statusPill(); if(!S.playing){ render(); panel(); }
   if(any && !refreshLive.timer) refreshLive.timer=setInterval(refreshLive,5*60*1000);
@@ -1366,12 +1798,15 @@ async function checkPostcode(q){
   }
 }
 function ciPill(){ const n=ciNow(), b=document.getElementById('cipill');
-  b.style.setProperty('--cic',CI_IDX_COL[n.idx]); b.querySelector('b').textContent=n.v; b.querySelector('span').textContent=tr('ci_unit')+' · '+tIdx(n.idx);
+  b.style.setProperty('--cic',CI_IDX_COL[n.idx]); b.querySelector('b').textContent=n.v; b.querySelector('.ciu').textContent=tr('ci_unit')+' · '+tIdx(n.idx);
   b.setAttribute('aria-label',tr('tab_ci')+': '+n.v+' '+tr('ci_unit')); }
 function statusPill(){ ciPill();
   const b=document.getElementById('status'); b.classList.toggle('live',LIVE.mode==='live');
   const t=LIVE.mode==='live' ? tr('live_pill',{t:fmtTime(LIVE.updated)}) : tr('snapshot_pill',{when:fmtWhen(LIVE.nat.from)});
   b.querySelector('span').textContent=t;
+  const c=document.getElementById('cipill'); c.classList.toggle('live',LIVE.mode==='live'); c.title=t;
+  c.querySelector('.cist').textContent=t;
+  c.setAttribute('aria-label',c.getAttribute('aria-label').split(' · ')[0]+' · '+t);
 }
 
 /* ---------------- controls ---------------- */
@@ -1382,7 +1817,7 @@ function buildChrome(){
   document.title=tr('title');
   const lb=document.getElementById('langbtn'); lb.lang=LANG==='cy'?'en':'cy';
   document.querySelector('#walesbtn .lab').textContent=tr('wales');
-  document.querySelector('#langbtn .lab').textContent=tr('other');
+  document.querySelector('#langbtn .lab').textContent=isPhone()?(LANG==='cy'?'EN':'CY'):tr('other'); document.getElementById('langbtn').setAttribute('aria-label',tr('other'));
   document.querySelector('#layersbtn .lab').textContent=tr('layers'); document.getElementById('layersbtn').setAttribute('aria-label',tr('layers'));
   document.querySelector('#tablebtn .lab').textContent=tr('table'); document.getElementById('tablebtn').setAttribute('aria-label',tr('table'));
   document.getElementById('search').placeholder=tr('s_ph'); document.getElementById('search').setAttribute('aria-label',tr('s_ph'));
@@ -1433,21 +1868,43 @@ document.getElementById('status').onclick=()=>{ S.tab='map'; select(null); setTi
 document.getElementById('zin').onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1.6);
 document.getElementById('zout').onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1/1.6);
 document.getElementById('zreset').onclick=()=>{S.view='overview';S.pc=null;select(null);svg.transition().duration(400).call(zoom.transform,d3.zoomIdentity);};
+document.addEventListener('gesturestart',e=>e.preventDefault(),{passive:false});
 /* ---------- bottom sheet (narrow screens) ---------- */
 const sheet=document.getElementById('sheet'), grab=document.getElementById('grab'), mapwrap=document.querySelector('.mapwrap'), stage=document.querySelector('.stage');
 let sheetState='half';
-const isSheet = () => matchMedia('(max-width: 899px)').matches;
-const sheetSizes = () => { const h=stage.clientHeight; return {peek:Math.min(150,h*.3), half:Math.round(h*.44), full:h-8}; };
+const isSheet = () => matchMedia('(max-width: 899px) and (orientation: portrait), (max-width: 699px)').matches;
+const sheetSizes = () => { const h=stage.clientHeight; return {peek:Math.min(isPhone()?132:150,h*.3), half:Math.round(h*(isPhone()?.42:.44)), full:h-8}; };
 const sheetPx = () => isSheet() ? sheet.getBoundingClientRect().height : 0;
 function visH(){ return isSheet() ? Math.max(200, H - sheetSizes()[sheetState]) : H; }
 function applySheet(px){ if(!isSheet()){ sheet.style.removeProperty('height'); mapwrap.style.setProperty('--sheet','0px'); stage.style.removeProperty('--sheet'); return; }
   stage.style.setProperty('--sheet',px+'px'); mapwrap.style.setProperty('--sheet',px+'px'); sheet.style.height=px+'px'; }
 function setSheet(s){ sheetState=s; applySheet(sheetSizes()[s]); labelGrab(); }
 function labelGrab(){ const g=document.getElementById('grab'); if(!g) return; g.setAttribute('aria-label',tr('sh_lab')+', '+tr('sh_'+(typeof sheetState==='string'?sheetState:'half'))); }
+const isPhone = () => matchMedia('(max-width: 599px)').matches;
 function placeSearch(){ const s=document.querySelector('.search'), tools=document.querySelector('.tools'), sh=document.getElementById('sheet'), pnl=document.getElementById('panel');
   if(!s||!sh) return;
-  if(isSheet()){ if(!s.classList.contains('insheet')){ s.classList.add('insheet'); sh.insertBefore(s,pnl); } }
-  else if(s.classList.contains('insheet')){ s.classList.remove('insheet'); tools.insertBefore(s,tools.firstChild); } }
+  const yb=document.querySelector('.yearbar'), mw=document.querySelector('.mapwrap'), ctl=document.querySelector('.ctl'), coach=document.getElementById('coach');
+  const wb=document.getElementById('walesbtn'), lb=document.getElementById('langbtn'), lay=document.getElementById('layersbtn'), tb=document.getElementById('tablebtn');
+  let srow=document.getElementById('srow');
+  if(isSheet()){
+    if(!srow){ srow=document.createElement('div'); srow.id='srow'; srow.className='srow'; }
+    if(srow.parentNode!==sh) sh.insertBefore(srow,pnl);
+    s.classList.add('insheet'); if(s.parentNode!==srow) srow.appendChild(s);
+  } else {
+    s.classList.remove('insheet'); if(s.parentNode!==tools) tools.insertBefore(s,tools.firstChild);
+    if(srow&&srow.parentNode) srow.remove();
+  }
+  if(isPhone()){
+    if(wb.parentNode!==srow) srow.appendChild(wb);
+    [lay,tb,lb].forEach(b=>{ if(b.parentNode!==ctl) ctl.insertBefore(b,document.getElementById('zreset')); });
+    yb.classList.add('insheet'); if(yb.parentNode!==sh) sh.insertBefore(yb,pnl);
+    coach.classList.add('insheet'); if(coach.parentNode!==sh) sh.insertBefore(coach,pnl);
+  } else {
+    [lay,tb,wb,lb].forEach(b=>{ if(b.parentNode!==tools) tools.appendChild(b); });
+    yb.classList.remove('insheet'); if(yb.parentNode!==mw) mw.appendChild(yb);
+    coach.classList.remove('insheet'); if(coach.parentNode!==mw) mw.appendChild(coach);
+  }
+}
 (function(){ let y0=0,h0=0,t0=0,drag=false;
   grab.addEventListener('pointerdown',e=>{ if(!isSheet()) return; drag=true; y0=e.clientY; h0=sheet.getBoundingClientRect().height; t0=performance.now(); sheet.classList.add('dragging'); grab.setPointerCapture(e.pointerId); });
   grab.addEventListener('pointermove',e=>{ if(!drag) return; const s=sheetSizes(); applySheet(Math.max(s.peek*.7,Math.min(s.full,h0-(e.clientY-y0)))); });
@@ -1468,7 +1925,29 @@ function openPop(id){ document.querySelectorAll('.pop.open').forEach(p=>p.classL
 function closePops(){ document.querySelectorAll('.pop.open').forEach(p=>p.classList.remove('open')); scrim.classList.remove('open'); document.getElementById('layersbtn').setAttribute('aria-expanded','false'); }
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closePops);
 scrim.onclick=closePops;
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePops(); closeResults(); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePops(); closeResults(); hideChooser(); } });
+function markersNear(x,y){
+  const out=[];
+  gMarks.selectAll('g.mk').each(d=>{ const p=xy(d.t==='ic'?pc(d.g).c:d.c); if(Math.hypot(p[0]-x,p[1]-y)<=Math.max(16,mR(d)+8)) out.push(d); });
+  gReg.selectAll('g.rg').each(d=>{ const p=xy(d.c); if(Math.hypot(p[0]-x,p[1]-y)<=Math.max(14,discR()+6)) out.push(byId[d.key]); });
+  return out;
+}
+function pickAt(e,d){
+  e.stopPropagation(); const [x,y]=d3.pointer(e,node);
+  const c=markersNear(x,y); if(!c.includes(d)) c.unshift(d);
+  if(c.length<=1){ hideChooser(); select(d.key); return; }
+  const ch=document.getElementById('chooser');
+  ch.innerHTML=`<div class="ch">${tr('choose')}</div>`+c.slice(0,6).map(o=>{ const colr=o.region?CI_IDX_COL[ciIndex(regVal(o.rid))]:col(o.t);
+      const ic=o.region?regVal(o.rid):icon(o.t); const sub=o.region?tr('s_region'):tr('t_'+o.t)+(o.mw?' · '+fmtMW(o.mw):'');
+      return `<button role="menuitem" data-k="${o.key}"><span class="ri" style="--c:${colr}">${ic}</span>${nm(o)}<small>${sub}</small></button>`; }).join('');
+  ch.hidden=false;
+  const w=ch.offsetWidth, h=ch.offsetHeight;
+  ch.style.left=Math.max(8,Math.min(W-w-8,x-w/2))+'px'; ch.style.top=Math.max(8,Math.min(visH()-h-8,y+14))+'px';
+  ch.querySelectorAll('button').forEach(b=>b.onclick=ev=>{ ev.stopPropagation(); hideChooser(); select(b.dataset.k); });
+  ch.querySelector('button').focus({preventScroll:true});
+}
+function hideChooser(){ const ch=document.getElementById('chooser'); if(ch) ch.hidden=true; }
+svg.on('pointerdown.chooser',()=>hideChooser());
 document.addEventListener('pointerdown',e=>{ const l=document.getElementById('layers'); if(l.classList.contains('open')&&!l.contains(e.target)&&!e.target.closest('#layersbtn')&&!isSheet()) closePops(); });
 document.getElementById('layersbtn').onclick=()=>{ document.getElementById('layers').classList.contains('open')?closePops():openPop('layers'); };
 (function(){ const lg=document.getElementById('lgrab'), lp=document.getElementById('layers'); let y0=null;
@@ -1478,10 +1957,10 @@ document.getElementById('layersbtn').onclick=()=>{ document.getElementById('laye
   [lg,lp.querySelector('.pophead')].forEach(el=>{ el.addEventListener('pointerdown',e=>{ if(e.target.closest('button')) return; down(e); el.setPointerCapture(e.pointerId); }); el.addEventListener('pointermove',move); el.addEventListener('pointerup',up); el.addEventListener('pointercancel',up); });
 })();
 document.getElementById('tipsagain').onclick=()=>{ closePops(); showIntro(); };
-function showIntro(){ document.getElementById('intro-t').textContent=tr('in_t');
-  document.getElementById('intro-l').innerHTML=['in_1','in_2','in_3'].map(k=>`<li>${tr(k)}</li>`).join('');
-  const ok=document.getElementById('intro-ok'); ok.textContent=tr('in_ok'); ok.onclick=()=>{ try{localStorage.setItem('pm_intro','1');}catch(e){} closePops(); };
-  openPop('intro'); }
+function showCoach(){ const c=document.getElementById('coach'); document.getElementById('coach-t').textContent=tr('coach');
+  const ok=document.getElementById('coach-ok'); ok.textContent=tr('in_ok'); ok.onclick=hideCoach; c.hidden=false; }
+function hideCoach(){ document.getElementById('coach').hidden=true; try{localStorage.setItem('pm_intro','1');}catch(e){} }
+function showIntro(){ showCoach(); }
 
 /* ---------- table view ---------- */
 const TS={key:'mw',dir:-1};
@@ -1512,11 +1991,52 @@ function drawTable(cols){
 ['tfilter','ttype','tosm'].forEach(id=>document.getElementById(id).addEventListener(id==='tfilter'?'input':'change',()=>openTable()));
 document.getElementById('tablebtn').onclick=openTable;
 
+/* ---------- enlarge charts ---------- */
+const CHARTS = {
+  short:{t:()=>LIVE.ci.live?tr('ci_short_live'):tr('ci_short'), draw:(el,o)=>drawShort(el,o)},
+  long:{t:()=>tr('ci_long'), draw:(el,o)=>drawLong(el,o)},
+  clean:{t:()=>tr('st_h_h'), draw:(el,o)=>drawClean(el,o)},
+  price:{t:()=>tr('st_p_h'), draw:(el,o)=>drawPrice(el,o)},
+  plan:{t:()=>tr('pl_h'), draw:(el,o)=>{ if(S_PLAN.res) drawPlan(el,S_PLAN.res,o); }},
+  regfc:{t:()=>tr('reg_fc')+(S.sel&&byId[S.sel]&&byId[S.sel].region?' · '+nm(byId[S.sel]):''), draw:(el,o)=>{ const d=byId[S.sel]; const s=d&&REGFC[d.rid]&&REGFC[d.rid].s; if(s) drawRegionFc(el,s,o); }}
+};
+function makeZoomable(el,kind){
+  if(!el) return; el.classList.add('zoomable'); el.setAttribute('role','button'); el.tabIndex=0; el.setAttribute('aria-label',tr('enlarge'));
+  const b=document.createElement('button'); b.className='cexp'; b.setAttribute('aria-label',tr('enlarge'));
+  b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>';
+  el.appendChild(b);
+  const go=e=>{ e.stopPropagation(); openChart(kind); };
+  el.onclick=go; el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(e); } };
+}
+function openChart(kind){
+  const c=CHARTS[kind]; if(!c) return;
+  document.getElementById('chartv-t').textContent=c.t();
+  const el=document.getElementById('chartbig'); el.innerHTML='';
+  openPop('chartv');
+  const h=Math.round(Math.min(520,Math.max(260,window.innerHeight*.55)));
+  requestAnimationFrame(()=>{ c.draw(el,{h,big:true}); });
+  document.getElementById('chartv-hint').textContent=tr('chart_hint');
+  const act=document.getElementById('chartv-actions'); act.innerHTML='';
+  if(LIVE.mode==='live'){ const b=document.createElement('button'); b.className='pbtn ghost'; b.textContent=tr('save_img'); b.onclick=()=>saveChart(el,kind); act.appendChild(b); }
+}
+function saveChart(el,kind){
+  const sv=el.querySelector('svg'); if(!sv) return;
+  const clone=sv.cloneNode(true), src=sv.querySelectorAll('*'), dst=clone.querySelectorAll('*');
+  const props=['fill','stroke','stroke-width','stroke-dasharray','opacity','fill-opacity','stroke-opacity','font-family','font-size','font-weight','display'];
+  src.forEach((n,i)=>{ const cs=getComputedStyle(n); dst[i].setAttribute('style',props.map(p=>`${p}:${cs.getPropertyValue(p)}`).join(';')); });
+  clone.querySelectorAll('.hov').forEach(n=>n.remove());
+  const vb=sv.viewBox.baseVal, W2=vb.width, H2=vb.height+40, scale=2;
+  const wrap=`<svg xmlns="http://www.w3.org/2000/svg" width="${W2}" height="${H2}" viewBox="0 -30 ${W2} ${H2}"><rect x="0" y="-30" width="${W2}" height="${H2}" fill="${col('panel')}"/><text x="4" y="-10" style="font:700 15px Barlow,sans-serif;fill:${col('ink')}">${document.getElementById('chartv-t').textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>${clone.innerHTML}</svg>`;
+  const img=new Image(); img.onload=()=>{ const cv=document.createElement('canvas'); cv.width=W2*scale; cv.height=H2*scale; const cx=cv.getContext('2d'); cx.scale(scale,scale); cx.drawImage(img,0,0);
+    cv.toBlob(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=`uk-power-${kind}.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); }); };
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(wrap);
+}
+
 /* ---------- going to anything (search, table) ---------- */
 function goTo(d){
   if(!d) return;
   if(d.place){ closeResults(); S.view='overview'; select(null); fitTo(d); return; }
-  if(d.region){ S.reg=true; syncChip('reg'); S.view='overview'; S.tab='stories'; select(null); fitPts([d.c],3); return; }
+  if(d.region){ S.reg=true; syncChip('reg'); S.view='overview'; select(d.key); return; }
   if(d.sub){ S.infra=true; syncChip('infra'); }
   if(d.osm){ S.osm=true; syncChip('osm'); if(S.year!==2026){ S.year=2026; yr.value=2026; updYear(); } S.types.add(d.t); syncType(d.t); }
   if(!d.osm&&!d.sub){ if(d.t!=='grid'&&!S.types.has(d.t)){ S.types.add(d.t); syncType(d.t); } if(future(d)&&!S.future){ S.future=true; syncChip('future'); }
@@ -1539,7 +2059,7 @@ function runSearch(){
   if(PC_RE.test(sIn.value.trim())) out.push({kind:'pc',label:sIn.value.trim().toUpperCase(),sub:tr('s_pc_go'),sc:9});
   ALL.forEach(d=>{ const s=Math.max(score(nm(d)),score(d.n)); if(s>0) out.push({kind:'site',d,label:nm(d),sub:tr('t_'+d.t)+(d.mw?' · '+fmtMW(d.mw):''),sc:s+2}); });
   PLACES.forEach(p=>{ const s=score(pn(p.k)); if(s>0) out.push({kind:'place',d:p,label:pn(p.k),sub:tr('s_place'),sc:s+1.5}); });
-  REG.forEach(r=>{ const s=Math.max(score(r[1]),score(r[2])); if(s>0) out.push({kind:'region',d:{region:1,c:[r[3],r[4]]},label:LANG==='cy'?r[2]:r[1],sub:tr('s_region'),sc:s+1}); });
+  REG.forEach(r=>{ const s=Math.max(score(r[1]),score(r[2])); if(s>0) out.push({kind:'region',d:byId['reg'+r[0]],label:LANG==='cy'?r[2]:r[1],sub:tr('s_region'),sc:s+1}); });
   SUBOBJ.forEach(o=>{ if(!o.nen) return; const s=score(o.nen); if(s>0) out.push({kind:'sub',d:o,label:o.nen,sub:tr('sub_t')+' · '+o.kv+' kV',sc:s}); });
   OTHERS.forEach(o=>{ if(!o.nen&&!o.ncy) return; const s=Math.max(score(o.nen),score(o.ncy)); if(s>0) out.push({kind:'osm',d:o,label:nm(o),sub:tr('t_'+o.t)+(o.mw?' · '+fmtMW(o.mw):''),sc:s-.5}); });
   out.sort((a,b)=>b.sc-a.sc||a.label.localeCompare(b.label));
@@ -1565,6 +2085,7 @@ sIn.addEventListener('keydown',e=>{
 /* ---------- hover previews (mouse and trackpad only) ---------- */
 const tip=document.getElementById('tip'); const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;
 function tipHTML(d){
+  if(d.region){ const v=regVal(d.rid); return `<b>${nm(d)}</b><span>${tr('s_region')}</span><em>${v} gCO₂/kWh · ${tIdx(ciIndex(v))}</em>`; }
   let s=`<b>${nm(d)}</b><span>${d.sub?tr('sub_t')+' · '+d.kv+' kV':tr('t_'+d.t)+(d.mw?' · '+fmtMW(d.mw):'')}${!d.osm&&!d.sub&&!active(d)&&!(d.off&&S.year>=d.off)?' · '+(d.st==='con'?tr('con'):tr('dev'))+' '+d.on:''}</span>`;
   if(liveNow()&&FUEL[d.t]&&(d.osm?d.mw:active(d))&&!d.ps){ const r=d.osm?null:realMW(d), mw=r!=null?r:(d.osm?d.mw*fleet(d.t):liveMW(d)); s+=`<em>${r!=null?tr('tip_real',{v:fmtLive(mw)}):tr('tip_now',{v:fmtLive(mw)})}</em>`; }
   return s;
@@ -1575,6 +2096,7 @@ function hideTip(){ tip.style.display='none'; }
 if(canHover){
   gMarks.on('mouseover',e=>{ const g=e.target.closest('.mk'); if(!g) return; const d=d3.select(g).datum(); const r=node.getBoundingClientRect(); showTip(d,e.clientX-r.left,e.clientY-r.top); })
         .on('mouseout',e=>{ if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.mk')) hideTip(); });
+  gReg.on('mouseover',e=>{ const g=e.target.closest('.rg'); if(!g) return; const d=byId[d3.select(g).datum().key]; const [x,y]=d3.pointer(e,node); showTip(d,x,y); }).on('mouseout',hideTip);
   gLinks.on('mouseover',e=>{ const g=e.target.closest('.lk'); if(!g) return; const d=d3.select(g).datum(); const [x,y]=d3.pointer(e,node); showTip(d,x,y); }).on('mouseout',hideTip);
   let raf=0; svg.on('mousemove.tip',e=>{ if(e.target!==node) return; cancelAnimationFrame(raf); raf=requestAnimationFrame(()=>{ const [x,y]=d3.pointer(e,node); const h=dotQT&&dotQT.find(x,y,9);
     if(h){ showTip(h[2],x,y); node.style.cursor='pointer'; } else { hideTip(); node.style.cursor=''; } }); });
@@ -1584,7 +2106,9 @@ if(canHover){
 new ResizeObserver(()=>{ placeSearch(); if(isSheet()) applySheet(sheetSizes()[sheetState]); else applySheet(0); if(node.clientWidth!==W||node.clientHeight!==H) setup(); }).observe(stage);
 if(isSheet()) setSheet('half');
 buildChrome(); setup(); panel();
-try{ if(!localStorage.getItem('pm_intro')) setTimeout(showIntro,400); }catch(e){ setTimeout(showIntro,400); }
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>position());
+try{ if(!localStorage.getItem('pm_intro')) setTimeout(showCoach,500); }catch(e){ setTimeout(showCoach,500); }
+yr.addEventListener('input',()=>{ if(!document.getElementById('coach').hidden) hideCoach(); },{once:true});
 refreshLive();
 </script>
 </body>
