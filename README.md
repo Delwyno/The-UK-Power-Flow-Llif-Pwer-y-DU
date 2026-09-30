@@ -108,17 +108,6 @@ tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
 
-## Deploying on GitHub Pages
-
-1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
-2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
-3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
-4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
-5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
-6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
-
-The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
-
 ## Keeping the data fresh automatically
 
 The GitHub Action runs on its own:
