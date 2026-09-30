@@ -1,0 +1,6 @@
+record,value,unit,when
+low,19,gCO2/kWh,2024-04-15T13:30Z
+day,41,"gCO2/kWh, daily average",2024-03-23
+wind,73.7,% of generation,2025-10-26T23:30Z
+solar,47.0,% of generation,2026-05-24T11:30Z
+run50,38.0,hours at or below 50 g,2024-04-05T07:00Z

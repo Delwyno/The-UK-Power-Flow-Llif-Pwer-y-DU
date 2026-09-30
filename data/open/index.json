@@ -1,0 +1,164 @@
+{
+ "title": "UK power, source to socket: open data",
+ "site": "https://delwyno.github.io/UK-Energy-Generation-Map/",
+ "updated": "2026-09-30T19:35Z",
+ "licence": "CC BY 4.0 for this compilation. The original sources' terms also apply: NESO Open Data Licence; Elexon BMRS (Contains BMRS data © Elexon Limited copyright and database right); OpenStreetMap (ODbL).",
+ "cite": "UK power, source to socket. https://delwyno.github.io/UK-Energy-Generation-Map/",
+ "datasets": [
+  {
+   "file": "curtailment-daily.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/curtailment-daily.csv",
+   "title": "Wind turned down, daily",
+   "description": "Energy the tracked wind farms were paid to turn down each day (UK days), the payments, and the CO2 if the lost power were replaced by gas at 394 g/kWh.",
+   "rows": 7,
+   "columns": [
+    "date",
+    "turned_down_mwh",
+    "payments_gbp",
+    "co2_if_replaced_by_gas_tonnes"
+   ],
+   "source": "Contains BMRS data © Elexon Limited copyright and database right"
+  },
+  {
+   "file": "curtailment-by-windfarm.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/curtailment-by-windfarm.csv",
+   "title": "Wind turned down, by wind farm and day",
+   "description": "Each tracked wind farm's daily turn-down, payments and switch-off price, with its support scheme (ro = Renewables Obligation, ic = 2014 investment contract, cfd = auction Contract for Difference, part = CfD on part of the capacity).",
+   "rows": 46,
+   "columns": [
+    "date",
+    "wind_farm",
+    "site_id",
+    "scheme",
+    "turned_down_mwh",
+    "payments_gbp",
+    "gbp_per_mwh"
+   ],
+   "source": "Contains BMRS data © Elexon Limited copyright and database right"
+  },
+  {
+   "file": "station-output-hourly.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/station-output-hourly.csv",
+   "title": "Station output, hourly (last 14 days)",
+   "description": "Hourly average of each mapped station's physical notification (the output it planned) and the part the grid operator paid it to turn down, in MW, 5 MW resolution.",
+   "rows": 6648,
+   "columns": [
+    "hour_start_utc",
+    "station",
+    "site_id",
+    "notified_mw",
+    "turned_down_mw"
+   ],
+   "source": "Contains BMRS data © Elexon Limited copyright and database right"
+  },
+  {
+   "file": "carbon-daily.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/carbon-daily.csv",
+   "title": "Carbon intensity, daily",
+   "description": "Daily average and lowest carbon intensity (gCO2/kWh, measured where available), hours at or below 50 g, the highest wind and solar shares, and Wales's average wind share.",
+   "rows": 60,
+   "columns": [
+    "date",
+    "average_gco2_kwh",
+    "lowest_gco2_kwh",
+    "lowest_at_utc",
+    "hours_at_or_below_50g",
+    "longest_spell_at_or_below_50g_hours",
+    "max_wind_share_pct",
+    "max_solar_share_pct",
+    "wales_avg_wind_share_pct",
+    "wales_hours_wind_above_80pct"
+   ],
+   "source": "NESO Open Data Licence (Carbon Intensity API)"
+  },
+  {
+   "file": "weekly-digest.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/weekly-digest.csv",
+   "title": "Weekly summary",
+   "description": "One row per Monday-to-Sunday week (UK time): average and extreme carbon intensity, hours at or below 50 g and average generation shares.",
+   "rows": 8,
+   "columns": [
+    "week_start",
+    "average_gco2_kwh",
+    "lowest_gco2_kwh",
+    "highest_gco2_kwh",
+    "hours_at_or_below_50g",
+    "wind_pct",
+    "solar_pct",
+    "gas_pct",
+    "nuclear_pct",
+    "imports_pct",
+    "wales_average_gco2_kwh"
+   ],
+   "source": "NESO Open Data Licence (Carbon Intensity API)"
+  },
+  {
+   "file": "forecast-accuracy.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/forecast-accuracy.csv",
+   "title": "Forecast accuracy",
+   "description": "How NESO's 24-hour national carbon intensity forecast, saved each morning, compared with the measured figures: mean absolute error, bias, share within 20 g, and how far the forecast's cleanest 3-hour window was from the true cleanest.",
+   "rows": 0,
+   "columns": [
+    "date",
+    "mean_abs_error_g",
+    "bias_g",
+    "within_20g_pct",
+    "cleanest_3h_window_gap_g",
+    "half_hours"
+   ],
+   "source": "NESO Open Data Licence (Carbon Intensity API)"
+  },
+  {
+   "file": "records.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/records.csv",
+   "title": "Britain's electricity records",
+   "description": "All-time records from NESO's historic generation mix (generation-based carbon intensity), since 2009.",
+   "rows": 5,
+   "columns": [
+    "record",
+    "value",
+    "unit",
+    "when"
+   ],
+   "source": "NESO Open Data Licence (historic generation mix)"
+  },
+  {
+   "file": "connection-queue-by-site.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/connection-queue-by-site.csv",
+   "title": "Connection queue, by connection site",
+   "description": "Capacity with a contract to connect at each transmission connection site (NESO TEC register), repeated rows counted once, with location where the map could place it.",
+   "rows": 1035,
+   "columns": [
+    "connection_site",
+    "latitude",
+    "longitude",
+    "network_owner",
+    "queued_mw",
+    "connected_mw",
+    "projects",
+    "earliest_year",
+    "typical_year",
+    "in_wales",
+    "mw_past_contracted_date",
+    "mw_by_technology"
+   ],
+   "source": "NESO Open Data Licence (TEC register); locations © OpenStreetMap contributors, ODbL"
+  },
+  {
+   "file": "official-constraint-costs.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/official-constraint-costs.csv",
+   "title": "Official constraint costs, with the map's tracked wind payments",
+   "description": "NESO's daily constraint costs, alongside the payments to the wind farms this map tracks on the same day. They are not meant to match: NESO's thermal cost includes turning other generators up.",
+   "rows": 400,
+   "columns": [
+    "date",
+    "neso_thermal_cost_gbp",
+    "neso_thermal_volume_mwh",
+    "neso_all_constraints_cost_gbp",
+    "tracked_wind_payments_gbp",
+    "tracked_wind_turned_down_mwh"
+   ],
+   "source": "NESO Open Data Licence (constraint breakdown); Contains BMRS data © Elexon Limited copyright and database right"
+  }
+ ]
+}

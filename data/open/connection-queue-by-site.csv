@@ -1,0 +1,1036 @@
+connection_site,latitude,longitude,network_owner,queued_mw,connected_mw,projects,earliest_year,typical_year,in_wales,mw_past_contracted_date,mw_by_technology
+Alverdiscott 400kV Substation,51.0059,-4.1369,NGET,12316,0,15,2028,2036,0,0,ow:11216;bat:1100
+Creyke Beck 400kV Substation,53.8008,-0.4158,NGET,7578,0,7,2028,2033,0,0,gas:3600;ow:2600;bat:1378
+Grimsby West 400kV Substation,53.5656,-0.1517,NGET,6555,0,7,2033,2034,0,0,gas:4506;bat:2049
+Trent Valley South Connection Node D 400kV Substation,,,NGET,6420,0,4,2034,2034,0,0,gas:4800;bat:1620
+Longside 400kV Substation,,,SHET,5500,0,6,2031,2033,0,0,ow:4900;bat:600
+East Claydon 400kV Substation,51.9263,-0.9076,NGET,5150,0,7,2026,2034,0,0,bat:3100;dem:2050
+Cheshire Connection Node A 400kV Substation,,,NGET,5130,0,4,2037,2037,0,0,gas:3600;bat:1530
+South Anglia Connection Node C 400kV Substation,,,NGET,4874,0,6,2032,2034,0,0,bat:3874;dem:1000
+Trent Valley South Connection Node B 400kV Substation,,,NGET,4870,0,9,2033,2034,0,0,bat:4870
+Trent Valley South Connection Node C 400kV Substation,,,NGET,4589,0,10,2034,2034,0,0,bat:4589
+Norwich Main 400kV Substation,52.5742,1.2727,NGET,4435,0,7,2025,2030,0,57,bat:3057;ow:1350;so:28
+Navenby 400kV Substation,,,NGET,4370,0,9,2029,2033,0,0,bat:3870;dem:500
+Birkhill Wood 400kV Substation,,,NGET,4350,0,5,2030,2031,0,0,ow:4350
+Drax 400kV Substation,53.736,-0.996,NGET,4306,3906,2,2029,2032,0,0,bio:3906;so:400
+Sussex and Romney Connection Node A 400kV Substation,,,NGET,4042,0,11,2030,2037,0,0,bat:4042
+Necton 400kV Substation,52.6609,0.7939,NGET,3868,400,6,2025,2031,0,1320,ow:2640;dem:850;bat:378
+Hawthorn Pit 400kV Substation,54.8053,-1.4027,NGET,3831,0,5,2031,2032,0,0,ow:2500;dem:1025;bat:306
+Teeside Connection Node B,,,NGET,3600,0,1,2035,2035,0,0,gas:3600
+High Marnham 400kV Substation,53.2283,-0.795,NGET,3596,0,9,2029,2033,0,0,bat:3496;so:100
+East Kent connection node A 400kV Substation,,,NGET,3520,0,7,2033,2037,0,0,bat:3520
+Branxton 400kV Substation,55.9488,-2.4168,SPT,3510,0,5,2028,2029,0,0,ow:2760;bat:750
+Greens 400kV Substation,,,SHET,3500,0,4,2031,2032,0,0,ow:3500
+Bodelwyddan 400kV Substation,53.25,-3.4743,NGET,3468,0,5,2029,2030,1,0,ow:2600;bat:868
+Chickerell 400kV Substation,50.6237,-2.4881,NGET,3450,47,6,2028,2036,0,0,bat:3450
+West Anglia Connection Node F 400kV Substation,,,NGET,3429,0,6,2034,2034,0,0,bat:1729;dem:1700
+Hurlie 400kV substation,,,SHET,3408,0,4,2032,2034,0,0,ow:2808;dem:600
+Feckenham 400kV Substation,52.2509,-1.9726,NGET,3375,0,8,2028,2032,0,0,bat:1950;dem:1425
+Shurton 400kV Substation,51.2031,-3.138,NGET,3340,0,2,2029,2029,0,0,nu:3340
+Sizewell 400kV Substation,52.213,1.625,NGET,3340,0,2,2035,2035,0,0,nu:3340
+Banniskirk 400kV Substation,,,SHET,3258,0,3,2029,2030,0,0,ow:3258
+Blyth 400kV Substation,55.1412,-1.5314,NGET,3200,0,3,2029,2031,0,0,ow:2800;bat:400
+Daines 400kV Substation,53.4264,-2.38,NGET,3130,0,4,2028,2033,0,0,bat:2650;dem:480
+Peterhead 400kV Substation,57.476,-1.787,SHET,3110,0,4,2033,2033,0,0,dem:1350;ow:960;bat:800
+Biggleswade 400kV Substation,,,NGET,3056,0,7,2029,2034,0,0,dem:2000;bat:1056
+Eggborough 400kV Substation,53.7136,-1.1297,NGET,3000,0,3,2026,2027,0,0,gas:2450;bat:550
+North Anglia Connection Node B 400kV Substation,,,NGET,3000,0,5,2034,2034,0,0,bat:3000
+Cilfynydd 400kV Substation,51.6355,-3.3001,NGET,2998,0,10,2027,2031,1,0,bat:1690;dem:1025;so:175;nw:108
+Drakelow 400kV Substation,52.7727,-1.651,NGET,2994,0,8,2020,2029,0,380,bat:1589;dem:1025;gas:380
+Nursling 400kV Substation,50.9419,-1.4869,NGET,2980,50,3,2037,2037,0,0,gas:1500;bat:1480
+Walpole 400kV Substation,52.7269,0.1994,NGET,2917,850,3,2025,2031,0,57,gas:2000;bat:917
+Near Branxton 400kV Substation,,,SPT,2900,0,2,2032,2032,0,0,ow:2900
+Kingsnorth 400kV Substation,51.4189,0.5982,NGET,2850,0,4,2023,2030,0,50,gas:1800;bat:550;dem:500
+Northern Shetland 400kV Substation,,,SHET,2800,0,3,2033,2033,0,0,ow:2800
+Staffordshire Connection Node A 400kV Substation,,,NGET,2760,0,3,2033,2037,0,0,dem:1000;so:960;bat:800
+Weston Marsh 400kV Substation,51.3453,-2.956,NGET,2730,0,3,2030,2033,0,0,ow:1500;bat:1230
+Thorpe Marsh 400kV Substation,53.5757,-1.0899,NGET,2720,0,5,2027,2030,0,0,bat:1694;dem:1025
+Penwortham 400kV Substation,53.7477,-2.7591,NGET,2694,20,5,2028,2029,0,0,ow:1980;dem:600;bat:114
+North Anglia Connection Node A 400kV,,,NGET,2510,0,6,2032,2034,0,0,bat:2510
+Trent Valley South Connection Node A 400kV,,,NGET,2500,0,3,2034,2034,0,0,bat:2500
+Harker 400kV Substation,,,NGET,2457,0,7,2028,2037,0,0,bat:2457
+North Anglia Connection Node C 400kV Substation,,,NGET,2450,0,3,2034,2034,0,0,bat:1650;dem:800
+Leeds North Connection Node C 400kV Substation,53.814,-1.5422,NGET,2430,0,5,2033,2035,0,0,bat:2430
+Overton 275kV,51.2502,-1.2728,NGET,2425,0,2,2032,2033,0,0,bat:1400;dem:1025
+Teeside Connection Node 2 C 132/400kV Substation,,,NGET,2400,0,1,2035,2035,0,0,gas:2400
+Solent Connection Node C 400kV,,,NGET,2400,0,1,2038,2038,0,0,bat:2400
+North Anglia Connection Node E 400kV Substation,,,NGET,2390,0,7,2032,2034,0,0,bat:1870;dem:520
+West Anglia Connection Node I 400kV substation,,,NGET,2340,0,3,2034,2034,0,0,bat:2340
+Derbyshire Connection Node A 400kV Substation,,,NGET,2332,0,3,2033,2037,0,0,dem:1332;bat:1000
+Coddington 400kV Substation,,,NGET,2240,0,4,2033,2034,0,0,bat:2240
+Carrington 400KV Substation,53.433,-2.406,NGET,2130,0,3,2026,2027,0,0,bat:2130
+Willington 400kV Substation,52.8555,-1.5505,NGET,2125,0,4,2028,2028,0,0,bat:1100;dem:1025
+Cottam 400kV Substation,53.3008,-0.7816,NGET,2100,445,5,2028,2029,0,0,bat:2100
+Enderby 400kV Substation,52.598,-1.217,NGET,2082,57,3,2027,2028,0,0,bat:2025;so:57
+West Anglia Connection Node C 400kV Substation,,,NGET,2050,0,3,2034,2034,0,0,bat:2050
+Derbyshire Connection Node G 400kV,,,NGET,2039,0,2,2037,2037,0,0,bat:2039
+Swansea North 400kV Substation,,,NGET,2021,21,9,2024,2028,0,12,bat:1621;dem:400
+West Anglia Connection Node H 400kVSubstation,,,NGET,2000,0,2,2034,2034,0,0,bat:2000
+Machair 275/66kV Offshore Substation,,,SPT,2000,0,1,2033,2033,0,0,ow:2000
+Dunstable 400kV Substation,,,NGET,1930,0,3,2031,2032,0,0,bat:1090;so:840
+Melksham 400kV Substation,51.3939,-2.1507,NGET,1922,0,6,2026,2033,0,107,bat:1922
+West Anglia Connection Node G 400kV Substation,,,NGET,1920,0,3,2034,2034,0,0,bat:1920
+Kintore GSP,57.2189,-2.3844,SHET,1840,0,2,2029,2033,0,0,ic:1800;bio:40
+South Wales West Connection Node A 400kV Substation,,,NGET,1825,0,6,2037,2037,0,0,bat:1325;dem:500
+Basingstoke East 400kV Substation,,,NGET,1800,0,4,2038,2038,0,0,bat:1600;dem:200
+Lackenby 400kV Substation,54.5668,-1.1316,NGET,1800,1320,2,2025,2030,0,1200,ow:1200;bat:600
+Earba PSH Powerhouse Substation,,,SHET,1800,0,2,2032,2033,0,0,hy:1800
+Glen Earrach PSH 400kV substation,,,SHET,1800,0,1,2035,2035,0,0,hy:1800
+Wearside Connection Node B 400kV Substation,,,NGET,1797,0,5,2033,2035,0,0,bat:1797
+Thornton 400kV Substation,53.9002,-0.823,NGET,1790,100,7,2027,2032,0,0,bat:1630;so:160
+Legacy 400kV Substation,53.0291,-3.0531,NGET,1714,0,5,2024,2028,1,57,bat:1714
+New Dounreay 400kV substation,,,SHET,1700,0,2,2033,2033,0,0,ow:1500;bat:200
+Monk Fryston 400kV Substation,53.7563,-1.2672,NGET,1700,0,3,2029,2031,0,0,bat:1700
+North Humber Connection Node E 400kV Substation,,,NGET,1680,0,3,2033,2035,0,0,bat:1680
+New Deer 2 400kV Substation,57.4912,-2.2846,SHET,1680,0,4,2032,2033,0,0,bat:1680
+Ferrybridge C 275kV Substation,53.718,-1.283,NGET,1670,0,3,2030,2034,0,0,gas:1420;bat:250
+Langage 400kV Substation,50.389,-4.0128,NGET,1649,905,5,2031,2037,0,0,bat:1649
+Staythorpe 400kV Substation,53.074,-0.857,NGET,1637,1752,4,2027,2028,0,0,bat:1637
+Norton East 400kV Substation,54.5922,-1.3644,NGET,1630,0,5,2031,2033,0,0,bat:1030;dem:600
+West Anglia Connection Node A 400kV Substation,,,NGET,1600,0,2,2034,2034,0,0,dem:1600
+West Anglia Connection Node D 400kV Substation,,,NGET,1570,0,4,2030,2034,0,0,bat:1330;so:240
+Market Harborough 400kV Substation,52.4645,-0.8858,NGET,1560,0,3,2032,2032,0,0,bat:1560
+Cheshire Connection Node A2 400kV,,,NGET,1550,0,2,2037,2037,0,0,bat:1000;dem:550
+Eaton Socon 400kV Substation,52.2145,-0.3014,NGET,1550,740,3,2028,2029,0,0,bat:1550
+Rayleigh 400kV Substation,51.5941,0.5673,NGET,1530,0,3,2028,2032,0,0,bat:1530
+South Anglia Connection Node E 400kV Substation,,,NGET,1509,0,4,2034,2034,0,0,bat:1109;dem:400
+Bolney 400kV Substation,50.9751,-0.2349,NGET,1504,460,4,2028,2030,0,0,ow:1200;bat:304
+Chiltern Connection Node C 400kV Substation,,,NGET,1500,0,2,2038,2038,0,0,bat:1500
+Lincolnshire Coastal Node 400kV Substation,,,NGET,1500,0,1,2031,2031,0,0,gas:1500
+Brinsworth 400kV Substation,53.4013,-1.351,NGET,1500,0,2,2029,2032,0,0,bat:1500
+Torridge Offshore Substation,,,NGET,1500,0,1,2031,2031,0,0,ow:1500
+Fearna Pump Storage Hydro 2 400/15kV Substation,,,SHET,1495,0,1,2036,2036,0,0,hy:1495
+Wymondley 400kV Substation,51.928,-0.247,NGET,1492,0,4,2027,2032,0,0,bat:1492
+Pembroke 400kV Substation,51.683,-4.99,NGET,1490,2199,7,2028,2029,1,0,ow:800;bat:690
+Trent Valley North Connection Node B 400kV Substation,,,NGET,1450,0,5,2029,2034,0,0,bat:1450
+Westfield 132/33kV,56.1641,-3.2997,SHET,1449,0,5,2028,2031,0,0,bat:1449
+Leeds North Connection Node B 400kV Substation,53.814,-1.5422,NGET,1442,0,5,2035,2035,0,0,bat:1130;nw:312
+Sussex and Romney Connection Node B 400kV Substation,,,NGET,1440,0,4,2031,2037,0,0,bat:940;dem:500
+Hams Hall 400kV Substation,52.5311,-1.7137,NGET,1425,0,4,2026,2030,0,0,dem:1025;bat:400
+South Anglia Connection Node B 400kV Substation,,,NGET,1420,0,3,2034,2034,0,0,bat:1420
+Cellarhead 400kV Substation,53.0407,-2.0844,NGET,1400,0,4,2027,2030,0,0,bat:1400
+New North East Substation 400kV Substation,54.597,-1.2583,SHET,1400,0,3,2037,2037,0,0,bat:800;dem:600
+Imperial Park B 400kV Substation,51.5477,-3.0315,NGET,1400,0,2,2036,2036,1,0,bat:1400
+Tealing 400kV Substation,56.5211,-2.9778,SHET,1400,0,1,2033,2033,0,0,bat:1400
+Arnish Lewis Hub 400kV Substation,58.1878,-6.3873,SHET,1395,0,2,2030,2031,0,0,ow:1395
+Woolavington 400kV Substation,,,NGET,1380,0,2,2030,2033,0,0,bat:1380
+Butlers Wood 400kV Substation,,,NGET,1355,0,2,2031,2034,0,0,bat:1355
+East Kent Connection Node B 400kV Substation,,,NGET,1350,0,2,2030,2033,0,0,bat:1350
+Cockenzie 400/275kV,55.9668,-2.9681,SPT,1340,0,3,2026,2028,0,540,ow:1040;bat:300
+Severn Connection Node A 400kv Substation,51.5473,-2.9769,NGET,1338,0,5,2037,2037,1,0,bat:1338
+IMW01 OFFSHORE 275/66KV OFFSHORE SUBSTATION,,,NGET,1320,0,1,2037,2037,0,0,ow:1320
+Brechin 400/275 kV Substation,56.7402,-2.6282,SHET,1320,0,1,2033,2033,0,0,ow:1320
+Vanguard East 275/66kV Offshore Substation,,,NGET,1320,0,2,2028,2028,0,0,ow:1320
+East Anglia Project Three Offshore Platform,,,NGET,1300,0,2,2026,2027,0,1200,ow:1300
+Ironbridge 400kV Substation,52.6321,-2.514,NGET,1300,0,3,2029,2031,0,0,bat:1300
+Wearside Connection Node D 400kV Substation,,,NGET,1300,0,4,2034,2035,0,0,bat:1300
+Fiddlers Ferry 275kV Substation,53.3715,-2.6893,NGET,1300,0,5,2027,2027,0,0,bat:700;dem:600
+Coire Glas GSP,57.02,-4.87,SHET,1296,0,2,2029,2029,0,0,hy:1296
+Pont Abraham GSP,,,NGET,1286,0,8,2026,2027,0,0,nw:1286
+North Kent Connection Node A 400kV Substation,,,NGET,1280,0,2,2033,2033,0,0,bat:1280
+Mablethorpe 400kV Substation,53.3181,0.2358,NGET,1274,0,2,2033,2033,0,0,dem:1025;bat:249
+North Wales connection Node A 400kV Substation,,,NGET,1273,0,4,2030,2037,0,0,bat:1187;nw:86
+MERSEYSIDE CONNECTION NODE A 400KV SUBSTATION,,,NGET,1260,0,2,2037,2037,0,0,gas:910;bat:350
+Cowley 400kV Substation,51.7108,-1.1902,NGET,1257,50,5,2025,2036,0,57,bat:1257
+Alyth 400kV Substation,56.6093,-3.1634,SHET,1254,0,4,2033,2033,0,0,bat:1124;nw:130
+WEST ANGLIA CONNECTION NODE B 400KV SUBSTATION,,,NGET,1250,0,2,2031,2031,0,0,dem:1000;bat:250
+Kincardine North 400kV Substation,56.0751,-3.7303,SPT,1249,0,3,2028,2031,0,0,bat:1249
+South Anglia Connection Node A 400kV Substation,,,NGET,1240,0,2,2034,2034,0,0,bat:1240
+South Humber Connection Node A 400kV,,,NGET,1240,0,3,2035,2039,0,0,bat:1240
+Teeside Connection Node A 400kV Substation,,,NGET,1240,0,2,2033,2034,0,0,bat:1240
+Warley 275kV Substation,51.5529,0.3003,NGET,1231,57,6,2027,2030,0,0,bat:1231
+Botley West 400kV Substation,,,NGET,1220,0,3,2026,2033,0,0,so:840;bat:280;dem:100
+Connah's Quay 400kV Substation,53.2334,-3.0849,NGET,1210,1381,4,2030,2031,1,0,ow:1000;ti:210
+Lancashire Connection Node B 400kV Substation,,,NGET,1200,0,2,2037,2037,0,0,bat:1200
+Western Marsh 400kV,55.718,-4.8938,NGET,1200,0,2,2031,2032,0,0,ow:1200
+Chiltern Connection Node D 400kV,,,NGET,1200,0,3,2037,2037,0,0,bat:1200
+West Country Connection Node C 400kV Substation,,,NGET,1200,0,1,2037,2037,0,0,bat:1200
+Exeter 400kV Substation,50.7679,-3.4046,NGET,1194,0,6,2024,2030,0,57,bat:1137;oth:57
+Branxton 400/132kV,55.9488,-2.4168,SPT,1167,0,2,2028,2029,0,0,bat:1167
+Bramford 400kV Substation,52.071,1.0619,NGET,1163,98,6,2026,2029,0,50,bat:1163
+Sundon 400kV Substation,51.9437,-0.4911,NGET,1150,50,3,2025,2027,0,50,bat:1150
+Bicker Fen 400kV Substation,52.9315,-0.2211,NGET,1114,0,6,2025,2028,0,100,bat:1114
+Braintree 400kV Substation,51.8663,0.5743,NGET,1107,0,4,2024,2026,0,50,bat:1107
+Warwickshire Connection Node A 400kV Substation,,,NGET,1100,0,3,2037,2037,0,0,bat:1100
+Wearside Connection Node A 275kV Substation,,,NGET,1100,0,2,2035,2035,0,0,bat:1100
+Derbyshire Connection Node B 400kV Substation,,,NGET,1090,0,3,2037,2037,0,0,bat:1090
+Pentir 400kV Substation,53.187,-4.1583,NGET,1082,0,2,2028,2032,1,0,dem:1025;bat:57
+Rhigos 400kV Substation,51.7465,-3.5482,NGET,1081,527,3,2030,2030,1,0,bat:750;nw:331
+Five Estuaries 220/66 kV Offshore Substation,,,NGET,1080,0,1,2030,2030,0,0,ow:1080
+Wylfa South 400kV Substation,53.416,-4.482,NGET,1080,0,4,2029,2037,1,0,dem:600;bat:480
+West Burton 400kV Substation,53.3593,-0.8089,NGET,1080,1333,2,2028,2028,0,0,bat:1080
+Ninfield 400kV Substation,50.8808,0.4482,NGET,1050,0,3,2031,2031,0,0,dem:600;bat:450
+Jubilee Farm 275kV Substation,53.3674,-1.0386,NGET,1040,0,3,2034,2034,0,0,bat:1040
+Killingholme 400kV Substation,53.6559,-0.2561,NGET,1040,619,2,2030,2031,0,0,gas:540;bat:500
+Cousland 400kV,,,NGET,1008,0,1,2033,2033,0,0,ow:1008
+Aberthaw 275kV Substation,51.3884,-3.403,NGET,1004,0,5,2028,2029,1,0,bat:1004
+New East Coast 400kV Substation,,,SHET,1000,0,1,2035,2035,0,0,bat:1000
+London North West Connection Node A 400kV Substation,,,NGET,1000,0,1,2037,2037,0,0,bat:1000
+Dungeness 400kV Substation,50.9144,0.9478,NGET,1000,0,2,2031,2034,0,0,bat:1000
+Bulls Lodge 400kV Substation,51.7655,0.5372,NGET,1000,0,2,2028,2031,0,0,bat:1000
+South Anglia Connection Node D 400kV Substation,,,NGET,1000,0,2,2030,2033,0,0,bat:1000
+CELTIC SEA 275/66KV OFFSHORE SUBSTATION,,,NGET,1000,0,1,2031,2031,0,0,ow:1000
+North Humber Connection Node A 400kV Substation,,,NGET,1000,0,2,2033,2034,0,0,bat:1000
+Strathaven 400/275kV,55.7534,-4.0807,SPT,1000,0,2,2027,2030,0,0,bat:1000
+Appleford 400kV,,,NGET,1000,0,1,2037,2037,0,0,gas:1000
+EQUINOR 66KV OFFSHORE SUBSTATION,,,NGET,1000,0,1,2036,2036,0,0,ow:1000
+Tween Bridge 400kV,53.6096,-0.9083,NGET,1000,0,1,2035,2035,0,0,bat:1000
+Hope 400kV Substation,50.2116,-5.3639,NGET,1000,0,1,2036,2036,0,0,bat:1000
+Coryton South 400kV Substation,51.513,0.5067,NGET,1000,800,2,2029,2029,0,0,bat:1000
+LAVENDON 400KV SUBSTATION,,,NGET,1000,0,1,2033,2033,0,0,bat:1000
+Neilston 400kV Substation,55.8079,-4.4791,SPT,1000,0,2,2029,2031,0,0,bat:1000
+LLYWELYN EXTENSION OFFSHORE WIND FARM 66/275KV OFFSHORE SUBS,,,NGET,1000,0,1,2036,2036,0,0,ow:1000
+Chiltern Connection Node B 400kV Substation,,,NGET,1000,0,1,2038,2038,0,0,bat:1000
+Trent Valley North Connection Node F 400kV Substation,,,NGET,1000,0,1,2034,2034,0,0,bat:1000
+North Falls Offshore Platform Substation,,,NGET,1000,0,1,2030,2030,0,0,ow:1000
+Derbyshire Connection Node C 400kV Substation,,,NGET,1000,0,1,2033,2033,0,0,dem:1000
+London North East Connection Node A,,,NGET,1000,0,1,2031,2031,0,0,bat:1000
+Spittal 2 400kV Substation,58.4801,-3.4517,SHET,1000,0,1,2033,2033,0,0,bat:1000
+SPR CS1 275/66KV OFFSHORE SUBSTATION,,,NGET,1000,0,1,2037,2037,0,0,ow:1000
+London North East Connection Node A 400kV,,,NGET,1000,0,2,2033,2033,0,0,dem:700;bat:300
+London North West Connection Node B 400kV Substation,,,NGET,1000,0,1,2038,2038,0,0,bat:1000
+Yaxley 400kV Substation,52.332,1.1053,NGET,998,0,3,2024,2030,0,299,bat:699;gas:299
+Monk Fryston 275kV Substation,53.7563,-1.2672,NGET,970,57,4,2025,2032,0,320,bat:970
+Derbyshire Connection Node I 400kV Substation,,,NGET,968,0,3,2037,2037,0,0,bat:968
+Wymondley 2 400kV Substation,51.928,-0.247,NGET,949,0,2,2032,2032,0,0,bat:700;dem:249
+Walham 400kV Substation,51.8794,-2.2534,NGET,949,0,2,2033,2035,0,0,bat:949
+Trawsfynydd 275kV Substation,52.9272,-3.9474,NGET,940,10,1,2037,2037,1,0,nu:940
+MIDDLETON FARM 400KV SUBSTATION,54.0349,-2.8855,SPT,937,0,1,2033,2033,0,0,bat:937
+Peterhead 275kV,57.476,-1.787,SHET,910,0,1,2033,2033,0,0,gas:910
+Alyth Solar and Battery 400/132kV,56.6093,-3.1634,SHET,900,0,2,2029,2031,0,0,bat:900
+Balliemeanoch 275kV Substation,,,SHET,900,0,1,2034,2034,0,0,hy:900
+APPLEFORD 400kV SUBSTATION,,,NGET,900,0,2,2037,2037,0,0,bat:900
+Eccles 400kV Substation,55.6691,-2.3288,SPT,900,0,2,2026,2026,0,900,bat:900
+Loch Nan Eun 275/18kV,,,SHET,900,0,1,2029,2029,0,0,bat:900
+Keadby 400kV Substation,53.595,-0.745,NGET,892,2657,1,2031,2031,0,0,gas:892
+Friston 400kV Substation,,,NGET,880,0,2,2029,2031,0,0,ow:880
+EA2A and EA2B 275/66kV Offshore Platform,,,NGET,880,0,2,2028,2029,0,0,ow:880
+Tod Point 275kV Substation,54.6066,-1.1168,NGET,860,0,1,2027,2027,0,0,gas:860
+Kelloe Mains 400kV Substation,,,SPT,854,0,3,2029,2033,0,0,bat:854
+Cottered 400kV Substation,,,NGET,850,0,1,2032,2032,0,0,dem:850
+Greystones B 275kV Substation,54.5741,-1.1293,NGET,850,0,1,2035,2035,0,0,gas:850
+Spennymoor 400kV Substation,,,NGET,850,0,4,2028,2033,0,0,bat:800;dem:50
+Bradford West 275kV Substation,53.8106,-1.8655,NGET,849,0,3,2027,2036,0,0,bat:849
+Chirk GSP,,,NGET,843,0,6,2027,2027,0,0,nw:843
+Middleton 400KV Substation,54.0349,-2.8855,NGET,840,0,3,2026,2028,0,0,bat:840
+North Anglia Connection Node A 132kV Substation,,,NGET,813,0,4,2033,2034,0,0,bat:813
+Teviot 400/132kV Substation,,,SPT,808,0,3,2033,2033,0,0,nw:523;bat:285
+Botley 400kV Substation,50.8847,-1.2323,NGET,800,0,1,2033,2033,0,0,bat:800
+Lincolnshire Coastal Node B 400kV Substation,,,NGET,800,0,1,2035,2035,0,0,bat:800
+Cheshire Connection Node B 400kV Substation,,,NGET,800,0,2,2037,2037,0,0,bat:800
+NatPower Harburn Green Energy Park 400kV Substation,,,SPT,800,0,1,2033,2033,0,0,bat:800
+West Anglia Connection Node E 400kV Substation,,,NGET,800,0,2,2034,2034,0,0,bat:800
+South Humber Connection Node A,,,NGET,800,0,1,2035,2035,0,0,bat:800
+MID WALES CONNECTION NODE A 400KV SUBSTATION,,,NGET,799,0,4,2037,2037,0,0,bat:799
+Ryhall 400kV Substation,52.6879,-0.4528,NGET,790,0,2,2028,2033,0,0,bat:550;so:240
+New Deer 400kV Substation,57.4912,-2.2846,SHET,760,900,3,2029,2029,0,0,dem:560;bat:200
+Chiltern Connection Node A 400kV Substation,,,NGET,750,0,1,2037,2037,0,0,bat:750
+Wyseby Hill Energy Farm 400kV Substation,,,SPT,750,0,1,2031,2031,0,0,bat:750
+DRAGON GREEN 400kV SUBSTATION,,,NGET,750,0,2,2037,2037,0,0,bat:750
+Frodsham 400kV Substation,53.3095,-2.7166,NGET,740,0,2,2037,2037,0,0,bat:740
+Manchester South connection node A 400kv,,,NGET,740,0,2,2037,2037,0,0,bat:740
+Pelham 400kV Substation,,,NGET,730,0,2,2032,2033,0,0,bat:730
+Thetford 400kV Substation,52.448,0.7235,NGET,720,0,1,2031,2031,0,0,bat:720
+Auchentiber Farm BESS 400kV Substation,,,SPT,700,0,1,2029,2029,0,0,bat:700
+South Wales West Connection Node B 400kV Substation,,,NGET,700,0,2,2036,2036,0,0,bat:700
+Llanteg 400kV Substation,,,NGET,700,0,1,2037,2037,0,0,bat:700
+Tealing 132kV Substation,56.5211,-2.9778,SHET,700,0,2,2028,2030,0,0,bat:700
+West Country Connection Node D 400kV Substation,,,NGET,700,0,2,2037,2037,0,0,bat:700
+Greystones A 275kV Substation,54.5753,-1.1248,NGET,700,150,1,2035,2035,0,0,gas:700
+South Wales East Node A 275kV Substation,,,NGET,699,0,2,2037,2037,0,0,bat:699
+NORTH KENT CONNECTION NODE C 132KV SUBSTATION,,,NGET,680,0,2,2037,2037,0,0,bat:680
+Glenmuckloch 132kV Substation,,,SPT,668,0,3,2029,2036,0,0,bat:400;hy:210;nw:58
+Loch Kemp 275kV Switching Station,,,SHET,660,0,1,2030,2030,0,0,hy:660
+Chesterfield 400kV Substation (Not yet constructed),53.2245,-1.3879,NGET,657,0,2,2032,2033,0,0,bat:657
+Bramford B 400kV Substation,52.071,1.0619,NGET,650,0,1,2033,2033,0,0,bat:650
+Braxbess 400/132kV Collector Substation,,,SPT,650,0,2,2028,2028,0,0,bat:650
+Rowdown 400kV Substation,51.3519,-0.0042,NGET,649,0,2,2031,2031,0,0,dem:400;bat:249
+Cruachan 275kV Substation,56.39,-5.11,SPT,640,440,2,2029,2029,0,0,hy:640
+Redshaw 132kV Substation.,,,SPT,620,0,2,2036,2036,0,0,bat:620
+Dorenell Extension Wind Farm 400kV Substation,,,SHET,610,0,1,2033,2033,0,0,nw:610
+Hadleigh 400kV Substation,,,NGET,600,0,1,2032,2032,0,0,bat:600
+Brinsworth B 400kV Substation,53.4013,-1.351,NGET,600,0,1,2032,2032,0,0,bat:600
+Dalkeith 400kV Substation,,,SPT,600,0,3,2031,2031,0,0,bat:600
+Didcot 400kV Substation,51.6253,-1.2598,NGET,600,1575,2,2027,2027,0,0,bat:600
+Denny North 275/132kV,56.04,-3.89,SPT,600,0,2,2028,2029,0,0,dem:400;bat:200
+Harlaston 400kV Substation,,,NGET,600,0,1,2033,2033,0,0,bat:600
+LGB300 400KV Substation,,,SHET,600,0,1,2031,2031,0,0,bat:600
+Oakley 400kV Substation,,,NGET,600,0,1,2038,2038,0,0,dem:600
+Rugeley 400kV Substation,52.7567,-1.9153,NGET,600,0,1,2031,2031,0,0,bat:600
+SANDFORD B 400kV SUBSTATION,51.3404,-2.8393,NGET,600,0,1,2037,2037,0,0,bat:600
+Southery 400kV Substation,,,NGET,600,0,1,2031,2031,0,0,bat:600
+Spittal 400kV,58.4801,-3.4517,SHET,600,0,1,2033,2033,0,0,bat:600
+West Haddon 400kV Substation,,,NGET,600,0,1,2039,2039,0,0,bat:600
+Thormanby 400kV Substation,,,NGET,600,0,2,2033,2034,0,0,bat:600
+Axminster 132kV Substation,50.7867,-2.9243,NGET,590,0,4,2024,2028,0,120,bat:590
+Ratcliffe-On-Soar 400kV Substation,,,NGET,590,225,1,2033,2033,0,0,bat:590
+Indian Queens 400kV Substation,50.3959,-4.8993,NGET,580,140,4,2024,2025,0,95,bat:580
+Sellindge 400kV Substation,51.1064,0.9763,NGET,576,0,3,2028,2031,0,0,bat:576
+Littlebrook 132kV Substation,51.4638,0.2373,NGET,550,0,2,2027,2032,0,0,bat:550
+Knocknagael 275kV,57.4218,-4.2458,SHET,550,0,2,2029,2029,0,0,hy:550
+Spalding North 400kV Substation,52.8058,-0.1336,NGET,550,1250,1,2030,2030,0,0,bat:550
+Leeds North Connection Node C 132kV Substation,53.814,-1.5422,NGET,540,0,3,2035,2035,0,0,bat:540
+Cockenzie 275kV substation,55.9668,-2.9681,SPT,540,0,1,2026,2026,0,540,ow:540
+Marston Vale 400kV Substation,52.0519,-0.5288,NGET,539,0,2,2024,2029,0,299,gas:299;bat:240
+North Kent Connection Node C 400kV Substation,,,NGET,532,0,2,2037,2037,0,0,bat:532
+Navenby 132kV Substation,,,NGET,529,0,3,2033,2034,0,0,bat:529
+Whitelee 275/33kV,55.68,-4.27,SPT,513,305,3,2031,2033,0,0,nw:513
+Blackhillock substation,57.5222,-2.9479,SHET,512,0,2,2029,2031,0,0,bat:400;dem:112
+Burwell South 400kV Substation,52.2802,0.3133,NGET,507,0,3,2032,2033,0,0,bat:507
+Redshaw 400kV,,,SPT,504,0,1,2037,2037,0,0,bat:504
+AGS CALDERSIDE 275KV  SUBSTATION,,,SPT,500,0,2,2029,2031,0,0,bat:500
+AGS Harestonhill BESS 400kV Substation,,,SPT,500,0,1,2030,2030,0,0,bat:500
+Tealing 275/33kV Substation,56.5211,-2.9778,SHET,500,1075,1,2033,2033,0,0,bat:500
+Devilla Battery Storage 275kV substation,,,SPT,500,0,1,2027,2027,0,0,bat:500
+Alcemi Score Battery 400kV Substation,,,SHET,500,0,1,2029,2029,0,0,bat:500
+ALCEMI SCORE BATTERY ENERGY STORAGE FACILITY 400KV SUBSTATIO,,,SHET,500,0,1,2029,2029,0,0,bat:500
+ALYTH BESS STATION 400KV SUBSTATION,56.6093,-3.1634,SHET,500,0,1,2033,2033,0,0,bat:500
+Ayr Farm Collector Substation,55.4572,-4.588,SPT,500,0,1,2028,2028,0,0,bat:500
+Bankhead 400kV Substation,55.9252,-3.2912,SPT,500,0,1,2033,2033,0,0,dem:500
+Bendsmoor BESS 400Kv Substation,,,SPT,500,0,1,2032,2032,0,0,bat:500
+Bishopbriggs BESS 400/275kV Substation,,,SPT,500,0,1,2029,2029,0,0,dem:500
+DOUNREAY 2 275 kV SUBSTATION,,,SHET,500,0,1,2032,2032,0,0,bat:500
+Braybrooke (Network Rail) GSP,,,NGET,500,0,1,2031,2031,0,0,bat:500
+Tideford 400kV Substation,,,NGET,500,0,1,2036,2036,0,0,bat:500
+Culham Jet 400kV Substation,51.6612,-1.2284,NGET,500,0,1,2029,2029,0,0,bat:500
+Earl Shilton 275kV,,,NGET,500,0,1,2029,2029,0,0,bat:500
+ELSTREE B 275KV SUBSTATION,51.6603,-0.3441,NGET,500,0,1,2037,2037,0,0,bat:500
+Derbyshire Connection Node H 400kV Substation,,,NGET,500,0,1,2037,2037,0,0,bat:500
+Sealand 400kV Substation,,,NGET,500,0,1,2037,2037,0,0,bat:500
+Grendon 400kV Substation,52.243,-0.7273,NGET,500,0,1,2029,2029,0,0,bat:500
+Kilmarnock South 400kV Substation,55.576,-4.464,SPT,500,300,1,2027,2027,0,0,bat:500
+Long Stratton 400kV,,,NGET,500,0,1,2031,2031,0,0,bat:500
+East Anglia Connection Node E 400kV Substation,,,NGET,500,0,1,2034,2034,0,0,bat:500
+Moffat 400kV Substation,55.3012,-3.4289,SPT,500,0,1,2031,2031,0,0,bat:500
+Thurso South 400kV Substation,58.5641,-3.5122,SHET,500,0,1,2034,2034,0,0,bat:500
+NatPower Green Energy Park 400kV Substation,,,SPT,500,0,1,2036,2036,0,0,bat:500
+NATPOWER KINTORE 2 GREEN ENERGY PARK 275KV SUBSTATION,,,SHET,500,0,1,2033,2033,0,0,bat:500
+Coalburn 400kV GIS Substation,55.6155,-3.8674,SPT,500,0,1,2027,2027,0,0,bat:500
+Redshaw Energy Park 132kV substation,,,SPT,500,0,1,2031,2031,0,0,bat:500
+Rothienorman 400kV Substation,57.4094,-2.5155,SHET,500,0,1,2033,2033,0,0,bat:500
+Scoop Hill Wind Farm 132kV Substation,,,SPT,500,0,1,2027,2027,0,0,nw:500
+Gravity 400kV Substation,,,NGET,500,0,1,2037,2037,0,0,bat:500
+Swaffham 400KV Substation,,,NGET,500,0,1,2033,2033,0,0,bat:500
+Whitehill Bess 275/132kV Substation,,,SPT,500,0,1,2029,2029,0,0,bat:500
+Thurcroft 275kV Substation,53.4048,-1.2684,NGET,500,0,2,2031,2032,0,0,bat:500
+Whitson 275kV Substation,51.5651,-2.9094,NGET,485,0,4,2027,2028,1,0,bat:295;so:190
+London South Connection Node A 132kV Substation,,,NGET,480,0,2,2037,2037,0,0,bat:480
+Burwell 400kV Substation,52.2802,0.3133,NGET,480,50,1,2032,2032,0,0,dem:480
+Bushbury 275kV Substation,52.6362,-2.1142,NGET,480,0,1,2028,2028,0,0,bat:480
+DERBYSHIRE CONNECTION NODE E 132 KV SUBSTATION,,,NGET,480,0,2,2037,2037,0,0,bat:480
+West Country Connection Node E 400kV Substation,,,NGET,480,0,1,2037,2037,0,0,bat:480
+Derbyshire Connection Node D 400kV Substation,,,NGET,480,0,2,2033,2035,0,0,bat:480
+Chickerell B 400kV Substation,50.6237,-2.4881,NGET,480,0,1,2037,2037,0,0,bat:480
+Bramley,51.3368,-1.0769,NGET,480,0,1,2037,2037,0,0,bat:480
+Warley 132kV Substation,51.5529,0.3003,NGET,480,99,2,2036,2036,0,0,bat:480
+Wakeleys 400kV,,,NGET,480,0,1,2033,2033,0,0,bat:480
+North Anglia Connection Node D 132kV Substation,,,NGET,478,0,2,2034,2034,0,0,bat:478
+Creyke Beck GSP,53.8008,-0.4158,NGET,470,100,2,2033,2036,0,0,so:470
+Spittal 132kV Substation,58.4801,-3.4517,SHET,462,0,2,2030,2030,0,0,bat:462
+Kirkby 275kV Substation,53.4691,-2.8488,NGET,457,0,3,2027,2028,0,0,dem:400;bat:57
+CAITHNESS ENERGY STORAGE 400KV SUBSTATION,58.464,-3.0809,SHET,456,0,1,2034,2034,0,0,bat:456
+Gresham House Gretna 400/132kv Substation,,,SPT,456,0,2,2031,2031,0,0,bat:456
+AYR DBB 275KV SUBSTATION,55.4572,-4.588,SPT,450,0,1,2037,2037,0,0,bat:450
+Leeds North Connection Node D 400kV Substation,53.814,-1.5422,NGET,450,0,2,2035,2035,0,0,bat:450
+Blyth 275kV Substation,55.1412,-1.5314,NGET,450,0,1,2036,2036,0,0,bat:450
+Coylton 275kV substation,55.4471,-4.432,SPT,450,0,3,2026,2026,0,150,bat:450
+New Cumnock 275/132kV Substation,55.3443,-4.335,SPT,450,0,1,2033,2033,0,0,bat:450
+Fawley 132kV Substation,50.8494,-1.3881,NGET,450,0,4,2036,2036,0,0,bat:450
+Ayr 275/33kV,55.4572,-4.588,SPT,450,0,3,2026,2030,0,50,bat:450
+Kearsley 275kV Substation,,,NGET,450,0,2,2028,2028,0,0,dem:450
+Wearside Connection Node B 2 400kV Substation,,,NGET,440,0,2,2035,2037,0,0,bat:240;dem:200
+Kellingley IDNO GSP,53.7028,-1.2017,NGET,440,0,1,2035,2035,0,0,bat:440
+Eccles 400/132kV,55.6691,-2.3288,SPT,440,0,3,2029,2030,0,0,bat:440
+Capenhurst GSP,53.2679,-2.9476,NGET,440,90,2,2037,2037,0,0,bat:440
+Shrewsbury 400kV Substation,52.7093,-2.6927,NGET,431,0,1,2037,2037,0,0,so:431
+Minety 400kV Substation,51.6076,-2.0021,NGET,428,0,9,2024,2025,0,285,bat:428
+Leeds South Connection Node C 400kV Substation,,,NGET,410,0,1,2035,2035,0,0,bat:410
+Clydesmill 275/33kV,,,SPT,403,0,3,2027,2028,0,0,dem:300;so:63;bat:40
+Willington East 400kV Substation,52.8555,-1.5505,NGET,402,0,4,2026,2027,0,57,bat:402
+Borders Windfarm 132kV,,,SPT,400,0,1,2033,2033,0,0,nw:400
+Trent Valley South Connection Node A 400k,,,NGET,400,0,1,2039,2039,0,0,bat:400
+Capenhurst 275kV Substation,53.2679,-2.9476,NGET,400,214,1,2033,2033,0,0,bat:400
+Manchester South Connection Node B 400kV Substation,,,NGET,400,0,1,2037,2037,0,0,bat:400
+RWE CELTIC OFFSHORE SUBSTATION,,,NGET,400,0,1,2031,2031,0,0,ow:400
+South Anglia Connection Node D 132kV Substation,,,NGET,400,0,1,2034,2034,0,0,bat:400
+Coachford 400kV Substation,,,SHET,400,0,1,2033,2033,0,0,bat:400
+Devol Moor 400/132kV,55.9159,-4.709,SPT,400,0,1,2027,2027,0,0,bat:400
+Thurso South 275kV Substation,58.5641,-3.5122,SHET,400,0,3,2030,2033,0,0,bat:400
+Kinardochy Substation 400/275kV,56.677,-4.0053,SHET,400,0,1,2035,2035,0,0,bat:400
+NORTH ANGLIA CONNECTION NODE A 400kV SUBSTATION,,,NGET,400,0,1,2032,2032,0,0,bat:400
+Conland Substation,,,SPT,400,0,2,2031,2032,0,0,bat:400
+Spirebush 132kV Substation,,,SPT,400,0,1,2028,2028,0,0,bat:400
+Trent Valley South Connection Node G 400kV Substation,,,NGET,400,0,1,2039,2039,0,0,bat:400
+Jersey Farm 400kV Substation,,,NGET,400,0,1,2032,2032,0,0,bat:400
+Fife Grid Services Facility 275kV Substation,,,SPT,400,0,2,2028,2028,0,0,bat:400
+KINGSNORTH B 400KV SUBSTATION,51.4189,0.5982,NGET,400,0,1,2032,2032,0,0,bat:400
+Lawfield and Branxton Energy Park 400kV Substation,,,SPT,400,0,1,2028,2028,0,0,bat:400
+Linwood 400kV Substation,,,SPT,400,0,1,2033,2033,0,0,bat:400
+Newarthill 275 kV Substation,55.8246,-3.9461,SPT,400,0,1,2035,2035,0,0,dem:400
+Newchurch 400kV Substation,,,NGET,400,0,1,2031,2031,0,0,dem:400
+Norwich Main 400kW Substation,52.5742,1.2727,NGET,400,0,1,2031,2031,0,0,dem:400
+Rassau 400kV Substation,51.8085,-3.2267,NGET,400,0,1,2030,2030,1,0,bat:400
+Stoke Bardolph 400kV Substation,52.9602,-1.0502,NGET,400,0,3,2030,2031,0,0,bat:400
+Penrhos GSP,53.295,-4.5991,NGET,390,0,6,2025,2028,1,150,bio:210;ti:180
+New Deer 2 132kV Substation,57.4912,-2.2846,SHET,375,0,2,2033,2033,0,0,bat:375
+Tilbury 275kV Substation,51.4603,0.391,NGET,375,300,1,2026,2026,0,375,bat:375
+Drakelow 132kV Substation,52.7727,-1.651,NGET,372,0,3,2027,2027,0,0,bat:372
+Ninfield GSP,50.8808,0.4482,NGET,370,0,2,2036,2036,0,0,bat:370
+Fetteresso 132kV substation,56.9648,-2.3471,SHET,368,0,3,2031,2033,0,0,bat:263;so:105
+West London Connection Node B 132kV substation,,,NGET,360,0,2,2037,2037,0,0,bat:360
+Lovedean 400kV Substation,50.9168,-1.0397,NGET,356,20,3,2028,2029,0,0,bat:356
+Knocknagael 132kV Substation,57.4218,-4.2458,SHET,350,0,2,2030,2031,0,0,bat:350
+Stella West 400kV Substation,54.9777,-1.7439,NGET,350,0,1,2035,2035,0,0,bat:350
+Margam B 400kV Substation,51.563,-3.754,NGET,350,0,1,2037,2037,1,0,bat:350
+Frodsham 132kV,53.3095,-2.7166,NGET,350,0,3,2029,2037,0,0,bat:350
+Denny North,56.04,-3.89,SPT,350,0,1,2030,2030,0,0,bat:350
+Melksham B 132KV Substation,51.3939,-2.1507,NGET,350,0,2,2037,2037,0,0,bat:350
+Boydston 400kV substation,,,SPT,350,0,1,2026,2026,0,0,bat:350
+Derbyshire Connection Node F 132KV,,,NGET,350,0,2,2034,2035,0,0,bat:350
+Westfield 400kV Substation,56.1641,-3.2997,SPT,350,0,1,2031,2031,0,0,bat:350
+Blackhillock 400kV Substation,57.5222,-2.9479,SHET,349,0,1,2028,2028,0,0,bat:349
+Humber Refinery 400kV Substation,,,NGET,349,1268,2,2026,2026,0,299,gas:299;bat:50
+Meadowmill 400/132kV Substation,,,SPT,342,0,2,2027,2027,0,0,bat:342
+HIGH MATHERNOCK 132KV SUBSTATION,,,SPT,334,0,1,2029,2029,0,0,bat:334
+Hunterston 400/132kV,55.7201,-4.8908,SPT,325,0,3,2033,2033,0,0,bat:320;hy:5
+Gala North 400/132kV Substation,,,SPT,314,0,3,2030,2032,0,0,bat:314
+Osbaldwick 400kV Substation,53.9569,-1.0235,NGET,307,0,2,2027,2030,0,0,bat:307
+Chapelcross 132/33kV,55.0163,-3.2296,SPT,301,35,2,2027,2029,0,0,bat:301
+Kintore 275kV,57.2189,-2.3844,SHET,300,0,1,2029,2029,0,0,bat:300
+Wylfa 400kV Substation,53.416,-4.482,NGET,300,0,1,2028,2028,1,0,bat:300
+Castlemilk 400kV Substation,,,SPT,300,0,1,2036,2036,0,0,so:300
+Coylton 275/33kV Substation,55.4471,-4.432,SPT,300,0,1,2037,2037,0,0,bat:300
+Craig Moss Farm 132kV Substation,55.1653,-3.0685,SPT,300,0,1,2036,2036,0,0,bat:300
+Smeaton 400/275kV,55.9089,-3.0354,SPT,300,0,1,2033,2033,0,0,bat:300
+Elmya Grange 400kV,,,NGET,300,0,1,2031,2031,0,0,bat:300
+Giffordland 400/132kV,,,SPT,300,0,2,2029,2031,0,0,bat:200;dem:100
+Letham 400/275kV substation,,,SPT,300,0,1,2032,2032,0,0,bat:300
+Gresham House Dalmarnock Bess 132kv Substation,,,SPT,300,0,1,2030,2030,0,0,bat:300
+Gresham House Kincardine BESS 275/132kV substation,,,SPT,300,0,1,2029,2029,0,0,bat:300
+Kynachan BESS 132kV Substation,,,SHET,300,0,1,2035,2035,0,0,bat:300
+West Country Connection Node A 400kV Substation,,,NGET,300,0,1,2037,2037,0,0,bat:300
+Loch Fearna Pumped Storage 400/18kV Substation,,,SHET,300,0,1,2032,2032,0,0,hy:300
+Longmorn Energy Park 275kV Substation,,,SHET,300,0,1,2031,2031,0,0,bat:300
+Newarthill Energy Park 275kV Substation,55.8246,-3.9461,SPT,300,0,1,2029,2029,0,0,bat:300
+NorthFleet 400kV Substation,51.428,0.3305,NGET,300,0,1,2028,2028,0,0,bat:300
+Red Moss Farm 132kV Substation,,,SPT,300,0,1,2030,2030,0,0,bat:300
+Strathaven 400kV Substation,55.7534,-4.0807,SPT,300,0,1,2033,2033,0,0,bat:300
+Pyworthy 400kV Substation,50.7938,-4.4083,NGET,300,0,1,2036,2036,0,0,bat:300
+Ferrybridge B 132kV Substation,53.7219,-1.2778,NGET,300,150,2,2035,2035,0,0,bat:300
+Staffordshire Connection Node D 132kV Substation,,,NGET,300,0,2,2037,2037,0,0,bat:300
+New North West 132kV Substation,,,SHET,299,0,2,2037,2037,0,0,bat:299
+Gills Bay 132kV,,,SHET,298,0,2,2029,2033,0,0,bat:298
+Narie 400/132kV Substation,,,SPT,297,0,1,2036,2036,0,0,bat:297
+NEW TAYNUILT 132 KV SUBSTATION,56.4301,-5.2144,SHET,290,0,1,2031,2031,0,0,bat:290
+Arecleoch 132/33kV,55.0841,-4.8501,SPT,289,114,2,2026,2029,0,73,nw:289
+South Wales West Connection Node C 400kV,,,NGET,288,0,2,2028,2032,0,0,bat:288
+Gills Bay GSP,,,SHET,287,0,5,2027,2028,0,0,bat:287
+Llandyfaelog 132kV Substation,,,NGET,286,0,2,2036,2036,0,0,nw:175;bat:111
+Whitburn 400kV substation,,,SPT,280,0,1,2030,2030,0,0,bat:280
+Bodinglee Wind Farm 132kV,,,SPT,280,0,1,2029,2029,0,0,bat:280
+Cellarhead 132kV Substation,53.0407,-2.0844,NGET,280,20,1,2028,2028,0,0,bat:280
+Norton GSP,54.5922,-1.3644,NGET,280,0,2,2031,2033,0,0,so:180;bat:100
+Norton 400kV Substation,54.5922,-1.3644,NGET,275,0,1,2031,2031,0,0,bat:275
+Cloich 132kV Substation,,,SPT,267,0,2,2028,2028,0,0,nw:267
+Kinkell IDNO GSP,,,SPT,266,0,1,2031,2031,0,0,bat:266
+Hawick 132kV Substation,55.433,-2.8016,SPT,264,0,2,2033,2033,0,0,bat:150;nw:114
+Berkswell 275kV Substation,52.3863,-1.6155,NGET,257,0,2,2027,2027,0,0,bat:257
+Peat Law Renewable Energy Park 132kV Substation,,,SPT,253,0,1,2033,2033,0,0,bat:253
+Pont Abraham 132KV,,,NGET,253,0,1,2026,2026,0,0,nw:253
+Braybrooke 400kV Substation,,,NGET,252,0,1,2031,2031,0,0,bat:252
+Caple Rig 132kV Substation,,,SPT,250,0,1,2029,2029,0,0,nw:250
+Craigneuk 250MW BESS 275kV Substation,,,SPT,250,0,1,2034,2034,0,0,dem:250
+Staffordshire Connection Node B 132kV Substation,,,NGET,250,0,2,2035,2036,0,0,bat:250
+Greenock Road 275kV Substation,,,SPT,250,0,1,2033,2033,0,0,bat:250
+Bolney 132kV Substation,50.9751,-0.2349,NGET,250,36,1,2031,2031,0,0,bat:250
+Keadby GSP,53.595,-0.745,NGET,250,15,1,2033,2033,0,0,bat:250
+Blackhillock 275kV Substation,57.5222,-2.9479,SHET,250,200,2,2026,2028,0,100,bat:250
+Sanquhar II Wind Farm Substation,,,SPT,250,0,2,2026,2026,0,137,nw:250
+TH Renfrwshire 275kV Substation,,,SPT,250,0,1,2033,2033,0,0,bat:250
+Harburn 400kV,,,SPT,250,0,1,2033,2033,0,0,dem:250
+Bridgwater GSP,51.1175,-2.9689,NGET,250,0,1,2037,2037,0,0,bat:250
+Amersham Main 400kV Substation,51.6647,-0.6558,NGET,250,0,1,2034,2034,0,0,bat:250
+Berkswell B 275kV Substation,52.3863,-1.6155,NGET,250,0,1,2033,2033,0,0,bat:250
+Dunan Hill 400kV substation,,,SHET,250,0,1,2036,2036,0,0,bat:250
+Kellingley 400kV Substation,53.7028,-1.2017,NGET,250,0,1,2033,2033,0,0,bat:250
+Earl Shilton 400kV Substation,,,NGET,250,0,1,2033,2033,0,0,bat:250
+Staythorpe 400kv,53.074,-0.857,NGET,250,0,1,2030,2030,0,0,bat:250
+Raventhorpe 400kV Substation,53.5608,-0.5792,NGET,250,0,1,2035,2035,0,0,bat:250
+Patford Bridge 400kV Substation,52.2918,-1.0553,NGET,250,0,1,2033,2033,0,0,bat:250
+PENINSULA ENERGY PARK 220kV SUBSTATION,,,SHET,250,0,1,2035,2035,0,0,nw:250
+Elvanfoot 275/132/33kV,55.4374,-3.6721,SPT,250,0,1,2036,2036,0,0,bat:250
+Thornton B 400kV Substation,53.9002,-0.823,NGET,250,0,1,2035,2035,0,0,bat:250
+Waltham Cross B 400kV Substation,51.7141,-0.0115,NGET,250,0,1,2032,2032,0,0,bat:250
+Watchman 132kV Substation,,,SPT,250,0,1,2036,2036,0,0,bat:250
+Rayleigh Main 132kV Substation,51.5941,0.5673,NGET,250,0,2,2023,2028,0,100,bat:250
+Lapwing Fen II (Walpole) IDNO Substation,,,NGET,250,0,1,2029,2029,0,0,bat:250
+Severn Connection Node B 400kV Substation,51.5473,-2.9769,NGET,249,0,1,2037,2037,1,0,bat:249
+Wearside Connection Node C 400kV Substation,,,NGET,249,0,1,2035,2035,0,0,bat:249
+Grain West 400kV Substation,51.446,0.713,NGET,249,0,1,2029,2029,0,0,bat:249
+Ecomossmorran 400kV Substation,,,SPT,249,0,1,2031,2031,0,0,bat:249
+Stocksbridge 400kV Substation,53.4877,-1.6014,NGET,249,0,1,2036,2036,0,0,dem:249
+Uskmouth 275kV Substation,51.5469,-2.9688,NGET,249,850,1,2029,2029,1,0,bat:249
+Leeds North Connection Node E,53.814,-1.5422,NGET,249,0,1,2037,2037,0,0,bat:249
+Hutton 400kV Substation,54.4027,-1.4831,NGET,249,10,1,2037,2037,0,0,bat:249
+Exeter Main 400kV Substation,50.7679,-3.4046,NGET,249,0,1,2029,2029,0,0,bat:249
+Kemsley 400kV Substation,51.3681,0.7411,NGET,249,50,1,2027,2027,0,0,bat:249
+Penn 275kV Substation,52.5565,-2.2096,NGET,249,0,1,2033,2033,0,0,bat:249
+Warwickshire Connection Node F 400kV Substation,,,NGET,249,0,1,2037,2037,0,0,bat:249
+Richborough 400kV Substation,51.3113,1.3443,NGET,249,100,1,2025,2025,0,249,bat:249
+Stracathro BESS 275kV Substation,,,SHET,249,0,1,2032,2032,0,0,dem:249
+South Wales East Connection Node B 400kV,,,NGET,249,0,1,2037,2037,0,0,bat:249
+Whitehouse 275kV Substation,55.9313,-3.2016,SHET,249,0,1,2032,2032,0,0,dem:249
+Aberthaw B 275/132kV Substation,51.3884,-3.403,NGET,240,0,1,2037,2037,1,0,bat:240
+SHAWFAIR 400KV SUBSTATION,,,SPT,240,0,1,2034,2034,0,0,bat:240
+SOUTH HUMBER CONNECTION NODE A 132kV,,,NGET,240,0,1,2035,2035,0,0,bat:240
+Chessington 132kV,51.3438,-0.3227,NGET,240,0,1,2037,2037,0,0,bat:240
+Trent Valley North Connection Node B 132kV Substation,,,NGET,240,0,1,2039,2039,0,0,bat:240
+DERBYSHIRE CONNECTION NODE E 132KV SUBSTATION,,,NGET,240,0,1,2034,2034,0,0,bat:240
+ERBYSHIRE CONNECTION NODE E 132kV  SUBSTATION,,,NGET,240,0,1,2037,2037,0,0,bat:240
+Glen Ullinish Extension 132/33kV Substation,,,SHET,240,0,1,2029,2029,0,0,nw:240
+HIGH BARDRAIN WOOD & MOOR 132KV SUBSTATION,,,SPT,240,0,1,2033,2033,0,0,bat:240
+Derbyshire Connection Node E 400kV Substation,,,NGET,240,0,1,2037,2037,0,0,bat:240
+Borders Connection Node A 400kV,,,NGET,240,0,1,2035,2035,0,0,bat:240
+Saltend North GSP,53.7422,-0.2385,NGET,240,0,1,2035,2035,0,0,bat:240
+Ocker Hill 275kV Substation,52.5419,-2.0301,NGET,240,57,1,2027,2027,0,0,bat:240
+North Kent Connection Node B 132kV Substation,,,NGET,240,0,1,2030,2030,0,0,bat:240
+Bicker Fen GSP,52.9315,-0.2211,NGET,240,0,1,2033,2033,0,0,bat:240
+Thorntonloch 400kV Substation,,,SPT,240,0,1,2031,2031,0,0,bat:240
+Hartmoor GSP,54.7009,-1.292,NGET,240,0,1,2039,2039,0,0,bat:240
+Hartmoor 275kV Substation,54.7009,-1.292,NGET,238,0,2,2027,2028,0,0,bat:238
+Gwyddelwern 400kV Substation,,,NGET,233,0,3,2027,2030,0,0,nw:148;so:85
+Leeds North Connection Node E 132KV Substation,53.814,-1.5422,NGET,230,0,1,2035,2035,0,0,bat:230
+Bendle Farm 132kV Substation,,,SPT,228,0,1,2031,2031,0,0,bat:228
+BENDLE FARM 2.0 132KV SUBSTATION,,,SPT,228,0,1,2031,2031,0,0,bat:228
+Hurst 275kV Substation,51.4328,0.1551,NGET,228,0,1,2037,2037,0,0,bat:228
+BORDERS SOLAR 132/33KV SUBSTATION,,,SPT,228,0,1,2036,2036,0,0,bat:228
+Mid Hill 132kV Substation,56.9597,-2.4602,SPT,228,0,1,2034,2034,0,0,bat:228
+Teeside Connection Node A 132kV Substation,,,NGET,228,285,1,2035,2035,0,0,bat:228
+Smeaton 400kV,55.9089,-3.0354,SPT,228,0,1,2027,2027,0,0,bat:228
+EAST KENT CONNECTION NODE B 132KV SUBSTATION,,,NGET,228,0,1,2036,2036,0,0,bat:228
+Imperial Park 400kV Substation,51.5477,-3.0315,NGET,225,0,1,2037,2037,1,0,bat:225
+Sussex and Romney Connection Node B 132kV Substation,,,NGET,225,0,1,2037,2037,0,0,bat:225
+Blacklaw 132/33kV,,,SPT,222,118,1,2032,2032,0,0,bat:222
+Garvary 132kV Substation,,,SHET,222,0,1,2028,2028,0,0,nw:222
+Rhigos B 400kV Substation,51.7465,-3.5482,NGET,221,0,1,2037,2037,1,0,bat:221
+New Connagill 275/132kV Substation,58.5125,-3.8795,SHET,220,0,2,2031,2031,0,0,bat:220
+Cnoc Buidhe 132kV/33kV Substation,,,SHET,220,0,2,2030,2032,0,0,bat:220
+L48 BESS Dams of Craigie,,,SHET,220,0,1,2033,2033,0,0,bat:220
+Rivox 132/33kV,,,SPT,220,0,1,2031,2031,0,0,bat:220
+Whiteminhill 275/33kV Substation,,,SPT,220,0,1,2036,2036,0,0,bat:220
+Pembroke 132kV Substation,51.683,-4.99,NGET,215,0,2,2028,2028,1,0,bat:120;ow:95
+Maybole GSP,55.3423,-4.6854,SPT,213,20,3,2032,2032,0,0,bat:175;nw:38
+Clash Gour Wind Farm 132kV Substation,,,SHET,210,0,1,2029,2029,0,0,bat:210
+Severn Connection Node A 132kV Substation,51.5473,-2.9769,NGET,210,0,2,2037,2037,1,0,bat:210
+Strathy South 132/33kV Substation,,,SHET,208,0,1,2030,2030,0,0,nw:208
+Ladyburn 132kV Substation,,,SPT,206,0,2,2031,2034,0,0,bat:206
+New Spittal 275kV Substation,58.4801,-3.4517,SHET,200,0,1,2037,2037,0,0,bat:200
+London North West Connection Node A 132kV Substation,,,NGET,200,0,1,2037,2037,0,0,bat:200
+New North East 275kV Substation,54.597,-1.2583,SHET,200,0,1,2033,2033,0,0,bat:200
+Auldhouse 400kV Substation,,,SPT,200,0,1,2031,2031,0,0,dem:200
+Melksham B 400kV Substation,51.3939,-2.1507,NGET,200,0,1,2037,2037,0,0,bat:200
+Broadford 132kV Substation,57.2481,-5.9361,SHET,200,0,1,2034,2034,0,0,bat:200
+Corriemoillie 132kV Substation,57.6344,-4.7692,SHET,200,69,1,2029,2029,0,0,bat:200
+Dalchork 132kV Substation,58.0517,-4.4047,SHET,200,0,1,2032,2032,0,0,bat:200
+Osbaldwick (North Humber Connection Node E) 132kv Substation,53.9569,-1.0235,NGET,200,0,1,2039,2039,0,0,so:200
+Er Msm Energy 132kV Substation,,,SPT,200,0,1,2030,2030,0,0,bat:200
+FIELD GLENNISTON BESS 132KV SUBSTATION,,,SPT,200,0,1,2032,2032,0,0,bat:200
+Fort Augustus 400kV,57.1355,-4.7176,SHET,200,0,1,2035,2035,0,0,bat:200
+Fyrish 132kV Substation,57.6989,-4.3003,SHET,200,0,1,2029,2029,0,0,bat:200
+Staffordshire Connection Node C 400Kv Substation,,,NGET,200,0,1,2037,2037,0,0,bat:200
+Garscadden Park 275kV Substation,,,SPT,200,0,1,2033,2033,0,0,bat:200
+Upper Boat 275kV Substation,,,NGET,200,0,1,2028,2028,0,0,bat:200
+LOCH GELLY COLLECTOR 132KV SUBSTATION,,,SPT,200,0,1,2031,2031,0,0,bat:200
+Hunterston East 400kV,55.7199,-4.8876,SPT,200,0,1,2027,2027,0,0,dem:200
+Hunterston East 400kV substation,55.7199,-4.8876,SPT,200,0,1,2028,2028,0,0,bat:200
+Ayrshire Grid 400kV Substation,,,SPT,200,0,1,2028,2028,0,0,bat:200
+Corriemoillie 132/33kV Substation,57.6344,-4.7692,SHET,200,48,1,2033,2033,0,0,bat:200
+Dumfries North 400kV,55.0676,-3.5908,SPT,200,0,1,2037,2037,0,0,bat:200
+L48 BESS GLEN APP 275/132KV SUBSTATION,,,SPT,200,0,1,2028,2028,0,0,bat:200
+Slough East 132kV Substation,,,NGET,200,0,1,2038,2038,0,0,bat:200
+Leslie 200MW BESS 275kV Substation,,,SPT,200,0,1,2032,2032,0,0,bat:200
+Peterhead 2 400kV Busbar Extension,57.476,-1.787,SHET,200,0,1,2033,2033,0,0,bat:200
+Borders Connection Node A 400kV Substation,,,NGET,200,0,1,2035,2035,0,0,bat:200
+Marchwood 400kV Substation,50.8983,-1.4405,NGET,200,920,1,2028,2028,0,0,bat:200
+Milligansbush Battery Storage 132kV Substation,,,SPT,200,0,1,2036,2036,0,0,bat:200
+Strathleven GSP,55.9613,-4.5617,SPT,200,0,1,2031,2031,0,0,bat:200
+North Humber Connection Node B 132kV Substation,,,NGET,200,0,1,2035,2035,0,0,bat:200
+North Lanrigg Substation,,,SPT,200,0,1,2028,2028,0,0,dem:200
+Wearside Connection Node B2 400kV substation,,,NGET,200,0,1,2035,2035,0,0,bat:200
+Folly Farm 132kV Substation,,,NGET,200,0,1,2036,2036,0,0,bat:200
+London North East Connection Node A 132kv Substation,,,NGET,200,0,1,2038,2038,0,0,bat:200
+Pond Flexible Energy Park 132kV Substation,,,SPT,200,0,1,2031,2031,0,0,bat:200
+Roger Hill Farm 132kV substation,,,SPT,200,0,1,2031,2031,0,0,bat:200
+East Kilbride 275kV Substation,55.7858,-4.1941,SPT,200,0,1,2033,2033,0,0,bat:200
+Peterhead 132KV Substation,57.476,-1.787,SHET,200,0,1,2030,2030,0,0,bat:200
+Hedon 275kV Substation,,,NGET,200,0,1,2035,2035,0,0,bat:200
+Saltholme 275kV Substation,54.6054,-1.2372,NGET,200,0,1,2035,2035,0,0,bat:200
+Longside 132kV Substation,,,SHET,200,0,2,2033,2033,0,0,ow:200
+Leeds North Connection Node G,53.814,-1.5422,NGET,200,0,1,2039,2039,0,0,bat:200
+Gorstage 400kV Substation,,,NGET,200,0,1,2037,2037,0,0,bat:200
+Laleham GSP (SEPD),51.424,-0.4702,NGET,200,0,1,2031,2031,0,0,bat:200
+Leeds North Connection Node A 400kV Substation,53.814,-1.5422,NGET,200,0,1,2036,2036,0,0,bat:200
+London West Connection Node B 400kV Substation,,,NGET,200,0,1,2037,2037,0,0,bat:200
+North Humber Connection Node C 400kV Substation,,,NGET,200,0,1,2035,2035,0,0,bat:200
+Leeds South Connection Node B 132kV Substation,,,NGET,200,0,1,2039,2039,0,0,bat:200
+Tolkien Farm 132kV Substation,,,SHET,200,0,1,2033,2033,0,0,bat:200
+Warwickshire Connection Node D 132kV Substation,,,NGET,200,0,1,2037,2037,0,0,bat:200
+Llandyfaelog 400/132kV Substation,,,NGET,200,0,1,2036,2036,0,0,bat:200
+Waltham Cross 400kV Substation,51.7141,-0.0115,NGET,200,0,1,2033,2033,0,0,bat:200
+West Saval Substation 132 kV,,,SHET,200,0,1,2030,2030,0,0,bat:200
+Easterhouse 275kV,55.8793,-4.0746,SPT,200,0,1,2028,2028,0,0,bat:200
+Windyhill 275/132kV,55.9302,-4.3773,SPT,200,0,1,2025,2025,0,200,bat:200
+Windyhill 132kV,55.9302,-4.3773,SPT,200,0,1,2027,2027,0,0,bat:200
+Womblehill BESS Farm 132kV,,,SHET,200,0,1,2029,2029,0,0,bat:200
+GARTCLASH COLLECTOR 275KV SUBSTATION,,,SPT,200,0,1,2029,2029,0,0,bat:200
+Coalburn North 400kV Substation,55.6155,-3.8674,SPT,200,0,1,2027,2027,0,0,bat:200
+London West Connection Node A 400kV Substation,,,NGET,200,0,1,2038,2038,0,0,bat:200
+Fleet 400kV Substation,51.2511,-0.8809,NGET,200,0,4,2026,2027,0,0,so:104;bat:48;oth:48
+Arresgill 132kV Substation,,,SPT,199,0,2,2031,2031,0,0,nw:150;bat:49
+Dalmarnock Storage BESS 132kV Substation,55.8355,-4.2041,SPT,192,0,2,2028,2029,0,0,bat:192
+Inveroykel Wind Farm 132kV,,,SHET,191,0,1,2031,2031,0,0,nw:191
+Connagill 275kV Substation,58.5125,-3.8795,SHET,190,0,2,2028,2030,0,0,bat:130;nw:60
+Kilwinning 132/33kV,55.6652,-4.6804,SPT,190,0,3,2025,2026,0,90,bat:190
+Drax 132kV Substation,53.736,-0.996,NGET,190,100,1,2029,2029,0,0,bat:190
+Ratcliffe-On-Soar 132kV Substation,,,NGET,190,0,2,2029,2031,0,0,bat:140;bio:50
+Muaitheabhal 132/33kV Substation,,,SHET,189,0,1,2030,2030,0,0,hy:189
+Clune 132/33 kV Substation,,,SHET,187,0,1,2030,2030,0,0,bat:187
+Kingsnorth 132kV Substation,51.4189,0.5982,NGET,180,0,2,2028,2028,0,0,bat:180
+M74 West Wind Farm 132kV,,,SPT,180,0,1,2029,2029,0,0,bat:180
+Thorpe Marsh GSP,53.5757,-1.0899,NGET,180,0,1,2035,2035,0,0,bat:180
+Grimsby West GSP,53.5656,-0.1517,NGET,180,0,1,2035,2035,0,0,so:180
+Arnish 275kV Substation,58.1878,-6.3873,SHET,180,0,1,2030,2030,0,0,nw:180
+Sundhope 132kV Substation,,,SPT,180,0,1,2033,2033,0,0,nw:180
+Philipaugh Substation,,,SPT,175,0,1,2033,2033,0,0,nw:175
+Mid Wales Connection Node A,,,NGET,172,0,2,2037,2037,0,0,bat:172
+Creag Dhubh Wind Farm and BESS 132kV Substation,,,SHET,171,0,1,2033,2033,0,0,bat:171
+NEW LIMEKILN 132 KV SUBSTATION,58.5226,-3.7435,SHET,171,0,1,2037,2037,0,0,bat:171
+Rochdale GSP,53.6221,-2.2163,NGET,170,0,1,2037,2037,0,0,nw:170
+Elchies 132/33kV Substation,,,SHET,170,0,2,2028,2028,0,0,nw:170
+Letchmore Heath 132kV Substation,,,NGET,170,0,1,2029,2029,0,0,bat:170
+Fyrish 275kV Substation,57.6989,-4.3003,SHET,170,0,1,2030,2030,0,0,bat:170
+Mybster 3 132/33kV Substation,58.447,-3.4237,SHET,170,0,3,2028,2028,0,0,bat:117;nw:53
+Highland Wind Farm 132/33kV substation,,,SHET,168,0,1,2030,2030,0,0,bat:168
+Glendye Wind Farm Substation,,,SHET,167,0,2,2028,2031,0,0,nw:167
+Bowsheils 132kV Substation,,,SPT,167,0,1,2031,2031,0,0,bat:167
+Rassau GSP,51.8085,-3.2267,NGET,165,0,1,2037,2037,1,0,bat:165
+Future Swansea North 132kV,,,NGET,165,0,1,2033,2033,0,0,bat:165
+DEUCHERAN HILL 2 132KV SUBSTATION,55.6378,-5.5598,SHET,165,0,1,2034,2034,0,0,bat:165
+Glen Lednock 132kV Substation,,,SHET,165,0,1,2031,2031,0,0,bat:165
+Shin 1 GSP,57.9433,-4.4133,SHET,164,0,3,2031,2032,0,0,bat:124;nw:40
+Balinoe 132kV substation,,,SHET,161,0,1,2034,2034,0,0,bat:161
+Berryburn 275/33kV GSP Substation,,,SHET,160,0,3,2027,2028,0,0,nw:110;bat:50
+East Kilbride B 275/33kV Substation,55.7858,-4.1941,SPT,160,0,3,2033,2033,0,0,bat:160
+NEW CARRADALE 132KV SUBSTATION,55.5904,-5.5027,SHET,160,0,1,2037,2037,0,0,nw:160
+Craigdarroch Hybrid Wind & BESS 132kV Substation,,,SPT,159,0,1,2037,2037,0,0,bat:159
+New Dalchork 132kV Substation,58.0517,-4.4047,SHET,158,0,1,2037,2037,0,0,nw:158
+LONGCROFT ENERGY PARK 132KV SUBSTATION,,,SPT,156,0,1,2031,2031,0,0,bat:156
+Coupar Angus 132/33kV GSP,56.5382,-3.2733,SHET,156,18,4,2022,2026,0,40,bat:106;so:50
+NLEI Windfarm 132/33kV substation,,,SPT,151,0,1,2031,2031,0,0,nw:151
+Margam 275kV Substation,51.563,-3.754,NGET,151,0,1,2029,2029,1,0,nw:151
+SOUTH WALES WEST CONNECTION NODE A 132KV SUBSTATION,,,NGET,150,0,1,2036,2036,0,0,bat:150
+Ayr 275/33kV Substation,55.4572,-4.588,SPT,150,0,1,2028,2028,0,0,bat:150
+BISHOPS DAL ENERGY PARK 132kV SUBSTATION,,,SPT,150,0,1,2030,2030,0,0,bat:150
+Torness 400/132kV,55.97,-2.41,SPT,150,1250,1,2031,2031,0,0,bat:150
+Mid Wales West 132kV Substation,,,NGET,150,0,1,2030,2030,0,0,nw:150
+DRUM OF CLUNAS WIND 275KV SUBSTATION,,,SHET,150,0,1,2031,2031,0,0,nw:150
+GALILEO 07 LIMITED 132KV SUBSTATION,,,SHET,150,0,1,2032,2032,0,0,bat:150
+Glennifer Road BESS 132kV substation,,,SPT,150,0,1,2028,2028,0,0,bat:150
+GLENTAGGART 150MW BESS 132kV SUBSTATION,,,SPT,150,0,1,2030,2030,0,0,bat:150
+Halbeath 132kV Substation,,,SPT,150,0,1,2029,2029,0,0,dem:150
+Hawthorn Pit GSP,54.8053,-1.4027,NGET,150,0,1,2035,2035,0,0,bat:150
+Keith Solar Farm 275kV Substation,57.5402,-2.9385,SHET,150,0,1,2028,2028,0,0,bat:150
+Killoch BESS 132kV Substation,,,SPT,150,0,1,2030,2030,0,0,bat:150
+Fawley GSP,50.8494,-1.3881,NGET,150,0,1,2036,2036,0,0,bat:150
+Nant Y Maen 132KV Substation,56.3434,-5.2095,NGET,150,0,1,2032,2032,0,0,nw:150
+Currie 275/132kV,55.9023,-3.3091,SPT,150,0,1,2029,2029,0,0,bat:150
+Harker GSP,,,NGET,150,0,1,2037,2037,0,0,so:150
+Didcot 132kV Substation,51.6253,-1.2598,NGET,150,0,1,2037,2037,0,0,dem:150
+Torfichen Energy Park 132kV Substation,,,SPT,150,0,1,2030,2030,0,0,bat:150
+Warwickshire Connection Node F 132kV Substation,,,NGET,150,0,1,2037,2037,0,0,bat:150
+Elton (Merseyside 132kV Substation),52.948,-0.8549,NGET,150,0,1,2037,2037,0,0,bat:150
+Grimsby West 132kV Substation,53.5656,-0.1517,NGET,150,0,1,2035,2035,0,0,so:150
+Busby 275kV,55.7745,-4.2624,SPT,150,0,1,2029,2029,0,0,bat:150
+Cowley GSP,51.7108,-1.1902,NGET,150,12,1,2038,2038,0,0,bat:150
+Stalybridge 275kV Substation,,,NGET,150,0,1,2027,2027,0,0,bat:150
+DEWLEY HILL EHV,,,NGET,150,0,1,2036,2036,0,0,bat:150
+Stoke Bardolph GSP,52.9602,-1.0502,NGET,150,0,1,2034,2034,0,0,so:150
+Fallago 400/33kV,55.8251,-2.6645,SPT,150,144,2,2029,2031,0,0,nw:100;bat:50
+Achrugan 132kV Substation,,,SHET,149,0,1,2030,2030,0,0,bat:149
+Cairnford GSP,57.4519,-2.8501,SHET,146,0,3,2027,2031,0,0,nw:103;bat:43
+Clashindarroch Windfarm Extension 132kV Substation,,,SHET,145,0,1,2033,2033,0,0,nw:145
+Quantans Hill 132kV Substation,,,SPT,145,0,2,2029,2029,0,0,nw:145
+SPT Margree collector substation,,,SPT,145,0,3,2029,2029,0,0,nw:145
+FARR WIND FARM 132/33KV SUBSTATION,57.3362,-4.1605,SHET,145,0,1,2030,2030,0,0,nw:145
+Beinneun Windfarm 2,57.154,-4.8699,SHET,144,0,1,2037,2037,0,0,nw:144
+Rayleigh Main 400kV Substation,51.5941,0.5673,NGET,144,0,3,2028,2028,0,0,bat:144
+Hawick GSP,55.433,-2.8016,SPT,143,0,2,2023,2026,0,50,nw:143
+Mannington 400kV Substation,50.8466,-1.8952,NGET,142,0,3,2025,2025,0,95,bat:142
+Aberarder Extension Wind Farm 132/33kV Substation,,,SHET,138,0,1,2031,2031,0,0,bat:138
+Seabank GSP,51.5366,-2.6702,NGET,135,0,1,2038,2038,0,0,bat:135
+Arbroath GSP,56.564,-2.6198,SHET,135,0,3,2022,2032,0,35,bat:85;so:50
+Lairg GSP,58.0305,-4.3929,SHET,135,0,3,2027,2029,0,0,nw:85;bat:50
+Devonside 132/33kV,56.1371,-3.7797,SPT,134,0,3,2028,2030,0,0,bat:134
+Keith 2 132/33kV GSP Substation,57.5402,-2.9385,SHET,132,0,3,2026,2026,0,0,nw:82;bat:50
+Lethans Collector Substation,,,SPT,132,0,1,2029,2029,0,0,nw:132
+Saltcoats 132/33kV,55.647,-4.7963,SPT,130,0,2,2028,2028,0,0,bat:130
+Ratcliffe GSP,,,NGET,130,42,1,2028,2028,0,0,bat:130
+Fiddes GSP,56.9246,-2.3019,SHET,130,32,3,2028,2031,0,0,bat:130
+East Claydon GSP (NGED EM),51.9263,-0.9076,NGET,130,0,1,2026,2026,0,0,so:130
+Bloch Energy Park 132kV Substation,,,SPT,126,0,1,2031,2031,0,0,bat:126
+Amersham Main 132kV Substation,51.6647,-0.6558,NGET,125,99,1,2037,2037,0,0,bat:125
+Galileo 16 132kV Substation,,,SPT,125,0,1,2032,2032,0,0,bat:125
+CARRADALE 3 132/33KV GRID SUPPLY POINT SUBSTATION,55.5904,-5.5027,SHET,125,0,2,2034,2034,0,0,nw:125
+Energy Isles 132kV Substation,,,SHET,120,0,1,2032,2032,0,0,nw:120
+Highland BESS 132kV Substation,,,SHET,120,0,1,2030,2030,0,0,bat:120
+Iron Acton 275kV Substation,51.5694,-2.4805,NGET,120,0,2,2026,2027,0,50,bat:120
+Knockodhar Wind Farm 132kV Substation,,,SPT,120,0,1,2028,2028,0,0,nw:120
+Bishops Wood 132kV Substation,52.3124,-2.2419,NGET,120,0,1,2033,2033,0,0,bat:120
+Rayleigh Main GSP,51.5941,0.5673,NGET,120,0,1,2034,2034,0,0,nw:120
+Solent Connection Node B 132kV Substation,,,NGET,120,0,1,2037,2037,0,0,bat:120
+Kegworth B (Derbyshire Connection Node C) 132kV Substation,,,NGET,120,0,1,2037,2037,0,0,bat:120
+Uskmouth 132kV Substation,51.5469,-2.9688,NGET,120,360,1,2026,2026,1,0,bat:120
+Hirwaun GSP,51.741,-3.5372,NGET,120,0,1,2036,2036,1,0,bat:120
+West Burton 132kV Substation,53.3593,-0.8089,NGET,120,0,1,2027,2027,0,0,bat:120
+Wylfa 132kV Substation,53.416,-4.482,NGET,120,0,1,2029,2029,1,0,bat:120
+Harestanes West Wind Farm 132/33kV,,,SPT,119,125,3,2028,2029,0,0,nw:81;bat:38
+Newlands Hill 132/33kV,,,SPT,119,0,1,2030,2030,0,0,bat:119
+Fort Augustus 2 400kV Substation,57.1355,-4.7176,SHET,115,0,1,2037,2037,0,0,bat:115
+Bramley 400kV Substation,51.3368,-1.0769,NGET,114,47,3,2027,2027,0,0,bat:114
+Hare Hill Repowering 132/33kV Substation,54.7629,-1.4165,SPT,114,0,1,2031,2031,0,0,nw:114
+LESSNESSOCK ENERGY PARK 132KV SUBSTATION,,,SPT,114,0,1,2037,2037,0,0,bat:114
+Lethen Wind Farm 132/33kV Substation,,,SHET,114,0,1,2033,2033,0,0,nw:114
+Leuchland Farm IDNO,,,SHET,114,0,2,2033,2033,0,0,bat:114
+Lister Drive 275kV Substation,53.4195,-2.9262,NGET,114,0,2,2026,2027,0,0,bat:114
+Slickly Wind Farm 132kV Substation,,,SHET,114,0,1,2029,2029,0,0,bat:114
+West Weybridge 275kV Substation,,,NGET,114,0,3,2025,2027,0,50,bat:114
+Coille Linne 132kV Substation,,,SHET,113,0,1,2037,2037,0,0,bat:113
+Euchanhead 132kV Substation,,,SPT,112,0,1,2030,2030,0,0,nw:112
+Coalburn 132kV,55.6155,-3.8674,SPT,112,0,1,2028,2028,0,0,nw:112
+Dun Hill 132/33kV,55.313,-4.2034,SPT,110,62,3,2026,2027,0,44,nw:110
+Clauchrie 132/33KV Substation,,,SPT,108,0,1,2033,2033,0,0,bat:108
+REDSHAW 132kV B BOARD SUBSTATION,,,SPT,108,0,1,2037,2037,0,0,nw:108
+ACHANY EXTENSION WIND FARM 132/33KV Substation,,,SHET,105,0,1,2028,2028,0,0,nw:105
+Aultmore Wind Farm 132/33kV Substation,,,SHET,105,0,1,2030,2030,0,0,bat:105
+Earraghail 275/33KV Substation,,,SHET,105,0,1,2031,2031,0,0,bat:105
+An Suidhe 275/33kV,56.198,-5.145,SHET,105,0,1,2029,2029,0,0,bat:105
+Kinmuck BESS 132kV Substation,,,SHET,105,0,1,2027,2027,0,0,bat:105
+Ourack Wind Farm 132/33 kV Substation,,,SHET,105,0,1,2030,2030,0,0,bat:105
+GLENTARKEN WIND FARM 132/33KV SUBSTATION,,,SHET,104,0,1,2031,2031,0,0,nw:104
+Beaw Field 132/33kV Substation,,,SHET,102,0,1,2032,2032,0,0,nw:102
+Stranoch Wind 132/33kV Substation,,,SPT,102,0,1,2026,2026,0,0,nw:102
+Bhlaraidh 132/33kV Substation,57.2444,-4.7035,SHET,101,108,1,2029,2029,0,0,nw:101
+Craig Murrail 275kV Substation,55.1653,-3.0685,SHET,101,0,1,2034,2034,0,0,nw:101
+DUNACH WIND 132KV SUBSTATION,,,SHET,101,0,1,2034,2034,0,0,nw:101
+Orrin GSP,57.5541,-4.6154,SHET,101,18,1,2033,2033,0,0,nw:101
+Andrew BESS 132kV Substation,,,SPT,100,0,1,2030,2030,0,0,bat:100
+Bargatton Farm BESS 132kV Substation,,,SPT,100,0,1,2036,2036,0,0,bat:100
+BEAULY 02 BESS 132kV SUBSTATION,57.468,-4.492,SHET,100,0,1,2028,2028,0,0,bat:100
+Berwick 132/33kV,55.7774,-2.0788,SPT,100,0,1,2031,2031,0,0,bat:100
+Braidfield Battery Storage 132kV Substation,,,SPT,100,0,1,2027,2027,0,0,dem:100
+Cott's Farm 132kV Substation,,,SHET,100,0,1,2034,2034,0,0,bat:100
+DIDCOT 400/132KV SUBSTATION,51.6253,-1.2598,NGET,100,0,1,2027,2027,0,0,dem:100
+Coylton 275/132kV,55.4471,-4.432,SPT,100,0,1,2027,2027,0,0,bat:100
+ECOKILWINNING 132KV SUBSTATION,,,SPT,100,0,1,2031,2031,0,0,bat:100
+Feckenham GSP,52.2509,-1.9726,NGET,100,29,1,2037,2037,0,0,bat:100
+Fife Energy Centre 132kV substation,,,SPT,100,0,1,2028,2028,0,0,bat:100
+Garlogie Production B 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
+Garlogie Production C 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
+Garlogie Production A 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
+Creyke Beck 132kV,53.8008,-0.4158,NGET,100,0,1,2034,2034,0,0,so:100
+Kirkcaldy BESS 132kV Substation,,,SPT,100,0,1,2032,2032,0,0,bat:100
+Lairdmannoch Energy Park 132kV substation,,,SPT,100,0,1,2030,2030,0,0,bat:100
+Iron Acton 132kV Substation,51.5694,-2.4805,NGET,100,0,1,2037,2037,0,0,bat:100
+Learlielaw Energy Storage 132kV Substation,,,SPT,100,0,1,2028,2028,0,0,bat:100
+Chirk 132kV,,,NGET,100,0,1,2037,2037,0,0,nw:100
+Mossmorran Storage BESS 132KV Substation,56.106,-3.2926,SPT,100,0,1,2031,2031,0,0,bat:100
+Norwich Main 132kV,52.5742,1.2727,NGET,100,420,1,2031,2031,0,0,bat:100
+Pentland Floating Offshore Wind Farm 132/66kV substation,,,SHET,100,0,1,2028,2028,0,0,ow:100
+ST FERGUS 132KV SWITCHING STATION,57.5662,-1.881,SHET,100,0,1,2033,2033,0,0,bat:100
+Broadford GSP,57.2481,-5.9361,SHET,100,0,1,2034,2034,0,0,bat:100
+St Fergus,57.5662,-1.881,SHET,100,0,1,2033,2033,0,0,bat:100
+Abham 132kV Substation,50.4721,-3.7304,NGET,100,0,1,2037,2037,0,0,bat:100
+Taunton 400kV Substation,51.0173,-3.1537,NGET,100,0,2,2031,2034,0,0,bat:100
+Walpole 132kV Substation,52.7269,0.1994,NGET,100,660,1,2027,2027,0,0,bat:100
+Solent Connection Node A 132kV Substation,,,NGET,100,0,1,2038,2038,0,0,bat:100
+Kemsley GSP,51.3681,0.7411,NGET,100,36,1,2033,2033,0,0,bat:100
+Barking West GSP,51.5209,0.1146,NGET,100,0,1,2028,2028,0,0,bat:100
+Didcot 132kV GIS Substation,51.6253,-1.2598,NGET,100,0,1,2037,2037,0,0,bat:100
+Elland 132kV Substation,53.6945,-1.8228,NGET,100,0,1,2036,2036,0,0,bat:100
+FORSA ENERGY DENNY BESS 132KV GRID SUPPLY POINT SUBSTATION,,,SPT,100,0,1,2030,2030,0,0,bat:100
+Muckraw IDNO GSP,,,SPT,100,0,1,2032,2032,0,0,bat:100
+Penn 132kV Substation,52.5565,-2.2096,NGET,100,0,1,2034,2034,0,0,bat:100
+Braehead Park 132/33kV,55.8808,-4.3811,SPT,100,0,2,2025,2026,0,50,bat:100
+Shaftesbury 132kV Substation,51.0209,-2.1839,NGET,100,0,1,2036,2036,0,0,bat:100
+Bishops Wood GSP,52.3124,-2.2419,NGET,100,0,1,2037,2037,0,0,bat:100
+Breakish 132kV Substation,,,SHET,100,0,2,2029,2031,0,0,nw:100
+Ocker Hill C 132kV GSP,,,NGET,99,0,1,2026,2026,0,0,bat:99
+Braeside IDNO 132/33kV substation,,,SPT,99,0,1,2031,2031,0,0,bat:99
+BLAIR HILL WIND FARM 132KV SUBSTATION,,,SPT,99,0,1,2036,2036,0,0,nw:99
+Car Duibh 275kV Substation,,,SHET,99,0,1,2034,2034,0,0,nw:99
+Connagill 132kV Substation,58.5125,-3.8795,SHET,99,0,1,2037,2037,0,0,nw:99
+KXP Alpha 3 Ayr BESS 275kV Substation,,,SPT,99,0,1,2037,2037,0,0,bat:99
+Loch Liath 132/33kV Substation,,,SHET,99,0,1,2035,2035,0,0,nw:99
+Mid Moile Wind Farm 275/132kV Substatio,,,SPT,99,0,1,2031,2031,0,0,nw:99
+Norton 275kV Substation,54.5922,-1.3644,NGET,98,0,2,2027,2028,0,0,bat:98
+BALLYGROGGAN 132/33KV SUBSTATION,,,SHET,96,0,1,2034,2034,0,0,nw:96
+Chleansaid Wind Farm 132kV Substation,,,SHET,96,0,1,2028,2028,0,0,nw:96
+Daer Wind Farm 132/33kV,,,SPT,96,0,1,2028,2028,0,0,nw:96
+Tangy IV 132KV Substation,55.4947,-5.6796,SHET,96,0,1,2029,2029,0,0,nw:96
+Glenvernoch 132kV,,,SPT,96,0,1,2037,2037,0,0,bat:96
+17 ACRES BESS 275KV SUBSTATION,,,SHET,96,0,1,2032,2032,0,0,bat:96
+Dunbar 132/33kV,55.9775,-2.5735,SPT,96,0,1,2032,2032,0,0,bat:96
+Beinn an Tuirc Substation,55.5613,-5.5845,SHET,95,0,1,2034,2034,0,0,nw:95
+Braegrundie Farm 132kV Substation,,,SHET,95,0,1,2030,2030,0,0,bat:95
+South Wales East Connection Node A 275kV Substation,,,NGET,95,0,1,2037,2037,0,0,bat:95
+Alness 2 275/33 kV GSP Substation,57.7082,-4.2748,SHET,95,0,2,2030,2030,0,0,bat:95
+Berkswell GSP,52.3863,-1.6155,NGET,92,0,1,2034,2034,0,0,bat:92
+Maybole 132/33kV,55.3423,-4.6854,SPT,92,130,1,2031,2031,0,0,nw:92
+POLLIE HILL WIND FARM 132KV SUBSTATION,,,SHET,92,0,1,2031,2031,0,0,nw:92
+South Kyle 2 132/33kV Substation,55.3144,-4.2791,SPT,92,0,1,2030,2030,0,0,bat:92
+Chirmorie Wind Farm substation,,,SPT,91,0,1,2027,2027,0,0,nw:91
+Tomatin 132kV Substation Extension,57.3013,-4.0668,SHET,91,0,1,2037,2037,0,0,bat:91
+Breackerie 132kV Substation,,,SHET,91,0,1,2037,2037,0,0,bat:91
+Rowan 275/33kV Substation,,,SHET,91,0,1,2034,2034,0,0,bat:91
+Bonnybridge 132/33kV,,,SPT,90,0,2,2026,2028,0,0,bat:60;nw:30
+Fairburn Extension 132/33kV Substation,57.5321,-4.6473,SHET,90,0,1,2031,2031,0,0,nw:90
+Greenburn Mixed Technology 132kV Substation,,,SPT,90,0,1,2028,2028,0,0,nw:90
+Kellas Wind Farm 132kV Substation,,,SHET,90,0,1,2030,2030,0,0,nw:90
+Dumfries 132/33kV,55.0676,-3.5908,SPT,90,30,2,2029,2029,0,0,bat:90
+Laleham 132kV Substation,51.424,-0.4702,NGET,90,0,2,2028,2029,0,0,dem:90
+Seat Hill 132kV Substation,,,SPT,90,0,1,2035,2035,0,0,bat:90
+Woodcock Hill WF Substation,,,SHET,90,0,1,2032,2032,0,0,bat:90
+Pitsmoor GSP,53.401,-1.4436,NGET,90,0,2,2033,2033,0,0,bat:90
+Whitelee Extension 275/33kV,55.68,-4.27,SPT,89,206,1,2027,2027,0,0,bat:89
+Elderslie 132/33kV,55.8406,-4.4638,SPT,89,0,2,2028,2028,0,0,bat:50;so:39
+Edinbane 132/33kV Substation,57.4103,-6.4139,SHET,88,41,2,2033,2033,0,0,bat:49;nw:40
+Mybster 2 132/33kV Substation,58.447,-3.4237,SHET,86,0,2,2025,2027,0,36,bat:50;nw:36
+Artfield Forest Wind Farm 132kV Substation,,,SPT,86,0,1,2030,2030,0,0,nw:86
+Ceislien Wind Farm,,,SHET,86,0,1,2031,2031,0,0,nw:86
+West Andershaw 132kV Substation,,,SPT,86,0,1,2030,2030,0,0,nw:86
+Rainhill GSP,53.4209,-2.7386,NGET,86,57,1,2026,2026,0,0,bat:86
+Carn Fearna Wind Farm 132/33kV Substation,,,SHET,85,0,1,2030,2030,0,0,nw:85
+Lethans Collector 132kV Substation,,,SPT,85,0,1,2029,2029,0,0,nw:85
+Shepards Rig 132/33kV,,,SPT,85,0,1,2030,2030,0,0,nw:85
+Acheilidh Wind farm 132kV Substation,,,SHET,84,0,1,2033,2033,0,0,bat:84
+BEINN THURSUNN REPOWER 275/33KV,,,SHET,84,0,1,2029,2029,0,0,nw:84
+Carrick Wind Farm Substation,,,SPT,84,0,1,2030,2030,0,0,nw:84
+Hagshaw Repowering Phase 3 132kV,,,SPT,84,0,1,2029,2029,0,0,bat:84
+Hopsrig Collector Substation,,,SPT,84,0,2,2027,2027,0,0,nw:84
+Lynemore Windfarm 132kV Substation,,,SHET,84,0,1,2031,2031,0,0,nw:84
+Minnygryle Burn Energy Park 132kV substation,,,SPT,84,0,1,2036,2036,0,0,bat:84
+Sheirdrim 132kV Substation,,,SHET,84,0,1,2032,2032,0,0,nw:84
+South Humber Bank 400kV Substation,53.602,-0.1455,NGET,83,1365,1,2029,2029,0,0,bio:83
+Corriemoillie 2 400/132kV Substation,57.6344,-4.7692,SHET,82,0,1,2033,2033,0,0,bat:82
+Caorach 132 KV Substation,,,SHET,81,0,1,2033,2033,0,0,bat:81
+Airds Hill WindFarm 132kV Substation,,,SPT,80,0,1,2031,2031,0,0,bat:80
+New Cumnock A 132kV,55.3443,-4.335,SPT,80,0,1,2028,2028,0,0,nw:80
+Glenmuir Windfarm 132kV Substation,,,SPT,80,0,1,2036,2036,0,0,nw:80
+Heathland 132/33kV Substation,,,SPT,80,0,1,2028,2028,0,0,bat:80
+Tealing IDNO 132/33kV GSP,56.5211,-2.9778,SHET,80,0,1,2027,2027,0,0,bat:80
+New Cumnock North 132kV Substation,55.3443,-4.335,SPT,80,0,1,2033,2033,0,0,nw:80
+Oykel Wind Farm 132kV Substation,,,SHET,79,0,1,2032,2032,0,0,nw:79
+Creachan Wind Farm 132/33kV Substation,,,SHET,79,0,1,2030,2030,0,0,nw:79
+Grimshader Wind Farm Substation132 KV,,,SHET,79,0,1,2033,2033,0,0,nw:79
+Kilbraur Wind Farm Substation,58.0429,-4.055,SHET,79,67,1,2031,2031,0,0,nw:79
+Alness GSP,57.7082,-4.2748,SHET,79,59,2,2024,2028,0,36,nw:79
+Olivers Forest Wind Farm 132kV Substation,,,SPT,79,0,1,2031,2031,0,0,nw:79
+Bankend Rig III 132kV Collector Substation,,,SPT,78,0,1,2030,2030,0,0,nw:78
+Stella South GSP,54.9739,-1.7331,NGET,78,0,1,2025,2025,0,78,bat:78
+CRAIGHEAD WIND FARM 132kV SUBSTATION,,,SPT,77,0,1,2032,2032,0,0,nw:77
+Beauly substation 275KV,57.468,-4.492,SHET,77,0,1,2033,2033,0,0,bat:77
+Abhainn Dubh Wind Farm 132kV Substation,,,SHET,75,0,1,2029,2029,0,0,nw:75
+CHALMERSTON WINDFARM 132kV SUBSTATION,,,SPT,75,0,1,2033,2033,0,0,nw:75
+ELVANFOOT ENERGY STORAGE 132/33KV COLLECTOR SUBSTATION,55.4374,-3.6721,SPT,75,0,2,2029,2029,0,0,bat:75
+Braco West GSP,56.262,-3.9471,SHET,75,74,1,2035,2035,0,0,bat:75
+Devonside 132kV Substation,56.1371,-3.7797,SPT,75,0,1,2034,2034,0,0,bat:75
+Stornoway GSP,58.2032,-6.4232,SHET,75,0,2,2027,2028,0,0,nw:50;bat:25
+Tomchrasky Wind Farm 132kV Substation,,,SHET,74,0,1,2029,2029,0,0,nw:74
+CRAIG WATCH WIND FARM 132KV SUBSTATION,55.1653,-3.0685,SHET,73,0,1,2031,2031,0,0,nw:73
+Newton Stewart GSP,54.9534,-4.4988,SPT,73,0,1,2036,2036,0,0,nw:73
+Galashiels 132/33kV,55.6103,-2.7713,SPT,73,0,1,2030,2030,0,0,bat:73
+Carradale 1 GSP,55.5904,-5.5027,SHET,73,129,1,2030,2030,0,0,nw:73
+Vale of Leven 132kV substation,,,SPT,72,0,1,2033,2033,0,0,nw:72
+Corriegarth 132/33kV substation,57.1922,-4.4018,SHET,70,69,1,2027,2027,0,0,nw:70
+Tynemouth 275kV Substation,55.0237,-1.5,NGET,70,0,1,2034,2034,0,0,bat:70
+TINNISBURN WIND FARM 132KV SUBSTATION,,,SPT,70,0,1,2031,2031,0,0,bat:70
+Charleston GSP 132/33kV,56.4739,-3.0447,SHET,70,0,2,2031,2031,0,0,bat:50;so:20
+Lorg Wind Farm 132/32kV,,,SPT,70,0,1,2028,2028,0,0,nw:70
+Correen Hills Wind Farm 132kV Substation,,,SHET,68,0,1,2031,2031,0,0,nw:68
+Creag Dhubh 275/132/33kV,,,SHET,68,0,1,2029,2029,0,0,bat:68
+Margree 132/33kV Collector Substation,,,SPT,68,0,1,2029,2029,0,0,nw:68
+Milton of Craigie GSP,56.4751,-2.9248,SHET,68,0,2,2033,2033,0,0,bat:68
+Blarghour Substation,,,SHET,67,0,1,2029,2029,0,0,nw:67
+GALA NORTH 132KV SUBSTATION,,,SPT,67,0,1,2033,2033,0,0,dem:67
+Strichen 132/33kV GSP Substation,57.5862,-2.0702,SHET,67,0,2,2024,2028,0,25,bat:67
+Appin Wind Farm 132kV Substation,,,SPT,66,0,1,2031,2031,0,0,nw:66
+Heastabhal Wind Farm Substation 132 KV,,,SHET,66,0,1,2033,2033,0,0,nw:66
+Holm Hill 132kV Substation,,,SPT,66,0,1,2037,2037,0,0,nw:66
+Wether Hill 132/33KV Substation,55.2214,-4.0558,SPT,66,0,1,2031,2031,0,0,nw:66
+Dyce 132/33kV GSP,57.2158,-2.19,SHET,66,0,2,2025,2026,0,21,bat:66
+Strathy Wood 132/33kV Substation,,,SHET,64,0,2,2026,2026,0,0,nw:64
+Divot Hill 132/33 kV Substation,,,SPT,63,0,1,2036,2036,0,0,bat:63
+Cockenzie 275/33kV Substation,55.9668,-2.9681,SPT,63,0,1,2028,2028,0,0,bat:63
+Partrick GSP,,,SPT,63,0,1,2031,2031,0,0,bat:63
+Limekilns 132/33kV substation,,,SHET,61,106,1,2030,2030,0,0,bat:61
+Coatbridge GSP,55.8512,-4.0131,SPT,60,0,1,2033,2033,0,0,bat:60
+Glenglass 132/33kV,55.3371,-4.0179,SPT,60,65,2,2030,2033,0,0,bat:60
+BRORA 132/33KV GRID SUPPLY POINT SUBSTATION,58.0201,-3.8751,SHET,60,0,1,2034,2034,0,0,bat:60
+LADYBURN 132/33KV GRID SUPPLY POINT SUBSTATION,,,SPT,60,0,1,2031,2031,0,0,nw:60
+Armadale 132kV Substation,,,SPT,60,0,1,2031,2031,0,0,bat:60
+Kilmarnock Town 275/33kV Substation,55.5978,-4.4954,SPT,60,0,1,2027,2027,0,0,bat:60
+Ayr GSP,55.4572,-4.588,SPT,60,0,1,2028,2028,0,0,dem:60
+Dunfermline 132/33kV,,,SPT,60,0,1,2028,2028,0,0,bat:60
+Penninghame Substation,,,SPT,60,0,1,2031,2031,0,0,nw:60
+Scaw Law 132kV substation,,,SPT,60,0,1,2036,2036,0,0,bat:60
+Jonhstone 132/33kV Substation,,,SPT,60,0,1,2028,2028,0,0,bat:60
+Finnieston GSP,55.8634,-4.2862,SPT,60,0,1,2031,2031,0,0,bat:60
+Paisley GSP,55.8404,-4.413,SPT,60,0,1,2028,2028,0,0,bat:60
+Stirling 132/33kV,56.1175,-3.9194,SPT,60,0,1,2029,2029,0,0,bat:60
+Drumchapel 275/33kV,55.9156,-4.3491,SPT,60,0,1,2028,2028,0,0,bat:60
+Knockcronal Wind Farm 33kV Substation,,,SPT,59,0,1,2029,2029,0,0,nw:59
+Balnespick Wind Farm 132kV/33kV Substation,,,SHET,58,0,1,2032,2032,0,0,bat:58
+Taynuilt GSP,56.4301,-5.2144,SHET,58,0,1,2034,2034,0,0,nw:58
+Melvich Community Wind Farm 132/33kV Substation,,,SHET,58,0,1,2030,2030,0,0,bat:58
+Bridgwater 400/132kV Substation,51.1175,-2.9689,NGET,57,6,1,2028,2028,0,0,bat:57
+Bridgewater 400kV Substation,,,NGET,57,0,1,2029,2029,0,0,bat:57
+Burwell Main 400kV Substation,52.2802,0.3133,NGET,57,50,1,2029,2029,0,0,bat:57
+Canterbury North 400kV Substation,51.2936,1.0959,NGET,57,0,1,2031,2031,0,0,bat:57
+Capenhurst 400kV Substation,53.2679,-2.9476,NGET,57,0,1,2029,2029,0,0,bat:57
+Carrington 275kV Substation,53.433,-2.406,NGET,57,0,1,2028,2028,0,0,bat:57
+Littlebrook 400kV Substation,51.4638,0.2373,NGET,57,0,1,2029,2029,0,0,bat:57
+Kirkby 275/33kV Substation,53.4691,-2.8488,NGET,57,0,1,2027,2027,0,0,bat:57
+Landulph 400kV Substation,50.4448,-4.2429,NGET,57,0,2,2026,2027,0,50,bat:57
+Mill Hill 275kV Substation,51.6175,-0.209,NGET,57,0,1,2025,2025,0,57,bat:57
+Oldbury 275kV Substation,52.4983,-2.0259,NGET,57,0,2,2027,2032,0,0,bat:57
+Harker 400/132KV Substation,,,NGET,57,0,1,2029,2029,0,0,bat:57
+Rochdale 275kV Substation,53.6221,-2.2163,NGET,57,0,1,2029,2029,0,0,bat:57
+Whitelaw Brae 'A' and 'B' 33kV Substations,,,SPT,57,0,1,2026,2026,0,57,nw:57
+Craig Murrail GSP,55.1653,-3.0685,SHET,56,0,2,2034,2035,0,0,nw:56
+Manquhill Wind Farm 132/33kV Substation,,,SPT,56,0,1,2036,2036,0,0,bat:56
+Drinkstone Hybrid 132/33kV substation,,,SPT,55,0,1,2035,2035,0,0,bat:55
+East Kilbride 275/33kV GSP,55.7858,-4.1941,SPT,55,0,1,2027,2027,0,0,bat:55
+Scatsta 132kV Substation,,,SHET,55,0,2,2028,2028,0,0,dem:50;bat:5
+Sclenteuch Energy Park 132kV,,,SPT,54,0,1,2029,2029,0,0,bat:54
+Dunlaw Extension 132/33kV,,,SPT,53,30,1,2031,2031,0,0,bat:53
+Craig Murrail 275/33kV GSP Substation,55.1653,-3.0685,SHET,53,0,1,2034,2034,0,0,nw:53
+Hopsrig Collector 132/33kV Substation,,,SPT,52,0,2,2026,2027,0,0,nw:52
+Kaimes GSP,55.892,-3.1653,SPT,51,0,1,2027,2027,0,0,dem:51
+Brora GSP,58.0201,-3.8751,SHET,50,0,1,2034,2034,0,0,bat:50
+Blackbraes IDNO GSP,,,SPT,50,0,1,2031,2031,0,0,bat:50
+Er Bbr Energy 132kV Substation,,,SPT,50,0,1,2029,2029,0,0,bat:50
+High Constellation 132/33kV Substation,,,SHET,50,0,1,2028,2028,0,0,nw:50
+New Abernethy 132kV,56.3401,-3.2947,SHET,50,0,1,2037,2037,0,0,bat:50
+LEARNEY BESS 132KV,,,SHET,50,0,1,2032,2032,0,0,bat:50
+Nairn 132/33kV Grid Supply Point Substation,57.5766,-3.8484,SHET,50,0,1,2028,2028,0,0,bat:50
+Overhill 132kV Substation,57.4057,-2.5183,SPT,50,0,1,2029,2029,0,0,nw:50
+Persley 132/33kV GSP Substation,57.1743,-2.1389,SHET,50,0,1,2026,2026,0,50,bat:50
+Peterhead Grange GSP,57.5087,-1.8056,SHET,50,30,1,2033,2033,0,0,ow:50
+Rothienorman 400/33kV Substation,57.4094,-2.5155,SHET,50,0,1,2027,2027,0,0,bat:50
+Rugeley GSP,52.7567,-1.9153,NGET,50,0,1,2032,2032,0,0,oth:50
+Carradale 2 132/33kV GSP Substation,55.5904,-5.5027,SHET,50,0,1,2028,2028,0,0,nw:50
+Wymondley 400/33kV Substation,51.928,-0.247,NGET,50,0,1,2027,2027,0,0,bat:50
+MacDuff 132/33kV GSP Substation,57.664,-2.4985,SHET,50,0,1,2033,2033,0,0,bat:50
+Aberarder Wind Farm 132/33kV Substation,,,SHET,50,0,1,2026,2026,0,50,nw:50
+Shrewsbury 400/33kV Substation,52.7093,-2.6927,NGET,50,0,1,2028,2028,0,0,bat:50
+Richborough GSP,51.3113,1.3443,NGET,50,0,1,2025,2025,0,50,bat:50
+Grudie Bridge GSP,57.6194,-4.831,SHET,50,0,1,2027,2027,0,0,bat:50
+Axminster 400kV Substation,50.7867,-2.9243,NGET,50,0,1,2027,2027,0,0,bat:50
+Lunanhead 2 GSP,56.6544,-2.8656,SHET,50,0,1,2032,2032,0,0,bat:50
+Tynemouth GSP (NPG),55.0237,-1.5,NGET,50,0,1,2035,2035,0,0,bat:50
+Strathaven GSP 33kV,55.7534,-4.0807,SPT,50,0,1,2032,2032,0,0,so:50
+Fetteresso GSP,56.9648,-2.3471,SHET,50,0,1,2028,2028,0,0,bat:50
+Bridge of Dun GSP,56.7204,-2.5569,SHET,50,17,1,2032,2032,0,0,bat:50
+Arbroath 2 132/33kV GSP Substation,56.564,-2.6198,SHET,50,0,1,2032,2032,0,0,so:50
+Glen Ullinish 132/33kV Substation,,,SHET,50,0,1,2028,2028,0,0,nw:50
+Coupar Angus 2 GSP,56.5382,-3.2733,SHET,50,0,1,2031,2031,0,0,bat:50
+Govan 132/33kV,55.855,-4.3161,SPT,50,0,1,2028,2028,0,0,bat:50
+Iver 275kV Substation,51.5435,-0.4979,NGET,50,0,1,2027,2027,0,0,bat:50
+Bolney GSP,50.9751,-0.2349,NGET,50,0,1,2037,2037,0,0,bat:50
+LAND AT LEITHOLM 132KV SUBSTATION,,,SPT,50,0,1,2031,2031,0,0,bat:50
+Devol Moor 132kV Substation,55.9159,-4.709,SPT,50,0,1,2027,2027,0,0,bat:50
+Little Horsted GSP,50.9415,0.1209,NGET,50,0,1,2031,2031,0,0,bat:50
+Beauly 132/33 kV GSP Substation,57.468,-4.492,SHET,50,0,1,2026,2026,0,50,bat:50
+FORT AUGUSTUS 2 400/33kV GRID SUPPLY POINT SUBSTATION,57.1355,-4.7176,SHET,50,0,1,2035,2035,0,0,nw:50
+Chesterfield GSP,53.2245,-1.3879,NGET,50,0,1,2023,2023,0,50,bat:50
+Northfleet East 400kV Substation,51.428,0.3305,NGET,50,0,1,2028,2028,0,0,bat:50
+Rothienorman 2 400/33kV GSP,57.4094,-2.5155,SHET,50,0,1,2024,2024,0,50,bat:50
+Carntyne (SPD) GSP,55.8574,-4.1974,SPT,50,0,1,2026,2026,0,50,bat:50
+SEABANK 400/33kV SUBSTATION,51.5366,-2.6702,NGET,50,0,1,2023,2023,0,50,bat:50
+Inverkeithing GSP,56.0422,-3.3897,SPT,50,0,1,2029,2029,0,0,bat:50
+ICHRACHAN 132/33KV GRID SUPPLY POINT SUBSTATION,,,SHET,50,0,1,2035,2035,0,0,bat:50
+Lyndhurst 132/33kV,56.4811,-3.0173,SHET,50,0,2,2027,2029,0,0,bat:50
+Dell 132kV Substation,,,SHET,50,0,1,2030,2030,0,0,nw:50
+Hollandmey Renewable Energy Development132/33kV Substation,,,SHET,50,0,1,2030,2030,0,0,nw:50
+Norwich GSP,52.5742,1.2727,NGET,50,0,1,2025,2025,0,50,bat:50
+Ochill 132kV Substation,,,SPT,50,0,1,2028,2028,0,0,bat:50
+Cassley GSP,58.1876,-4.7292,SHET,50,0,1,2028,2028,0,0,nw:50
+DEVOL MOOR 132/33KV GRID SUPPLY POINT SUBSTATION,55.9159,-4.709,SPT,49,0,1,2026,2026,0,0,bat:49
+Baillie 275KV Substation,58.5658,-3.6736,SHET,48,0,1,2030,2030,0,0,bat:48
+Keith 132kV Substation,57.5402,-2.9385,SHET,48,0,1,2029,2029,0,0,bat:48
+Mossy Hill 132kV Substation,,,SHET,48,0,1,2028,2028,0,0,dem:48
+Hare Craig 33kV Substation,,,SPT,46,0,1,2028,2028,0,0,nw:46
+Glenrothes 275/33kV,56.207,-3.2008,SPT,46,0,1,2025,2025,0,46,bat:46
+Callisterhall 132kV,,,SPT,46,0,1,2029,2029,0,0,nw:46
+Port Ham GSP,51.8717,-2.2662,NGET,45,0,1,2025,2025,0,45,bat:45
+INVERNESS 132/33KV GRID SUPPLY POINT SUBSTATION,57.4537,-4.2469,SHET,45,0,1,2030,2030,0,0,bat:45
+New Dunoon 132/33kV GSP Substation,55.9757,-4.948,SHET,44,0,1,2030,2030,0,0,nw:44
+Elvanfoot substation,55.4374,-3.6721,SPT,44,0,1,2026,2026,0,0,nw:44
+Dumfries North 400/132kV substation,55.0676,-3.5908,NGET,43,0,1,2037,2037,0,0,bat:43
+Chickerell-Mannington 400kV Substation,50.6237,-2.4881,NGET,43,0,1,2037,2037,0,0,dem:43
+Dounreay 2 275/33kV GSP Substation,,,SHET,43,0,1,2033,2033,0,0,bat:43
+Bainsford 132/33kV,56.0137,-3.7679,SPT,43,0,1,2025,2025,0,43,bat:43
+Killin GSP,56.4769,-4.3296,SHET,43,4,1,2031,2031,0,0,bat:43
+Killermont GSP,55.9033,-4.31,SPT,43,0,1,2031,2031,0,0,bat:43
+Harburn 132/33kV Grid Supply Point Substation,,,SPT,43,0,1,2032,2032,0,0,nw:43
+Inverkeithing 132/33kV,56.0422,-3.3897,SPT,42,0,1,2026,2026,0,42,bat:42
+Fetteresso 132/33kV GSP Substation,56.9648,-2.3471,SHET,42,0,1,2030,2030,0,0,nw:42
+GH DEVCO KINCARDINE BESS 132kV SUBSTATION,,,SPT,42,0,1,2029,2029,0,0,bat:42
+Glentaggart WF 33kV Substation,,,SPT,42,0,1,2027,2027,0,0,bat:42
+Benbrack Wind Farm 132/33kV Substation,55.2795,-4.3065,SPT,42,72,2,2029,2032,0,0,bat:42
+Grendon 132kV Substation,52.243,-0.7273,NGET,41,0,1,2027,2027,0,0,bat:41
+Eccles GSP,55.6691,-2.3288,SPT,41,0,1,2031,2031,0,0,so:41
+North Humber Connection Node C 132kV Substation,,,NGET,40,0,1,2035,2035,0,0,bat:40
+DALMARNOCK 132/33KV SUBSTATION,55.8355,-4.2041,SPT,40,0,1,2024,2024,0,40,bat:40
+West Melton GSP,53.5016,-1.3773,NGET,40,0,1,2034,2034,0,0,bat:40
+Giffnock 275/33kV,55.7986,-4.2997,SPT,40,0,1,2028,2028,0,0,bat:40
+Haggs Road GSP,55.83,-4.2966,SPT,40,0,1,2031,2031,0,0,bat:40
+ROWANCRAIG WIND FARM 33KV SUBSTATION,,,SPT,40,0,1,2028,2028,0,0,nw:40
+Helensburgh 132/33kV,56.0233,-4.7087,SPT,40,0,1,2027,2027,0,0,bat:40
+Mybster 4 132/33kV GSP Substation,58.447,-3.4237,SHET,40,0,1,2034,2034,0,0,nw:40
+Keith 1 132/33kV GSP Substation,57.5402,-2.9385,SHET,39,0,1,2026,2026,0,0,bat:39
+Clachan 2 132/33kV GSP Substation,56.2775,-4.922,SHET,38,0,1,2030,2030,0,0,nw:38
+Dorenell BESS 132KV substation,,,SHET,38,0,1,2023,2023,0,38,nw:38
+Thurso South GSP,58.5641,-3.5122,SHET,36,0,1,2028,2028,0,0,nw:36
+Loch Luichart Extension II Substation,,,SHET,36,0,1,2024,2024,0,36,nw:36
+Tongland 132/11kV,54.8608,-4.0351,SPT,36,0,1,2030,2030,0,0,bat:36
+Exeter GSP,50.7679,-3.4046,NGET,35,21,1,2025,2025,0,35,bat:35
+Lunanhead GSP,56.6544,-2.8656,SHET,34,0,1,2029,2029,0,0,bat:34
+Hawkwood Windfarm 33kV Substation,,,SPT,34,0,1,2030,2030,0,0,nw:34
+Pencloe 132/33kV Substation,55.3295,-4.2023,SPT,34,81,1,2028,2028,0,0,bat:34
+Glenmuckloch 132/33kV,,,SPT,34,0,1,2029,2029,0,0,nw:34
+Lorg Extension Wind Farm 132/33kV Substation,,,SPT,33,0,1,2029,2029,0,0,nw:33
+Harker 132kV Substation,,,NGET,30,0,1,2037,2037,0,0,bat:30
+Elgin GSP,57.6648,-3.3214,SHET,30,0,1,2028,2028,0,0,bat:30
+Burwell 132kV Substation,52.2802,0.3133,NGET,30,50,1,2028,2028,0,0,bat:30
+Dunvegan 132/33kV Grid Supply Point Substation,57.4327,-6.5398,SHET,25,0,1,2029,2029,0,0,nw:25
+Strichen GSP,57.5862,-2.0702,SHET,25,0,1,2033,2033,0,0,bat:25
+Sandyknowe 132/33kV,,,SPT,22,86,1,2027,2027,0,0,nw:22
+132kV bay at Iron Acton Substation,,,NGET,21,99,1,2026,2026,0,0,bat:21
+Finstown (Orkney) GSP,,,SHET,20,0,1,2029,2029,0,0,nw:20
+Linnmill GSP,55.6715,-3.8262,SPT,20,0,1,2032,2032,0,0,bat:20
+St Fergus Mobil 132/11kV Substation,57.5662,-1.881,SHET,20,0,1,2025,2025,0,20,dem:20
+Abernethy 2 GSP,56.3401,-3.2947,SHET,20,0,1,2033,2033,0,0,so:20
+Rannoch GSP,56.6931,-4.4005,SHET,20,0,1,2035,2035,0,0,bat:20
+Tarland GSP,57.152,-2.7871,SHET,20,0,1,2026,2026,0,0,bat:20
+Redmoss GSP,57.1084,-2.0916,SHET,20,50,1,2031,2031,0,0,bat:20
+Killin 132/11kV Substation,56.4769,-4.3296,SHET,18,16,1,2031,2031,0,0,hy:18
+Finstown GSP,,,SHET,16,0,1,2029,2029,0,0,nw:16
+Dersalloch 132/33kV,55.3192,-4.4697,SPT,16,138,1,2027,2027,0,0,bat:16
+Rothienorman GSP,57.4094,-2.5155,SHET,15,12,1,2030,2030,0,0,nw:15
+Creag Riabhach 132/33kV Substation,58.2106,-4.5037,SHET,13,92,1,2027,2027,0,0,nw:13
+Enoch Hill 2 Wind Farm 33kV Substation,55.3436,-4.2672,SPT,10,0,1,2027,2027,0,0,bat:10
+Elvanfoot 400/275/33kV,55.4374,-3.6721,SPT,10,0,1,2027,2027,0,0,bat:10
+Walpole 400kV substations,52.7269,0.1994,NGET,7,50,1,2030,2030,0,0,bat:7
+Lochay GSP,56.4846,-4.3641,SHET,6,45,1,2027,2027,0,0,hy:6
+Whitelaw Brae BESS  33kV substation,,,SPT,1,0,1,2026,2026,0,1,bat:1

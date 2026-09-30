@@ -1,0 +1,47 @@
+date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
+2026-09-23,Neart na Gaoithe,nng,cfd,681,19804,29.08
+2026-09-23,Seagreen,seagreen,part,1238,16681,13.47
+2026-09-23,Moray East,morayeast,cfd,368,0,0.0
+2026-09-23,Hornsea Two,hornsea2,cfd,1042,0,0.0
+2026-09-23,East Anglia ONE,ea1,cfd,15,959,63.93
+2026-09-23,Greater Gabbard,gabbard,ro,4,587,146.75
+2026-09-24,Moray East,morayeast,cfd,6536,1679,0.26
+2026-09-24,Moray West,moraywest,part,8411,162548,19.33
+2026-09-24,Beatrice,beatrice,ic,1152,109909,95.41
+2026-09-24,Seagreen,seagreen,part,8186,110265,13.47
+2026-09-24,Neart na Gaoithe,nng,cfd,757,17583,23.23
+2026-09-25,Seagreen,seagreen,part,6286,84672,13.47
+2026-09-25,Moray East,morayeast,cfd,8370,0,0.0
+2026-09-25,Moray West,moraywest,part,13499,225148,16.68
+2026-09-25,Neart na Gaoithe,nng,cfd,1934,83719,43.29
+2026-09-25,Beatrice,beatrice,ic,3415,171534,50.23
+2026-09-25,Whitelee,whitelee,ro,46,4176,90.78
+2026-09-26,Beatrice,beatrice,ic,5365,359976,67.1
+2026-09-26,Seagreen,seagreen,part,16232,218644,13.47
+2026-09-26,Moray East,morayeast,cfd,8414,79318,9.43
+2026-09-26,Moray West,moraywest,part,14241,282814,19.86
+2026-09-26,Neart na Gaoithe,nng,cfd,7272,285013,39.19
+2026-09-26,Whitelee,whitelee,ro,2372,213826,90.15
+2026-09-26,Clyde,clyde,ro,1885,179128,95.03
+2026-09-26,Hornsea Two,hornsea2,cfd,409,27997,68.45
+2026-09-26,Walney 1 & 2,walney,ro,13,2402,184.77
+2026-09-26,Walney Extension,walneyx,ic,15,3081,205.4
+2026-09-27,Beatrice,beatrice,ic,4909,440034,89.64
+2026-09-27,Clyde,clyde,ro,1791,170332,95.1
+2026-09-27,Seagreen,seagreen,part,20945,282123,13.47
+2026-09-27,Moray East,morayeast,cfd,11320,344352,30.42
+2026-09-27,Moray West,moraywest,part,17348,416339,24.0
+2026-09-27,Neart na Gaoithe,nng,cfd,6163,422469,68.55
+2026-09-28,Beatrice,beatrice,ic,428,23698,55.37
+2026-09-28,Seagreen,seagreen,part,4886,65812,13.47
+2026-09-28,Moray East,morayeast,cfd,5120,0,0.0
+2026-09-28,Moray West,moraywest,part,5008,71235,14.22
+2026-09-28,Neart na Gaoithe,nng,cfd,816,27140,33.26
+2026-09-29,Seagreen,seagreen,part,16026,217630,13.58
+2026-09-29,Moray East,morayeast,cfd,15062,107343,7.13
+2026-09-29,Moray West,moraywest,part,9905,225804,22.8
+2026-09-29,Beatrice,beatrice,ic,7576,555289,73.3
+2026-09-29,Walney Extension,walneyx,ic,694,43549,62.75
+2026-09-29,Neart na Gaoithe,nng,cfd,6402,331871,51.84
+2026-09-29,Clyde,clyde,ro,262,24296,92.73
+2026-09-29,Whitelee,whitelee,ro,1398,126186,90.26
