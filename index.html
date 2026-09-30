@@ -282,6 +282,21 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .whyl li{display:flex;gap:8px;align-items:baseline;padding:2px 0}
 .whyl .good{color:#2fa84f}.whyl .bad{color:var(--warn)}
 .whyc{font-size:.9rem}
+.curtwhere{margin:8px 0 2px;font-weight:500;font-size:.92rem;color:var(--ink)}
+.curtlist{list-style:none;padding:0;margin:4px 0 2px}
+.curtlist li{border-top:1px solid var(--rule)}
+.curtlist button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:7px 2px;min-height:44px}
+.curtlist button:hover b,.curtlist button:focus-visible b{text-decoration:underline;text-underline-offset:3px}
+.curtlist button:focus-visible{outline:2px solid var(--ic);outline-offset:1px}
+.curtlist .cn{display:flex;gap:8px;align-items:center;min-width:0}
+.curtlist .cn b,.curtlist .cv b{font:600 .95rem "Barlow",sans-serif;color:var(--ink);display:block}
+.curtlist .cn b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.curtlist small{display:block;font-size:.78rem;color:var(--muted)}
+.curtlist .cv{text-align:right;flex:none}
+.curtlist .cv b{color:var(--warn)}
+.curtlist .ti{width:20px;height:20px;border-radius:50%;background:var(--c);display:grid;place-items:center;flex:none}
+.curtlist .ti svg{width:12px;height:12px;color:#fff}
+.livebox #curtall{margin:4px 0 2px;display:block}
 .livebox b.paid{display:block;font-size:1rem;color:var(--ink);margin-top:2px}
 .hicon{width:26px;height:26px;border-radius:50%;background:var(--c);display:inline-grid;place-items:center;vertical-align:-6px;margin-right:6px}
 .hicon svg{width:16px;height:16px;color:#fff}
@@ -858,6 +873,9 @@ en:{tab_sim:'2030',tab_sim_l:'2030 simulator',dl_csv:'Download data (CSV)',t_csv
  now_est:'{t} across GB was running at {p}% of capacity ({when}). Estimated for this site from that national figure.',
  now_real:'Planned output notified to Elexon for this half-hour ({when}). Turn-down instructions are shown separately.',
  now_notyet:'Not yet generating',
+ curt_s_all:'The grid operator is paying these wind farms to cut output, usually because the network can’t carry their power to where it’s needed.',
+ curt_where1:'Mostly in {r}.',curt_where:'Mainly in {r}.',and:'and',curt_offsh:'Offshore',curt_list:'Wind farms being turned down',curt_ph:'{p}/h',
+ curt_all:'Show all {n} wind farms',curt_fewer:'Show fewer',curt_tap:'Tap a wind farm to see it on the map and where its power would have gone.',
  curt_b:'Being turned down by about {v}',curt_s:'The grid operator has paid this site to cut output, usually because the network can\'t carry its power to where it\'s needed.',
  ic_now_in:'Importing {v} into GB',ic_now_out:'Exporting or idle',ic_now_s:'Elexon interconnector reading, {when}. Elexon reports exports as zero, so a zero here usually means power is flowing out of GB.',
  ic_net:'GB importing {v} overall',ic_net_s:'Across all interconnectors, {when}. This feed doesn\'t split imports by link, so the line shows this link\'s usual direction.',
@@ -1007,6 +1025,9 @@ cy:{tab_sim:'2030',tab_sim_l:'Efelychydd 2030',dl_csv:'Lawrlwytho’r data (CSV)
  now_est:'Roedd {t} ar draws Prydain yn rhedeg ar {p}% o’r capasiti ({when}). Amcangyfrif ar gyfer y safle hwn o’r ffigur cenedlaethol hwnnw.',
  now_real:'Allbwn arfaethedig wedi’i hysbysu i Elexon ar gyfer yr hanner awr hon ({when}). Mae cyfarwyddiadau i droi i lawr yn cael eu dangos ar wahân.',
  now_notyet:'Ddim yn cynhyrchu eto',
+ curt_s_all:'Mae gweithredwr y grid yn talu’r ffermydd gwynt hyn i dorri eu hallbwn, fel arfer am nad yw’r rhwydwaith yn gallu cludo’u pŵer i ble mae ei angen.',
+ curt_where1:'Yn bennaf yn {r}.',curt_where:'Yn bennaf yn {r}.',and:'a',curt_offsh:'Ar y môr',curt_list:'Ffermydd gwynt sy’n cael eu troi i lawr',curt_ph:'{p}/awr',
+ curt_all:'Dangos pob un o’r {n} fferm wynt',curt_fewer:'Dangos llai',curt_tap:'Tapiwch fferm wynt i’w gweld ar y map ac i ble byddai ei phŵer wedi mynd.',
  curt_b:'Yn cael ei droi i lawr tua {v}',curt_s:'Mae gweithredwr y grid wedi talu’r safle hwn i dorri ei allbwn, fel arfer am nad yw’r rhwydwaith yn gallu cludo’i bŵer i ble mae ei angen.',
  ic_now_in:'Yn mewnforio {v} i Brydain',ic_now_out:'Yn allforio neu’n segur',ic_now_s:'Darlleniad rhyng-gysylltydd Elexon, {when}. Mae Elexon yn cofnodi allforion fel sero, felly mae sero yma fel arfer yn golygu bod pŵer yn llifo allan o Brydain.',
  ic_net:'Prydain yn mewnforio {v} i gyd',ic_net_s:'Ar draws pob rhyng-gysylltydd, {when}. Nid yw’r ffrwd hon yn rhannu mewnforion fesul cysylltiad, felly mae’r llinell yn dangos cyfeiriad arferol y cysylltiad hwn.',
@@ -1715,7 +1736,7 @@ function liveBlock(d,c){
   let h='';
   const curt=(S.replayIdx==null&&LIVE.curt)?LIVE.curt[d.id]:0;
   if(curt>5){ const pay=LIVE.curtPay&&LIVE.curtPay[d.id];
-    h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(curt)})}</b>${pay?`<b class="paid">${tr('curt_pay',{p:fmtGBP(pay),b:Math.round(LIVE.curtBid[d.id])})}</b>`:''}<b class="paid">${tr('curt_co2',{t:Math.round(curt*0.394)})}</b><span>${tr('curt_s')}${pay?' '+tr('curt_est'):''}</span></div>`; }
+    h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(curt)})}</b>${pay?`<b class="paid">${tr('curt_pay',{p:fmtGBP(pay),b:Math.round(LIVE.curtBid[d.id])})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(curt*0.394)})}</b><span>${tr('curt_s')}${pay?' '+tr('curt_est'):''}</span></div>`; }
   const r=realMW(d);
   if(r!=null){ const t = r<-2 ? tr('now_pump',{v:fmtLive(-r)}) : r<2 ? (d.ps?tr('now_idle'):tr('now_zero')) : tr('now_actual',{v:fmtLive(r)});
     return h+`<div class="livebox" style="--c:${c}"><b>${t}</b><span>${tr('now_real',{when:fmtWhen(LIVE.updated)})}</span></div>`; }
@@ -1870,7 +1891,7 @@ function overview(){
     h+=replayBlock();
     const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
     if(tc>5&&S.replayIdx==null){ const tp=LIVE.curtPay?Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0):0;
-      h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:Math.round(tc*0.394)})}</b><span>${tr('curt_s')}</span></div>`; }
+      h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(tc*0.394)})}</b><span>${tr('curt_s_all')}</span>${curtList()}</div>`; }
     h+=whyNow();
     h+=`<p class="fine">${tr('flows_note')}${LIVE.mode==='live'?'':' '+tr('snap_note')}</p>`;
   }
@@ -2250,7 +2271,27 @@ function walesPanel(){
   h+=`<h3>${tr('w_links')}</h3><p>${tr('w_links_t')}</p>`;
   $p.innerHTML=h; document.getElementById('back').onclick=()=>{S.view='overview';select(null);svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity);}; wirePanel();
 }
+/* ---------- which sites are being turned down ---------- */
+const fmtN = v => Math.round(v).toLocaleString('en-GB');
+const SITE_REG={};
+function siteRegion(s){ if(s.id in SITE_REG) return SITE_REG[s.id];
+  let r=regionOf(s.c); if(r==null&&s.r&&s.r.length) r=regionOf(pc(s.r[0]).c); if(r==null&&s.h) r=regionOf(pc(s.h).c);
+  return SITE_REG[s.id]=r; }
+const regName = id => { const r=REG.find(x=>x[0]===id); return r?(LANG==='cy'?r[2]:r[1]):tr('curt_offsh'); };
+function curtList(){
+  const rows=SITES.filter(s=>LIVE.curt[s.id]>5).map(s=>({s,mw:LIVE.curt[s.id],pay:(LIVE.curtPay&&LIVE.curtPay[s.id])||0,r:siteRegion(s)})).sort((a,b)=>b.mw-a.mw);
+  if(!rows.length) return '';
+  const byR={}; rows.forEach(x=>byR[x.r]=(byR[x.r]||0)+x.mw);
+  const regs=Object.entries(byR).sort((a,b)=>b[1]-a[1]), tot=d3.sum(regs,e=>e[1]);
+  const where=regs.slice(0,3).map(([r,mw])=>`${regName(r==='null'?null:+r)} (${fmtLive(mw)})`);
+  const lead=regs[0][1]/tot>=.6?tr('curt_where1',{r:where[0]}):tr('curt_where',{r:where.length>1?where.slice(0,-1).join(', ')+' '+tr('and')+' '+where[where.length-1]:where[0]});
+  const open=!!S.curtAll, shown=open?rows:rows.slice(0,6);
+  return `<p class="curtwhere">${lead}</p><ul class="curtlist" aria-label="${tr('curt_list')}">${shown.map(x=>`<li><button data-k="${x.s.key}"><span class="cn"><span class="ti" style="--c:${col(x.s.t)}">${icon(x.s.t)}</span><span><b>${nm(x.s)}</b><small>${regName(x.r)}</small></span></span><span class="cv"><b>${fmtLive(x.mw)}</b>${x.pay?`<small>${tr('curt_ph',{p:fmtGBP(x.pay)})}</small>`:''}</span></button></li>`).join('')}</ul>`+
+    (rows.length>6?`<button class="linkbtn" id="curtall">${open?tr('curt_fewer'):tr('curt_all',{n:rows.length})}</button>`:'')+`<span>${tr('curt_tap')}</span>`;
+}
 function wirePanel(){
+  $p.querySelectorAll('.curtlist button').forEach(b=>b.onclick=()=>select(b.dataset.k));
+  const ca=document.getElementById('curtall'); if(ca) ca.onclick=()=>{ S.curtAll=!S.curtAll; const y=$p.scrollTop; panel(); $p.scrollTop=y; };
   $p.querySelectorAll('.sitelist button').forEach(b=>b.onclick=()=>select(b.dataset.k));
   const go=document.getElementById('pcgo'); if(go){ const inp=document.getElementById('pcin'); go.onclick=()=>checkPostcode(inp.value); inp.onkeydown=e=>{if(e.key==='Enter') checkPostcode(inp.value);}; }
   const rs=document.getElementById('rslider'); if(rs){ rs.oninput=()=>{ S.playing=false; clearInterval(S.timer); S.replayIdx=+rs.value; if(S.replayIdx===LIVE.hist.length-1) S.replayIdx=null; render(); refreshReplayText(); }; }
