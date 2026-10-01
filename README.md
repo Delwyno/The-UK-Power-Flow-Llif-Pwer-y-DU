@@ -111,17 +111,6 @@ tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
 
-## Deploying on GitHub Pages
-
-1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
-2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
-3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
-4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
-5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
-6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
-
-The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
-
 ## Keeping the data fresh automatically
 
 The GitHub Action runs on its own:
@@ -231,16 +220,3 @@ Created by **Daniel Elwyn Thomas**.
 The licence covers the compilation (the daily tracking, matching and calculations), not the original data, which comes from NESO, Elexon and OpenStreetMap and carries their terms (see Data sources and licences). It is provided without warranty. `data/open/README.md` and `data/open/index.json` repeat this, with the exact credit line for each file.
 
 The licence for the code (everything outside `data/`) has not been chosen yet.
-
-## Visit counting (GoatCounter, optional)
-
-The page can count visits with [GoatCounter](https://www.goatcounter.com), an open-source, cookieless counter. It is **off until you set a code**.
-
-1. Create a free site at goatcounter.com. Your site code is the part before `.goatcounter.com`.
-2. Put it in `data/analytics.json`: `{"goatcounter": "your-code"}`.
-3. Rebuild: run the **Refresh UK power map data** workflow (or wait for the daily run), which rebuilds `index.html`.
-
-What is counted: one view for each screen (`/map`, `/carbon`, `/stories`, `/plan`, `/sim`, `/compare`, `/queue`, `/hydrogen`, `/wales`, and `/site/<id>` for a power station), plus a few actions as events: language switch (`event/lang-cy`), CSV downloads (`event/csv/...`), open data downloads, methods pages opened, sharing and the 7-day replay. Nothing typed in the search box, including postcodes, is ever sent.
-
-Privacy: nothing is counted when the browser sends Do Not Track or Global Privacy Control, or when the page is opened from a local file. GoatCounter sets no cookies and stores nothing in the browser. When a code is set, a Privacy note appears in the Layers panel and the "How this map works" page, in both languages. If you restrict allowed domains in GoatCounter's settings, include `delwyno.github.io`.
-
