@@ -109,6 +109,14 @@ def main():
             [[s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[8], s[9], s[10], s[12], ";".join(f"{k}:{v}" for k, v in s[7].items())] for s in q["sites"]],
             licence=ODBL)
 
+    hy = load("hydrogen.json")
+    if hy:
+        add("hydrogen-projects.csv", "Hydrogen projects and pipeline, with status",
+            "Hand-curated: the 11 first-round electrolytic hydrogen projects, proposed hubs and the Project Union East Coast pipeline corridor, with status at the date shown. Positions are approximate (town or cluster level).",
+            "DESNZ HAR1 list (Open Government Licence v3.0) and the trade and company sources cited in data/hydrogen.json",
+            ["name", "type", "status", "capacity_mw", "developer", "region", "latitude_approx", "longitude_approx", "status_as_of", "first_round_project"],
+            [[s["n"], s["k"], s["st"], s["mw"] if s["mw"] is not None else "", s["dev"], s["reg"]["en"], s["lat"], s["lon"], s["asof"], "yes" if s.get("har1") else ""] for s in hy["sites"]])
+
     con = load("constraints.json")
     if con:
         ours = {d["d"]: d for d in cur["days"]}

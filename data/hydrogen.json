@@ -1,0 +1,510 @@
+{
+ "updated": "2026-09-30",
+ "note": "Curated by hand from the sources listed. No public dataset covers hydrogen projects and pipelines. st: op = producing, fid = final investment decision taken, con = first-round contract signed, pre = no contract yet, pau = paused, pla = proposed. Positions are approximate (town or cluster level). har1 = one of the 11 first-round winners.",
+ "har2": {
+  "n": 27,
+  "mw": 765,
+  "date": "2025-04",
+  "src": 13
+ },
+ "sites": [
+  {
+   "id": "barrow",
+   "n": "Barrow Green Hydrogen",
+   "k": "el",
+   "lat": 54.11,
+   "lon": -3.22,
+   "mw": 21.0,
+   "st": "con",
+   "dev": "Carlton Power (with Schroders Greencoat)",
+   "reg": {
+    "en": "North West England",
+    "cy": "Gogledd Orllewin Lloegr"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Contract signed in 2025 and cleared to begin construction. Its current progress has not been confirmed.",
+    "cy": "Contract wedi’i lofnodi yn 2025 a chaniatâd i ddechrau adeiladu. Nid yw’r cynnydd presennol wedi’i gadarnhau."
+   },
+   "src": [
+    1,
+    2,
+    14
+   ],
+   "use": {
+    "en": "Hydrogen for Kimberly-Clark’s manufacturing site at Barrow.",
+    "cy": "Hydrogen ar gyfer safle gweithgynhyrchu Kimberly-Clark ym Mharrow."
+   },
+   "har1": true
+  },
+  {
+   "id": "bradford",
+   "n": "Bradford Low Carbon Hydrogen",
+   "k": "el",
+   "lat": 53.77,
+   "lon": -1.74,
+   "mw": 24.5,
+   "st": "con",
+   "dev": "Hygen",
+   "reg": {
+    "en": "Yorkshire and the Humber",
+    "cy": "Swydd Efrog a’r Humber"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Contract signed in 2025 and cleared to begin construction. Its current progress has not been confirmed.",
+    "cy": "Contract wedi’i lofnodi yn 2025 a chaniatâd i ddechrau adeiladu. Nid yw’r cynnydd presennol wedi’i gadarnhau."
+   },
+   "src": [
+    1,
+    2,
+    14
+   ],
+   "use": {
+    "en": "Hydrogen for transport refuelling and industry.",
+    "cy": "Hydrogen ar gyfer ail-lenwi cludiant a diwydiant."
+   },
+   "har1": true
+  },
+  {
+   "id": "cromarty",
+   "n": "Cromarty Hydrogen",
+   "k": "el",
+   "lat": 57.69,
+   "lon": -4.17,
+   "mw": 10.6,
+   "st": "pau",
+   "dev": "Storegga (ScottishPower paused its role)",
+   "reg": {
+    "en": "Scotland",
+    "cy": "Yr Alban"
+   },
+   "asof": "2025-09",
+   "txt": {
+    "en": "ScottishPower paused its involvement in September 2025, citing a limited route to market. Its partner Storegga is seeking new partners to take the project forward.",
+    "cy": "Gohiriodd ScottishPower ei rôl ym mis Medi 2025, gan nodi bod y llwybr i’r farchnad yn gyfyngedig. Mae ei bartner Storegga yn chwilio am bartneriaid newydd i symud y prosiect yn ei flaen."
+   },
+   "src": [
+    1,
+    2,
+    4
+   ],
+   "use": {
+    "en": "Hydrogen for local whisky distilleries.",
+    "cy": "Hydrogen ar gyfer distyllfeydd wisgi lleol."
+   },
+   "har1": true
+  },
+  {
+   "id": "gh3",
+   "n": "Green Hydrogen 3",
+   "k": "el",
+   "lat": 51.44,
+   "lon": 0.34,
+   "mw": 10.6,
+   "st": "con",
+   "dev": "HYRO",
+   "reg": {
+    "en": "South East England",
+    "cy": "De Ddwyrain Lloegr"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Contract signed in 2025 and cleared to begin construction. Its current progress has not been confirmed.",
+    "cy": "Contract wedi’i lofnodi yn 2025 a chaniatâd i ddechrau adeiladu. Nid yw’r cynnydd presennol wedi’i gadarnhau."
+   },
+   "src": [
+    1,
+    2,
+    14
+   ],
+   "use": {
+    "en": "Hydrogen for Kimberly-Clark’s manufacturing site in Northfleet, Kent.",
+    "cy": "Hydrogen ar gyfer safle gweithgynhyrchu Kimberly-Clark yn Northfleet, Caint."
+   },
+   "har1": true
+  },
+  {
+   "id": "hybont",
+   "n": "HyBont",
+   "k": "el",
+   "lat": 51.51,
+   "lon": -3.58,
+   "mw": 5.2,
+   "st": "pre",
+   "dev": "Hygen (listed as Marubeni Europower in 2023)",
+   "reg": {
+    "en": "Wales (Bridgend)",
+    "cy": "Cymru (Pen-y-bont ar Ogwr)"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Had not yet signed its first-round contract as of November 2025. Located in Bridgend, it would pair a hydrogen plant and refuelling station with a dedicated solar array.",
+    "cy": "Nid oedd wedi llofnodi ei gontract rownd gyntaf eto ym mis Tachwedd 2025. Wedi’i leoli ym Mhen-y-bont ar Ogwr, byddai’n cyfuno gwaith hydrogen a gorsaf ail-lenwi â chae solar pwrpasol."
+   },
+   "src": [
+    1,
+    2,
+    6
+   ],
+   "use": {
+    "en": "Hydrogen for buses, lorries and local industry.",
+    "cy": "Hydrogen ar gyfer bysiau, lorïau a diwydiant lleol."
+   },
+   "har1": true
+  },
+  {
+   "id": "hymarnham",
+   "n": "HyMarnham",
+   "k": "el",
+   "lat": 53.23,
+   "lon": -0.8,
+   "mw": 9.3,
+   "st": "op",
+   "dev": "JG Pears and GeoPura",
+   "reg": {
+    "en": "East Midlands",
+    "cy": "Dwyrain Canolbarth Lloegr"
+   },
+   "asof": "2025-09",
+   "txt": {
+    "en": "Started producing hydrogen in July 2025, the first first-round project to do so, at the site of the former High Marnham coal power station.",
+    "cy": "Dechreuodd gynhyrchu hydrogen ym mis Gorffennaf 2025, y prosiect rownd gyntaf cyntaf i wneud hynny, ar safle hen orsaf bŵer glo High Marnham."
+   },
+   "src": [
+    1,
+    3,
+    14
+   ],
+   "har1": true
+  },
+  {
+   "id": "langage",
+   "n": "Langage Green Hydrogen",
+   "k": "el",
+   "lat": 50.39,
+   "lon": -4.0,
+   "mw": 7.0,
+   "st": "con",
+   "dev": "Carlton Power",
+   "reg": {
+    "en": "South West England",
+    "cy": "De Orllewin Lloegr"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Contract signed in 2025 and cleared to begin construction. Its current progress has not been confirmed.",
+    "cy": "Contract wedi’i lofnodi yn 2025 a chaniatâd i ddechrau adeiladu. Nid yw’r cynnydd presennol wedi’i gadarnhau."
+   },
+   "src": [
+    1,
+    2,
+    14
+   ],
+   "use": {
+    "en": "Hydrogen for industrial demand on the site, with transport supply later.",
+    "cy": "Hydrogen ar gyfer galw diwydiannol ar y safle, gyda chyflenwad cludiant yn nes ymlaen."
+   },
+   "har1": true
+  },
+  {
+   "id": "tees",
+   "n": "Tees Green Hydrogen",
+   "k": "el",
+   "lat": 54.59,
+   "lon": -1.13,
+   "mw": 5.2,
+   "st": "con",
+   "dev": "EDF Renewables Hydrogen",
+   "reg": {
+    "en": "North East England",
+    "cy": "Gogledd Ddwyrain Lloegr"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Contract signed in 2025 and cleared to begin construction. Its current progress has not been confirmed.",
+    "cy": "Contract wedi’i lofnodi yn 2025 a chaniatâd i ddechrau adeiladu. Nid yw’r cynnydd presennol wedi’i gadarnhau."
+   },
+   "src": [
+    1,
+    2,
+    14
+   ],
+   "use": {
+    "en": "Hydrogen for industry and transport.",
+    "cy": "Hydrogen ar gyfer diwydiant a chludiant."
+   },
+   "har1": true
+  },
+  {
+   "id": "trafford",
+   "n": "Trafford Green Hydrogen",
+   "k": "el",
+   "lat": 53.46,
+   "lon": -2.31,
+   "mw": 10.5,
+   "st": "con",
+   "dev": "Carlton Power",
+   "reg": {
+    "en": "North West England",
+    "cy": "Gogledd Orllewin Lloegr"
+   },
+   "asof": "2025-11",
+   "txt": {
+    "en": "Contract signed in 2025 and cleared to begin construction. Its current progress has not been confirmed.",
+    "cy": "Contract wedi’i lofnodi yn 2025 a chaniatâd i ddechrau adeiladu. Nid yw’r cynnydd presennol wedi’i gadarnhau."
+   },
+   "src": [
+    1,
+    2,
+    14
+   ],
+   "use": {
+    "en": "Hydrogen for industrial demand in the area.",
+    "cy": "Hydrogen ar gyfer galw diwydiannol yn yr ardal."
+   },
+   "har1": true
+  },
+  {
+   "id": "westwales",
+   "n": "West Wales Hydrogen",
+   "k": "el",
+   "lat": 51.7,
+   "lon": -5.05,
+   "mw": 14.2,
+   "st": "fid",
+   "dev": "MorGen Energy and Trafigura",
+   "reg": {
+    "en": "Wales (Milford Haven)",
+    "cy": "Cymru (Aberdaugleddau)"
+   },
+   "asof": "2026-03",
+   "txt": {
+    "en": "MorGen Energy took its final investment decision for a green hydrogen plant at the Milford Haven Tax Site in early 2026, among the first first-round projects to do so. The site could expand in later phases.",
+    "cy": "Gwnaeth MorGen Energy ei benderfyniad buddsoddi terfynol ar gyfer gwaith hydrogen gwyrdd ar Safle Treth Aberdaugleddau yn gynnar yn 2026, ymhlith y prosiectau rownd gyntaf cyntaf i wneud hynny. Gallai’r safle ehangu mewn cyfnodau diweddarach."
+   },
+   "src": [
+    1,
+    2,
+    5
+   ],
+   "use": {
+    "en": "Hydrogen for industrial decarbonisation in South Wales.",
+    "cy": "Hydrogen ar gyfer datgarboneiddio diwydiannol yn Ne Cymru."
+   },
+   "har1": true
+  },
+  {
+   "id": "whitelee",
+   "n": "Whitelee Green Hydrogen",
+   "k": "el",
+   "lat": 55.69,
+   "lon": -4.27,
+   "mw": 7.1,
+   "st": "pau",
+   "dev": "ScottishPower",
+   "reg": {
+    "en": "Scotland",
+    "cy": "Yr Alban"
+   },
+   "asof": "2025-09",
+   "txt": {
+    "en": "ScottishPower paused the project in September 2025 despite holding a first-round contract, citing a limited route to market. It was designed to use power from the Whitelee wind farm.",
+    "cy": "Gohiriodd ScottishPower y prosiect ym mis Medi 2025 er bod ganddo gontract rownd gyntaf, gan nodi bod y llwybr i’r farchnad yn gyfyngedig. Cafodd ei gynllunio i ddefnyddio pŵer o fferm wynt Whitelee."
+   },
+   "src": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "use": {
+    "en": "Hydrogen for transport and industry.",
+    "cy": "Hydrogen ar gyfer cludiant a diwydiant."
+   },
+   "har1": true
+  },
+  {
+   "id": "holyhead",
+   "n": "Holyhead Hydrogen Hub",
+   "k": "hub",
+   "lat": 53.31,
+   "lon": -4.63,
+   "mw": 5,
+   "st": "pla",
+   "dev": "Menter Môn with Isle of Anglesey County Council",
+   "reg": {
+    "en": "Wales (Anglesey)",
+    "cy": "Cymru (Ynys Môn)"
+   },
+   "asof": "2026-09",
+   "txt": {
+    "en": "Has planning permission. Its outline business case was approved in September 2026 and it is aiming for North Wales Growth Deal funding. It would make about 9,000 tonnes of green hydrogen over 15 years.",
+    "cy": "Mae ganddo ganiatâd cynllunio. Cymeradwywyd ei achos busnes amlinellol ym mis Medi 2026 ac mae’n anelu at gyllid Bargen Twf Gogledd Cymru. Byddai’n cynhyrchu tua 9,000 tunnell o hydrogen gwyrdd dros 15 mlynedd."
+   },
+   "src": [
+    7
+   ],
+   "use": {
+    "en": "Hydrogen for transport, logistics, construction, port operations and events.",
+    "cy": "Hydrogen ar gyfer cludiant, logisteg, adeiladu, gweithrediadau porthladd a digwyddiadau."
+   }
+  },
+  {
+   "id": "hynet",
+   "n": "HyNet North West",
+   "k": "hub",
+   "lat": 53.28,
+   "lon": -2.86,
+   "mw": null,
+   "st": "pla",
+   "dev": "Vertex Hydrogen and HyNet partners",
+   "reg": {
+    "en": "North West England and North Wales",
+    "cy": "Gogledd Orllewin Lloegr a Gogledd Cymru"
+   },
+   "asof": "2025-05",
+   "txt": {
+    "en": "Part of the HyNet cluster: blue hydrogen from natural gas at Stanlow, with the CO₂ captured and stored under Liverpool Bay. Approved plans include a 60 km CO₂ pipeline from Cheshire to the Point of Ayr terminal in Flintshire. The hydrogen plant’s current investment status was not confirmed for this map.",
+    "cy": "Rhan o glwstwr HyNet: hydrogen glas o nwy naturiol yn Stanlow, gyda’r CO₂ yn cael ei ddal a’i storio o dan Fae Lerpwl. Mae’r cynlluniau a gymeradwywyd yn cynnwys piblinell CO₂ 60 km o Swydd Gaer i derfynfa Point of Ayr yn Sir y Fflint. Ni chadarnhawyd statws buddsoddi presennol y gwaith hydrogen ar gyfer y map hwn."
+   },
+   "src": [
+    10,
+    15
+   ]
+  },
+  {
+   "id": "humber",
+   "n": "Humber Hydrogen cluster",
+   "k": "hub",
+   "lat": 53.73,
+   "lon": -0.23,
+   "mw": null,
+   "st": "pla",
+   "dev": "National Gas, Centrica, Equinor and SSE Thermal",
+   "reg": {
+    "en": "Yorkshire and the Humber",
+    "cy": "Swydd Efrog a’r Humber"
+   },
+   "asof": "2026-03",
+   "txt": {
+    "en": "A consortium of National Gas, Centrica, Equinor and SSE Thermal is preparing a bid for government support under the hydrogen transport and storage business model, as reported in March 2026. Project Union: East Coast would link into it. Whether the bid has succeeded was not confirmed.",
+    "cy": "Mae consortiwm o National Gas, Centrica, Equinor ac SSE Thermal yn paratoi cynnig am gymorth y llywodraeth dan y model busnes cludo a storio hydrogen, yn ôl adroddiadau ym mis Mawrth 2026. Byddai Project Union: East Coast yn cysylltu â hi. Ni chadarnhawyd a yw’r cynnig wedi llwyddo."
+   },
+   "src": [
+    8
+   ]
+  },
+  {
+   "id": "union",
+   "n": "Project Union: East Coast",
+   "k": "pipe",
+   "lat": 53.9,
+   "lon": -0.9,
+   "mw": null,
+   "st": "pla",
+   "dev": "National Gas (with Northern Gas Networks and Cadent)",
+   "reg": {
+    "en": "Teesside to the East Midlands",
+    "cy": "Teesside i Ddwyrain Canolbarth Lloegr"
+   },
+   "asof": "2026-03",
+   "txt": {
+    "en": "The first phase of a proposed national hydrogen network: about 300 miles of underground pipeline from Teesside through Yorkshire and the Humber into the East Midlands, part of up to 1,500 miles nationally. Ofgem confirmed £164 million in November 2025 for three National Gas projects, including this one. The line on the map is an indicative corridor, not the surveyed route.",
+    "cy": "Cam cyntaf rhwydwaith hydrogen cenedlaethol arfaethedig: tua 300 milltir o biblinell danddaearol o Teesside drwy Swydd Efrog a’r Humber i Ddwyrain Canolbarth Lloegr, yn rhan o hyd at 1,500 milltir yn genedlaethol. Cadarnhaodd Ofgem £164 miliwn ym mis Tachwedd 2025 ar gyfer tri phrosiect National Gas, gan gynnwys hwn. Cyfeiriad bras yw’r llinell ar y map, nid y llwybr a arolygwyd."
+   },
+   "src": [
+    8,
+    9
+   ],
+   "pts": [
+    [
+     54.59,
+     -1.17
+    ],
+    [
+     54.25,
+     -1.08
+    ],
+    [
+     53.88,
+     -0.78
+    ],
+    [
+     53.7,
+     -0.3
+    ],
+    [
+     53.35,
+     -0.62
+    ],
+    [
+     52.98,
+     -0.98
+    ]
+   ]
+  }
+ ],
+ "src": {
+  "1": [
+   "DESNZ: HAR1 successful projects (Dec 2023, OGL v3.0)",
+   "https://www.gov.uk/government/publications/hydrogen-production-business-model-net-zero-hydrogen-fund-shortlisted-projects/hydrogen-production-business-model-net-zero-hydrogen-fund-har1-successful-projects"
+  ],
+  "2": [
+   "HyCalc: HAR1 tracker (Nov 2025)",
+   "https://hycalc.com/har1/"
+  ],
+  "3": [
+   "S&P Global (2 Sep 2025)",
+   "https://www.spglobal.com/commodity-insights/en/news-research/latest-news/energy-transition/090225-scottishpower-halts-hydrogen-project-developments-in-challenging-market"
+  ],
+  "4": [
+   "Energy Voice: ScottishPower pauses Cromarty and Whitelee",
+   "https://www.energyvoice.com/renewables-energy-transition/hydrogen/uk-hydrogen/581940/green-hydrogen-setbacks-scotland-whisky-cromarty-whitelee-scottishpower-storegga/"
+  ],
+  "5": [
+   "Business News Wales: West Wales Hydrogen investment decision",
+   "https://businessnewswales.com/celtic-freeport-hydrogen-plant-given-green-light/"
+  ],
+  "6": [
+   "Hygen: HyBont",
+   "https://hygenenergy.com/projects/hybont/"
+  ],
+  "7": [
+   "Môn FM (9 Sep 2026): Holyhead hydrogen hub",
+   "https://www.monfm.co.uk/information/local/holyhead-hydrogen-hub-a-step-closer/"
+  ],
+  "8": [
+   "New Energy World (25 Mar 2026): Project Union East Coast",
+   "https://knowledge.energyinst.org/new-energy-world/article?id=140188"
+  ],
+  "9": [
+   "energy-pedia (19 Mar 2026): Ofgem funding",
+   "https://www.energy-pedia.com/news/united-kingdom/national-hydrogen-network-takes-major-step-forward-as-plans-unveiled-203242"
+  ],
+  "10": [
+   "The Chemical Engineer: HyNet CO₂ pipeline approved",
+   "https://www.thechemicalengineer.com/news/uk-s-hynet-carbon-capture-pipeline-given-the-greenlight/"
+  ],
+  "11": [
+   "CIGRE: hydrogen and thermal constraints (NESO, Arup, National Gas)",
+   "https://cse.cigre.org/cse-n039/hydrogen-production-from-thermal-electricity-constraint-management"
+  ],
+  "12": [
+   "ClimateXChange: hydrogen and curtailment in Scotland",
+   "https://www.climatexchange.org.uk/?p=4749"
+  ],
+  "13": [
+   "IEA: HAR2 shortlist",
+   "https://www.iea.org/policies/27898-hydrogen-allocation-round-2"
+  ],
+  "14": [
+   "Review Energy: first-round projects cleared to build",
+   "https://www.review-energy.com/otras-fuentes/uk-gives-green-light-to-10-hydrogen-projects-unlocking-hundreds-of-skilled-jobs"
+  ],
+  "15": [
+   "Deeside.com: HyNet CO₂ pipeline through Flintshire (May 2025)",
+   "https://www.deeside.com/penspen-wins-contract-for-hynet-co%e2%82%82-pipeline-through-flintshire/"
+  ]
+ }
+}

@@ -26,6 +26,7 @@ PARTS = {
     "__ACC__": "data/accuracy.json",
     "__DIGEST__": "data/digest.json",
     "__SUBSIDY__": "data/subsidy.json",
+    "__HYDROGEN__": "data/hydrogen.json",
 }
 
 def main():
