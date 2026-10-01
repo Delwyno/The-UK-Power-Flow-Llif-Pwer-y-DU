@@ -1,0 +1,53 @@
+# Fills in earlier days of the wind and gas costs, so "this year so far" really starts on 1 January
+# and each period can be compared with the same dates last year.
+# Run it from the Actions tab (Run workflow). It fills this year first, then earlier years, resumes where
+# it left off and never repeats a day, so you can simply run it again until it says nothing is left.
+# (The daily refresh also fills 20 earlier days each run, so this is only to do it faster.)
+name: Backfill wind and gas costs
+
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: "Fill back to this date (YYYY-MM-DD)"
+        default: "2025-01-01"
+      max_days:
+        description: "Most days to fill in this run"
+        default: "200"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-power-map
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fill in earlier days (Elexon)
+        env:
+          FROM: ${{ inputs.from }}
+          MAX_DAYS: ${{ inputs.max_days }}
+        run: python tools/update_costs.py --backfill --from "$FROM" --max-days "$MAX_DAYS" --minutes 75
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/costs.json data/bmu_fuel.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Backfill wind and gas costs ($(date -u +%Y-%m-%d))"
+            git pull --rebase -q || true
+            git push
+          fi
