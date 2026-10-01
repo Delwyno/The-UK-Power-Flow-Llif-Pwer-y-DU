@@ -2,7 +2,7 @@
  "title": "The UK Power Flow: open data",
  "author": "Daniel Elwyn Thomas",
  "site": "https://delwyno.github.io/UK-Energy-Generation-Map/",
- "updated": "2026-10-01T11:40Z",
+ "updated": "2026-10-01T22:58Z",
  "licence": {
   "default": "CC BY 4.0",
   "default_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -185,6 +185,44 @@
     "first_round_project"
    ],
    "source": "DESNZ HAR1 list (Open Government Licence v3.0) and the trade and company sources cited in data/hydrogen.json",
+   "licence": "CC BY 4.0",
+   "credit": "Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/UK-Energy-Generation-Map/"
+  },
+  {
+   "file": "costs-daily.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/costs-daily.csv",
+   "title": "Wind turn-down and gas turn-up costs, daily",
+   "description": "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
+   "rows": 14,
+   "columns": [
+    "date",
+    "wind_mwh_turned_down",
+    "wind_gbp",
+    "gas_mwh_turned_up",
+    "gas_gbp",
+    "total_gbp",
+    "basis"
+   ],
+   "source": "Contains BMRS data © Elexon Limited copyright and database right",
+   "licence": "CC BY 4.0",
+   "credit": "Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/UK-Energy-Generation-Map/"
+  },
+  {
+   "file": "costs-hourly.csv",
+   "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/costs-hourly.csv",
+   "title": "Wind turn-down and gas turn-up costs, hourly (last 45 days)",
+   "description": "As costs-daily.csv, by UK local hour. On clock-change days the repeated hour is added together.",
+   "rows": 336,
+   "columns": [
+    "date",
+    "hour_uk",
+    "wind_mwh_turned_down",
+    "wind_gbp",
+    "gas_mwh_turned_up",
+    "gas_gbp",
+    "basis"
+   ],
+   "source": "Contains BMRS data © Elexon Limited copyright and database right",
    "licence": "CC BY 4.0",
    "credit": "Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/UK-Energy-Generation-Map/"
   },

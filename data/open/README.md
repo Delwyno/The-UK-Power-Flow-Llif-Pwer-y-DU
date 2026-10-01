@@ -32,4 +32,6 @@ Provided without warranty: please check anything important against the original 
 - `records.csv` (CC BY 4.0): Britain's electricity records
 - `connection-queue-by-site.csv` (ODbL 1.0): Connection queue, by connection site
 - `hydrogen-projects.csv` (CC BY 4.0): Hydrogen projects and pipeline, with status
+- `costs-daily.csv` (CC BY 4.0): Wind turn-down and gas turn-up costs, daily
+- `costs-hourly.csv` (CC BY 4.0): Wind turn-down and gas turn-up costs, hourly (last 45 days)
 - `official-constraint-costs.csv` (CC BY 4.0): Official constraint costs, with the map's tracked wind payments
