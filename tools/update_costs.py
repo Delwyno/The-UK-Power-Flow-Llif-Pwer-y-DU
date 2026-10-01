@@ -6,6 +6,11 @@ Modes
   --today    today so far                  -> data/today.json        (every 30 minutes; the workflow
                                                                       publishes it to the live-data branch)
   --probe    print what the feeds return, to diagnose a problem from the Actions log
+  --backfill fill in earlier days (this year first, then earlier years), resuming where it left off:
+             --backfill [--from YYYY-MM-DD] [--max-days N] [--minutes M]
+             The daily run also does a little of this every day (COST_BACKFILL_PER_RUN, default 20 days).
+             Older days keep daily totals only; hourly detail is kept for the last 45 days.
+             Earlier days use TODAY'S list of wind and gas units, so units that have since closed are missed.
 
 How the figures are made (all from Elexon's own published calculations)
   * Indicative cashflows per BM unit per half hour: bids for wind units, offers for gas units.
@@ -31,6 +36,7 @@ ELX = os.environ.get("ELEXON_BASE", "https://data.elexon.co.uk/bmrs/api/v1")
 UK = ZoneInfo("Europe/London")
 WIND_TYPES, GAS_TYPES = {"WIND"}, {"CCGT", "OCGT"}
 KEEP_HOURLY_DAYS, KEEP_DAYS = 45, 2000
+BACKFILL_START = "2025-01-01"   # the daily run quietly fills earlier days back to here, so the page can compare with last year
 MIN_MATCH = 0.6   # share of volume whose system flag must be found before the "system" basis is used
 
 def get(path, tries=3):
@@ -159,21 +165,17 @@ def load_existing():
     except Exception:
         return {}
 
-def main():
-    now = datetime.now(timezone.utc)
-    today = now.astimezone(UK).strftime("%Y-%m-%d")
-    if "--probe" in sys.argv:
-        return probe(today)
-    if "--today" in sys.argv:
-        res = day_costs(today)
-        res["updated"] = now.strftime("%Y-%m-%dT%H:%MZ")
-        path = Path(sys.argv[sys.argv.index("--out") + 1]) if "--out" in sys.argv else ROOT / "data" / "today.json"
-        path.write_text(json.dumps(res, separators=(",", ":")))
-        print(f"today {today}: {res['n']} periods to {res.get('through','-')}, wind £{res['t']['wg']:,} gas £{res['t']['gg']:,} (basis {res['basis']}, flags matched {res['match']:.0%})")
-        return
-    existing = load_existing()
-    n = int(os.environ.get("COST_DAYS", "14" if not existing else "8"))
-    dates = [(now.astimezone(UK) - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, n + 1)]
+def save(existing, now):
+    days = sorted(existing.values(), key=lambda x: x["d"])[-KEEP_DAYS:]
+    cut = (now.astimezone(UK) - timedelta(days=KEEP_HOURLY_DAYS)).strftime("%Y-%m-%d")
+    for x in days:
+        if x["d"] < cut:
+            for k in ("wm", "wg", "gm", "gg"):
+                x.pop(k, None)
+    OUT.write_text(json.dumps({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "days": days}, separators=(",", ":")))
+    return days
+
+def fetch_days(dates):
     got = {}
     def one(d):
         try:
@@ -185,19 +187,65 @@ def main():
         for d, r in ex.map(one, dates):
             if r and r["n"] > 0:
                 got[d] = r
-    if not got:
-        print("costs: nothing new, file left as it was", file=sys.stderr)
+    return got
+
+def backfill(start, max_days, minutes, now=None):
+    """Fill missing days from `start` to yesterday: this year first (so year-to-date is complete), then earlier years."""
+    now = now or datetime.now(timezone.utc)
+    end = (now.astimezone(UK) - timedelta(days=1)).date()
+    existing = load_existing()
+    have = {d for d, v in existing.items() if v.get("n", 0) > 0}
+    d, todo = datetime.strptime(start, "%Y-%m-%d").date(), []
+    while d <= end:
+        if d.isoformat() not in have:
+            todo.append(d.isoformat())
+        d += timedelta(days=1)
+    yr = str(end.year)
+    todo.sort(key=lambda s: (s[:4] != yr, s))
+    left = len(todo); todo = todo[:max_days]
+    if not todo:
+        print(f"backfill: nothing to do back to {start}"); return
+    t0, filled, empty = time.time(), 0, []
+    for i in range(0, len(todo), 9):
+        if time.time() - t0 > minutes * 60:
+            print("backfill: time budget reached; the next run carries on"); break
+        batch = todo[i:i + 9]
+        got = fetch_days(batch)
+        empty += [x for x in batch if x not in got]
+        if got:
+            existing.update(got); save(existing, now); filled += len(got)
+    print(f"backfill: {filled} days filled, {len(empty)} had no data from Elexon{(' (e.g. ' + ', '.join(empty[:3]) + ')') if empty else ''}; about {max(0, left - filled - len(empty))} still to do back to {start}")
+
+def arg(name, default):
+    return sys.argv[sys.argv.index(name) + 1] if name in sys.argv else default
+
+def main():
+    now = datetime.now(timezone.utc)
+    today = now.astimezone(UK).strftime("%Y-%m-%d")
+    if "--probe" in sys.argv:
+        return probe(today)
+    if "--today" in sys.argv:
+        res = day_costs(today)
+        res["updated"] = now.strftime("%Y-%m-%dT%H:%MZ")
+        path = Path(arg("--out", ROOT / "data" / "today.json"))
+        path.write_text(json.dumps(res, separators=(",", ":")))
+        print(f"today {today}: {res['n']} periods to {res.get('through','-')}, wind £{res['t']['wg']:,} gas £{res['t']['gg']:,} (basis {res['basis']}, flags matched {res['match']:.0%})")
         return
-    existing.update(got)
-    days = sorted(existing.values(), key=lambda x: x["d"])[-KEEP_DAYS:]
-    cut = (now.astimezone(UK) - timedelta(days=KEEP_HOURLY_DAYS)).strftime("%Y-%m-%d")
-    for x in days:
-        if x["d"] < cut:
-            for k in ("wm", "wg", "gm", "gg"):
-                x.pop(k, None)
-    OUT.write_text(json.dumps({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "days": days}, separators=(",", ":")))
-    last = days[-1]
-    print(f"costs: {len(got)} days updated; latest {last['d']}: wind £{last['t']['wg']:,}, gas £{last['t']['gg']:,} (basis {last['basis']})")
+    if "--backfill" in sys.argv:
+        return backfill(arg("--from", BACKFILL_START), int(arg("--max-days", "150")), float(arg("--minutes", "70")), now)
+    existing = load_existing()
+    n = int(os.environ.get("COST_DAYS", "14" if not existing else "8"))
+    dates = [(now.astimezone(UK) - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, n + 1)]
+    got = fetch_days(dates)
+    if got:
+        existing.update(got)
+        days = save(existing, now); last = days[-1]
+        print(f"costs: {len(got)} days updated; latest {last['d']}: wind £{last['t']['wg']:,}, gas £{last['t']['gg']:,} (basis {last['basis']})")
+    else:
+        print("costs: nothing new, file left as it was", file=sys.stderr)
+    per_run = int(os.environ.get("COST_BACKFILL_PER_RUN", "20"))
+    if per_run > 0:
+        backfill(BACKFILL_START, per_run, float(os.environ.get("COST_BACKFILL_MINUTES", "12")), now)
 
 def probe(today):
     """Diagnose the feeds for yesterday: what comes back, how well the flags match, what the totals are."""

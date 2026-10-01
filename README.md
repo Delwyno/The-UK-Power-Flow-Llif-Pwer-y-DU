@@ -63,7 +63,7 @@ The map is a single self-contained web page (`index.html`). The `src/`, `data/` 
 
 **Hydrogen** (in the Future tab). The first funded hydrogen production projects (the 11 first-round winners), the proposed Project Union East Coast pipeline corridor and the hubs around them, each with its status, date checked and sources. Britain has no national hydrogen network yet, so this shows plans and progress, including projects that have been paused. It is curated by hand in `data/hydrogen.json`; the Wales view has its own hydrogen section. The tab also has an electrolyser what-if that replays each wind farm's real turn-down, and a ranking of where a 50 MW electrolyser would have been busiest.
 
-**What it costs: wind off, gas on.** Stories shows today so far, with a running total by hour, the last seven days, and running totals for the month, last month and since tracking began, with a per-household illustration. It adds up two things from Elexon's own indicative cashflows: payments to switch wind farms off, and payments to turn gas plants up, counting only system actions. The week's total is compared with NESO's published thermal constraint cost. Today's figure is refreshed about every 30 minutes by a scheduled job that publishes one small file to a separate `live-data` branch, so the history of `main` isn't cluttered.
+**What it costs: wind off, gas on.** Stories shows today so far, with a running total by hour, the last seven days, and running totals for the month, last month and since tracking began, with a per-household illustration. Each period is compared with the same dates a year earlier. It adds up two things from Elexon's own indicative cashflows: payments to switch wind farms off, and payments to turn gas plants up, counting only system actions. The week's total is compared with NESO's published thermal constraint cost. Today's figure is refreshed about every 30 minutes by a scheduled job that publishes one small file to a separate `live-data` branch, so the history of `main` isn't cluttered.
 
 **Data freshness.** Layers > Data freshness shows when each dataset last changed against how often it should, with a green, amber or red status. The daily refresh runs the same check (`tools/health.py`) and opens a GitHub issue labelled `data-health` if something has stopped updating, and closes it when all is well.
 
@@ -138,7 +138,7 @@ The GitHub Action runs on its own:
 | Every day, 05:15 UTC | The offline snapshot: national, Welsh and regional mix, today's carbon intensity, import factors. Also saves today's 24-hour forecast, scores earlier ones, and adds last week's digest once the week is over | `update_snapshot.py` |
 | Every day | Yesterday's curtailment and each station's output, read half-hour by half-hour from Elexon (the first run fills in the last week) | `update_elexon.py` |
 | Every day | Carbon history since 2009, records and milestones, and the simulator's hourly year (NESO historic generation mix) | `update_history.py` |
-| Every day | Wind turn-down and gas turn-up costs, by hour, for the last 8 days (14 on the first run) | `update_costs.py` |
+| Every day | Wind turn-down and gas turn-up costs, by hour, for the last 8 days (14 on the first run), plus 20 earlier days filled in back to 1 January 2025 | `update_costs.py` |
 | Every day | A data freshness check, and a GitHub issue if something has stopped updating | `health.py` |
 | Every 30 minutes | Today's running total, published to the `live-data` branch (separate workflow, `live-costs.yml`) | `update_costs.py --today` |
 | Every day | The connection queue (TEC register) and NESO's daily constraint costs; then the open data CSVs | `update_neso.py`, `export_open.py` |
@@ -261,6 +261,7 @@ Privacy: nothing is counted when the browser sends Do Not Track or Global Privac
 1. Upload the files, and add or replace the two workflow files under `.github/workflows/`.
 2. In Actions, run **Refresh UK power map data** once. It builds `data/costs.json`.
 3. Run **Live wind and gas costs** once. It creates the `live-data` branch with `today.json`.
-4. If the figures look wrong, run **Live wind and gas costs** with **probe** ticked and read the log. It prints what Elexon returns and how well the system flag matches.
+4. To fill in this year and last year faster than the daily trickle, run **Backfill wind and gas costs** (a few times, until it says nothing is left). It fills this year first, so "this year so far" starts on 1 January, then 2025, which the page uses for the comparisons.
+5. If the figures look wrong, run **Live wind and gas costs** with **probe** ticked and read the log. It prints what Elexon returns and how well the system flag matches.
 
 If the system flag can't be matched for most volume, the figures count every wind and gas action and the page says so.
