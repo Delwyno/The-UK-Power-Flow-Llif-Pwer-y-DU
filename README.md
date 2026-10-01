@@ -1,17 +1,9 @@
+
 # The UK Power Flow · Llif Pŵer y DU
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
 
 The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
-
-
-
-
-
-
-
-
-
 
 ## What it shows
 
