@@ -117,6 +117,21 @@ def main():
             ["name", "type", "status", "capacity_mw", "developer", "region", "latitude_approx", "longitude_approx", "status_as_of", "first_round_project"],
             [[s["n"], s["k"], s["st"], s["mw"] if s["mw"] is not None else "", s["dev"], s["reg"]["en"], s["lat"], s["lon"], s["asof"], "yes" if s.get("har1") else ""] for s in hy["sites"]])
 
+    cst = load("costs.json")
+    if cst and cst.get("days"):
+        add("costs-daily.csv", "Wind turn-down and gas turn-up costs, daily",
+            "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
+            ELX, ["date", "wind_mwh_turned_down", "wind_gbp", "gas_mwh_turned_up", "gas_gbp", "total_gbp", "basis"],
+            [[x["d"], x["t"]["wm"], x["t"]["wg"], x["t"]["gm"], x["t"]["gg"], x["t"]["wg"] + x["t"]["gg"], x.get("basis", "")] for x in cst["days"]])
+        hr = []
+        for x in cst["days"]:
+            if "wg" in x:
+                for h in range(24):
+                    hr.append([x["d"], f"{h:02d}:00", x["wm"][h], x["wg"][h], x["gm"][h], x["gg"][h], x.get("basis", "")])
+        add("costs-hourly.csv", "Wind turn-down and gas turn-up costs, hourly (last 45 days)",
+            "As costs-daily.csv, by UK local hour. On clock-change days the repeated hour is added together.",
+            ELX, ["date", "hour_uk", "wind_mwh_turned_down", "wind_gbp", "gas_mwh_turned_up", "gas_gbp", "basis"], hr)
+
     con = load("constraints.json")
     if con:
         ours = {d["d"]: d for d in cur["days"]}

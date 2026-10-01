@@ -1,4 +1,3 @@
-
 # The UK Power Flow · Llif Pŵer y DU
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
@@ -64,7 +63,11 @@ The map is a single self-contained web page (`index.html`). The `src/`, `data/` 
 
 **Hydrogen** (in the Future tab). The first funded hydrogen production projects (the 11 first-round winners), the proposed Project Union East Coast pipeline corridor and the hubs around them, each with its status, date checked and sources. Britain has no national hydrogen network yet, so this shows plans and progress, including projects that have been paused. It is curated by hand in `data/hydrogen.json`; the Wales view has its own hydrogen section. The tab also has an electrolyser what-if that replays each wind farm's real turn-down, and a ranking of where a 50 MW electrolyser would have been busiest.
 
-**Open data.** Ten CSV files, refreshed daily at stable addresses under `data/open/`, with an index describing each (`data/open/index.json`). Linked from "How this map works" and the Layers panel.
+**What it costs: wind off, gas on.** Stories shows today so far, with a running total by hour, the last seven days, and running totals for the month, last month and since tracking began, with a per-household illustration. It adds up two things from Elexon's own indicative cashflows: payments to switch wind farms off, and payments to turn gas plants up, counting only system actions. The week's total is compared with NESO's published thermal constraint cost. Today's figure is refreshed about every 30 minutes by a scheduled job that publishes one small file to a separate `live-data` branch, so the history of `main` isn't cluttered.
+
+**Data freshness.** Layers > Data freshness shows when each dataset last changed against how often it should, with a green, amber or red status. The daily refresh runs the same check (`tools/health.py`) and opens a GitHub issue labelled `data-health` if something has stopped updating, and closes it when all is well.
+
+**Open data.** Twelve CSV files, refreshed daily at stable addresses under `data/open/`, with an index describing each (`data/open/index.json`). Linked from "How this map works" and the Layers panel.
 
 **Compare years** (also in the Future tab): pick two years to see capacity by technology side by side, what's new and what closes. You can also highlight the changes on the map: a green ring means new and a red dashed ring means closed.
 
@@ -96,6 +99,9 @@ data/digest.json      weekly digests (one added each week)
 data/daily.json       daily Wales figures from NESO's regional estimates
 data/curtail.json     daily curtailment totals and each wind farm's share (loads when needed)
 data/stations.json    each mapped station's hourly output for the last 14 days (loads when needed)
+data/costs.json        daily and hourly wind turn-down and gas turn-up costs (loads when needed)
+data/bmu_fuel.json    which BM units are wind and which are gas (from Elexon; cached)
+data/health.json      data freshness report, written by tools/health.py
 data/hydrogen.json    hydrogen projects and pipeline, curated by hand with sources and status dates
 data/subsidy.json     support scheme for each tracked wind farm, with sources (edit by hand)
 data/queue.json       the connection queue by connection site (loads when needed)
@@ -112,6 +118,17 @@ tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
 
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
+
 ## Keeping the data fresh automatically
 
 The GitHub Action runs on its own:
@@ -121,6 +138,9 @@ The GitHub Action runs on its own:
 | Every day, 05:15 UTC | The offline snapshot: national, Welsh and regional mix, today's carbon intensity, import factors. Also saves today's 24-hour forecast, scores earlier ones, and adds last week's digest once the week is over | `update_snapshot.py` |
 | Every day | Yesterday's curtailment and each station's output, read half-hour by half-hour from Elexon (the first run fills in the last week) | `update_elexon.py` |
 | Every day | Carbon history since 2009, records and milestones, and the simulator's hourly year (NESO historic generation mix) | `update_history.py` |
+| Every day | Wind turn-down and gas turn-up costs, by hour, for the last 8 days (14 on the first run) | `update_costs.py` |
+| Every day | A data freshness check, and a GitHub issue if something has stopped updating | `health.py` |
+| Every 30 minutes | Today's running total, published to the `live-data` branch (separate workflow, `live-costs.yml`) | `update_costs.py --today` |
 | Every day | The connection queue (TEC register) and NESO's daily constraint costs; then the open data CSVs | `update_neso.py`, `export_open.py` |
 | 2nd of each month | All of the above, plus lines, substations, smaller sites, wind farm areas, routes and cross-checks (OpenStreetMap UK extract) | `update_osm.py` |
 
@@ -173,6 +193,8 @@ All feeds were confirmed working on the live site on 29 September 2026.
 | Live mix, regional and import carbon | NESO Carbon Intensity API |
 | Output, flows, balancing, prices | Elexon Insights (BMRS): contains BMRS data © Elexon Limited |
 | Connection queue figures | NESO; Knight Frank; Curvature Energy |
+| Wind and gas costs | Elexon Insights: indicative cashflows, acceptance volumes, acceptances (BOALF) and BM unit reference data |
+| Households (for the per-household figure) | ONS, Families and households in the UK: 2024 (28.6 million) |
 | Connection queue by site | NESO TEC register (NESO Open Data Licence); locations from OpenStreetMap |
 | Official constraint costs | NESO constraint breakdown (NESO Open Data Licence) |
 | Welsh targets and progress | Welsh Government, Energy Generation and Energy Use in Wales (2026) |
@@ -221,3 +243,24 @@ Created by **Daniel Elwyn Thomas**.
 The licence covers the compilation (the daily tracking, matching and calculations), not the original data, which comes from NESO, Elexon and OpenStreetMap and carries their terms (see Data sources and licences). It is provided without warranty. `data/open/README.md` and `data/open/index.json` repeat this, with the exact credit line for each file.
 
 The licence for the code (everything outside `data/`) has not been chosen yet.
+
+## Visit counting (GoatCounter, optional)
+
+The page can count visits with [GoatCounter](https://www.goatcounter.com), an open-source, cookieless counter. It is **off until you set a code**.
+
+1. Create a free site at goatcounter.com. Your site code is the part before `.goatcounter.com`.
+2. Put it in `data/analytics.json`: `{"goatcounter": "your-code"}`.
+3. Rebuild: run the **Refresh UK power map data** workflow (or wait for the daily run), which rebuilds `index.html`.
+
+What is counted: one view for each screen (`/map`, `/carbon`, `/stories`, `/plan`, `/sim`, `/compare`, `/queue`, `/hydrogen`, `/wales`, and `/site/<id>` for a power station), plus a few actions as events: language switch (`event/lang-cy`), CSV downloads (`event/csv/...`), open data downloads, methods pages opened, sharing and the 7-day replay. Nothing typed in the search box, including postcodes, is ever sent.
+
+Privacy: nothing is counted when the browser sends Do Not Track or Global Privacy Control, or when the page is opened from a local file. GoatCounter sets no cookies and stores nothing in the browser. When a code is set, a Privacy note appears in the Layers panel and the "How this map works" page, in both languages. If you restrict allowed domains in GoatCounter's settings, include `delwyno.github.io`.
+
+## Setting up the cost figures
+
+1. Upload the files, and add or replace the two workflow files under `.github/workflows/`.
+2. In Actions, run **Refresh UK power map data** once. It builds `data/costs.json`.
+3. Run **Live wind and gas costs** once. It creates the `live-data` branch with `today.json`.
+4. If the figures look wrong, run **Live wind and gas costs** with **probe** ticked and read the log. It prints what Elexon returns and how well the system flag matches.
+
+If the system flag can't be matched for most volume, the figures count every wind and gas action and the page says so.
