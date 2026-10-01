@@ -5,6 +5,14 @@ An interactive, bilingual (English and Welsh) map of Britain's electricity syste
 The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
 
+
+
+
+
+
+
+
+
 ## What it shows
 
 **Map tab**
