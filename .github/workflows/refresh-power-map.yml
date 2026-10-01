@@ -1,10 +1,13 @@
 # Keeps the UK power map's data fresh.
 #  - Every day: the offline snapshot, forecast accuracy, weekly digest and daily Wales
-#    figures (NESO Carbon Intensity API); curtailment and station history (Elexon);
+#    figures (NESO Carbon Intensity API); curtailment, station history and the cost of wind
+#    turn-down and gas turn-up (Elexon);
 #    carbon history, records and simulator data (NESO historic generation mix); the connection
 #    queue and official constraint costs (NESO data portal); open data CSVs.
 #  - On the 2nd of each month: also the OpenStreetMap grid, substations, smaller sites and routes.
-# Then rebuilds index.html and commits it if anything changed.
+# Then checks every dataset is fresh (tools/health.py), rebuilds index.html and commits it if anything
+# changed. If a dataset has stopped updating it opens a GitHub issue, and closes it when all is well.
+# Today's running total is a separate workflow (live-costs.yml, every 30 minutes).
 #
 # The map sits at the top level of the repository. If you move it into a subfolder,
 # set MAP_DIR below to that folder's name.
@@ -23,6 +26,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: refresh-power-map
@@ -70,6 +74,12 @@ jobs:
         working-directory: ${{ env.MAP_DIR }}
         run: python tools/update_elexon.py
 
+      - name: Refresh wind and gas costs (Elexon)
+        continue-on-error: true
+        timeout-minutes: 20
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/update_costs.py
+
       - name: Refresh carbon history, records and simulator data
         continue-on-error: true
         working-directory: ${{ env.MAP_DIR }}
@@ -96,6 +106,11 @@ jobs:
         working-directory: ${{ env.MAP_DIR }}
         run: python tools/export_open.py
 
+      - name: Check every dataset is fresh
+        continue-on-error: true
+        working-directory: ${{ env.MAP_DIR }}
+        run: python tools/health.py --issue-file "$RUNNER_TEMP/health_issue.md"
+
       - name: Build index.html
         working-directory: ${{ env.MAP_DIR }}
         run: python tools/build.py
@@ -110,4 +125,23 @@ jobs:
           else
             git commit -m "Refresh power map data ($(date -u +%Y-%m-%d))"
             git push
+          fi
+
+      - name: Raise, update or close the data-health issue
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create data-health --color B60205 --description "A dataset has stopped updating" --force || true
+          n=$(gh issue list --label data-health --state open --json number --jq '.[0].number // empty')
+          if [ -f "$RUNNER_TEMP/health_issue.md" ]; then
+            if [ -n "$n" ]; then
+              gh issue edit "$n" --body-file "$RUNNER_TEMP/health_issue.md"
+            else
+              gh issue create --title "Data refresh needs attention" --label data-health --body-file "$RUNNER_TEMP/health_issue.md"
+            fi
+          elif [ -n "$n" ]; then
+            gh issue comment "$n" --body "Everything is updating normally again."
+            gh issue close "$n"
           fi
