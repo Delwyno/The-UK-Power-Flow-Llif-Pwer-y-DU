@@ -1,0 +1,16 @@
+name,type,status,capacity_mw,developer,region,latitude_approx,longitude_approx,status_as_of,first_round_project
+Barrow Green Hydrogen,el,con,21.0,Carlton Power (with Schroders Greencoat),North West England,54.11,-3.22,2025-11,yes
+Bradford Low Carbon Hydrogen,el,con,24.5,Hygen,Yorkshire and the Humber,53.77,-1.74,2025-11,yes
+Cromarty Hydrogen,el,pau,10.6,Storegga (ScottishPower paused its role),Scotland,57.69,-4.17,2025-09,yes
+Green Hydrogen 3,el,con,10.6,HYRO,South East England,51.44,0.34,2025-11,yes
+HyBont,el,pre,5.2,Hygen (listed as Marubeni Europower in 2023),Wales (Bridgend),51.51,-3.58,2025-11,yes
+HyMarnham,el,op,9.3,JG Pears and GeoPura,East Midlands,53.23,-0.8,2025-09,yes
+Langage Green Hydrogen,el,con,7.0,Carlton Power,South West England,50.39,-4.0,2025-11,yes
+Tees Green Hydrogen,el,con,5.2,EDF Renewables Hydrogen,North East England,54.59,-1.13,2025-11,yes
+Trafford Green Hydrogen,el,con,10.5,Carlton Power,North West England,53.46,-2.31,2025-11,yes
+West Wales Hydrogen,el,fid,14.2,MorGen Energy and Trafigura,Wales (Milford Haven),51.7,-5.05,2026-03,yes
+Whitelee Green Hydrogen,el,pau,7.1,ScottishPower,Scotland,55.69,-4.27,2025-09,yes
+Holyhead Hydrogen Hub,hub,pla,5,Menter Môn with Isle of Anglesey County Council,Wales (Anglesey),53.31,-4.63,2026-09,
+HyNet North West,hub,pla,,Vertex Hydrogen and HyNet partners,North West England and North Wales,53.28,-2.86,2025-05,
+Humber Hydrogen cluster,hub,pla,,"National Gas, Centrica, Equinor and SSE Thermal",Yorkshire and the Humber,53.73,-0.23,2026-03,
+Project Union: East Coast,pipe,pla,,National Gas (with Northern Gas Networks and Cadent),Teesside to the East Midlands,53.9,-0.9,2026-03,
