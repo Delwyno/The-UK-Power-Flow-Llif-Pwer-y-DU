@@ -61,7 +61,9 @@ The map is a single self-contained web page (`index.html`). The `src/`, `data/` 
 
 **Checked against NESO.** The curtailment tracker compares its wind payments with NESO's official daily thermal constraint costs, with a note on why they differ.
 
-**Open data.** Nine CSV files, refreshed daily at stable addresses under `data/open/`, with an index describing each (`data/open/index.json`). Linked from "How this map works" and the Layers panel.
+**Hydrogen** (in the Future tab). The first funded hydrogen production projects (the 11 first-round winners), the proposed Project Union East Coast pipeline corridor and the hubs around them, each with its status, date checked and sources. Britain has no national hydrogen network yet, so this shows plans and progress, including projects that have been paused. It is curated by hand in `data/hydrogen.json`; the Wales view has its own hydrogen section. The tab also has an electrolyser what-if that replays each wind farm's real turn-down, and a ranking of where a 50 MW electrolyser would have been busiest.
+
+**Open data.** Ten CSV files, refreshed daily at stable addresses under `data/open/`, with an index describing each (`data/open/index.json`). Linked from "How this map works" and the Layers panel.
 
 **Compare years** (also in the Future tab): pick two years to see capacity by technology side by side, what's new and what closes. You can also highlight the changes on the map: a green ring means new and a red dashed ring means closed.
 
@@ -93,6 +95,7 @@ data/digest.json      weekly digests (one added each week)
 data/daily.json       daily Wales figures from NESO's regional estimates
 data/curtail.json     daily curtailment totals and each wind farm's share (loads when needed)
 data/stations.json    each mapped station's hourly output for the last 14 days (loads when needed)
+data/hydrogen.json    hydrogen projects and pipeline, curated by hand with sources and status dates
 data/subsidy.json     support scheme for each tracked wind farm, with sources (edit by hand)
 data/queue.json       the connection queue by connection site (loads when needed)
 data/constraints.json NESO's daily constraint costs, for the cross-check (loads when needed)
@@ -107,6 +110,17 @@ tools/update_neso.py       refreshes the connection queue and official constrain
 tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
+
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
 
 ## Keeping the data fresh automatically
 
