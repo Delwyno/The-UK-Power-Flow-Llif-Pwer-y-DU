@@ -9,15 +9,15 @@
 <meta property="og:site_name" content="The UK Power Flow">
 <meta property="og:title" content="The UK Power Flow">
 <meta property="og:description" content="Live map of Britain’s electricity: every major power station, where its power goes, carbon intensity now, wind being turned down, and a 2030 simulator. In English and Welsh.">
-<meta property="og:url" content="https://delwyno.github.io/UK-Energy-Generation-Map/">
-<meta property="og:image" content="https://delwyno.github.io/UK-Energy-Generation-Map/social.png?v=2">
+<meta property="og:url" content="https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/">
+<meta property="og:image" content="https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/social.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The UK Power Flow: a map of Britain’s power stations and 400 kV grid, with flow lines from the largest wind farms">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The UK Power Flow · Llif Pŵer y DU">
 <meta name="twitter:description" content="Where Britain’s electricity is made, where it goes, and what switching off wind costs.">
-<meta name="twitter:image" content="https://delwyno.github.io/UK-Energy-Generation-Map/social.png?v=2">
+<meta name="twitter:image" content="https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/social.png?v=2">
 <meta name="twitter:image:alt" content="The UK Power Flow: a map of Britain’s power stations and 400 kV grid">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
@@ -2421,7 +2421,7 @@ function openMethods(sec){
   const doc=METHOD_DOC[LANG]||METHOD_DOC.en;
   document.getElementById('mtoc').innerHTML=doc.map(s=>`<a href="#m-${s[0]}" data-go="${s[0]}">${s[1]}</a>`).join('');
   document.getElementById('mbody').innerHTML=doc.map(s=>`<section id="m-${s[0]}"><h3>${s[1]}</h3>${s[2]}</section>`).join('')+
-    `<p class="fine">${tr('m_report')} <a href="https://github.com/delwyno/UK-Energy-Generation-Map/issues" target="_blank" rel="noopener">GitHub ↗</a></p>`;
+    `<p class="fine">${tr('m_report')} <a href="https://github.com/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/issues" target="_blank" rel="noopener">GitHub ↗</a></p>`;
   document.querySelectorAll('#mtoc a').forEach(a=>a.onclick=ev=>{ ev.preventDefault(); goSec(a.dataset.go); });
   openPop('methodsv');
   const goSec=id=>{ const el=document.getElementById('m-'+id), b=document.getElementById('mbody'); if(el&&b) b.scrollTop=el.offsetTop-b.offsetTop-4; };
@@ -2676,7 +2676,7 @@ const fmtGWh = mwh => mwh>=1000 ? (mwh/1000).toFixed(mwh>=100000?0:1)+' GWh' : M
 const fmtT = t => t>=1e6 ? (t/1e6).toFixed(1)+' Mt' : Math.round(t).toLocaleString('en-GB')+' t';
 
 /* ======================= what switching wind off and turning gas on costs ======================= */
-const TODAY_URL = 'https://raw.githubusercontent.com/delwyno/UK-Energy-Generation-Map/live-data/today.json';   // written every 30 minutes by live-costs.yml
+const TODAY_URL = 'https://raw.githubusercontent.com/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/live-data/today.json';   // written every 30 minutes by live-costs.yml
 const HOUSEHOLDS = 28.6e6;   // UK households, ONS Families and households in the UK: 2024
 const COSTC = {w:'#d6333a', g:'#e8772e'};
 let TODAY=null, TODAY_AT=0;
