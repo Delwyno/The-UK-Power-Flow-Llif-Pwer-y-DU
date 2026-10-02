@@ -19,6 +19,8 @@ How the figures are made (all from Elexon's own published calculations)
     is what remains. If the flag cannot be matched for most volume, the figures use ALL actions and
     the file says so ("basis": "all").
   * Wind = BM units whose fuel type is WIND. Gas = CCGT and OCGT.
+  * wg is the NET wind cost (payments minus receipts). wp is what NESO paid wind farms and wr what some wind
+    farms paid NESO when they bid positive prices to be turned down, so wg = wp - wr. The page headlines wp.
   * ga / gam also record every gas offer accepted for ANY reason (energy balancing included), so that a
     system-action figure of £0 can be read in context: gas may still be running or balancing the market.
 Indicative figures are published about 15 minutes after each half hour and may be revised later.
@@ -145,7 +147,7 @@ def day_costs(d):
             parts[(kind,) + k] = [cf, vol_t.get(k, 0.0), vol_s.get(k, 0.0)]
     ratio = matched / seen if seen > 0 else 0.0
     basis = "system" if ratio >= MIN_MATCH else "all"
-    H = {s: [0.0] * 24 for s in ("wm", "wg", "gm", "gg", "ga", "gam")}   # ga/gam: gas offers accepted for ANY reason, so a £0 system figure can be read in context
+    H = {s: [0.0] * 24 for s in ("wm", "wg", "gm", "gg", "ga", "gam", "wp", "wr")}   # wp/wr: wind payments (paid to wind farms) and receipts (paid BY wind farms that bid to be turned down); wg is their net   # ga/gam: gas offers accepted for ANY reason, so a £0 system figure can be read in context
     for (kind, _unit, sp), (cf, vt, vs) in parts.items():
         if vt <= 0:
             continue
@@ -153,13 +155,20 @@ def day_costs(d):
         h = hour_of(d, sp)
         H[kind + "m"][h] += vt * share
         H[kind + "g"][h] += cf * share
+        if kind == "w":
+            c = cf * share
+            if c > 0:
+                H["wp"][h] += c
+            else:
+                H["wr"][h] += -c
         if kind == "g":
             H["ga"][h] += cf; H["gam"][h] += vt
     out = {"d": d, "basis": basis, "match": round(ratio, 2), "n": last_sp,
            "wm": [round(x, 1) for x in H["wm"]], "wg": [round(x) for x in H["wg"]],
            "gm": [round(x, 1) for x in H["gm"]], "gg": [round(x) for x in H["gg"]],
-           "ga": [round(x) for x in H["ga"]], "gam": [round(x, 1) for x in H["gam"]]}
-    out["t"] = {k: round(sum(out[k]), 1 if k.endswith("m") else 0) for k in ("wm", "wg", "gm", "gg", "ga", "gam")}
+           "ga": [round(x) for x in H["ga"]], "gam": [round(x, 1) for x in H["gam"]],
+           "wp": [round(x) for x in H["wp"]], "wr": [round(x) for x in H["wr"]]}
+    out["t"] = {k: round(sum(out[k]), 1 if k.endswith("m") else 0) for k in ("wm", "wg", "gm", "gg", "ga", "gam", "wp", "wr")}
     if last_sp:
         out["through"] = (period_start(d, last_sp) + timedelta(minutes=30)).astimezone(UK).strftime("%H:%M")
     return out
@@ -175,7 +184,7 @@ def save(existing, now):
     cut = (now.astimezone(UK) - timedelta(days=KEEP_HOURLY_DAYS)).strftime("%Y-%m-%d")
     for x in days:
         if x["d"] < cut:
-            for k in ("wm", "wg", "gm", "gg", "ga", "gam"):
+            for k in ("wm", "wg", "gm", "gg", "ga", "gam", "wp", "wr"):
                 x.pop(k, None)
     OUT.write_text(json.dumps({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "days": days}, separators=(",", ":")))
     return days
@@ -199,7 +208,7 @@ def backfill(start, max_days, minutes, now=None):
     now = now or datetime.now(timezone.utc)
     end = (now.astimezone(UK) - timedelta(days=1)).date()
     existing = load_existing()
-    have = {d for d, v in existing.items() if v.get("n", 0) > 0}
+    have = {d for d, v in existing.items() if v.get("n", 0) > 0 and "wr" in v.get("t", {})}   # days from before gross/received were recorded are redone
     d, todo = datetime.strptime(start, "%Y-%m-%d").date(), []
     while d <= end:
         if d.isoformat() not in have:
