@@ -2,7 +2,7 @@
  "title": "The UK Power Flow: open data",
  "author": "Daniel Elwyn Thomas",
  "site": "https://delwyno.github.io/UK-Energy-Generation-Map/",
- "updated": "2026-10-01T22:58Z",
+ "updated": "2026-10-02T09:11Z",
  "licence": {
   "default": "CC BY 4.0",
   "default_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -16,7 +16,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/curtailment-daily.csv",
    "title": "Wind turned down, daily",
    "description": "Energy the tracked wind farms were paid to turn down each day (UK days), the payments, and the CO2 if the lost power were replaced by gas at 394 g/kWh.",
-   "rows": 8,
+   "rows": 9,
    "columns": [
     "date",
     "turned_down_mwh",
@@ -32,7 +32,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/curtailment-by-windfarm.csv",
    "title": "Wind turned down, by wind farm and day",
    "description": "Each tracked wind farm's daily turn-down, payments and switch-off price, with its support scheme (ro = Renewables Obligation, ic = 2014 investment contract, cfd = auction Contract for Difference, part = CfD on part of the capacity).",
-   "rows": 54,
+   "rows": 58,
    "columns": [
     "date",
     "wind_farm",
@@ -51,7 +51,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/station-output-hourly.csv",
    "title": "Station output, hourly (last 14 days)",
    "description": "Hourly average of each mapped station's physical notification (the output it planned) and the part the grid operator paid it to turn down, in MW, 5 MW resolution.",
-   "rows": 7560,
+   "rows": 8520,
    "columns": [
     "hour_start_utc",
     "station",
@@ -68,7 +68,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/carbon-daily.csv",
    "title": "Carbon intensity, daily",
    "description": "Daily average and lowest carbon intensity (gCO2/kWh, measured where available), hours at or below 50 g, the highest wind and solar shares, and Wales's average wind share.",
-   "rows": 61,
+   "rows": 62,
    "columns": [
     "date",
     "average_gco2_kwh",
@@ -147,7 +147,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/connection-queue-by-site.csv",
    "title": "Connection queue, by connection site",
    "description": "Capacity with a contract to connect at each transmission connection site (NESO TEC register), repeated rows counted once, with location where the map could place it.",
-   "rows": 1035,
+   "rows": 1037,
    "columns": [
     "connection_site",
     "latitude",
@@ -193,7 +193,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/costs-daily.csv",
    "title": "Wind turn-down and gas turn-up costs, daily",
    "description": "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
-   "rows": 14,
+   "rows": 639,
    "columns": [
     "date",
     "wind_mwh_turned_down",
@@ -212,7 +212,7 @@
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/costs-hourly.csv",
    "title": "Wind turn-down and gas turn-up costs, hourly (last 45 days)",
    "description": "As costs-daily.csv, by UK local hour. On clock-change days the repeated hour is added together.",
-   "rows": 336,
+   "rows": 1080,
    "columns": [
     "date",
     "hour_uk",
