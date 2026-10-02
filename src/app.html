@@ -262,7 +262,7 @@ input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;ba
 input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--rule)}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.3);margin-top:-11px}
 input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.3)}
-.panel{background:var(--panel);border-top:1px solid var(--rule);overflow-y:auto;max-height:44%;padding:14px 16px 18px;flex:none}
+.panel{--pp:16px;background:var(--panel);border-top:1px solid var(--rule);overflow-y:auto;max-height:44%;padding:14px 16px 18px;flex:none}
 .panel h2{font-family:"Barlow Semi Condensed",sans-serif;font-weight:700;font-size:1.35rem;margin:0;line-height:1.15}
 .panel p{margin:.5em 0;line-height:1.5;max-width:62ch}
 .meta{color:var(--muted);font-size:.9rem;margin-top:2px}
@@ -336,11 +336,12 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .feeds li{display:flex;gap:8px;padding:2px 0;color:var(--muted)}
 .feeds li b{color:var(--ink);font-weight:600}
 .ok{color:#2fa84f}.bad{color:var(--warn)}
-.tabs{display:flex;gap:2px;margin:-4px 0 14px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none}
+.tabs{display:flex;gap:0;margin:-4px calc(6px - var(--pp,16px)) 14px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{flex:none;white-space:nowrap}
-.tabs button{font:inherit;font-weight:600;font-size:.95rem;background:none;border:0;border-bottom:3px solid transparent;padding:6px 10px;color:var(--muted);cursor:pointer;margin-bottom:-1px}
+.tabs button{font:inherit;font-weight:600;font-size:.8rem;background:none;border:0;border-bottom:3px solid transparent;padding:6px 5px;color:var(--muted);cursor:pointer;margin-bottom:-1px}
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs.ov{-webkit-mask-image:linear-gradient(to right,#000 86%,transparent);mask-image:linear-gradient(to right,#000 86%,transparent)}   /* a soft edge when there are more tabs to scroll to */
 .cibig{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:10px 0}
 .cibig div{background:var(--panel);padding:10px}
 .cibig b{display:block;font:700 1.9rem/1 "Barlow Semi Condensed",sans-serif}
@@ -451,8 +452,9 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 @media (prefers-reduced-transparency:reduce){ .ctl button,.ctl .tbtn{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--panel)} }
 @media (min-width:900px), (min-width:700px) and (orientation:landscape){
   .stage{flex-direction:row}
-  .sheet{width:390px;border-left:1px solid var(--rule)}
-  .panel{flex:1;max-height:none;border-top:0;padding:18px 22px}
+  .sheet{width:390px;zoom:var(--sz,1);position:relative;border-left:1px solid var(--rule)}
+  .rz{display:block}
+  .panel{--pp:22px;flex:1;max-height:none;border-top:0;padding:18px 22px}
   header{padding:12px 20px 10px}
   h1{font-size:1.5rem}
 }
@@ -487,13 +489,13 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .simchk{font-size:.88rem;border-left:3px solid var(--rule);padding:4px 0 4px 10px;margin:10px 0}
 .digest{border-bottom:1px solid var(--rule);padding-bottom:12px;margin-bottom:4px}
 .dghead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.dghead h3{margin:0;font-size:1.15rem;font-family:"Barlow Semi Condensed",sans-serif}
+.dghead h2,.dghead h3{margin:0;font-size:1.15rem;font-family:"Barlow Semi Condensed",sans-serif}
 .dgnav{display:flex;gap:4px}
 .dgnav .xbtn{width:36px;height:36px;border:1px solid var(--rule);border-radius:8px;background:var(--panel);color:var(--ink);font-size:1.3rem;cursor:pointer}
 .dgnav .xbtn:disabled{opacity:.35;cursor:default}
 .dgrec{font-weight:600;border-left:3px solid #2fa84f;padding-left:10px}
 .dgact{flex-wrap:wrap}
-.tabs button{flex:1 1 auto;padding:6px 6px;text-align:center}
+.tabs button{flex:1 1 auto;padding:6px 5px;text-align:center}
 .seg{display:flex;gap:4px;background:var(--soft);border-radius:9px;padding:3px;margin:-4px 0 14px}
 .seg button{flex:1;font:inherit;font-size:.88rem;font-weight:600;border:0;border-radius:7px;background:none;color:var(--muted);padding:7px 8px;cursor:pointer;min-height:36px}
 .seg button[aria-selected="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
@@ -593,6 +595,12 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .csrec b{font:700 1rem "Barlow Semi Condensed",sans-serif}
 .csrec span{text-align:right}
 .csrec small{display:block;color:var(--muted);font-size:.8rem}
+.rz{display:none;position:absolute;left:-6px;top:0;bottom:0;width:11px;cursor:col-resize;z-index:8;touch-action:none}
+.rz::after{content:"";position:absolute;left:4px;top:50%;width:3px;height:46px;margin-top:-23px;border-radius:2px;background:var(--rule);transition:background .15s}
+.rz:hover::after,.rz:focus-visible::after,body.rzing .rz::after{background:var(--ic)}
+.rz:focus-visible{outline:2px solid var(--ic);outline-offset:-2px}
+body.rzing{user-select:none;-webkit-user-select:none;cursor:col-resize}
+@media (min-width:900px), (min-width:700px) and (orientation:landscape){ .rz{display:block} }   /* after the base rule, so it wins: the handle only exists in the desktop layout */
 </style>
 <link rel="preconnect" href="https://api.carbonintensity.org.uk" crossorigin><link rel="preconnect" href="https://data.elexon.co.uk" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
@@ -649,7 +657,7 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
         <input id="year" type="range" min="2026" max="2040" step="1" value="2026">
       </div>
     </div>
-    <div class="sheet" id="sheet" role="complementary"><div class="grab" id="grab" role="button" tabindex="0"></div><div class="panel" id="panel" aria-live="polite"></div></div>
+    <div class="sheet" id="sheet" role="complementary"><div class="rz" id="rz" role="separator" aria-orientation="vertical" tabindex="0"></div><div class="grab" id="grab" role="button" tabindex="0"></div><div class="panel" id="panel" aria-live="polite"></div></div>
   </div>
 </div>
 <div class="scrim" id="scrim"></div>
@@ -690,7 +698,7 @@ const HISTORY = __HISTORY__;    // NESO historic generation mix, refreshed month
 
 /* ---------------- words ---------------- */
 const I18N = {
-en:{dl_monthly:'Download monthly data (CSV)',dl_daily:'Download daily data (CSV)',cs_r_month:'{m} {y} so far',cs_r_prev:'{m} {y}',cs_r_year:'This year so far',cs_r_all:'Since tracking began',cs_days_1:'1 day',cs_days:'{n} days',cs_hh:'{h} per household',cs_ly_up:'{p}% higher than last year',cs_ly_dn:'{p}% lower than last year',cs_ly_same:'About the same as last year',cs_ly_was:'Last year, same dates: {b}',cs_ly_none:'No data yet for the same dates last year',cs_ly_part:'compared over {n} of {m} days',cs_few1:'Only 1 day so far, so read the comparison with care.',cs_few:'Only {n} days so far, so read the comparison with care.',cs_mo_h:'Month by month, against last year',cs_mo_k1:'Last year',cs_mo_k2:'This year: wind off',cs_mo_k3:'This year: gas on',cs_mo_chart:'Wind and gas costs by month, this year against last year (£)',cs_mo_note:'The latest month is still in progress.',cs_rec_h:'Highest day',cs_split:'wind {w} · gas {g}',td_h:'Today so far, to {when}',td_line:'{w} to switch wind off, {g} to turn gas on',td_note:'Estimated from Elexon’s indicative figures for system actions in the Balancing Mechanism.',td_more:'See the running total',td_w:'wind',td_w_s:'switched off',td_g:'gas',td_g_s:'turned up',td_t:'total',td_t_s:'so far today',td_key_w:'Wind switched off',td_key_g:'Gas turned up',td_chart:'Running total today, by hour (£)',td_none:'Nothing has been published for today yet. Elexon’s figures arrive about 15 minutes after each half hour.',td_fine:'Running total by hour, UK time. Updated {u}. It refreshes about every 30 minutes and may be revised as Elexon finalises its figures.',cs_basis_today:'Today the system flag could not be matched, so every wind and gas action is counted.',cs_h:'Wind switched off and gas turned up',cs_none:'The cost figures appear after the next data refresh.',cs_wk:'Over the last {n} days, system actions in the Balancing Mechanism cost about {w} to switch wind off and {g} to turn gas on: {t} in total.',cs_wk_chart:'Wind and gas costs, day by day (£)',cs_vs:'On the {n} days NESO’s own figures also cover, that is {p}% of its thermal constraint cost ({o}). NESO’s total also includes trades outside the Balancing Mechanism.',cs_basis_all:'On {n} of these days the system flag could not be matched, so every wind and gas action is counted.',cs_tot_h:'Running totals',cs_src:'Elexon’s indicative cashflows for wind and gas units, system actions only. They are estimates and Elexon may revise them.',cs_hh_note:'“Per household” divides the total across 28.6 million UK households (ONS, 2024). In practice these costs are recovered through network charges, not shared equally.',hl_btn:'Data freshness',hl_title:'Is the data up to date?',hl_ok:'Everything is updating normally.',hl_late:'Some data is a little late.',hl_stale:'Some data has stopped updating.',hl_upd:'updated {a}',hl_exp:'expected every {h}',hl_every_h:'{n} hours',hl_every_d:'{n} days',hl_waiting:'Not available yet',hl_st_ok:'On time',hl_st_late:'Late',hl_st_stale:'Stopped',hl_st_waiting:'Waiting',hl_none:'The freshness report isn’t available yet. It appears after the next daily refresh.',hl_note:'The daily check looks at when each dataset’s content last changed. The live running total is checked every time you open this.',ago_m:'{n} min ago',ago_h:'{n} h ago',ago_d:'{n} days ago',
+en:{tab_cu:'Curtailment',cu_h:'Curtailment',cu_t:'When the grid can’t carry all the wind to where it’s needed, wind farms are paid to switch off and gas plants are paid to switch on.',cu_s_costs:'Costs',cu_s_farms:'Wind farms',cu_s_why:'Why it happens',cu_tz_t:'The costs now have their own tab: today so far, running totals, the wind farms affected and what causes it.',cu_tz_btn:'Open Curtailment',rz_label:'Resize the side panel. Drag, or use the left and right arrow keys. Press Home to reset.',rz_title:'Drag to resize',dl_monthly:'Download monthly data (CSV)',dl_daily:'Download daily data (CSV)',cs_r_month:'{m} {y} so far',cs_r_prev:'{m} {y}',cs_r_year:'This year so far',cs_r_all:'Since tracking began',cs_days_1:'1 day',cs_days:'{n} days',cs_hh:'{h} per household',cs_ly_up:'{p}% higher than last year',cs_ly_dn:'{p}% lower than last year',cs_ly_same:'About the same as last year',cs_ly_was:'Last year, same dates: {b}',cs_ly_none:'No data yet for the same dates last year',cs_ly_part:'compared over {n} of {m} days',cs_few1:'Only 1 day so far, so read the comparison with care.',cs_few:'Only {n} days so far, so read the comparison with care.',cs_mo_h:'Month by month, against last year',cs_mo_k1:'Last year',cs_mo_k2:'This year: wind off',cs_mo_k3:'This year: gas on',cs_mo_chart:'Wind and gas costs by month, this year against last year (£)',cs_mo_note:'The latest month is still in progress.',cs_rec_h:'Highest day',cs_split:'wind {w} · gas {g}',td_h:'Today so far, to {when}',td_line:'{w} to switch wind off, {g} to turn gas on',td_note:'Estimated from Elexon’s indicative figures for system actions in the Balancing Mechanism.',td_more:'See the running total',td_w:'wind',td_w_s:'switched off',td_g:'gas',td_g_s:'turned up',td_t:'total',td_t_s:'so far today',td_key_w:'Wind switched off',td_key_g:'Gas turned up',td_chart:'Running total today, by hour (£)',td_none:'Nothing has been published for today yet. Elexon’s figures arrive about 15 minutes after each half hour.',td_fine:'Running total by hour, UK time. Updated {u}. It refreshes about every 30 minutes and may be revised as Elexon finalises its figures.',cs_basis_today:'Today the system flag could not be matched, so every wind and gas action is counted.',cs_h:'Wind switched off and gas turned up',cs_none:'The cost figures appear after the next data refresh.',cs_wk:'Over the last {n} days, system actions in the Balancing Mechanism cost about {w} to switch wind off and {g} to turn gas on: {t} in total.',cs_wk_chart:'Wind and gas costs, day by day (£)',cs_vs:'On the {n} days NESO’s own figures also cover, that is {p}% of its thermal constraint cost ({o}). NESO’s total also includes trades outside the Balancing Mechanism.',cs_basis_all:'On {n} of these days the system flag could not be matched, so every wind and gas action is counted.',cs_tot_h:'Running totals',cs_src:'Elexon’s indicative cashflows for wind and gas units, system actions only. They are estimates and Elexon may revise them.',cs_hh_note:'“Per household” divides the total across 28.6 million UK households (ONS, 2024). In practice these costs are recovered through network charges, not shared equally.',hl_btn:'Data freshness',hl_title:'Is the data up to date?',hl_ok:'Everything is updating normally.',hl_late:'Some data is a little late.',hl_stale:'Some data has stopped updating.',hl_upd:'updated {a}',hl_exp:'expected every {h}',hl_every_h:'{n} hours',hl_every_d:'{n} days',hl_waiting:'Not available yet',hl_st_ok:'On time',hl_st_late:'Late',hl_st_stale:'Stopped',hl_st_waiting:'Waiting',hl_none:'The freshness report isn’t available yet. It appears after the next daily refresh.',hl_note:'The daily check looks at when each dataset’s content last changed. The live running total is checked every time you open this.',ago_m:'{n} min ago',ago_h:'{n} h ago',ago_d:'{n} days ago',
  pv_btn:'Privacy',lm_main:'Map',lm_side:'Details',wi_rank_h:'Where an electrolyser would have been busiest',wi_rank_t:'A 50 MW electrolyser at each wind farm, replayed on its real turn-down over the last {n} days. A busier electrolyser spreads its costs over more hydrogen.',wi_row:'{s}% of its turn-down absorbed · {lf}% average load',
  eh_h:'Try it: an electrolyser at a wind farm',eh_t:'Pick a wind farm and a size. This replays the last two weeks of real turn-downs to show how much of that wind an electrolyser next door could have used.',eh_farm:'Wind farm',eh_size:'Electrolyser size',eh_none:'No tracked wind farm has been turned down enough in the last two weeks to try this.',eh_tonnes:'tonnes',eh_h2:'Hydrogen made',eh_lf:'Average load',eh_lf_s:'of full power',eh_share:'Wind it could take',eh_share_s:'of turn-downs',eh_used:'Power used',eh_used_s:'otherwise switched off',eh_pay:'Payments avoided',eh_pay_s:'at this farm’s average price',eh_co2:'CO₂ avoided',eh_i_low:'Turn-downs come in bursts, so a {mw} MW electrolyser here would run at about {p}% load. A plant that sits idle most of the time finds it hard to make cheap hydrogen.',eh_i_mid:'A {mw} MW electrolyser here would run at about {p}% load over these two weeks.',eh_i_high:'Turn-downs here were steady enough for a {mw} MW electrolyser to run at about {p}% load. Two weeks isn’t a year, though.',eh_i_dbl:'Doubling it to {b} MW would take only {p}% more wind power.',eh_note:'Replays {d} days of real hourly turn-downs from Elexon. It assumes the electrolyser takes exactly the power that was being switched off, up to its size, at about {k} kWh per kg. CO₂ assumes the lost wind is replaced by gas at 394 g/kWh. Hydrogen prices, buyers and power costs aren’t modelled.',eh_try:'Try an electrolyser here',eh_chart:'Wind turned down each hour, and the part an electrolyser could use',eh_k_cut:'Turned down',eh_k_used:'Used by the electrolyser',
  fut_h:'Hydrogen',h2_h:'Hydrogen: funded and planned',h2_t:'Britain has no national hydrogen network yet. This shows the first funded production projects, the first proposed pipeline and the hubs around them, with their status as far as public sources show.',h2_n1:'funded in the first round ({n} projects)',h2_n2:'confirmed producing',h2_n3:'paused',h2s_op:'Producing',h2s_fid:'Investment decision taken',h2s_con:'Contract signed',h2s_pre:'Not yet contracted',h2s_pau:'Paused',h2s_pla:'Proposed',h2_first:'First-round electrolysers',h2_hubs:'Hubs and pipeline',h2_back:'Back to hydrogen',h2_type_el:'Electrolyser',h2_type_hub:'Hydrogen hub',h2_type_pipe:'Proposed pipeline',h2_cap:'Capacity',h2_use:'What it’s for:',h2_asof:'Status at {d}',h2_pos:'Positions are approximate, at town or cluster level, not exact sites.',h2_src:'Sources:',h2_why_h:'Why it matters for the grid',h2_why:'Electrolysers turn electricity into hydrogen. Sited behind a bottleneck, they could take wind that would otherwise be switched off. NESO, Arup and National Gas have studied this, with constraint costs projected at £500 million to £3 billion a year by 2030.',h2_why2:'Research for Scotland found this would only pay in specific places and times. And the first-round projects are small: {a} MW in total, against about {b} GW of offshore wind built by 2024. Two of them, both in Scotland and both designed around nearby wind farms, are paused.',h2_amb:'When the first round was announced, the government’s ambition was up to 10 GW of low carbon hydrogen production by 2030. In April 2025 a second round shortlisted {n} projects totalling {mw} MW; their sites aren’t shown here.',h2_note:'Checked 30 September 2026. Hydrogen plans change often, so treat status as a snapshot and check the sources.',h2w_h:'Hydrogen in Wales',h2w_t:'Two first-round projects are in Wales, plus a proposed hub on Anglesey. HyNet’s CO₂ pipeline crosses Flintshire to store CO₂ captured from hydrogen made at Stanlow.', sc_ro:'Renewables Obligation (earns certificates on every MWh)',sc_ic:'Early Contract for Difference (2014), guaranteed £{k}/MWh in 2012 prices',sc_cfd:'Contract for Difference ({y} auction), £{k}/MWh in 2012 prices',sc_part:'Contract for Difference on {mw} MW ({y} auction, £{k}/MWh in 2012 prices); the rest sold under private deals',
@@ -888,7 +896,7 @@ en:{dl_monthly:'Download monthly data (CSV)',dl_daily:'Download daily data (CSV)
  st_h_h:'Hours at the 2030 clean power level',st_h_t:'NESO’s Clean Power 2030 pathways put average carbon intensity at around 50 gCO₂/kWh. Britain first touched that level for an hour in 2019. In 2024 it spent nearly 600 hours at or below it. To hit the target, it will need to be there most of the time.',st_h_note:'Hours at or below 50 gCO₂/kWh each year, from NESO’s historic generation mix. *{y} is 1 January to {to}.',
  ci_proj_note:'Dashed line: NESO’s Clean Power 2030 pathways bring carbon intensity to around 50 gCO₂/kWh or lower by 2030. The 2035 point marks the earlier government ambition for a fully decarbonised grid. These are targets, not forecasts.',
  ci_year_note:'The {y} figure is the average from 1 January to {to}, from NESO’s historic generation mix.'},
-cy:{dl_monthly:'Lawrlwytho data misol (CSV)',dl_daily:'Lawrlwytho data dyddiol (CSV)',cs_r_month:'{m} {y} hyd yma',cs_r_prev:'{m} {y}',cs_r_year:'Eleni hyd yma',cs_r_all:'Ers dechrau tracio',cs_days_1:'1 diwrnod',cs_days:'{n} diwrnod',cs_hh:'{h} fesul cartref',cs_ly_up:'{p}% yn uwch na’r llynedd',cs_ly_dn:'{p}% yn is na’r llynedd',cs_ly_same:'Tua’r un fath â’r llynedd',cs_ly_was:'Y llynedd, yr un dyddiadau: {b}',cs_ly_none:'Dim data eto ar gyfer yr un dyddiadau y llynedd',cs_ly_part:'wedi’i gymharu dros {n} o {m} diwrnod',cs_few1:'Dim ond 1 diwrnod hyd yma, felly darllenwch y gymhariaeth yn ofalus.',cs_few:'Dim ond {n} diwrnod hyd yma, felly darllenwch y gymhariaeth yn ofalus.',cs_mo_h:'Mis wrth fis, o’i gymharu â’r llynedd',cs_mo_k1:'Y llynedd',cs_mo_k2:'Eleni: gwynt i ffwrdd',cs_mo_k3:'Eleni: nwy ymlaen',cs_mo_chart:'Costau gwynt a nwy fesul mis, eleni o’i gymharu â’r llynedd (£)',cs_mo_note:'Mae’r mis diweddaraf yn dal i fynd rhagddo.',cs_rec_h:'Y diwrnod uchaf',cs_split:'gwynt {w} · nwy {g}',td_h:'Heddiw hyd yma, hyd at {when}',td_line:'{w} i ddiffodd gwynt, {g} i droi nwy ymlaen',td_note:'Wedi’i amcangyfrif o ffigurau dangosol Elexon ar gyfer gweithredoedd system yn y Mecanwaith Cydbwyso.',td_more:'Gweld y cyfanswm cronnol',td_w:'gwynt',td_w_s:'wedi’i ddiffodd',td_g:'nwy',td_g_s:'wedi’i droi ymlaen',td_t:'cyfanswm',td_t_s:'heddiw hyd yma',td_key_w:'Gwynt wedi’i ddiffodd',td_key_g:'Nwy wedi’i droi ymlaen',td_chart:'Cyfanswm cronnol heddiw, fesul awr (£)',td_none:'Nid oes dim wedi’i gyhoeddi ar gyfer heddiw eto. Mae ffigurau Elexon yn cyrraedd tua 15 munud ar ôl pob hanner awr.',td_fine:'Cyfanswm cronnol fesul awr, amser y DU. Wedi’i ddiweddaru {u}. Mae’n adnewyddu tua bob 30 munud ac efallai y caiff ei ddiwygio wrth i Elexon derfynu ei ffigurau.',cs_basis_today:'Heddiw, nid oedd modd paru’r faner system, felly mae pob gweithred gwynt a nwy yn cael ei chyfrif.',cs_h:'Gwynt wedi’i ddiffodd a nwy wedi’i droi ymlaen',cs_none:'Bydd y ffigurau cost yn ymddangos ar ôl y diweddariad data nesaf.',cs_wk:'Dros y {n} diwrnod diwethaf, roedd gweithredoedd system yn y Mecanwaith Cydbwyso yn costio tua {w} i ddiffodd gwynt a {g} i droi nwy ymlaen: {t} i gyd.',cs_wk_chart:'Costau gwynt a nwy, diwrnod wrth ddiwrnod (£)',cs_vs:'Ar y {n} diwrnod y mae ffigurau NESO ei hun hefyd yn eu cwmpasu, mae hynny’n {p}% o’i gost cyfyngiadau thermol ({o}). Mae cyfanswm NESO hefyd yn cynnwys masnachau y tu allan i’r Mecanwaith Cydbwyso.',cs_basis_all:'Ar {n} o’r diwrnodau hyn, nid oedd modd paru’r faner system, felly mae pob gweithred gwynt a nwy yn cael ei chyfrif.',cs_tot_h:'Cyfansymiau cronnol',cs_src:'Llifau arian dangosol Elexon ar gyfer unedau gwynt a nwy, gweithredoedd system yn unig. Amcangyfrifon ydyn nhw a gall Elexon eu diwygio.',cs_hh_note:'Mae “fesul cartref” yn rhannu’r cyfanswm ar draws 28.6 miliwn o aelwydydd y DU (ONS, 2024). Yn ymarferol, mae’r costau hyn yn cael eu hadennill drwy daliadau rhwydwaith, nid eu rhannu’n gyfartal.',hl_btn:'Ffresni’r data',hl_title:'A yw’r data’n gyfredol?',hl_ok:'Mae popeth yn diweddaru fel arfer.',hl_late:'Mae rhywfaint o ddata ychydig yn hwyr.',hl_stale:'Mae rhywfaint o ddata wedi rhoi’r gorau i ddiweddaru.',hl_upd:'wedi’i ddiweddaru {a}',hl_exp:'disgwylir bob {h}',hl_every_h:'{n} awr',hl_every_d:'{n} diwrnod',hl_waiting:'Ddim ar gael eto',hl_st_ok:'Ar amser',hl_st_late:'Yn hwyr',hl_st_stale:'Wedi stopio',hl_st_waiting:'Yn aros',hl_none:'Nid yw’r adroddiad ffresni ar gael eto. Bydd yn ymddangos ar ôl y diweddariad dyddiol nesaf.',hl_note:'Mae’r gwiriad dyddiol yn edrych pryd y newidiodd cynnwys pob set ddata ddiwethaf. Caiff y cyfanswm cronnol byw ei wirio bob tro y byddwch yn agor hwn.',ago_m:'{n} munud yn ôl',ago_h:'{n} awr yn ôl',ago_d:'{n} diwrnod yn ôl',
+cy:{tab_cu:'Cwtogi',cu_h:'Cwtogi',cu_t:'Pan na all y grid gludo’r holl wynt i ble mae ei angen, telir i ffermydd gwynt ddiffodd a thelir i orsafoedd nwy droi ymlaen.',cu_s_costs:'Costau',cu_s_farms:'Ffermydd gwynt',cu_s_why:'Pam mae’n digwydd',cu_tz_t:'Mae gan y costau eu tab eu hunain nawr: heddiw hyd yma, cyfansymiau cronnol, y ffermydd gwynt yr effeithir arnynt a beth sy’n ei achosi.',cu_tz_btn:'Agor Cwtogi',rz_label:'Newid maint y panel ochr. Llusgwch, neu defnyddiwch y bysellau saeth chwith a de. Pwyswch Home i ailosod.',rz_title:'Llusgwch i newid maint',dl_monthly:'Lawrlwytho data misol (CSV)',dl_daily:'Lawrlwytho data dyddiol (CSV)',cs_r_month:'{m} {y} hyd yma',cs_r_prev:'{m} {y}',cs_r_year:'Eleni hyd yma',cs_r_all:'Ers dechrau tracio',cs_days_1:'1 diwrnod',cs_days:'{n} diwrnod',cs_hh:'{h} fesul cartref',cs_ly_up:'{p}% yn uwch na’r llynedd',cs_ly_dn:'{p}% yn is na’r llynedd',cs_ly_same:'Tua’r un fath â’r llynedd',cs_ly_was:'Y llynedd, yr un dyddiadau: {b}',cs_ly_none:'Dim data eto ar gyfer yr un dyddiadau y llynedd',cs_ly_part:'wedi’i gymharu dros {n} o {m} diwrnod',cs_few1:'Dim ond 1 diwrnod hyd yma, felly darllenwch y gymhariaeth yn ofalus.',cs_few:'Dim ond {n} diwrnod hyd yma, felly darllenwch y gymhariaeth yn ofalus.',cs_mo_h:'Mis wrth fis, o’i gymharu â’r llynedd',cs_mo_k1:'Y llynedd',cs_mo_k2:'Eleni: gwynt i ffwrdd',cs_mo_k3:'Eleni: nwy ymlaen',cs_mo_chart:'Costau gwynt a nwy fesul mis, eleni o’i gymharu â’r llynedd (£)',cs_mo_note:'Mae’r mis diweddaraf yn dal i fynd rhagddo.',cs_rec_h:'Y diwrnod uchaf',cs_split:'gwynt {w} · nwy {g}',td_h:'Heddiw hyd yma, hyd at {when}',td_line:'{w} i ddiffodd gwynt, {g} i droi nwy ymlaen',td_note:'Wedi’i amcangyfrif o ffigurau dangosol Elexon ar gyfer gweithredoedd system yn y Mecanwaith Cydbwyso.',td_more:'Gweld y cyfanswm cronnol',td_w:'gwynt',td_w_s:'wedi’i ddiffodd',td_g:'nwy',td_g_s:'wedi’i droi ymlaen',td_t:'cyfanswm',td_t_s:'heddiw hyd yma',td_key_w:'Gwynt wedi’i ddiffodd',td_key_g:'Nwy wedi’i droi ymlaen',td_chart:'Cyfanswm cronnol heddiw, fesul awr (£)',td_none:'Nid oes dim wedi’i gyhoeddi ar gyfer heddiw eto. Mae ffigurau Elexon yn cyrraedd tua 15 munud ar ôl pob hanner awr.',td_fine:'Cyfanswm cronnol fesul awr, amser y DU. Wedi’i ddiweddaru {u}. Mae’n adnewyddu tua bob 30 munud ac efallai y caiff ei ddiwygio wrth i Elexon derfynu ei ffigurau.',cs_basis_today:'Heddiw, nid oedd modd paru’r faner system, felly mae pob gweithred gwynt a nwy yn cael ei chyfrif.',cs_h:'Gwynt wedi’i ddiffodd a nwy wedi’i droi ymlaen',cs_none:'Bydd y ffigurau cost yn ymddangos ar ôl y diweddariad data nesaf.',cs_wk:'Dros y {n} diwrnod diwethaf, roedd gweithredoedd system yn y Mecanwaith Cydbwyso yn costio tua {w} i ddiffodd gwynt a {g} i droi nwy ymlaen: {t} i gyd.',cs_wk_chart:'Costau gwynt a nwy, diwrnod wrth ddiwrnod (£)',cs_vs:'Ar y {n} diwrnod y mae ffigurau NESO ei hun hefyd yn eu cwmpasu, mae hynny’n {p}% o’i gost cyfyngiadau thermol ({o}). Mae cyfanswm NESO hefyd yn cynnwys masnachau y tu allan i’r Mecanwaith Cydbwyso.',cs_basis_all:'Ar {n} o’r diwrnodau hyn, nid oedd modd paru’r faner system, felly mae pob gweithred gwynt a nwy yn cael ei chyfrif.',cs_tot_h:'Cyfansymiau cronnol',cs_src:'Llifau arian dangosol Elexon ar gyfer unedau gwynt a nwy, gweithredoedd system yn unig. Amcangyfrifon ydyn nhw a gall Elexon eu diwygio.',cs_hh_note:'Mae “fesul cartref” yn rhannu’r cyfanswm ar draws 28.6 miliwn o aelwydydd y DU (ONS, 2024). Yn ymarferol, mae’r costau hyn yn cael eu hadennill drwy daliadau rhwydwaith, nid eu rhannu’n gyfartal.',hl_btn:'Ffresni’r data',hl_title:'A yw’r data’n gyfredol?',hl_ok:'Mae popeth yn diweddaru fel arfer.',hl_late:'Mae rhywfaint o ddata ychydig yn hwyr.',hl_stale:'Mae rhywfaint o ddata wedi rhoi’r gorau i ddiweddaru.',hl_upd:'wedi’i ddiweddaru {a}',hl_exp:'disgwylir bob {h}',hl_every_h:'{n} awr',hl_every_d:'{n} diwrnod',hl_waiting:'Ddim ar gael eto',hl_st_ok:'Ar amser',hl_st_late:'Yn hwyr',hl_st_stale:'Wedi stopio',hl_st_waiting:'Yn aros',hl_none:'Nid yw’r adroddiad ffresni ar gael eto. Bydd yn ymddangos ar ôl y diweddariad dyddiol nesaf.',hl_note:'Mae’r gwiriad dyddiol yn edrych pryd y newidiodd cynnwys pob set ddata ddiwethaf. Caiff y cyfanswm cronnol byw ei wirio bob tro y byddwch yn agor hwn.',ago_m:'{n} munud yn ôl',ago_h:'{n} awr yn ôl',ago_d:'{n} diwrnod yn ôl',
  pv_btn:'Preifatrwydd',lm_main:'Map',lm_side:'Manylion',wi_rank_h:'Lle byddai electrolysydd wedi bod fwyaf prysur',wi_rank_t:'Electrolysydd 50 MW ym mhob fferm wynt, wedi’i ail-chwarae ar ei throi i lawr go iawn dros y {n} diwrnod diwethaf. Mae electrolysydd prysurach yn lledaenu ei gostau dros fwy o hydrogen.',wi_row:'{s}% o’i droi i lawr wedi’i amsugno · llwyth cyfartalog {lf}%',
  eh_h:'Rhowch gynnig arni: electrolysydd mewn fferm wynt',eh_t:'Dewiswch fferm wynt a maint. Mae hyn yn ail-chwarae pythefnos diwethaf y troi i lawr go iawn i ddangos faint o’r gwynt hwnnw y gallai electrolysydd drws nesaf fod wedi’i ddefnyddio.',eh_farm:'Fferm wynt',eh_size:'Maint yr electrolysydd',eh_none:'Ni chafodd unrhyw fferm wynt sy’n cael ei thracio ei throi i lawr ddigon yn y pythefnos diwethaf i roi cynnig ar hyn.',eh_tonnes:'tunnell',eh_h2:'Hydrogen a wnaed',eh_lf:'Llwyth cyfartalog',eh_lf_s:'o’r pŵer llawn',eh_share:'Gwynt y gallai ei gymryd',eh_share_s:'o’r troi i lawr',eh_used:'Pŵer a ddefnyddiwyd',eh_used_s:'a fyddai wedi’i ddiffodd fel arall',eh_pay:'Taliadau a osgowyd',eh_pay_s:'ar bris cyfartalog y fferm hon',eh_co2:'CO₂ a osgowyd',eh_i_low:'Mae’r troi i lawr yn dod mewn pyliau, felly byddai electrolysydd {mw} MW yma yn rhedeg ar tua {p}% o lwyth. Mae’n anodd i waith sy’n segur y rhan fwyaf o’r amser wneud hydrogen rhad.',eh_i_mid:'Byddai electrolysydd {mw} MW yma’n rhedeg ar tua {p}% o lwyth dros y pythefnos hyn.',eh_i_high:'Roedd y troi i lawr yma’n ddigon cyson i electrolysydd {mw} MW redeg ar tua {p}% o lwyth. Nid yw pythefnos yn flwyddyn, serch hynny.',eh_i_dbl:'Byddai ei ddyblu i {b} MW yn cymryd dim ond {p}% yn fwy o bŵer gwynt.',eh_note:'Yn ail-chwarae {d} diwrnod o droi i lawr fesul awr go iawn o Elexon. Mae’n tybio bod yr electrolysydd yn cymryd yn union y pŵer a oedd yn cael ei ddiffodd, hyd at ei faint, ar tua {k} kWh y kg. Mae CO₂ yn tybio bod nwy ar 394 g/kWh yn cymryd lle’r gwynt a gollwyd. Nid yw prisiau hydrogen, prynwyr a chostau pŵer wedi’u modelu.',eh_try:'Rhowch gynnig ar electrolysydd yma',eh_chart:'Gwynt wedi’i droi i lawr bob awr, a’r rhan y gallai electrolysydd ei defnyddio',eh_k_cut:'Wedi’i droi i lawr',eh_k_used:'Wedi’i ddefnyddio gan yr electrolysydd',
  fut_h:'Hydrogen',h2_h:'Hydrogen: wedi’i ariannu ac arfaethedig',h2_t:'Does gan Brydain ddim rhwydwaith hydrogen cenedlaethol eto. Mae hwn yn dangos y prosiectau cynhyrchu cyntaf sydd wedi’u hariannu, y biblinell gyntaf a gynigir a’r canolfannau o’u cwmpas, a’u statws cyn belled ag y mae ffynonellau cyhoeddus yn dangos.',h2_n1:'wedi’u hariannu yn y rownd gyntaf ({n} prosiect)',h2_n2:'wedi’u cadarnhau’n cynhyrchu',h2_n3:'wedi’u gohirio',h2s_op:'Yn cynhyrchu',h2s_fid:'Penderfyniad buddsoddi wedi’i wneud',h2s_con:'Contract wedi’i lofnodi',h2s_pre:'Heb gontract eto',h2s_pau:'Wedi’i ohirio',h2s_pla:'Arfaethedig',h2_first:'Electrolyswyr y rownd gyntaf',h2_hubs:'Canolfannau a phiblinell',h2_back:'Yn ôl i hydrogen',h2_type_el:'Electrolysydd',h2_type_hub:'Canolfan hydrogen',h2_type_pipe:'Piblinell arfaethedig',h2_cap:'Capasiti',h2_use:'At beth mae’n cael ei ddefnyddio:',h2_asof:'Statws ar {d}',h2_pos:'Mae’r safleoedd yn fras, ar lefel tref neu glwstwr, nid safleoedd union.',h2_src:'Ffynonellau:',h2_why_h:'Pam mae’n bwysig i’r grid',h2_why:'Mae electrolyswyr yn troi trydan yn hydrogen. Pe baen nhw’n cael eu lleoli y tu ôl i dagfa, gallen nhw gymryd gwynt a fyddai fel arall yn cael ei ddiffodd. Mae NESO, Arup a National Gas wedi astudio hyn, gyda chostau cyfyngiadau’n cael eu rhagamcanu ar £500 miliwn i £3 biliwn y flwyddyn erbyn 2030.',h2_why2:'Canfu ymchwil ar gyfer yr Alban mai dim ond mewn mannau ac adegau penodol y byddai hyn yn talu. Ac mae prosiectau’r rownd gyntaf yn fach: {a} MW i gyd, o’i gymharu â thua {b} GW o wynt ar y môr a adeiladwyd erbyn 2024. Mae dau ohonyn nhw, y ddau yn yr Alban ac wedi’u cynllunio o amgylch ffermydd gwynt cyfagos, wedi’u gohirio.',h2_amb:'Pan gyhoeddwyd y rownd gyntaf, uchelgais y llywodraeth oedd hyd at 10 GW o gynhyrchu hydrogen carbon isel erbyn 2030. Ym mis Ebrill 2025, cafodd {n} prosiect, cyfanswm o {mw} MW, eu rhoi ar restr fer yn yr ail rownd; nid yw eu safleoedd yn cael eu dangos yma.',h2_note:'Gwiriwyd ar 30 Medi 2026. Mae cynlluniau hydrogen yn newid yn aml, felly ystyriwch y statws fel cipolwg a gwiriwch y ffynonellau.',h2w_h:'Hydrogen yng Nghymru',h2w_t:'Mae dau o brosiectau’r rownd gyntaf yng Nghymru, a chanolfan arfaethedig ar Ynys Môn. Mae piblinell CO₂ HyNet yn croesi Sir y Fflint i storio CO₂ a ddaliwyd o hydrogen a wneir yn Stanlow.', sc_ro:'Rhwymedigaeth Ynni Adnewyddadwy (yn ennill tystysgrifau ar bob MWh)',sc_ic:'Contract Gwahaniaeth cynnar (2014), £{k}/MWh wedi’i warantu ym mhrisiau 2012',sc_cfd:'Contract Gwahaniaeth (arwerthiant {y}), £{k}/MWh ym mhrisiau 2012',sc_part:'Contract Gwahaniaeth ar {mw} MW (arwerthiant {y}, £{k}/MWh ym mhrisiau 2012); mae’r gweddill yn cael ei werthu drwy gytundebau preifat',
@@ -1652,16 +1660,18 @@ function whyNow(){
 }
 function tabs(){ const fut=S.tab==='sim'||S.tab==='compare'||S.tab==='queue'||S.tab==='hydrogen';
   const b=(k,label,sel,extra='')=>`<button role="tab" data-tab="${k}" aria-selected="${sel}" ${extra}>${label}</button>`;
-  let h=`<div class="tabs" role="tablist">${b('map',tr('tab_map'),S.tab==='map')}${b('carbon','Carbon',S.tab==='carbon',`aria-label="${tr('tab_ci')}"`)}${b('stories',tr('tab_st'),S.tab==='stories')}${b('plan',tr('plan'),S.tab==='plan')}${b('future',tr('tab_fut'),fut)}</div>`;
+  let h=`<div class="tabs" role="tablist">${b('map',tr('tab_map'),S.tab==='map')}${b('carbon','Carbon',S.tab==='carbon',`aria-label="${tr('tab_ci')}"`)}${b('stories',tr('tab_st'),S.tab==='stories')}${b('curtail',tr('tab_cu'),S.tab==='curtail')}${b('plan',tr('plan'),S.tab==='plan')}${b('future',tr('tab_fut'),fut)}</div>`;
   if(fut) h+=`<div class="seg" role="tablist" aria-label="${tr('tab_fut')}"><button role="tab" data-fut="sim" aria-selected="${S.tab==='sim'}">${tr('fut_sim')}</button><button role="tab" data-fut="compare" aria-selected="${S.tab==='compare'}">${tr('fut_cmp')}</button><button role="tab" data-fut="queue" aria-selected="${S.tab==='queue'}">${tr('fut_q')}</button><button role="tab" data-fut="hydrogen" aria-selected="${S.tab==='hydrogen'}">${tr('fut_h')}</button></div>`;
   return h; }
 function wireTabs(){
   const leave=()=>{ if(S.wk){ clearInterval(S.wkTimer); S.wk=null; wkChip(); } S.qsel=null; S.h2sel=null; };
   $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ leave(); S.tab=b.dataset.tab==='future'?(S.fut||'sim'):b.dataset.tab; render(); panel(); $p.scrollTop=0; });
-  $p.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{ leave(); S.tab=S.fut=b.dataset.fut; render(); panel(); $p.scrollTop=0; }); }
+  $p.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{ leave(); S.tab=S.fut=b.dataset.fut; render(); panel(); $p.scrollTop=0; });
+  const tb=$p.querySelector('.tabs'); if(tb){ const chk=()=>tb.classList.toggle('ov',tb.scrollWidth>tb.clientWidth+2&&tb.scrollLeft+tb.clientWidth<tb.scrollWidth-2); chk(); tb.addEventListener('scroll',chk,{passive:true}); } }
 function overview(){
   if(S.tab==='carbon') return carbonPanel();
   if(S.tab==='stories') return storiesPanel();
+  if(S.tab==='curtail') return curtailPanel();
   if(S.tab==='compare') return comparePanel();
   if(S.tab==='plan') return planPanel();
   if(S.tab==='sim') return simPanel();
@@ -1786,6 +1796,27 @@ function scenarioBlock(){
     <p class="fine">${tr('sc_note')}</p></div>`;
   return h;
 }
+/* ======================= the Curtailment tab ======================= */
+function curtailPanel(){
+  S.cu=['costs','farms','why'].includes(S.cu)?S.cu:'costs';
+  const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):null, haveCur=HIST.cur&&HIST.cur.days&&HIST.cur.days.length;
+  const liveLine=`<p><b>${tc==null?tr('st_c_need'):tc>5?tr('st_c_live',{v:fmtLive(tc)}):tr('st_c_none')}</b>${tc>5&&LIVE.curtPay&&Object.keys(LIVE.curtPay).length?' '+tr('curt_tot_pay',{p:fmtGBP(Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0))}):''}</p>`;
+  let h=tabs()+`<h2>${tr('cu_h')}</h2><p>${tr('cu_t')}</p><div class="seg" role="tablist" aria-label="${tr('tab_cu')}" style="grid-template-columns:repeat(3,1fr)">${[['costs','cu_s_costs'],['farms','cu_s_farms'],['why','cu_s_why']].map(([k,l])=>`<button role="tab" data-cu="${k}" aria-selected="${S.cu===k}">${tr(l)}</button>`).join('')}</div>`;
+  if(S.cu==='costs') h+=liveLine+costBlock();
+  else if(S.cu==='farms') h+=curtTrack()+(location.protocol.startsWith('http')?wkButton():'')+(haveCur?pricesBlock()+officialBlock():'');
+  else h+=`<div class="story"><h3>${tr('st_c_h')}</h3><p>${tr('st_c_t')}</p>
+  <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>£380m</b><span>${tr('st_c_wind')}</span></div><div><b>£1.08bn</b><span>${tr('st_c_gas')}</span></div></div>
+  <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>10.2 TWh</b><span>${tr('st_c_twh')}</span></div><div><b>≈4.0 Mt</b><span>${tr('st_c_co2')}</span></div></div>
+  <p class="fine">${tr('st_c_ctx')} <a href="https://www.wind-watch.org/news/2025/12/30/britain-spent-1-5bn-in-2025-to-turn-off-wind-farms-and-fire-up-gas-plants-when-electric-grid-couldnt-cope/" target="_blank" rel="noopener">${tr('st_c_src')} ↗</a> · <a href="https://eandt.theiet.org/2026/01/22/record-wasted-wind-power-2025-could-have-powered-every-home-london" target="_blank" rel="noopener">${tr('st_c_src2')} ↗</a> ${tr('st_c_co2note')}</p>
+  ${scenarioBlock()}
+  <button class="pbtn ghost" data-k="egl2|grid">${tr('st_c_btn')}</button></div>`;
+  $p.innerHTML=h; wireTabs(); wirePanel();
+  $p.querySelectorAll('[data-cu]').forEach(b=>b.onclick=()=>{ S.cu=b.dataset.cu; panel(); $p.scrollTop=0; });
+  const chart=(id,draw,kind)=>{ const el=document.getElementById(id); if(el){ draw(el); makeZoomable(el,kind); } };
+  chart('chcurt',drawCurt,'curtd'); chart('choc',drawOC,'oc'); chart('chtoday',drawToday,'today'); chart('chcostd',drawCostD,'costd'); chart('chcostm',drawCostMonths,'costm');
+  $p.querySelectorAll('button[data-k]').forEach(b=>b.onclick=()=>select(b.dataset.k));
+  $p.querySelectorAll('[data-scen]').forEach(b=>b.onclick=()=>{ S.scen[b.dataset.scen]=!S.scen[b.dataset.scen]; const y=$p.scrollTop; curtailPanel(); $p.scrollTop=y; });
+}
 function storiesPanel(){
   let h=tabs()+digestBlock()+recordsBlock();
   const rs=REG.map(r=>({id:r[0],n:LANG==='cy'?r[2]:r[1],v:regVal(r[0])})).filter(r=>r.v!=null).sort((a,b)=>a.v-b.v);
@@ -1795,17 +1826,7 @@ function storiesPanel(){
   <p class="meta">${tr('st_reg_when',{when:fmtWhen((LIVE.reg||REG_SNAP).from)})} gCO₂/kWh</p>
   <button class="pbtn ghost" id="regbtn">${S.reg?tr('st_reg_hide'):tr('st_reg_btn')}</button>`;
   h+=`<div class="story"><h3>${tr('st_h_h')}</h3><p>${tr('st_h_t')}</p><div class="chart" id="ch4"></div><p class="fine">${tr('st_h_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p></div>`;
-  const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):null;
-  h+=`<div class="story"><h3>${tr('st_c_h')}</h3><p>${tr('st_c_t')}</p><p><b>${tc==null?tr('st_c_need'):tc>5?tr('st_c_live',{v:fmtLive(tc)}):tr('st_c_none')}</b>${tc>5&&LIVE.curtPay&&Object.keys(LIVE.curtPay).length?' '+tr('curt_tot_pay',{p:fmtGBP(Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0))}):''}</p>
-  <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>£380m</b><span>${tr('st_c_wind')}</span></div><div><b>£1.08bn</b><span>${tr('st_c_gas')}</span></div></div>
-  <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>10.2 TWh</b><span>${tr('st_c_twh')}</span></div><div><b>≈4.0 Mt</b><span>${tr('st_c_co2')}</span></div></div>
-  <p class="fine">${tr('st_c_ctx')} <a href="https://www.wind-watch.org/news/2025/12/30/britain-spent-1-5bn-in-2025-to-turn-off-wind-farms-and-fire-up-gas-plants-when-electric-grid-couldnt-cope/" target="_blank" rel="noopener">${tr('st_c_src')} ↗</a> · <a href="https://eandt.theiet.org/2026/01/22/record-wasted-wind-power-2025-could-have-powered-every-home-london" target="_blank" rel="noopener">${tr('st_c_src2')} ↗</a> ${tr('st_c_co2note')}</p>
-  ${costBlock()}
-  ${curtTrack()}
-  ${location.protocol.startsWith('http')?wkButton():''}
-  ${HIST.cur&&HIST.cur.days&&HIST.cur.days.length?pricesBlock()+officialBlock():''}
-  ${scenarioBlock()}
-  <button class="pbtn ghost" data-k="egl2|grid">${tr('st_c_btn')}</button></div>`;
+  h+=`<div class="story"><h3>${tr('cs_h')}</h3><p>${tr('cu_tz_t')}</p><button class="pbtn ghost" data-go="curtail">${tr('cu_tz_btn')}</button></div>`;
   const qmax=QUEUE.before;
   const qb=(lab,v,c,txt)=>`<span>${lab}</span><div class="b" style="width:${v/qmax*100}%;--c:${c}"></div><b>${txt||v+' GW'}</b>`;
   h+=`<div class="story"><h3>${tr('st_q_h')}</h3><p>${tr('st_q_t')}</p>
@@ -1817,15 +1838,9 @@ function storiesPanel(){
   else h+=`<p class="meta">${tr('st_p_need')}</p>`;
   h+=`</div>`;
   $p.innerHTML=h; wireTabs(); wirePanel(); wireDigest();
-  const chc=document.getElementById('chcurt'); if(chc){ drawCurt(chc); makeZoomable(chc,'curtd'); }
-  const coc=document.getElementById('choc'); if(coc){ drawOC(coc); makeZoomable(coc,'oc'); }
-  const ctd=document.getElementById('chtoday'); if(ctd){ drawToday(ctd); makeZoomable(ctd,'today'); }
-  const ccd=document.getElementById('chcostd'); if(ccd){ drawCostD(ccd); makeZoomable(ccd,'costd'); }
-  const ccm=document.getElementById('chcostm'); if(ccm){ drawCostMonths(ccm); makeZoomable(ccm,'costm'); }
   const qgo=document.getElementById('qgo'); if(qgo) qgo.onclick=()=>{ S.tab=S.fut='queue'; S.qWales=false; render(); panel(); $p.scrollTop=0; };
   const rb=document.getElementById('regbtn'); if(rb) rb.onclick=()=>{ S.reg=!S.reg; syncChip('reg'); render(); storiesPanel(); if(S.reg) svg.transition().duration(500).call(zoom.transform,d3.zoomIdentity); };
   $p.querySelectorAll('.story button[data-k]').forEach(b=>b.onclick=()=>select(b.dataset.k));
-  $p.querySelectorAll('[data-scen]').forEach(b=>b.onclick=()=>{ S.scen[b.dataset.scen]=!S.scen[b.dataset.scen]; const y=$p.scrollTop; storiesPanel(); $p.scrollTop=y; });
   const c3=document.getElementById('ch3'); if(c3){ drawPrice(c3); makeZoomable(c3,'price'); }
   const c4=document.getElementById('ch4'); if(c4){ drawClean(c4); makeZoomable(c4,'clean'); }
 }
@@ -2221,6 +2236,7 @@ function buildChrome(){
   document.getElementById('methodsbtn').textContent=tr('m_btn');
   document.getElementById('opendatabtn').textContent=tr('od_btn');
   document.getElementById('healthbtn').textContent=tr('hl_btn');
+  const rzh=document.getElementById('rz'); rzh.setAttribute('aria-label',tr('rz_label')); rzh.title=tr('rz_title');
   const pb=document.getElementById('privacybtn'); pb.textContent=tr('pv_btn'); pb.hidden=!GC_CONFIGURED;
   labelGrab(); placeSearch();
   document.getElementById('zin').setAttribute('aria-label',tr('zin'));
@@ -2587,7 +2603,7 @@ function digestBlock(){
   const x=dgWeek();
   if(!x) return `<div class="digest"><h3>${tr('dg_h')}</h3><p class="meta">${tr('dg_none')}</p></div>`;
   const {w,i,W}=x, F=dgFacts(x);
-  let h=`<div class="digest"><div class="dghead"><div><h3>${i===W.length-1?tr('dg_h'):tr('dg_h_old')}</h3><div class="meta">${dgRange(w)}</div></div>
+  let h=`<div class="digest"><div class="dghead"><div><h2>${i===W.length-1?tr('dg_h'):tr('dg_h_old')}</h2><div class="meta">${dgRange(w)}</div></div>
     <div class="dgnav"><button class="xbtn" data-dg="-1" aria-label="${tr('dg_prev')}" ${i===0?'disabled':''}>‹</button><button class="xbtn" data-dg="1" aria-label="${tr('dg_next')}" ${i===W.length-1?'disabled':''}>›</button></div></div>
     <div class="cibig"><div><b>${w.ci}</b><small>gCO₂/kWh</small><span><i class="rdot" style="--c:${CI_IDX_COL[ciIndex(w.ci)]}"></i>${tr('dg_avg')}</span></div>
     <div><b>${Math.round(w.h50)}</b><small>${tr('dg_hours')}</small><span>${tr('dg_at50')}</span></div>
@@ -2668,7 +2684,7 @@ function loadToday(force){
   if(!location.protocol.startsWith('http')) return;
   if(!force&&Date.now()-TODAY_AT<4*60*1000) return; TODAY_AT=Date.now();
   fetch(TODAY_URL,{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{
-    if(j&&j.t&&Array.isArray(j.wg)&&Array.isArray(j.gg)&&j.d){ TODAY=j; if(!S.sel&&S.view!=='wales'&&(S.tab==='map'||S.tab==='stories')) rerender(); }
+    if(j&&j.t&&Array.isArray(j.wg)&&Array.isArray(j.gg)&&j.d){ TODAY=j; if(!S.sel&&S.view!=='wales'&&(S.tab==='map'||S.tab==='curtail')) rerender(); }
   }).catch(()=>{ /* the live file is optional: without it the page simply shows no running total */ });
 }
 setInterval(()=>{ if(document.visibilityState==='visible') loadToday(true); },5*60*1000);
@@ -2681,13 +2697,13 @@ function todayCum(){ const T=TODAY, last=lastHourOf(T); let cw=0,cg=0; const w=[
 function todayBox(){
   loadToday(); if(!TODAY||!TODAY.n) return '';
   const t=TODAY.t;
-  return `<div class="livebox warn"><b>${tr('td_h',{when:TODAY.through||'–'})}</b><b class="paid">${tr('td_line',{w:fmtGBP(t.wg),g:fmtGBP(t.gg)})}</b><span>${tr('td_note')} <button class="linkbtn inl" data-go="stories">${tr('td_more')}</button></span></div>`;
+  return `<div class="livebox warn"><b>${tr('td_h',{when:TODAY.through||'–'})}</b><b class="paid">${tr('td_line',{w:fmtGBP(t.wg),g:fmtGBP(t.gg)})}</b><span>${tr('td_note')} <button class="linkbtn inl" data-go="curtail">${tr('td_more')}</button></span></div>`;
 }
 function todayCard(){
   if(!TODAY) return ''; const t=TODAY.t, tot=t.wg+t.gg, c=todayCum();
-  let h=`<h4 class="cth">${tr('td_h',{when:TODAY.through||'–'})}</h4>`;
+  let h=`<h3 class="cth">${tr('td_h',{when:TODAY.through||'–'})}</h3>`;
   if(!TODAY.n||c.last<0) return h+`<p class="meta">${tr('td_none')}</p>`;
-  h+=`<div class="cibig"><div><b>${fmtGBP(t.wg)}</b><small>${tr('td_w')}</small><span>${tr('td_w_s')}</span></div><div><b>${fmtGBP(t.gg)}</b><small>${tr('td_g')}</small><span>${tr('td_g_s')}</span></div><div><b>${fmtGBP(tot)}</b><small>${tr('td_t')}</small><span>${tr('td_t_s')}</span></div></div>
+  h+=`<div class="cibig"><div><b>${fmtGBPs(t.wg)}</b><small>${tr('td_w')}</small><span>${tr('td_w_s')}</span></div><div><b>${fmtGBPs(t.gg)}</b><small>${tr('td_g')}</small><span>${tr('td_g_s')}</span></div><div><b>${fmtGBPs(tot)}</b><small>${tr('td_t')}</small><span>${tr('td_t_s')}</span></div></div>
     <div class="key"><span><i class="sq" style="background:${COSTC.w}"></i>${tr('td_key_w')}</span><span><i class="sq" style="background:${COSTC.g}"></i>${tr('td_key_g')}</span></div><div class="chart" id="chtoday"></div>
     ${canSave()?`<div class="row">${csvButton('today')}</div>`:''}
     <p class="fine">${tr('td_fine',{u:fmtWhen(TODAY.updated)})}${TODAY.basis==='all'?' '+tr('cs_basis_today'):''} <button class="linkbtn inl" data-methods="costs">${tr('m_link')}</button></p>`;
@@ -2709,12 +2725,12 @@ const costDays = () => (HIST.cost&&HIST.cost.days)||[];
 const costTotal = x => (x.t.wg||0)+(x.t.gg||0);
 function costBlock(){
   loadToday();
-  const have=need(['cost','con','cur'],()=>{ if(S.tab==='stories'&&!S.sel) rerender(); });
+  const have=need(['cost','con','cur'],()=>{ if(S.tab==='curtail'&&!S.sel) rerender(); });
   const C=have?costDays():[];
   let h=todayCard();
-  if(!C.length) return h+(TODAY?'':`<h4 class="cth">${tr('cs_h')}</h4><p class="meta">${tr(location.protocol.startsWith('http')?'cs_none':'sh_offline')}</p>`);
+  if(!C.length) return h+(TODAY?'':`<h3 class="cth">${tr('cs_h')}</h3><p class="meta">${tr(location.protocol.startsWith('http')?'cs_none':'sh_offline')}</p>`);
   const wk=C.slice(-7), W=d3.sum(wk,x=>x.t.wg), G=d3.sum(wk,x=>x.t.gg);
-  h+=`<h4 class="cth">${tr('cs_h')}</h4><p>${tr('cs_wk',{n:wk.length,w:fmtGBP(W),g:fmtGBP(G),t:fmtGBP(W+G)})}</p><div class="key"><span><i class="sq" style="background:${COSTC.w}"></i>${tr('td_key_w')}</span><span><i class="sq" style="background:${COSTC.g}"></i>${tr('td_key_g')}</span></div><div class="chart" id="chcostd"></div>`;
+  h+=`<h3 class="cth">${tr('cs_h')}</h3><p>${tr('cs_wk',{n:wk.length,w:fmtGBP(W),g:fmtGBP(G),t:fmtGBP(W+G)})}</p><div class="key"><span><i class="sq" style="background:${COSTC.w}"></i>${tr('td_key_w')}</span><span><i class="sq" style="background:${COSTC.g}"></i>${tr('td_key_g')}</span></div><div class="chart" id="chcostd"></div>`;
   // against NESO's own thermal constraint cost, on the days both cover
   const con=HIST.con&&HIST.con.days, by={}; C.forEach(x=>by[x.d]=x);
   if(con){ const both=con.filter(r=>by[r[0]]).slice(-14); if(both.length>=3){ const ours=d3.sum(both,r=>costTotal(by[r[0]])), neso=d3.sum(both,r=>r[1]);
@@ -2734,7 +2750,7 @@ function costBlock(){
     return `<div class="csc ${cls}"><span class="pill2">${p>1?'▲ ':p<-1?'▼ ':''}${ap<1?tr('cs_ly_same'):tr(p>0?'cs_ly_up':'cs_ly_dn',{p:Math.round(ap)})}</span><small>${tr('cs_ly_was',{b:fmtGBPs(c.b)})}</small>${part}</div>${few}`; };
   const barOf=(w,g)=>{ const a=Math.max(0,w), b=Math.max(0,g), s=(a+b)||1; return `<i style="width:${a/s*100}%;background:${COSTC.w}"></i><i style="width:${b/s*100}%;background:${COSTC.g}"></i>`; };
   const rec=C.reduce((a,x)=>costTotal(x)>costTotal(a)?x:a,C[0]);
-  h+=`<h4 class="cth">${tr('cs_tot_h')}</h4><ul class="cslist">${rows.map(o=>{ const tot=o.r.w+o.r.g, split=tr('cs_split',{w:fmtGBPs(o.r.w),g:fmtGBPs(o.r.g)}); const range=fmtRange(o.r.a,o.r.z,o.l===tr('cs_r_all'));
+  h+=`<h3 class="cth">${tr('cs_tot_h')}</h3><ul class="cslist">${rows.map(o=>{ const tot=o.r.w+o.r.g, split=tr('cs_split',{w:fmtGBPs(o.r.w),g:fmtGBPs(o.r.g)}); const range=fmtRange(o.r.a,o.r.z,o.l===tr('cs_r_all'));
     return `<li class="csrow"><div class="csh"><b>${o.l}</b><small>${range} · ${tr(o.r.n===1?'cs_days_1':'cs_days',{n:o.r.n})}</small></div><div class="cst">${fmtGBPs(tot)}</div><div class="csbar" role="img" aria-label="${split}">${barOf(o.r.w,o.r.g)}</div><div class="csd">${split} · ${tr('cs_hh',{h:costPence(tot/HOUSEHOLDS)})}</div>${lyBox(o)}</li>`; }).join('')}</ul>
     ${monthChartBlock()}
     <div class="csrec"><b>${tr('cs_rec_h')}</b><span>${fmtDate(rec.d)+' '+rec.d.slice(0,4)}: ${fmtGBPs(costTotal(rec))} <small>${tr('cs_split',{w:fmtGBPs(rec.t.wg),g:fmtGBPs(rec.t.gg)})}</small></span></div>
@@ -2748,7 +2764,7 @@ function monthSums(){ const m={}; costDays().forEach(x=>{ const k=x.d.slice(0,7)
 function monthYears(){ const M=monthSums(), ys=[...new Set(Object.keys(M).map(k=>+k.slice(0,4)))].sort(); return {M,ty:ys[ys.length-1],ly:ys[ys.length-1]-1,has:ys.length>1}; }
 function monthChartBlock(){
   const {has}=monthYears(); if(!has) return '';
-  return `<h4 class="cth">${tr('cs_mo_h')}</h4><div class="key"><span><i class="sq" style="background:#9aa7ad"></i>${tr('cs_mo_k1')}</span><span><i class="sq" style="background:${COSTC.w}"></i>${tr('cs_mo_k2')}</span><span><i class="sq" style="background:${COSTC.g}"></i>${tr('cs_mo_k3')}</span></div><div class="chart" id="chcostm"></div><p class="fine">${tr('cs_mo_note')}</p>${canSave()?`<div class="row">${csvButton('costm',tr('dl_monthly'))}</div>`:''}`;
+  return `<h3 class="cth">${tr('cs_mo_h')}</h3><div class="key"><span><i class="sq" style="background:#9aa7ad"></i>${tr('cs_mo_k1')}</span><span><i class="sq" style="background:${COSTC.w}"></i>${tr('cs_mo_k2')}</span><span><i class="sq" style="background:${COSTC.g}"></i>${tr('cs_mo_k3')}</span></div><div class="chart" id="chcostm"></div><p class="fine">${tr('cs_mo_note')}</p>${canSave()?`<div class="row">${csvButton('costm',tr('dl_monthly'))}</div>`:''}`;
 }
 function drawCostMonths(el,o={}){
   if(!el) return; const {M,ty,ly}=monthYears(); const key=(y,m)=>`${y}-${String(m).padStart(2,'0')}`;
@@ -2815,7 +2831,7 @@ function pricesBlock(){
   if(rows.length<3) return '';
   const avg=s=>{ const r=rows.filter(x=>x.f.s===s||(s==='cfd'&&x.f.s==='part')); const m=d3.sum(r,x=>x.mwh); return m?d3.sum(r,x=>x.gbp)/m:null; };
   const a={ro:avg('ro'),ic:avg('ic'),cfd:avg('cfd')};
-  let h=`<h4 class="cth">${tr('pr_h')}</h4><p>${tr('pr_t')}</p>`;
+  let h=`<h3 class="cth">${tr('pr_h')}</h3><p>${tr('pr_t')}</p>`;
   const bits=[['ro',a.ro],['ic',a.ic],['cfd',a.cfd]].filter(e=>e[1]!=null).map(([s,v])=>tr('pr_avg_'+s,{v:perMWh(v)}));
   if(bits.length>1) h+=`<p><b>${tr('pr_avg',{list:bits.join('; ')})}</b></p>`;
   h+=`<div class="key">${['ro','ic','cfd','part'].filter(s=>rows.some(r=>r.f.s===s)).map(s=>`<span><i class="sq" style="background:${SCHEME_COL[s]}"></i>${tr('scs_'+s)}</span>`).join('')}</div>`;
@@ -3179,11 +3195,11 @@ function walesExtra(){
 
 /* ======================= cross-check with NESO's official figures ======================= */
 function officialBlock(){
-  if(!need(['con'],()=>{ if(S.tab==='stories'&&!S.sel) rerender(); })) return '';
+  if(!need(['con'],()=>{ if(S.tab==='curtail'&&!S.sel) rerender(); })) return '';
   const C=HIST.con, J=HIST.cur; if(!C||!C.days||!J||!J.days) return '';
   const ours={}; J.days.forEach(x=>ours[x.d]=x);
   const both=C.days.filter(r=>ours[r[0]]).slice(-30);
-  let h=`<h4 class="cth">${tr('oc_h')}</h4>`;
+  let h=`<h3 class="cth">${tr('oc_h')}</h3>`;
   if(!both.length) return h+`<p class="meta">${tr('oc_wait',{d:fmtDate(C.days[C.days.length-1][0])})}</p>`;
   const og=d3.sum(both,r=>ours[r[0]].gbp), ng=d3.sum(both,r=>r[1]), share=ng>0?og/ng*100:null;
   h+=`<p>${tr('oc_t',{n:both.length,o:fmtGBP(og),g:fmtGBP(ng),p:share==null?'–':Math.round(share)})}</p><div class="key"><span><i class="sq" style="background:var(--muted)"></i>${tr('oc_k_neso')}</span><span><i class="sq" style="background:var(--warn)"></i>${tr('oc_k_ours')}</span></div><div class="chart" id="choc"></div>
@@ -3245,12 +3261,12 @@ function drawHist(el,d,o={}){
 
 /* ======================= curtailment tracker (Stories) ======================= */
 function curtTrack(){
-  if(!need(['cur'],()=>{ if(S.tab==='stories'&&!S.sel) rerender(); })) return `<p class="meta">${tr('sh_loading')}</p>`;
+  if(!need(['cur'],()=>{ if(S.tab==='curtail'&&!S.sel) rerender(); })) return `<p class="meta">${tr('sh_loading')}</p>`;
   const J=HIST.cur; if(!J||!J.days||!J.days.length) return `<h4>${tr('ct_h',{n:7})}</h4><p class="meta">${tr(location.protocol.startsWith('http')?'ct_none':'sh_offline')}</p>`;
   const last=J.days.slice(-30), mwh=d3.sum(last,x=>x.mwh), gbp=d3.sum(last,x=>x.gbp);
   const farms={}; last.forEach(x=>{ for(const k in (x.s||{})){ const f=farms[k]||(farms[k]=[0,0,0]); f[0]+=x.s[k][0]; f[1]+=x.s[k][1]; f[2]++; } });
   const top=Object.entries(farms).map(([k,v])=>({s:SITES.find(z=>z.id===k),v})).filter(e=>e.s).sort((a,b)=>b.v[0]-a.v[0]).slice(0,8);
-  let h=`<h4 class="cth">${tr('ct_h',{n:last.length})}</h4><div class="cibig"><div><b>${fmtGWh(mwh)}</b><small>${tr('ct_wind')}</small><span>${tr('ct_down')}</span></div>
+  let h=`<h3 class="cth">${tr('ct_h',{n:last.length})}</h3><div class="cibig"><div><b>${fmtGWh(mwh)}</b><small>${tr('ct_wind')}</small><span>${tr('ct_down')}</span></div>
     <div><b>${fmtGBP(gbp)}</b><small>${tr('ct_est')}</small><span>${tr('ct_paid')}</span></div><div><b>${fmtT(mwh*.394)}</b><small>CO₂</small><span>${tr('ct_co2')}</span></div></div>
     <div class="chart" id="chcurt"></div>`;
   if(top.length) h+=`<p class="curtwhere">${tr('ct_top')}</p><ul class="curtlist">${top.map(e=>`<li><button data-k="${e.s.key}"><span class="cn"><span class="ti" style="--c:${col(e.s.t)}">${icon(e.s.t)}</span><span><b>${nm(e.s)}</b><small>${tr('ct_days',{n:e.v[2]})}</small></span></span><span class="cv"><b>${fmtGWh(e.v[0])}</b><small>${fmtGBP(e.v[1])}</small></span></button></li>`).join('')}</ul>`;
@@ -3309,6 +3325,7 @@ function stateHash(){
   if(!S.sel&&S.tab==='queue'){ if(S.qWales) p.set('qw','1'); if(S.qsel) p.set('qs',S.qsel); }
   if(!S.sel&&S.tab==='hydrogen'){ if(S.h2sel) p.set('hs',S.h2sel); if(S.efUser&&S.ef){ p.set('ef',S.ef); p.set('em',S.em); } }
   if(!S.sel&&S.tab==='sim'&&S_SIM.v) p.set('sim',SIM_SL.map(([k])=>S_SIM.v[k]).join('_'));
+  if(!S.sel&&S.tab==='curtail'&&S.cu&&S.cu!=='costs') p.set('cu',S.cu);
   if(!S.sel&&S.tab==='stories'&&S.dw!=null&&DIGEST.weeks&&DIGEST.weeks[S.dw]) p.set('w',DIGEST.weeks[S.dw].start);
   if(LANG==='cy') p.set('l','cy');
   return p.toString();
@@ -3351,7 +3368,8 @@ function applyHash(first){
   const p=new URLSearchParams(location.hash.slice(1)); if(![...p.keys()].length) return false;
   hashBusy=true;
   if(!first){ S.sel=null; S.view='overview'; S.tab='map'; }   // a new link replaces the whole view
-  const t=p.get('t'); if(t&&['map','carbon','stories','plan','sim','compare','queue','hydrogen'].includes(t)) S.tab=t;
+  const t=p.get('t'); if(t&&['map','carbon','stories','curtail','plan','sim','compare','queue','hydrogen'].includes(t)) S.tab=t;
+  if(S.tab==='curtail') S.cu=['costs','farms','why'].includes(p.get('cu'))?p.get('cu'):'costs';
   if(S.tab==='queue'){ S.fut='queue'; S.qWales=p.get('qw')==='1'; S.qsel=p.get('qs')||null; }
   if(S.tab==='hydrogen'){ S.fut='hydrogen'; S.h2sel=p.get('hs')||null; if(p.get('ef')){ S.ef=p.get('ef'); S.em=Math.max(5,Math.min(200,Math.round((+p.get('em')||50)/5)*5)); S.efUser=true; } }
   if(p.get('v')==='wales') S.view='wales';
@@ -3534,6 +3552,24 @@ if(canHover){
 
 new ResizeObserver(()=>{ placeSearch(); if(isSheet()) applySheet(sheetSizes()[sheetState]); else applySheet(0); if(node.clientWidth!==W||node.clientHeight!==H) setup(); }).observe(stage);
 if(isSheet()) setSheet('half');
+/* ---------- drag the side panel wider on a computer: everything inside grows with it ---------- */
+(function(){
+  const rz=document.getElementById('rz'), sheet=document.getElementById('sheet'), BASE=390, MIN=320;
+  const maxW=()=>Math.max(BASE,Math.min(BASE*2.2,innerWidth*0.6,innerWidth-460));
+  const cur=()=>sheet.getBoundingClientRect().width;
+  const apply=(w,keep)=>{ w=Math.round(Math.max(MIN,Math.min(maxW(),w))); document.documentElement.style.setProperty('--sz',(w/BASE).toFixed(3));
+    rz.setAttribute('aria-valuemin',MIN); rz.setAttribute('aria-valuemax',Math.round(maxW())); rz.setAttribute('aria-valuenow',w);
+    if(keep){ try{ w===BASE?localStorage.removeItem('pm_sw'):localStorage.setItem('pm_sw',String(w)); }catch(e){ /* storage blocked: the width just isn't remembered */ } } };
+  let rt=0; new ResizeObserver(()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(node.clientWidth!==W||node.clientHeight!==H) setup(); },90); }).observe(document.querySelector('.mapwrap'));   // the map redraws once the panel settles
+  try{ const s=+localStorage.getItem('pm_sw'); if(s&&!isSheet()) apply(s); else apply(BASE); }catch(e){ apply(BASE); }
+  addEventListener('resize',()=>{ if(!isSheet()) apply(cur()); });
+  rz.addEventListener('pointerdown',e=>{ if(isSheet()) return; rz.setPointerCapture(e.pointerId); document.body.classList.add('rzing'); e.preventDefault(); });
+  rz.addEventListener('pointermove',e=>{ if(rz.hasPointerCapture(e.pointerId)) apply(innerWidth-e.clientX); });
+  const end=e=>{ if(!rz.hasPointerCapture(e.pointerId)) return; rz.releasePointerCapture(e.pointerId); document.body.classList.remove('rzing'); apply(cur(),true); };
+  rz.addEventListener('pointerup',end); rz.addEventListener('pointercancel',end);
+  rz.addEventListener('dblclick',()=>apply(BASE,true));
+  rz.addEventListener('keydown',e=>{ const w=cur(); const k=e.key; if(k==='ArrowLeft') apply(w+30,true); else if(k==='ArrowRight') apply(w-30,true); else if(k==='Home') apply(BASE,true); else if(k==='End') apply(maxW(),true); else return; e.preventDefault(); });
+})();
 panel = (f => function(){ f(); syncHash(); })(panel);
 document.getElementById('sharebtn').onclick=()=>{ gcEvent('share','Share this view'); shareView(); };
 window.addEventListener('hashchange',()=>{ if(location.hash.replace(/^#/,'')!==stateHash()) applyHash(false); });
