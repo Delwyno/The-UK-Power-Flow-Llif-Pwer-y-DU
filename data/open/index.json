@@ -2,7 +2,7 @@
  "title": "The UK Power Flow: open data",
  "author": "Daniel Elwyn Thomas",
  "site": "https://delwyno.github.io/UK-Energy-Generation-Map/",
- "updated": "2026-10-02T09:11Z",
+ "updated": "2026-10-02T11:10Z",
  "licence": {
   "default": "CC BY 4.0",
   "default_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -192,16 +192,18 @@
    "file": "costs-daily.csv",
    "url": "https://delwyno.github.io/UK-Energy-Generation-Map/data/open/costs-daily.csv",
    "title": "Wind turn-down and gas turn-up costs, daily",
-   "description": "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
+   "description": "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. wind_gbp_net is payments minus the amounts some wind farms paid back; wind_gbp_paid and wind_gbp_received give the two parts (blank for days not yet recalculated). basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
    "rows": 639,
    "columns": [
     "date",
     "wind_mwh_turned_down",
-    "wind_gbp",
+    "wind_gbp_net",
     "gas_mwh_turned_up",
     "gas_gbp",
-    "total_gbp",
-    "basis"
+    "total_gbp_net",
+    "basis",
+    "wind_gbp_paid",
+    "wind_gbp_received"
    ],
    "source": "Contains BMRS data © Elexon Limited copyright and database right",
    "licence": "CC BY 4.0",
