@@ -19,6 +19,8 @@ How the figures are made (all from Elexon's own published calculations)
     is what remains. If the flag cannot be matched for most volume, the figures use ALL actions and
     the file says so ("basis": "all").
   * Wind = BM units whose fuel type is WIND. Gas = CCGT and OCGT.
+  * ga / gam also record every gas offer accepted for ANY reason (energy balancing included), so that a
+    system-action figure of £0 can be read in context: gas may still be running or balancing the market.
 Indicative figures are published about 15 minutes after each half hour and may be revised later.
 Contains BMRS data (c) Elexon Limited.
 """
@@ -143,7 +145,7 @@ def day_costs(d):
             parts[(kind,) + k] = [cf, vol_t.get(k, 0.0), vol_s.get(k, 0.0)]
     ratio = matched / seen if seen > 0 else 0.0
     basis = "system" if ratio >= MIN_MATCH else "all"
-    H = {s: [0.0] * 24 for s in ("wm", "wg", "gm", "gg")}
+    H = {s: [0.0] * 24 for s in ("wm", "wg", "gm", "gg", "ga", "gam")}   # ga/gam: gas offers accepted for ANY reason, so a £0 system figure can be read in context
     for (kind, _unit, sp), (cf, vt, vs) in parts.items():
         if vt <= 0:
             continue
@@ -151,10 +153,13 @@ def day_costs(d):
         h = hour_of(d, sp)
         H[kind + "m"][h] += vt * share
         H[kind + "g"][h] += cf * share
+        if kind == "g":
+            H["ga"][h] += cf; H["gam"][h] += vt
     out = {"d": d, "basis": basis, "match": round(ratio, 2), "n": last_sp,
            "wm": [round(x, 1) for x in H["wm"]], "wg": [round(x) for x in H["wg"]],
-           "gm": [round(x, 1) for x in H["gm"]], "gg": [round(x) for x in H["gg"]]}
-    out["t"] = {k: round(sum(out[k]), 1 if k.endswith("m") else 0) for k in ("wm", "wg", "gm", "gg")}
+           "gm": [round(x, 1) for x in H["gm"]], "gg": [round(x) for x in H["gg"]],
+           "ga": [round(x) for x in H["ga"]], "gam": [round(x, 1) for x in H["gam"]]}
+    out["t"] = {k: round(sum(out[k]), 1 if k.endswith("m") else 0) for k in ("wm", "wg", "gm", "gg", "ga", "gam")}
     if last_sp:
         out["through"] = (period_start(d, last_sp) + timedelta(minutes=30)).astimezone(UK).strftime("%H:%M")
     return out
@@ -170,7 +175,7 @@ def save(existing, now):
     cut = (now.astimezone(UK) - timedelta(days=KEEP_HOURLY_DAYS)).strftime("%Y-%m-%d")
     for x in days:
         if x["d"] < cut:
-            for k in ("wm", "wg", "gm", "gg"):
+            for k in ("wm", "wg", "gm", "gg", "ga", "gam"):
                 x.pop(k, None)
     OUT.write_text(json.dumps({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "days": days}, separators=(",", ":")))
     return days
