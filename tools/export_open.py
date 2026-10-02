@@ -2,7 +2,7 @@
 """Publish the map's own datasets as CSV files in data/open/, with an index.
 
 Runs after the other refresh scripts. Every file has a stable address on the published site,
-for example https://delwyno.github.io/UK-Energy-Generation-Map/data/open/curtailment-daily.csv
+for example https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/curtailment-daily.csv
 """
 import csv, io, json, re
 from datetime import datetime, timedelta, timezone
@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA, OUT = ROOT / "data", ROOT / "data" / "open"
-SITE = "https://delwyno.github.io/UK-Energy-Generation-Map/"
+SITE = "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/"
 B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 ELX = "Contains BMRS data © Elexon Limited copyright and database right"
 NESO = "NESO Open Data Licence"
@@ -120,9 +120,9 @@ def main():
     cst = load("costs.json")
     if cst and cst.get("days"):
         add("costs-daily.csv", "Wind turn-down and gas turn-up costs, daily",
-            "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. wind_gbp_net is payments minus the amounts some wind farms paid back; wind_gbp_paid and wind_gbp_received give the two parts (blank for days not yet recalculated). basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
-            ELX, ["date", "wind_mwh_turned_down", "wind_gbp_net", "gas_mwh_turned_up", "gas_gbp", "total_gbp_net", "basis", "wind_gbp_paid", "wind_gbp_received"],
-            [[x["d"], x["t"]["wm"], x["t"]["wg"], x["t"]["gm"], x["t"]["gg"], x["t"]["wg"] + x["t"]["gg"], x.get("basis", ""), x["t"].get("wp", ""), x["t"].get("wr", "")] for x in cst["days"]])
+            "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. wind_gbp_net is payments minus the amounts some wind farms paid back; wind_gbp_paid and wind_gbp_received give the two parts (blank for days not yet recalculated). gas_gbp is gas turned up as system actions; gas_gbp_all_reasons also includes ordinary balancing offers. basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
+            ELX, ["date", "wind_mwh_turned_down", "wind_gbp_net", "gas_mwh_turned_up", "gas_gbp", "total_gbp_net", "basis", "wind_gbp_paid", "wind_gbp_received", "gas_gbp_all_reasons", "gas_mwh_all_reasons"],
+            [[x["d"], x["t"]["wm"], x["t"]["wg"], x["t"]["gm"], x["t"]["gg"], x["t"]["wg"] + x["t"]["gg"], x.get("basis", ""), x["t"].get("wp", ""), x["t"].get("wr", ""), x["t"].get("ga", ""), x["t"].get("gam", "")] for x in cst["days"]])
         hr = []
         for x in cst["days"]:
             if "wg" in x:

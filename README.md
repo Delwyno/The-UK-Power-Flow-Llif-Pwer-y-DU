@@ -1,9 +1,8 @@
 # The UK Power Flow · Llif Pŵer y DU
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
-The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
-https://github.com/user-attachments/assets/2d6119ef-1bf8-4b02-af5f-8fa01df3401f
+The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
 ## What it shows
 
@@ -64,7 +63,7 @@ https://github.com/user-attachments/assets/2d6119ef-1bf8-4b02-af5f-8fa01df3401f
 
 **Hydrogen** (in the Future tab). The first funded hydrogen production projects (the 11 first-round winners), the proposed Project Union East Coast pipeline corridor and the hubs around them, each with its status, date checked and sources. Britain has no national hydrogen network yet, so this shows plans and progress, including projects that have been paused. It is curated by hand in `data/hydrogen.json`; the Wales view has its own hydrogen section. The tab also has an electrolyser what-if that replays each wind farm's real turn-down, and a ranking of where a 50 MW electrolyser would have been busiest.
 
-**What it costs: wind off, gas on.** The **Curtailment** tab (Costs, Wind farms and Why it happens) shows today so far, with a running total by hour, the last seven days, and running totals for the month, last month and since tracking began, with a per-household illustration. Each period is compared with the same dates a year earlier. It adds up two things from Elexon's own indicative cashflows: payments to switch wind farms off, and payments to turn gas plants up, counting only system actions. The week's total is compared with NESO's published thermal constraint cost. Today's figure is refreshed about every 30 minutes by a scheduled job that publishes one small file to a separate `live-data` branch, so the history of `main` isn't cluttered.
+**What it costs: wind off, gas on.** The **Curtailment** tab (Costs, Wind farms and Why it happens) shows today so far, with a running total by hour, the last seven days, and running totals for the month, last month and since tracking began, with a per-household illustration. Each period is compared with the same dates a year earlier. It adds up two things from Elexon's own indicative cashflows: payments to switch wind farms off, and payments to turn gas plants up, counting only system actions. The week's total is compared with NESO's published thermal constraint cost. A **gas split** shows how much of the gas turned up was a system action (the kind used to manage constraints such as wind) and how much was ordinary balancing of the market, for today, the last seven days, the year so far and day by day. Today's figure is refreshed about every 30 minutes by a scheduled job that publishes one small file to a separate `live-data` branch, so the history of `main` isn't cluttered.
 
 **Data freshness.** Layers > Data freshness shows when each dataset last changed against how often it should, with a green, amber or red status. The daily refresh runs the same check (`tools/health.py`) and opens a GitHub issue labelled `data-health` if something has stopped updating, and closes it when all is well.
 
@@ -120,6 +119,17 @@ tools/update_neso.py       refreshes the connection queue and official constrain
 tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
+
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
 
 ## Keeping the data fresh automatically
 
@@ -230,7 +240,7 @@ Created by **Daniel Elwyn Thomas**.
 
 **How to credit it:**
 
-> Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/UK-Energy-Generation-Map/
+> Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/
 
 The licence covers the compilation (the daily tracking, matching and calculations), not the original data, which comes from NESO, Elexon and OpenStreetMap and carries their terms (see Data sources and licences). It is provided without warranty. `data/open/README.md` and `data/open/index.json` repeat this, with the exact credit line for each file.
 
