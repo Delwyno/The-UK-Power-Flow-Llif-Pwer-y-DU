@@ -9,11 +9,11 @@ By Daniel Elwyn Thomas. Refreshed daily. Every file is described, with its colum
 
 ## How to credit
 
-> Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/UK-Energy-Generation-Map/
+> Data: The UK Power Flow (Daniel Elwyn Thomas), CC BY 4.0. https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/
 
 For the queue file:
 
-> Data: The UK Power Flow (Daniel Elwyn Thomas), ODbL 1.0. Contains information from OpenStreetMap contributors. https://delwyno.github.io/UK-Energy-Generation-Map/
+> Data: The UK Power Flow (Daniel Elwyn Thomas), ODbL 1.0. Contains information from OpenStreetMap contributors. https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/
 
 ## Original sources
 
