@@ -2,7 +2,7 @@
  "title": "The UK Power Flow: open data",
  "author": "Daniel Elwyn Thomas",
  "site": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/",
- "updated": "2026-10-03T10:28Z",
+ "updated": "2026-10-04T11:09Z",
  "licence": {
   "default": "CC BY 4.0",
   "default_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -16,7 +16,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/curtailment-daily.csv",
    "title": "Wind turned down, daily",
    "description": "Energy the tracked wind farms were paid to turn down each day (UK days), the payments, and the CO2 if the lost power were replaced by gas at 394 g/kWh.",
-   "rows": 10,
+   "rows": 11,
    "columns": [
     "date",
     "turned_down_mwh",
@@ -32,7 +32,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/curtailment-by-windfarm.csv",
    "title": "Wind turned down, by wind farm and day",
    "description": "Each tracked wind farm's daily turn-down, payments and switch-off price, with its support scheme (ro = Renewables Obligation, ic = 2014 investment contract, cfd = auction Contract for Difference, part = CfD on part of the capacity).",
-   "rows": 63,
+   "rows": 68,
    "columns": [
     "date",
     "wind_farm",
@@ -51,7 +51,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/station-output-hourly.csv",
    "title": "Station output, hourly (last 14 days)",
    "description": "Hourly average of each mapped station's physical notification (the output it planned) and the part the grid operator paid it to turn down, in MW, 5 MW resolution.",
-   "rows": 9504,
+   "rows": 10488,
    "columns": [
     "hour_start_utc",
     "station",
@@ -68,7 +68,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/carbon-daily.csv",
    "title": "Carbon intensity, daily",
    "description": "Daily average and lowest carbon intensity (gCO2/kWh, measured where available), hours at or below 50 g, the highest wind and solar shares, and Wales's average wind share.",
-   "rows": 63,
+   "rows": 64,
    "columns": [
     "date",
     "average_gco2_kwh",
@@ -113,7 +113,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/forecast-accuracy.csv",
    "title": "Forecast accuracy",
    "description": "How NESO's 24-hour national carbon intensity forecast, saved each morning, compared with the measured figures: mean absolute error, bias, share within 20 g, and how far the forecast's cleanest 3-hour window was from the true cleanest.",
-   "rows": 3,
+   "rows": 4,
    "columns": [
     "date",
     "mean_abs_error_g",
@@ -193,7 +193,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/costs-daily.csv",
    "title": "Wind turn-down and gas turn-up costs, daily",
    "description": "System actions in the Balancing Mechanism: payments to wind units to switch off (bids) and to gas units (CCGT, OCGT) to turn up (offers), from Elexon's indicative cashflows. wind_gbp_net is payments minus the amounts some wind farms paid back; wind_gbp_paid and wind_gbp_received give the two parts (blank for days not yet recalculated). gas_gbp is gas turned up as system actions; gas_gbp_all_reasons also includes ordinary balancing offers. basis=system counts only actions flagged as system actions; basis=all counts every action. Indicative: Elexon may revise.",
-   "rows": 640,
+   "rows": 641,
    "columns": [
     "date",
     "wind_mwh_turned_down",
