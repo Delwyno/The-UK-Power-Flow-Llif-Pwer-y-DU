@@ -2,8 +2,6 @@
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
 
-https://github.com/user-attachments/assets/1ba87c41-1e52-45b8-91be-98d94e604896
-
 The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
 ## What it shows
@@ -125,6 +123,18 @@ tools/update_neso.py       refreshes the connection queue and official constrain
 tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
+
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
+
 ## Keeping the data fresh automatically
 
 The GitHub Action runs on its own:
@@ -136,7 +146,7 @@ The GitHub Action runs on its own:
 | Every day | Carbon history since 2009, records and milestones, and the simulator's hourly year (NESO historic generation mix) | `update_history.py` |
 | Every day | Wind turn-down and gas turn-up costs, by hour, for the last 8 days (14 on the first run), plus 20 earlier days filled in back to 1 January 2025 | `update_costs.py` |
 | Every day | A data freshness check, and a GitHub issue if something has stopped updating | `health.py` |
-| Every 30 minutes | Today's running total, published to the `live-data` branch (separate workflow, `live-costs.yml`) | `update_costs.py --today` |
+| Every 10 minutes | Checks whether Elexon has published a new half hour, and if so recalculates today's running total and publishes it to the `live-data` branch (separate workflow, `live-costs.yml`) | `update_costs.py --today --prev` |
 | Every day | The connection queue (TEC register) and NESO's daily constraint costs; then the open data CSVs | `update_neso.py`, `export_open.py` |
 | 2nd of each month | All of the above, plus lines, substations, smaller sites, wind farm areas, routes and cross-checks (OpenStreetMap UK extract) | `update_osm.py` |
 

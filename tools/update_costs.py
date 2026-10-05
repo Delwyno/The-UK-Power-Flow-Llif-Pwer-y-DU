@@ -3,8 +3,10 @@
 
 Modes
   (default)  the last few settlement days  -> data/costs.json        (daily refresh)
-  --today    today so far                  -> data/today.json        (every 30 minutes; the workflow
-                                                                      publishes it to the live-data branch)
+  --today    today so far                  -> data/today.json        (the live workflow runs it every ten minutes
+                                                                      and publishes to the live-data branch)
+             With --prev FILE (the file published last time) it first asks Elexon, with one tiny request,
+             whether the next half hour is out yet, and writes nothing if it is not. So polling often is cheap.
   --probe    print what the feeds return, to diagnose a problem from the Actions log
   --backfill fill in earlier days (this year first, then earlier years), resuming where it left off:
              --backfill [--from YYYY-MM-DD] [--max-days N] [--minutes M]
@@ -40,6 +42,7 @@ ELX = os.environ.get("ELEXON_BASE", "https://data.elexon.co.uk/bmrs/api/v1")
 UK = ZoneInfo("Europe/London")
 WIND_TYPES, GAS_TYPES = {"WIND"}, {"CCGT", "OCGT"}
 KEEP_HOURLY_DAYS, KEEP_DAYS = 45, 2000
+FORCE_REFRESH_MIN = 55   # --prev: recalculate at least this often even when nothing new is out, to pick up revisions
 BACKFILL_START = "2025-01-01"   # the daily run quietly fills earlier days back to here, so the page can compare with last year
 MIN_MATCH = 0.6   # share of volume whose system flag must be found before the "system" basis is used
 
@@ -173,6 +176,28 @@ def day_costs(d):
         out["through"] = (period_start(d, last_sp) + timedelta(minutes=30)).astimezone(UK).strftime("%H:%M")
     return out
 
+def has_period(d, sp):
+    """Has Elexon published indicative cashflows for this settlement period yet? One tiny request."""
+    try:
+        for bo in ("offer", "bid"):
+            if rows(get(f"/balancing/settlement/indicative/cashflows/all/{bo}/{d}/{sp}", tries=1)):
+                return True
+        return False
+    except Exception as e:
+        print("period check failed, calculating anyway -", e, file=sys.stderr)
+        return True
+
+def nothing_new(prev_path, today, now):
+    """True when the previous live file is today's, recent, and the next half hour has not been published."""
+    try:
+        prev = json.loads(Path(prev_path).read_text())
+        last = datetime.strptime(prev["updated"], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)
+        if prev.get("d") != today or prev.get("n", 0) < 1 or (now - last) > timedelta(minutes=FORCE_REFRESH_MIN):
+            return False      # new day, no data yet, or old enough that a refresh also picks up revisions
+        return prev["n"] + 1 <= 50 and not has_period(today, prev["n"] + 1)
+    except Exception:
+        return False
+
 def load_existing():
     try:
         return {x["d"]: x for x in json.loads(OUT.read_text())["days"]}
@@ -239,6 +264,9 @@ def main():
     if "--probe" in sys.argv:
         return probe(today)
     if "--today" in sys.argv:
+        if "--prev" in sys.argv and nothing_new(arg("--prev", ""), today, now):
+            print("no new settlement period yet: nothing to publish")
+            return
         res = day_costs(today)
         res["updated"] = now.strftime("%Y-%m-%dT%H:%MZ")
         path = Path(arg("--out", ROOT / "data" / "today.json"))

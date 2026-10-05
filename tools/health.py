@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 OUT = DATA / "health.json"
-REPO = os.environ.get("GITHUB_REPOSITORY", "delwyno/UK-Energy-Generation-Map")
+REPO = os.environ.get("GITHUB_REPOSITORY", "delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU")
 LIVE_URL = f"https://raw.githubusercontent.com/{REPO}/live-data/today.json"
 # key, English label, Welsh label, files, hours between expected updates
 ITEMS = [
@@ -32,7 +32,7 @@ ITEMS = [
     ("osm", "Grid, substations and routes (OpenStreetMap)", "Grid, is-orsafoedd a llwybrau (OpenStreetMap)", ["gridlines.json", "subs.json", "plants.json", "windareas.json", "routes.json"], 45 * 24),
     ("open", "Open data files", "Ffeiliau data agored", ["open/index.json"], 36),
 ]
-LIVE = ("live", "Live running totals (every 30 minutes)", "Cyfansymiau byw (bob 30 munud)", None, 3)
+LIVE = ("live", "Live running totals (checked every 10 minutes)", "Cyfansymiau byw (gwirio bob 10 munud)", None, 1.5)   # amber after 1.5 h, red after 3 h: a job that should run every 30 minutes
 
 def now_iso():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
