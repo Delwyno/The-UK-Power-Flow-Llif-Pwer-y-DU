@@ -615,6 +615,8 @@ body.rzing{user-select:none;-webkit-user-select:none;cursor:col-resize}
 .suplist li b{flex:1;font-weight:600}
 .suplist li span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
 .suplist .gdot{flex:none}
+.tabs{position:sticky;top:calc(-1*var(--ppt,0px));z-index:6;background:var(--panel)}   /* the tab bar and the section buttons stay in view while the panel scrolls */
+.seg{position:sticky;top:calc(var(--tabh,34px) - var(--ppt,0px));z-index:5;box-shadow:0 0 0 6px var(--panel)}   /* the ring in the panel colour hides content passing beneath the rounded corners */
 </style>
 <link rel="preconnect" href="https://api.carbonintensity.org.uk" crossorigin><link rel="preconnect" href="https://data.elexon.co.uk" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
@@ -1681,7 +1683,7 @@ function wireTabs(){
   const leave=()=>{ if(S.wk){ clearInterval(S.wkTimer); S.wk=null; wkChip(); } S.qsel=null; S.h2sel=null; };
   $p.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ leave(); S.tab=b.dataset.tab==='future'?(S.fut||'sim'):b.dataset.tab; render(); panel(); $p.scrollTop=0; });
   $p.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{ leave(); S.tab=S.fut=b.dataset.fut; render(); panel(); $p.scrollTop=0; });
-  const tb=$p.querySelector('.tabs'); if(tb){ const chk=()=>tb.classList.toggle('ov',tb.scrollWidth>tb.clientWidth+2&&tb.scrollLeft+tb.clientWidth<tb.scrollWidth-2); chk(); tb.addEventListener('scroll',chk,{passive:true}); } }
+  const tb=$p.querySelector('.tabs'); if(tb){ $p.style.setProperty('--tabh',tb.offsetHeight+'px'); $p.style.setProperty('--ppt',getComputedStyle($p).paddingTop); const chk=()=>tb.classList.toggle('ov',tb.scrollWidth>tb.clientWidth+2&&tb.scrollLeft+tb.clientWidth<tb.scrollWidth-2); chk(); tb.addEventListener('scroll',chk,{passive:true}); } }
 function overview(){
   if(S.tab==='carbon') return carbonPanel();
   if(S.tab==='stories') return storiesPanel();
