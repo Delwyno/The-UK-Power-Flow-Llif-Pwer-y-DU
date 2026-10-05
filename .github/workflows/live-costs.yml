@@ -1,12 +1,14 @@
 # Today's running total of what it has cost to switch wind farms off and turn gas on.
-# Every 30 minutes it recomputes today so far (a few whole-day calls to Elexon) and publishes ONE small
-# file, today.json, to a separate branch called live-data. That branch is overwritten every time, so it
-# never grows and never clutters the history of the main branch. The map reads it from there.
+# Every ten minutes it asks Elexon, with one tiny request, whether a new half hour has been published.
+# Only when it has (about every half hour) does it recompute today so far and publish ONE small file,
+# today.json, to a separate branch called live-data. That branch is overwritten every time, so it never
+# grows and never clutters the history of the main branch. The map reads it from there.
+# (Elexon's settlement figures only exist once per half hour, so polling faster than this gains nothing.)
 name: Live wind and gas costs
 
 on:
   schedule:
-    - cron: "7,37 * * * *"
+    - cron: "4,14,24,34,44,54 * * * *"
   workflow_dispatch:
     inputs:
       probe:
@@ -19,7 +21,7 @@ permissions:
 
 concurrency:
   group: live-costs
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   live:
@@ -28,20 +30,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Fetch the file published last time
+        run: |
+          git fetch --depth=1 origin live-data 2>/dev/null && git show FETCH_HEAD:today.json > "$RUNNER_TEMP/prev.json" || rm -f "$RUNNER_TEMP/prev.json"
 
       - name: Probe the feeds (diagnostic)
         if: ${{ inputs.probe }}
-        run: python tools/update_costs.py --probe
+        run: python3 tools/update_costs.py --probe
 
       - name: Work out today so far (Elexon)
-        run: python tools/update_costs.py --today --out "$RUNNER_TEMP/today.json"
+        run: |
+          PREV=""
+          if [ -s "$RUNNER_TEMP/prev.json" ]; then PREV="--prev $RUNNER_TEMP/prev.json"; fi
+          python3 tools/update_costs.py --today --out "$RUNNER_TEMP/today.json" $PREV
 
       - name: Publish to the live-data branch
         run: |
           set -e
+          if [ ! -s "$RUNNER_TEMP/today.json" ]; then echo "Nothing new to publish"; exit 0; fi
           mkdir "$RUNNER_TEMP/pub"
           cp "$RUNNER_TEMP/today.json" "$RUNNER_TEMP/pub/today.json"
           cd "$RUNNER_TEMP/pub"
