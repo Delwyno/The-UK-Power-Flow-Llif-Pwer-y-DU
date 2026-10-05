@@ -240,25 +240,3 @@ Created by **Daniel Elwyn Thomas**.
 The licence covers the compilation (the daily tracking, matching and calculations), not the original data, which comes from NESO, Elexon and OpenStreetMap and carries their terms (see Data sources and licences). It is provided without warranty. `data/open/README.md` and `data/open/index.json` repeat this, with the exact credit line for each file.
 
 The licence for the code (everything outside `data/`) has not been chosen yet.
-
-## Visit counting (GoatCounter, optional)
-
-The page can count visits with [GoatCounter](https://www.goatcounter.com), an open-source, cookieless counter. It is **off until you set a code**.
-
-1. Create a free site at goatcounter.com. Your site code is the part before `.goatcounter.com`.
-2. Put it in `data/analytics.json`: `{"goatcounter": "your-code"}`.
-3. Rebuild: run the **Refresh UK power map data** workflow (or wait for the daily run), which rebuilds `index.html`.
-
-What is counted: one view for each screen (`/map`, `/carbon`, `/stories`, `/plan`, `/sim`, `/compare`, `/queue`, `/hydrogen`, `/wales`, and `/site/<id>` for a power station), plus a few actions as events: language switch (`event/lang-cy`), CSV downloads (`event/csv/...`), open data downloads, methods pages opened, sharing and the 7-day replay. Nothing typed in the search box, including postcodes, is ever sent.
-
-Privacy: nothing is counted when the browser sends Do Not Track or Global Privacy Control, or when the page is opened from a local file. GoatCounter sets no cookies and stores nothing in the browser. When a code is set, a Privacy note appears in the Layers panel and the "How this map works" page, in both languages. If you restrict allowed domains in GoatCounter's settings, include `delwyno.github.io`.
-
-## Setting up the cost figures
-
-1. Upload the files, and add or replace the two workflow files under `.github/workflows/`.
-2. In Actions, run **Refresh UK power map data** once. It builds `data/costs.json`.
-3. Run **Live wind and gas costs** once. It creates the `live-data` branch with `today.json`.
-4. To fill in this year and last year faster than the daily trickle, run **Backfill wind and gas costs** (a few times, until it says nothing is left). It fills this year first, so "this year so far" starts on 1 January, then 2025, which the page uses for the comparisons.
-5. If the figures look wrong, run **Live wind and gas costs** with **probe** ticked and read the log. It prints what Elexon returns and how well the system flag matches.
-
-If the system flag can't be matched for most volume, the figures count every wind and gas action and the page says so.
