@@ -4,8 +4,6 @@ An interactive, bilingual (English and Welsh) map of Britain's electricity syste
 
 The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
-https://github.com/user-attachments/assets/eb6101ea-768b-4799-aa6b-8c2dad7d952a
-
 ## What it shows
 
 **Map tab**
@@ -71,6 +69,8 @@ https://github.com/user-attachments/assets/eb6101ea-768b-4799-aa6b-8c2dad7d952a
 
 **Resizable side panel.** On a computer, drag the left edge of the side panel to make it wider, and everything inside it grows with it. Double-click the edge, or press Home when it has focus, to reset; the arrow keys adjust it. The width is remembered in the browser.
 
+**Electricity demand.** The Map tab shows Great Britain's national demand live (Elexon's Initial National Demand Outturn, half-hourly, refreshed every few minutes while the page is open): the figure now, the peak so far today, the change against the same time yesterday, and a chart of today against yesterday. It is measured at the transmission grid, so it leaves out rooftop solar and other embedded generation; the methods page explains what that means. It needs the live feed, so it does not appear in the offline snapshot.
+
 **Open data.** Twelve CSV files, refreshed daily at stable addresses under `data/open/`, with an index describing each (`data/open/index.json`). Linked from "How this map works" and the Layers panel.
 
 **Compare years** (also in the Future tab): pick two years to see capacity by technology side by side, what's new and what closes. You can also highlight the changes on the map: a green ring means new and a red dashed ring means closed.
@@ -121,6 +121,17 @@ tools/update_neso.py       refreshes the connection queue and official constrain
 tools/export_open.py       writes the open data CSVs (daily)
 tools/requirements.txt
 ```
+
+## Deploying on GitHub Pages
+
+1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
+2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
+3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
+4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
+5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
+6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
+
+The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
 
 ## Keeping the data fresh automatically
 
