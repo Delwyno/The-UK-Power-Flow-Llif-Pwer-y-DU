@@ -178,7 +178,6 @@ All feeds were confirmed working on the live site on 29 September 2026.
 | Households (for the per-household figure) | ONS, Families and households in the UK: 2024 (28.6 million) |
 | Connection queue by site | NESO TEC register (NESO Open Data Licence); locations from OpenStreetMap |
 | Official constraint costs | NESO constraint breakdown (NESO Open Data Licence) |
-| Wind speed layer (optional, off by default) | Open-Meteo.com, modelled wind at 100 m (CC BY 4.0); free for non-commercial use, so check their terms if the site becomes commercial |
 | Welsh targets and progress | Welsh Government, Energy Generation and Energy Use in Wales (2026) |
 | Wind farm support schemes | LCCC Contracts for Difference register; Ofgem; developer announcements (see `data/subsidy.json`) |
 
