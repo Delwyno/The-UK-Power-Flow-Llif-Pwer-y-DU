@@ -344,7 +344,6 @@ Capenhurst GSP,53.2679,-2.9476,NGET,440,90,2,2037,2037,0,0,bat:440
 Shrewsbury 400kV Substation,52.7093,-2.6927,NGET,431,0,1,2037,2037,0,0,so:431
 Minety 400kV Substation,51.6076,-2.0021,NGET,428,0,9,2024,2025,0,285,bat:428
 Leeds South Connection Node C 400kV Substation,,,NGET,410,0,1,2035,2035,0,0,bat:410
-Clydesmill 275/33kV,,,SPT,403,0,3,2027,2028,0,0,dem:300;so:63;bat:40
 Willington East 400kV Substation,52.8555,-1.5505,NGET,402,0,4,2026,2027,0,57,bat:402
 Borders Windfarm 132kV,,,SPT,400,0,1,2033,2033,0,0,nw:400
 Trent Valley South Connection Node A 400k,,,NGET,400,0,1,2039,2039,0,0,bat:400
@@ -377,6 +376,7 @@ Tilbury 275kV Substation,51.4603,0.391,NGET,375,300,1,2026,2026,0,375,bat:375
 Drakelow 132kV Substation,52.7727,-1.651,NGET,372,0,3,2027,2027,0,0,bat:372
 Ninfield GSP,50.8808,0.4482,NGET,370,0,2,2036,2036,0,0,bat:370
 Fetteresso 132kV substation,56.9648,-2.3471,SHET,368,0,3,2031,2033,0,0,bat:263;so:105
+Clydesmill 275/33kV,,,SPT,363,0,2,2027,2027,0,0,dem:300;so:63
 West London Connection Node B 132kV substation,,,NGET,360,0,2,2037,2037,0,0,bat:360
 Lovedean 400kV Substation,50.9168,-1.0397,NGET,356,20,3,2028,2029,0,0,bat:356
 Knocknagael 132kV Substation,57.4218,-4.2458,SHET,350,0,2,2030,2031,0,0,bat:350
@@ -870,7 +870,7 @@ Heastabhal Wind Farm Substation 132 KV,,,SHET,66,0,1,2033,2033,0,0,nw:66
 Holm Hill 132kV Substation,,,SPT,66,0,1,2037,2037,0,0,nw:66
 Wether Hill 132/33KV Substation,55.2214,-4.0558,SPT,66,0,1,2031,2031,0,0,nw:66
 Dyce 132/33kV GSP,57.2158,-2.19,SHET,66,0,2,2025,2026,0,21,bat:66
-Strathy Wood 132/33kV Substation,,,SHET,64,0,2,2029,2029,0,0,nw:64
+Strathy Wood 132/33kV Substation,,,SHET,64,0,1,2029,2029,0,0,nw:64
 Divot Hill 132/33 kV Substation,,,SPT,63,0,1,2036,2036,0,0,bat:63
 Cockenzie 275/33kV Substation,55.9668,-2.9681,SPT,63,0,1,2028,2028,0,0,bat:63
 Partrick GSP,,,SPT,63,0,1,2031,2031,0,0,bat:63
@@ -995,6 +995,7 @@ Eccles GSP,55.6691,-2.3288,SPT,41,0,1,2031,2031,0,0,so:41
 North Humber Connection Node C 132kV Substation,,,NGET,40,0,1,2035,2035,0,0,bat:40
 DALMARNOCK 132/33KV SUBSTATION,55.8355,-4.2041,SPT,40,0,1,2024,2024,0,40,bat:40
 West Melton GSP,53.5016,-1.3773,NGET,40,0,1,2034,2034,0,0,bat:40
+Clydesmill GSP,,,SPT,40,0,1,2029,2029,0,0,bat:40
 Giffnock 275/33kV,55.7986,-4.2997,SPT,40,0,1,2028,2028,0,0,bat:40
 Haggs Road GSP,55.83,-4.2966,SPT,40,0,1,2031,2031,0,0,bat:40
 ROWANCRAIG WIND FARM 33KV SUBSTATION,,,SPT,40,0,1,2028,2028,0,0,nw:40
