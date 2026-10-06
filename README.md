@@ -211,15 +211,25 @@ The icon, favicons and link-preview image are in the top-level folder: `logo.svg
 
 If a platform still shows an old preview after you update `social.png`, ask it to refresh: LinkedIn Post Inspector, Facebook Sharing Debugger, or add `?v=3` to the image address in `src/app.html`.
 
-## Daily card
+## Daily and weekly cards
 
-`tools/daily_card.py` makes a shareable card for the whole of yesterday: wind turned down and what it cost, gas turned up for grid constraints (with gas for any reason alongside, so a £0 reads in context), average carbon intensity with the cleanest and dirtiest half hours, a half-hourly carbon chart coloured on the map's own scale, and the day's generation mix. It writes four images (landscape 1200×675 and portrait 1080×1350, each in English and Welsh, drawn at 2×) and a ready-to-post text for each language with alt text for the image. Nothing is posted automatically.
+`tools/daily_card.py` makes shareable cards, in English and Welsh, each in landscape (1200 × 675) and portrait (1080 × 1350), with the words to post and alt text.
 
-The latest card is always at `https://raw.githubusercontent.com/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/daily-card/card-en-landscape.png` (also `-portrait`, `card-cy-…`, `post-en.txt`, `post-cy.txt`, `card-data.json`)
+**Daily card**, for the whole of yesterday: wind turned down and what it cost, gas turned up for grid constraints (with gas for any reason alongside, so a £0 reads in context) and average carbon intensity with the cleanest and dirtiest half hours. The main chart shows transmission-grid supply by fuel as hourly stacked bars, demand as a solid line with the peak and lowest points labelled, and a carbon-intensity ribbon underneath. In portrait, the wind, gas and carbon tiles sit side by side across the top. Beneath it: carbon by region (cleanest, dirtiest and the two Welsh regions), tomorrow's forecast (the cleanest and dirtiest windows), and a strip with lowest and peak demand (GW and time), the share from wind, solar, nuclear and hydro, and how the day compares with the previous 7 days. A star badge appears in the header when the day set a record, such as the windiest, cleanest or sunniest day of the year.
 
-* **Sources:** the wind and gas figures use the same Elexon calculation as the running totals (`tools/update_costs.py`); carbon intensity and the mix come from the NESO Carbon Intensity API. Yesterday is used because it is complete and Elexon's indicative figures have settled. If Elexon's costs cannot be fetched the card is still made, with carbon and the mix only, and the run shows a warning.
+**Weekly card**, for the previous Monday to Sunday: the same totals, a bar for each day's carbon intensity, with the cleanest and dirtiest days tagged, carbon by region for the week, a records box, and the same strip compared with the week before.
+
+If Elexon, the regional data or the forecast is unavailable, the card is drawn without that part (the older half-hourly carbon chart and generation mix replace the supply and demand chart).
+
+The latest daily card is always at `https://raw.githubusercontent.com/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/daily-card/card-en-landscape.png` (also `-portrait`, `card-cy-…`, `post-en.txt`, `post-cy.txt`, `card-data.json`). The weekly card sits beside it as `card-week-en-landscape.png` (also `-portrait`, `card-week-cy-…`, `post-week-en.txt`, `post-week-cy.txt`, `week-data.json`).
+
+* **Logo:** read from `logo.svg` at the top of the repository; a card is drawn without it if the file is missing.
+* **Sources:** the wind and gas figures use the same Elexon calculation as the running totals (`tools/update_costs.py`); carbon intensity and the mix come from the NESO Carbon Intensity API. Complete days are used because Elexon's indicative figures have settled.
 * **Headline wind figure:** what NESO paid wind farms, as on the map. When some farms paid money back by bidding to be turned down, the card adds a "net" line.
-* **Fonts and browser:** the cards are drawn from HTML with Playwright, using the Chrome already on GitHub's runners and Barlow from Google Fonts, the same typefaces as the map. To run it elsewhere: `pip install playwright`, `playwright install chromium`, then `python3 tools/daily_card.py`.
+* **Supply and demand:** transmission grid only, from Elexon Insights; rooftop solar and small local generators are not included, and the card says so.
+* **Homes (when shown):** energy divided by a typical household's use of 2,700 kWh a year (Ofgem), rounded to two significant figures.
+* **Comparison:** average carbon intensity against the average for the 7 days (or the week) before.
+* **Fonts and browser:** the cards are drawn from HTML with Playwright and Barlow from Google Fonts, the same typefaces as the map.
 * **Checking the layout:** the script warns if any card overflows, which would only happen with unusually long text.
 * **Attribution:** every card carries the Elexon and NESO data credit.
 
