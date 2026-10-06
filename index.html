@@ -332,6 +332,10 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
 .sitelist button:focus-visible{outline:2px solid var(--ic)}
 .sitelist svg{width:14px;height:14px;color:var(--c);flex:none}
 .sitelist b{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}
+.sitelist.live li{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 16%,transparent) var(--p,0%),transparent var(--p,0%));border-radius:4px}
+.sitelist.live button{padding:6px;box-sizing:border-box}
+.sitelist .tag{font-size:.72rem;font-weight:400;color:var(--muted);white-space:nowrap}
+.sitelist .tag.est{font-style:italic}
 .feeds{list-style:none;padding:0;margin:6px 0;font-size:.85rem}
 .feeds li{display:flex;gap:8px;padding:2px 0;color:var(--muted)}
 .feeds li b{color:var(--ink);font-weight:600}
@@ -1660,7 +1664,7 @@ en:{sp_h:'Electricity supply',sp_t:'Generation on the transmission grid plus imp
  reg_flow_note:'Exports aren’t counted against a region: NESO models the power flowing between regions, so electricity sent elsewhere is counted where it’s used.',
  reg_lower:'{n} gCO₂/kWh cleaner than the average across all regions at the same time ({g}).',reg_higher:'{n} gCO₂/kWh dirtier than the average across all regions at the same time ({g}).',reg_same:'The same as the average across all regions ({g}).',
  reg_rank:'Ranked {r} of {n} regions, where 1 is cleanest.',reg_mix:'Electricity used in this region',reg_fc:'Forecast, next 24 hours',reg_fc_need:'The 24-hour forecast for each region appears on the hosted version of the map.',
- reg_sites:'Mapped sites connected in this region',reg_cap:'{c} of major mapped capacity, plus {n} smaller sites.',
+ reg_now_h:'Generating in this region right now',reg_now_t:'{n} mapped sites are producing about {v} right now. Of those, {r} report their own output to Elexon and the rest are estimates.',reg_now_none:'None of the mapped sites in this region are generating right now.',reg_now_rep:'reported',reg_now_est:'estimated',reg_now_all:'Show all {n}',reg_now_less:'Show fewer',reg_now_note:'This is what the sites are generating, which can differ from the region’s carbon figure: NESO counts power that flows between regions where it is used. Select a site to see it on the map.',reg_back:'Back to {r}',reg_sites:'Mapped sites connected in this region',reg_cap:'{c} of major mapped capacity, plus {n} smaller sites.',
  reg_note:'NESO estimates each region’s carbon intensity from the electricity generated in and imported into it. Windy regions like Scotland can sit near zero while their surplus flows south. Offshore sites are counted where they connect to the grid.',
  why_vclean:'Unusually clean right now',why_clean:'Cleaner than usual',why_typical:'About typical for the time',why_dirty:'Dirtier than usual',why_vdirty:'Unusually dirty right now',
  why_below:'At {ci} gCO₂/kWh, electricity is {p}% cleaner than a typical {mon} {when} ({typ}).',why_above:'At {ci} gCO₂/kWh, electricity is {p}% dirtier than a typical {mon} {when} ({typ}).',
@@ -1858,7 +1862,7 @@ cy:{sp_h:'Cyflenwad trydan',sp_t:'Cynhyrchu ar y grid trawsyrru ynghyd â mewnfo
  reg_flow_note:'Nid yw allforion yn cael eu cyfrif yn erbyn rhanbarth: mae NESO yn modelu’r pŵer sy’n llifo rhwng rhanbarthau, felly caiff trydan a anfonir i rywle arall ei gyfrif lle caiff ei ddefnyddio.',
  reg_lower:'{n} gCO₂/kWh yn lanach na’r cyfartaledd ar draws pob rhanbarth ar yr un pryd ({g}).',reg_higher:'{n} gCO₂/kWh yn fwy budr na’r cyfartaledd ar draws pob rhanbarth ar yr un pryd ({g}).',reg_same:'Yr un fath â’r cyfartaledd ar draws pob rhanbarth ({g}).',
  reg_rank:'Safle {r} o {n} rhanbarth, lle 1 yw’r glanaf.',reg_mix:'Trydan a ddefnyddir yn y rhanbarth hwn',reg_fc:'Rhagolwg, y 24 awr nesaf',reg_fc_need:'Mae’r rhagolwg 24 awr ar gyfer pob rhanbarth yn ymddangos ar fersiwn gwe’r map.',
- reg_sites:'Safleoedd ar y map sydd wedi’u cysylltu yn y rhanbarth hwn',reg_cap:'{c} o’r prif gapasiti ar y map, a {n} o safleoedd llai.',
+ reg_now_h:'Yn cynhyrchu yn y rhanbarth hwn nawr',reg_now_t:'Mae {n} safle ar y map yn cynhyrchu tua {v} ar hyn o bryd. O’r rhain, mae {r} yn adrodd eu hallbwn eu hunain i Elexon; amcangyfrifon yw’r gweddill.',reg_now_none:'Does dim un o’r safleoedd ar y map yn y rhanbarth hwn yn cynhyrchu ar hyn o bryd.',reg_now_rep:'wedi’i adrodd',reg_now_est:'amcangyfrif',reg_now_all:'Dangos y {n} i gyd',reg_now_less:'Dangos llai',reg_now_note:'Dyma beth mae’r safleoedd yn ei gynhyrchu, a gall hynny fod yn wahanol i ffigur carbon y rhanbarth: mae NESO yn cyfrif pŵer sy’n llifo rhwng rhanbarthau lle caiff ei ddefnyddio. Dewiswch safle i’w weld ar y map.',reg_back:'Yn ôl i {r}',reg_sites:'Safleoedd ar y map sydd wedi’u cysylltu yn y rhanbarth hwn',reg_cap:'{c} o’r prif gapasiti ar y map, a {n} o safleoedd llai.',
  reg_note:'Mae NESO yn amcangyfrif dwysedd carbon pob rhanbarth o’r trydan a gynhyrchir ynddo ac a fewnforir iddo. Gall rhanbarthau gwyntog fel yr Alban fod yn agos at sero tra bo’u gwarged yn llifo tua’r de. Caiff safleoedd ar y môr eu cyfrif lle maen nhw’n cysylltu â’r grid.',
  why_vclean:'Anarferol o lân ar hyn o bryd',why_clean:'Glanach nag arfer',why_typical:'Tua’r arfer ar gyfer yr adeg hon',why_dirty:'Mwy budr nag arfer',why_vdirty:'Anarferol o fudr ar hyn o bryd',
  why_below:'Ar {ci} gCO₂/kWh, mae’r trydan {p}% yn lanach na {when} arferol ym mis {mon} ({typ}).',why_above:'Ar {ci} gCO₂/kWh, mae’r trydan {p}% yn fwy budr na {when} arferol ym mis {mon} ({typ}).',
@@ -2509,6 +2513,7 @@ function fitTo(d){
 }
 function select(key){
   if(typeof hideChooser==='function') hideChooser();
+  if(key!==S._regGo) S.fromReg=null; S._regGo=null;
   S.sel=key; if(key) S.view='overview';
   if(key && isSheet() && sheetState==='peek') setSheet('half');
   render(); panel();
@@ -2590,7 +2595,7 @@ function panel(){
   if(g.real) h+=`<p class="fine">${tr('realroute')}</p>`;
   h+=`<p class="fine">${tr('pool')}</p>`;
   h+=sourcesBlock(d, g);
-  $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null);
+  $p.innerHTML=h; { const bk=document.getElementById('back'), rk=S.fromReg&&byId[S.fromReg]; if(rk){ bk.textContent=tr('reg_back',{r:nm(rk)}); bk.onclick=()=>{ const k=S.fromReg; S.fromReg=null; select(k); }; } else bk.onclick=()=>select(null); }
   const chh=document.getElementById('chhist'); if(chh){ drawHist(chh,d); makeZoomable(chh,'hist'); }
 }
 function sourcesBlock(d,g){
@@ -2773,6 +2778,20 @@ function carbonTable(rid,mix,neso){
   <p class="fine">${tr('reg_ct_note')} ${tr('reg_flow_note')}</p>`;
   return h;
 }
+function regionLive(d,here){
+  if(!liveNow()||S.replayIdx!=null||LIVE.mode!=='live') return '';
+  const gen=here.filter(s=>FUEL[s.t]&&!s.ps).map(s=>({s,mw:liveMW(s),real:realMW(s)!=null})).filter(x=>x.mw>=2).sort((a,b)=>b.mw-a.mw);
+  let h=`<h3>${tr('reg_now_h')}</h3>`;
+  if(!gen.length) return h+`<p class="meta">${tr('reg_now_none')}</p>`;
+  const tot=d3.sum(gen,x=>x.mw), nr=gen.filter(x=>x.real).length, by={};
+  gen.forEach(x=>{ by[x.s.t]=(by[x.s.t]||0)+x.mw; });
+  h+=`<p class="meta">${tr('reg_now_t',{n:gen.length,v:fmtLive(tot),r:nr})}</p>`;
+  h+=`<div class="legend">${Object.keys(by).sort((a,b)=>by[b]-by[a]).map(t=>`<span style="--c:${col(t)}">${icon(t)}${tr('t_'+t)}</span><b>${fmtLive(by[t])}</b>`).join('')}</div>`;
+  const top=gen[0].mw, show=S.regAll?gen:gen.slice(0,8);
+  h+=`<ul class="sitelist live">${show.map(x=>`<li style="--c:${col(x.s.t)};--p:${Math.max(3,Math.round(x.mw/top*100))}%"><button data-k="${x.s.key}" style="--c:${col(x.s.t)}">${icon(x.s.t)}${nm(x.s)}<span class="tag${x.real?'':' est'}">${tr(x.real?'reg_now_rep':'reg_now_est')}</span><b>${fmtLive(x.mw)}</b></button></li>`).join('')}</ul>`;
+  if(gen.length>8) h+=`<button class="pbtn ghost" id="regall">${S.regAll?tr('reg_now_less'):tr('reg_now_all',{n:gen.length})}</button>`;
+  return h+`<p class="fine">${tr('reg_now_note')}</p>`;
+}
 function regionPanel(d){
   const v=regVal(d.rid), idx=ciIndex(v), src=LIVE.reg||REG_SNAP;
   const ranked=REG.map(r=>[r[0],regVal(r[0])]).filter(r=>r[1]!=null).sort((a,b)=>a[1]-b[1]);
@@ -2788,10 +2807,13 @@ function regionPanel(d){
   const home=s=>{ let r=regionOf(s.c); if(r==null&&s.r&&s.r.length) r=regionOf(pc(s.r[0]).c); if(r==null&&s.h) r=regionOf(pc(s.h).c); return r; };
   const here=SITES.filter(s=>active(s)&&home(s)===d.rid).sort((a,b)=>b.mw-a.mw);
   const cap=here.reduce((a,s)=>a+s.mw,0), small=OTHERS.filter(o=>regionOf(o.c)===d.rid).length;
+  h+=regionLive(d,here);
   h+=`<h3>${tr('reg_sites')}</h3><p class="meta">${tr('reg_cap',{c:fmtMW(cap),n:small.toLocaleString('en-GB')})}</p>`;
   if(here.length) h+=`<ul class="sitelist">${here.slice(0,10).map(s=>`<li><button data-k="${s.key}" style="--c:${col(s.t)}">${icon(s.t)}${nm(s)}<b>${fmtMW(s.mw)}</b></button></li>`).join('')}</ul>`;
   h+=`<p class="fine">${tr('reg_note')}</p>`;
   $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null); wirePanel();
+  $p.querySelectorAll('.sitelist.live button').forEach(b=>b.onclick=()=>{ S.fromReg=d.key; S._regGo=b.dataset.k; select(b.dataset.k); });
+  const ra=document.getElementById('regall'); if(ra) ra.onclick=()=>{ S.regAll=!S.regAll; const y=$p.scrollTop; regionPanel(d); $p.scrollTop=y; };
   loadRegionFc(d.rid).then(s=>{ if(S.sel!==d.key) return; const el=document.getElementById('regfc'); el.innerHTML=''; drawRegionFc(el,s); makeZoomable(el,'regfc');
       const b=s.reduce((a,x)=>x.f<a.f?x:a); document.getElementById('regbest').innerHTML=`<b>${tr('ci_best',{t:fmtWhen(new Date(b.t).toISOString()),g:b.f})}</b>`; })
     .catch(()=>{ const el=document.getElementById('regfc'); if(el&&S.sel===d.key) el.innerHTML=`<p class="meta">${tr('reg_fc_need')}</p>`; });
