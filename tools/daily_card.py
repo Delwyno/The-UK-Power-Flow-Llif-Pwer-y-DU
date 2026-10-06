@@ -644,7 +644,7 @@ html,body{background:#fff}
 .rtimes{display:flex;justify-content:space-between;color:#5a6b71;font-weight:500}.land .rtimes{font-size:12px;margin-top:2px}.port .rtimes{font-size:16px;margin-top:3px}
 .leg2{display:flex;flex-wrap:wrap;color:#1b282e;font-weight:500}.land .leg2{font-size:14px;gap:2px 12px;margin-top:6px}.port .leg2{font-size:19px;gap:2px 16px;margin-top:8px}
 .leg2 span{display:inline-flex;align-items:center}.leg2 b{display:inline-block;border-radius:3px;margin-right:5px}.land .leg2 b{width:11px;height:11px}.port .leg2 b{width:15px;height:15px}
-.leg2 u{display:inline-block;width:18px;border-top:4px solid #1b282e;border-radius:2px;margin-right:6px}
+.leg2 u{display:inline-block;width:22px;border-top:4px dashed #1b282e;margin-right:6px}
 .stat.dem{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
 .stat.dem .r{text-align:right}
 .stat.dem small{display:block;color:#5a6b71;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
@@ -743,7 +743,7 @@ def supply_svg(view, ci_series, day, w, h, T):
             base += v
     pts = " ".join(f"{X(d['x'] + .25):.1f},{Y(d['w'] / 1000):.1f}" for d in dem)
     s.append(f'<polyline points="{pts}" fill="none" stroke="#fff" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>'
-             f'<polyline points="{pts}" fill="none" stroke="#1b282e" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>')
+             f'<polyline points="{pts}" fill="none" stroke="#1b282e" stroke-width="3.5" stroke-dasharray="8 5" stroke-linejoin="round"/>')
     for pick, name, dy in ((max, T["dem_pk"], -14), (min, T["dem_lo"], -16)):
         d = pick(dem, key=lambda q: q["w"])
         px, py = X(d["x"] + .25), Y(d["w"] / 1000)
