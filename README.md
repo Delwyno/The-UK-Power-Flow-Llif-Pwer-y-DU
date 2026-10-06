@@ -2,8 +2,6 @@
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
 
-https://github.com/user-attachments/assets/30adca33-9180-4891-b90c-dbc80408e7ed
-
 The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
 ## What it shows
@@ -127,17 +125,6 @@ tools/daily_card.py        draws yesterday's shareable cards and post text, in E
 tools/requirements.txt
 ```
 
-## Deploying on GitHub Pages
-
-1. Upload `index.html`, `README.md` and the `src`, `data` and `tools` folders to the top level of the repository.
-2. Create `.nojekyll` (empty) and `.github/workflows/refresh-power-map.yml` using **Add file → Create new file**. File names starting with a dot are hidden on most computers, so creating them on GitHub is easiest.
-3. In **Settings → Pages**, set the source to **Deploy from a branch**, branch **main**, folder **/ (root)**.
-4. In **Settings → Actions → General**, set **Workflow permissions** to **Read and write**, so the refresh can commit.
-5. The map will be live at `https://<username>.github.io/<repository-name>/` within a couple of minutes.
-6. To test the refresh, open the **Actions** tab, choose **Refresh UK power map data**, then **Run workflow**. Tick **full** to run everything.
-
-The page loads two things from the internet: D3 (version 7.9.0) from cdnjs, and the Barlow fonts from Google Fonts. It falls back to system fonts if the fonts can't load.
-
 ## Keeping the data fresh automatically
 
 The GitHub Action runs on its own:
@@ -156,21 +143,6 @@ The GitHub Action runs on its own:
 After refreshing, it rebuilds `index.html` and commits only if something changed. Each step works independently: if one source is down, the previous data is kept and the rest still updates.
 
 GitHub pauses scheduled workflows in repositories with no activity for 60 days. The daily commits normally prevent this, but if the map stops updating, check the Actions tab.
-
-**Running it by hand** (Python 3.10+, Node.js; `osmium-tool` recommended for the OpenStreetMap step):
-
-```bash
-pip install -r tools/requirements.txt
-python tools/update_snapshot.py
-python tools/update_elexon.py
-python tools/update_history.py              # or: --csv df_fuel_ckan.csv
-python tools/update_osm.py                  # or: --pbf united-kingdom-latest.osm.pbf
-python tools/update_neso.py
-python tools/export_open.py
-python tools/build.py                       # or: --inline for one self-contained file
-```
-
-**Editing sites.** Change `src/sites.js`, then run `update_osm.py` (to rebuild routes and cross-checks) and `build.py`.
 
 ## Live data and snapshot mode
 
@@ -240,6 +212,18 @@ The icon, favicons and link-preview image are in the top-level folder: `logo.svg
 
 If a platform still shows an old preview after you update `social.png`, ask it to refresh: LinkedIn Post Inspector, Facebook Sharing Debugger, or add `?v=3` to the image address in `src/app.html`.
 
+## Daily card
+
+`tools/daily_card.py` makes a shareable card for the whole of yesterday: wind turned down and what it cost, gas turned up for grid constraints (with gas for any reason alongside, so a £0 reads in context), average carbon intensity with the cleanest and dirtiest half hours, a half-hourly carbon chart coloured on the map's own scale, and the day's generation mix. It writes four images (landscape 1200×675 and portrait 1080×1350, each in English and Welsh, drawn at 2×) and a ready-to-post text for each language with alt text for the image. Nothing is posted automatically.
+
+The latest card is always at `https://raw.githubusercontent.com/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/daily-card/card-en-landscape.png` (also `-portrait`, `card-cy-…`, `post-en.txt`, `post-cy.txt`, `card-data.json`)
+
+* **Sources:** the wind and gas figures use the same Elexon calculation as the running totals (`tools/update_costs.py`); carbon intensity and the mix come from the NESO Carbon Intensity API. Yesterday is used because it is complete and Elexon's indicative figures have settled. If Elexon's costs cannot be fetched the card is still made, with carbon and the mix only, and the run shows a warning.
+* **Headline wind figure:** what NESO paid wind farms, as on the map. When some farms paid money back by bidding to be turned down, the card adds a "net" line.
+* **Fonts and browser:** the cards are drawn from HTML with Playwright, using the Chrome already on GitHub's runners and Barlow from Google Fonts, the same typefaces as the map. To run it elsewhere: `pip install playwright`, `playwright install chromium`, then `python3 tools/daily_card.py`.
+* **Checking the layout:** the script warns if any card overflows, which would only happen with unusually long text.
+* **Attribution:** every card carries the Elexon and NESO data credit.
+
 ## Licence and credit
 
 Created by **Daniel Elwyn Thomas**.
@@ -253,55 +237,3 @@ Created by **Daniel Elwyn Thomas**.
 The licence covers the compilation (the daily tracking, matching and calculations), not the original data, which comes from NESO, Elexon and OpenStreetMap and carries their terms (see Data sources and licences). It is provided without warranty. `data/open/README.md` and `data/open/index.json` repeat this, with the exact credit line for each file.
 
 The licence for the code (everything outside `data/`) has not been chosen yet.
-
-## Visit counting (GoatCounter, optional)
-
-The page can count visits with [GoatCounter](https://www.goatcounter.com), an open-source, cookieless counter. It is **off until you set a code**.
-
-1. Create a free site at goatcounter.com. Your site code is the part before `.goatcounter.com`.
-2. Put it in `data/analytics.json`: `{"goatcounter": "your-code"}`.
-3. Rebuild: run the **Refresh UK power map data** workflow (or wait for the daily run), which rebuilds `index.html`.
-
-What is counted: one view for each screen (`/map`, `/carbon`, `/stories`, `/plan`, `/sim`, `/compare`, `/queue`, `/hydrogen`, `/wales`, and `/site/<id>` for a power station), plus a few actions as events: language switch (`event/lang-cy`), CSV downloads (`event/csv/...`), open data downloads, methods pages opened, sharing and the 7-day replay. Nothing typed in the search box, including postcodes, is ever sent.
-
-Privacy: nothing is counted when the browser sends Do Not Track or Global Privacy Control, or when the page is opened from a local file. GoatCounter sets no cookies and stores nothing in the browser. When a code is set, a Privacy note appears in the Layers panel and the "How this map works" page, in both languages. If you restrict allowed domains in GoatCounter's settings, include `delwyno.github.io`.
-
-## Setting up the cost figures
-
-1. Upload the files, and add or replace the two workflow files under `.github/workflows/`.
-2. In Actions, run **Refresh UK power map data** once. It builds `data/costs.json`.
-3. Run **Live wind and gas costs** once. It creates the `live-data` branch with `today.json`.
-4. To fill in this year and last year faster than the daily trickle, run **Backfill wind and gas costs** (a few times, until it says nothing is left). It fills this year first, so "this year so far" starts on 1 January, then 2025, which the page uses for the comparisons.
-5. If the figures look wrong, run **Live wind and gas costs** with **probe** ticked and read the log. It prints what Elexon returns and how well the system flag matches.
-
-If the system flag can't be matched for most volume, the figures count every wind and gas action and the page says so.
-
-## Daily card
-
-`tools/daily_card.py` makes a shareable card for the whole of yesterday: wind turned down and what it cost, gas turned up for grid constraints (with gas for any reason alongside, so a £0 reads in context), average carbon intensity with the cleanest and dirtiest half hours, a half-hourly carbon chart coloured on the map's own scale, and the day's generation mix. It writes four images (landscape 1200×675 and portrait 1080×1350, each in English and Welsh, drawn at 2×) and a ready-to-post text for each language with alt text for the image. Nothing is posted automatically.
-
-To switch it on, add `workflow-file/daily-card.yml` to `.github/workflows/` and run it once from the Actions tab (**Daily card > Run workflow**). The run's summary page shows the cards and the text to copy. The latest files are also kept at stable addresses on a `daily-card` branch that is overwritten each time:
-
-`https://raw.githubusercontent.com/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/daily-card/card-en-landscape.png` (also `-portrait`, `card-cy-…`, `post-en.txt`, `post-cy.txt`, `card-data.json`)
-
-A dated copy is kept as a downloadable artifact for 14 days. To make a card for an earlier day, run the workflow with a date (YYYY-MM-DD).
-
-* **Sources:** the wind and gas figures use the same Elexon calculation as the running totals (`tools/update_costs.py`); carbon intensity and the mix come from the NESO Carbon Intensity API. Yesterday is used because it is complete and Elexon's indicative figures have settled. If Elexon's costs cannot be fetched the card is still made, with carbon and the mix only, and the run shows a warning.
-* **Headline wind figure:** what NESO paid wind farms, as on the map. When some farms paid money back by bidding to be turned down, the card adds a "net" line.
-* **Fonts and browser:** the cards are drawn from HTML with Playwright, using the Chrome already on GitHub's runners and Barlow from Google Fonts, the same typefaces as the map. To run it elsewhere: `pip install playwright`, `playwright install chromium`, then `python3 tools/daily_card.py`.
-* **Checking the layout:** the script warns if any card overflows, which would only happen with unusually long text.
-* **Attribution:** every card carries the Elexon and NESO data credit.
-
-## Reliable scheduling (recommended)
-
-GitHub runs scheduled workflows on a best-effort basis. For this repository it has been starting the live costs job every few hours instead of every ten minutes, and the daily refresh several hours late. Nothing breaks (every run recalculates from Elexon, so no data is lost), but the live cost card goes stale and the data-health check raises an issue.
-
-The fix is an outside timer that asks GitHub to start the workflows on time:
-
-1. Create a **fine-grained personal access token** limited to this repository, with **Actions: Read and write** (GitHub > Settings > Developer settings > Personal access tokens).
-2. At cron-job.org (free), create a job that sends a **POST** every 10 minutes to
-   `https://api.github.com/repos/delwyno/The-UK-Power-Flow-Llif-Pwer-y-DU/actions/workflows/live-costs.yml/dispatches`
-   with the body `{"ref":"main"}` and the headers `Authorization: Bearer <token>`, `Accept: application/vnd.github+json`, `X-GitHub-Api-Version: 2022-11-28` and `Content-Type: application/json`. A successful call returns HTTP 204.
-3. Optionally add a second job for `refresh-power-map.yml`, daily at 05:15 UTC, and a third for `daily-card.yml`, daily at 06:00 UTC (the card then reliably exists before you post).
-
-The token can only start workflows in this one repository, and deleting it on GitHub stops the timer instantly. It expires after the period you chose, so renew it then. The `schedule:` entries inside the workflow files stay as a backup.
