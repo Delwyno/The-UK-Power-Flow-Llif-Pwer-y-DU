@@ -207,6 +207,16 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .ilegend i.l{border-top:2px solid}.ilegend i.d{border-top:2px dashed #b0407a}
 .ilegend i.s{width:8px;height:8px;margin:0 11px 0 5px}
 .ilegend i.a{width:14px;height:10px;background:#cfe6e2;border:1px solid #8fbdb5;margin-right:10px}
+.wlegend{position:absolute;left:10px;top:64px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;font:500 .78rem "Barlow",sans-serif;color:var(--ink);display:none;line-height:1.6;max-width:210px}
+.wlegend b{display:block;font-weight:600}
+.wlegend small{display:block;color:var(--muted);font-size:.72rem;line-height:1.35;margin-top:3px}
+.wlegend i{display:inline-block;width:14px;height:6px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.wlegend a{color:inherit}
+@media (max-width:599px){.wlegend{top:auto;bottom:calc(var(--sheet,0px) + 82px);left:10px;max-width:170px;padding:6px 8px}.wlegend small:last-child{display:none}}
+.wsp{pointer-events:none}.wsp g{pointer-events:auto}
+.wsp .wspn{font:600 10.5px "Barlow",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round}
+.chip.windchip i{background:linear-gradient(90deg,#7fcfcf,#0f6f9a 60%,#2b3a8f);border-radius:2px;width:14px;height:6px}
+
 @media (max-width:599px){.ilegend{top:auto;bottom:calc(var(--sheet,0px) + 82px);right:10px}}
 .regdot{stroke:var(--panel);stroke-width:2}
 .rg{cursor:pointer;outline:none}
@@ -667,6 +677,7 @@ body.rzing{user-select:none;-webkit-user-select:none;cursor:col-resize}
       <canvas id="dots" aria-hidden="true"></canvas>
       <svg id="map" role="group"></svg>
       <div class="ilegend" id="ilegend"></div>
+      <div class="wlegend" id="wlegend"></div>
       <button class="wkchip" id="wkchip" hidden></button><div class="pills"><button class="cipill" id="cipill"><i class="ldot" aria-hidden="true"></i><b></b><span class="ciu"></span><small class="cist"></small></button><button class="status" id="status" hidden><i></i><span></span></button></div>
       <div class="ctl">
         <button id="zin">+</button>
@@ -1704,7 +1715,7 @@ en:{sp_h:'Electricity supply',sp_t:'Generation on the transmission grid plus imp
  st_op:'Operating',st_con:'Under construction',st_dev:'In development',st_closed:'Closed',yes:'Yes',
  cm_h:'Compare two years',cm_from:'From',cm_to:'to',cm_hl:'Highlight changes on the map',cm_stop:'Stop highlighting',cm_new:'New by {y}',cm_gone:'Closed by {y}',cm_none:'None',cm_change:'Change',cm_total:'Total',
  cm_key:'On the map: green ring = new, grey dashed ring = closed.',cm_note:'Compares the mapped sites only, using developer and government target dates.',
- tip_now:'About {v} now',tip_real:'{v} now (reported)', c_infra:'Grid infrastructure',c_reg:'Regional carbon',tab_st:'Stories',
+ tip_now:'About {v} now',tip_real:'{v} now (reported)', c_infra:'Grid infrastructure',c_wsp:'Wind speed',wsp_h:'Wind speed',wsp_sub:'Modelled, at 100 m (turbine height)',wsp_u:'mph',wsp_under:'Under {v} mph',wsp_asof:'As of {t}. Arrows point where the wind is blowing to.',wsp_load:'Loading wind…',wsp_err:'Wind data isn’t available right now.',wsp_credit:'Wind data:',wsp_tip:'{v} mph ({ms} m/s) from the {d}',wsp_now:'Wind at the site: {v} mph ({ms} m/s)',wsp_from:'From the {d}, at 100 m height',wsp_model:'Modelled, not measured. Source: Open-Meteo',c_reg:'Regional carbon',tab_st:'Stories',
  lg_subs:'Substations',lg_lines:'Power lines',lg_wind:'Offshore wind areas',
  sub_t:'Substation',sub_meta:'{v} kV',sub_through:'Power from these mapped sites passes through here',sub_none:'None of the mapped routes pass through this substation.',sub_near:'Mapped sites within 15 km',
  src_h:'Sources and checks',src_curated:'Capacity and dates compiled for this map from public announcements; last checked September 2026.',
@@ -1902,7 +1913,7 @@ cy:{sp_h:'Cyflenwad trydan',sp_t:'Cynhyrchu ar y grid trawsyrru ynghyd â mewnfo
  st_op:'Yn gweithredu',st_con:'Wrthi’n cael ei adeiladu',st_dev:'Yn cael ei ddatblygu',st_closed:'Wedi cau',yes:'Ie',
  cm_h:'Cymharu dwy flynedd',cm_from:'O',cm_to:'i',cm_hl:'Amlygu newidiadau ar y map',cm_stop:'Peidio ag amlygu',cm_new:'Newydd erbyn {y}',cm_gone:'Wedi cau erbyn {y}',cm_none:'Dim',cm_change:'Newid',cm_total:'Cyfanswm',
  cm_key:'Ar y map: cylch gwyrdd = newydd, cylch llwyd toredig = wedi cau.',cm_note:'Yn cymharu’r safleoedd ar y map yn unig, gan ddefnyddio dyddiadau targed datblygwyr a’r llywodraeth.',
- tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i adrodd)', c_infra:'Seilwaith y grid',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
+ tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i adrodd)', c_infra:'Seilwaith y grid',c_wsp:'Cyflymder y gwynt',wsp_h:'Cyflymder y gwynt',wsp_sub:'Wedi’i fodelu, ar 100 m (uchder tyrbin)',wsp_u:'mya',wsp_under:'Llai na {v} mya',wsp_asof:'Ar {t}. Mae’r saethau’n pwyntio i ble mae’r gwynt yn chwythu.',wsp_load:'Wrthi’n llwytho’r gwynt…',wsp_err:'Dyw data’r gwynt ddim ar gael ar hyn o bryd.',wsp_credit:'Data’r gwynt:',wsp_tip:'{v} mya ({ms} m/e) o’r {d}',wsp_now:'Gwynt ar y safle: {v} mya ({ms} m/e)',wsp_from:'O’r {d}, ar uchder o 100 m',wsp_model:'Wedi’i fodelu, heb ei fesur. Ffynhonnell: Open-Meteo',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
  lg_subs:'Is-orsafoedd',lg_lines:'Llinellau pŵer',lg_wind:'Ardaloedd gwynt ar y môr',
  sub_t:'Is-orsaf',sub_meta:'{v} kV',sub_through:'Mae pŵer o’r safleoedd hyn ar y map yn mynd drwy’r fan hon',sub_none:'Nid oes yr un o’r llwybrau ar y map yn mynd drwy’r is-orsaf hon.',sub_near:'Safleoedd ar y map o fewn 15 km',
  src_h:'Ffynonellau a gwiriadau',src_curated:'Capasiti a dyddiadau wedi’u casglu ar gyfer y map hwn o gyhoeddiadau cyhoeddus; gwiriwyd ddiwethaf ym mis Medi 2026.',
@@ -2175,6 +2186,7 @@ const SRC = {
 const METHODS = [
  ['NESO Carbon Intensity API: national and regional mix, carbon intensity, import factors','https://carbonintensity.org.uk/'],
  ['Elexon Insights (BMRS): output per power station, interconnector flows, balancing actions, prices','https://bmrs.elexon.co.uk/'],
+ ['Open-Meteo.com: modelled wind speed and direction at 100 m, for the wind layer and wind farm pages (CC BY 4.0)','https://open-meteo.com/'],
  ['OpenStreetMap contributors, via Geofabrik (28 Sep 2026): power lines, substations, smaller sites, wind farm areas','https://www.openstreetmap.org/copyright'],
  ['NESO data portal: historic GB generation mix, half-hourly since 2009','https://www.neso.energy/data-portal/historic-generation-mix'],
  ['NESO data portal: GSP region boundaries (Feb 2026), grouped into the 14 regions','https://www.neso.energy/data-portal'],
@@ -2247,7 +2259,7 @@ function liveMW(d){ if(S.wk&&WK) return wkMW(d); const r=realMW(d); if(r!=null) 
 const liveNow = () => S.live && S.year===2026;
 
 /* ---------------- state + helpers ---------------- */
-const S = {year:2026, types:new Set(Object.keys(T)), future:true, grid:true, live:true, pyl:true, osm:true, sel:null, view:'overview', tab:'map', replayIdx:null, pc:null, infra:false, reg:true, cmpA:2026, cmpB:2035, cmp:false};
+const S = {wsp:false, year:2026, types:new Set(Object.keys(T)), future:true, grid:true, live:true, pyl:true, osm:true, sel:null, view:'overview', tab:'map', replayIdx:null, pc:null, infra:false, reg:true, cmpA:2026, cmpB:2035, cmp:false};
 const pc = k => Array.isArray(k) ? {c:k} : {n:pn(k), c:[P[k][1],P[k][2]], hub:!!P[k][3], k};
 const fmtMW = mw => mw>=1000 ? (mw/1000).toFixed(mw>=10000?0:1).replace(/\.0$/,'')+' GW' : Math.round(mw)+' MW';
 const fmtLive = mw => mw>=1000 ? fmtMW(Math.round(mw/10)*10) : (mw<20? Math.round(mw) : Math.round(mw/5)*5)+' MW';
@@ -2299,6 +2311,7 @@ const gPyl=svgBase.append('g').attr('class','pyl');
 const gOver=svg.append('g');
 const cv=document.getElementById('dots'), ctx=cv.getContext('2d'); let DPR=1, dotQT=null;
 const gReg=gOver.append('g');
+const gWsp=gOver.append('g').attr('class','wsp').attr('aria-hidden','true');
 const gLinks=gOver.append('g'), gLive=gOver.append('g'), gRoute=gOver.append('g'), gMarks=gOver.append('g'), gPc=gOver.append('g'), gLbl=gOver.append('g');
 let W=0,H=0,proj,zt=d3.zoomIdentity,zBase=d3.zoomIdentity;
 const ukBox={type:'MultiPoint',coordinates:[[-8.2,49.9],[1.9,60.9],[-8.2,60.9],[1.9,49.9]]};
@@ -2372,6 +2385,84 @@ const compact = d => zt.k<SMALLK && d.t!=='ic' && d.mw<(phoneW()?600:300) && S.s
 const mR = d => compact(d) ? (phoneW()?3.5:4) : markerR(d)*(phoneW()&&zt.k<SMALLK?.85:1);
 function osmR(d){ return d.mw? Math.max(2.6,Math.min(6,1.8+Math.sqrt(d.mw)/4)) : 2.6; }
 
+
+/* ======================= wind speed layer (Open-Meteo, modelled wind at 100 m, about turbine hub height) ======================= */
+const OM_URL='https://api.open-meteo.com/v1/forecast';
+const WSP_PTS=[[50.0,-5.5],[50.1,-3.6],[50.2,-1.6],[50.2,0.2],[51.0,-5.2],[51.1,-3.4],[51.1,-1.6],[51.2,0.2],[51.3,1.5],[52.0,-4.6],[52.0,-2.8],[52.0,-1.2],[52.1,0.3],[52.2,1.8],[53.0,-4.5],[53.0,-2.8],[53.0,-1.2],[53.1,0.3],[53.2,1.7],[54.0,-5.0],[54.0,-3.2],[54.0,-1.6],[54.1,0.0],[54.2,1.4],[55.0,-5.8],[55.0,-4.2],[55.0,-2.6],[55.0,-1.1],[55.1,0.5],[56.0,-6.2],[56.0,-4.4],[56.0,-2.8],[56.1,-1.2],[56.2,0.4],[57.0,-6.2],[57.0,-4.6],[57.0,-3.0],[57.1,-1.6],[57.2,0.0],[57.9,-6.9],[58.0,-5.0],[58.0,-3.5],[58.2,-1.9],[59.0,-3.1],[59.2,-1.0],[60.2,-1.3]];
+const WSP_COL=['#aab6bb','#7fcfcf','#2ca6a8','#0f6f9a','#2b3a8f'], WSP_CUT=[3,6,10,15];
+const wspCls = ms => WSP_CUT.filter(t=>ms>=t).length;
+const MPH = ms => ms*2.23694;
+const COMPASS={en:['north','north-east','east','south-east','south','south-west','west','north-west'],cy:['gogledd','gogledd-ddwyrain','dwyrain','de-ddwyrain','de','de-orllewin','gorllewin','gogledd-orllewin']};
+const compassOf = deg => COMPASS[LANG==='cy'?'cy':'en'][Math.round(((deg%360)+360)%360/45)%8];
+let WSP=null, WSP_AT=0, WSP_ST='', WSPH=null, WSPH_ST='';
+const omUrl=(pts,extra)=>`${OM_URL}?latitude=${pts.map(p=>p[0]).join(',')}&longitude=${pts.map(p=>p[1]).join(',')}&wind_speed_unit=ms&timezone=GMT&${extra}`;
+const omRows = j => Array.isArray(j)?j:(j&&typeof j==='object'?[j]:[]);
+function loadWsp(force){
+  if(!S.wsp||!location.protocol.startsWith('http')) return;
+  if(!force&&WSP&&Date.now()-WSP_AT<14*60000) return; WSP_AT=Date.now(); if(!WSP) WSP_ST='load';
+  getJSON(omUrl(WSP_PTS,'current=wind_speed_100m,wind_direction_100m'),15000).then(j=>{
+    const a=omRows(j); if(a.length!==WSP_PTS.length) throw new Error('rows');
+    const p=a.map((r,i)=>({c:WSP_PTS[i],v:r.current&&r.current.wind_speed_100m,d:r.current&&r.current.wind_direction_100m,t:r.current&&r.current.time})).filter(x=>x.v!=null&&x.d!=null&&isFinite(x.v)&&isFinite(x.d));
+    if(p.length<10) throw new Error('empty'); WSP={pts:p,at:Date.parse((p[0].t||'')+'Z')||Date.now()}; WSP_ST=''; render();
+  }).catch(()=>{ if(!WSP) WSP_ST='err'; render(); });
+}
+function loadWspHist(){
+  if(!S.wsp||WSPH||WSPH_ST==='load'||!location.protocol.startsWith('http')) return; WSPH_ST='load';
+  getJSON(omUrl(WSP_PTS,'hourly=wind_speed_100m,wind_direction_100m&past_hours=26&forecast_hours=1'),25000).then(j=>{
+    const a=omRows(j); if(a.length!==WSP_PTS.length||!a[0].hourly) throw new Error('rows');
+    const times=a[0].hourly.time.map(t=>Date.parse(t+'Z'));
+    WSPH={times,pts:a.map((r,i)=>({c:WSP_PTS[i],v:r.hourly.wind_speed_100m,d:r.hourly.wind_direction_100m}))}; WSPH_ST=''; if(S.replayIdx!=null) render();
+  }).catch(()=>{ WSPH_ST='err'; if(S.replayIdx!=null) render(); });
+}
+function wspNow(){   // {pts:[{c,v,d}], at, note} for the moment on screen, or null
+  if(S.replayIdx!=null&&LIVE.hist){
+    if(!WSPH) return null;
+    const t=Date.parse(curWhen()); let bi=-1, bd=1e12; WSPH.times.forEach((x,i)=>{ const d=Math.abs(x-t); if(d<bd){ bd=d; bi=i; } });
+    if(bi<0||bd>90*60000) return null;
+    return {at:WSPH.times[bi],pts:WSPH.pts.map(p=>({c:p.c,v:p.v[bi],d:p.d[bi]})).filter(p=>p.v!=null&&p.d!=null)};
+  }
+  return WSP;
+}
+function wspTitle(p){ return tr('wsp_tip',{v:Math.round(MPH(p.v)),ms:p.v.toFixed(1).replace(/\.0$/,''),d:compassOf(p.d)}); }
+function drawWsp(){
+  const lg=document.getElementById('wlegend'), on=!!S.wsp&&S.view!=='wales'||(!!S.wsp&&S.view==='wales');
+  gWsp.selectAll('*').remove();
+  if(lg){ lg.style.display=S.wsp?'block':'none'; }
+  if(!S.wsp){ if(lg) lg.innerHTML=''; return; }
+  const w=wspNow(), unit=tr('wsp_u');
+  let st='';
+  if(!w) st=(S.replayIdx!=null?(WSPH_ST==='err'?tr('wsp_err'):tr('wsp_load')):(WSP_ST==='err'?tr('wsp_err'):tr('wsp_load')));
+  else st=tr('wsp_asof',{t:fmtTime(new Date(w.at).toISOString())});
+  const rows=[0,1,2,3,4].map(i=>`<div><i style="background:${WSP_COL[i]}"></i>${i===0?tr('wsp_under',{v:Math.round(MPH(WSP_CUT[0]))}):i===4?Math.round(MPH(WSP_CUT[3]))+'+ '+unit:Math.round(MPH(WSP_CUT[i-1]))+'–'+Math.round(MPH(WSP_CUT[i]))+' '+unit}</div>`).join('');
+  if(lg) lg.innerHTML=`<b>${tr('wsp_h')}</b><small>${tr('wsp_sub')}</small>${rows}<small>${st}</small><small>${tr('wsp_credit')} <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a></small>`;
+  if(!w) return;
+  const lab=!(phoneW()&&zt.k<2);
+  w.pts.forEach(p=>{
+    const [x,y]=xy(p.c), c=WSP_COL[wspCls(p.v)], L=12+Math.min(p.v,20)*1.1, br=(p.d+180)%360;
+    const g=gWsp.append('g').attr('transform',`translate(${x},${y})`);
+    g.append('title').text(wspTitle(p));
+    g.append('path').attr('transform',`rotate(${br})`).attr('d',`M0,${L/2}L0,${-L/2}M-4.5,${-L/2+6.5}L0,${-L/2}L4.5,${-L/2+6.5}`).attr('fill','none').attr('stroke',c).attr('stroke-width',2.6).attr('stroke-linecap','round').attr('stroke-linejoin','round');
+    if(lab) g.append('text').attr('class','wspn').attr('y',L/2+12).attr('text-anchor','middle').text(Math.round(MPH(p.v)));
+  });
+}
+setInterval(()=>{ if(S.wsp&&document.visibilityState==='visible') loadWsp(); },5*60*1000);
+// wind at one site, for its panel
+const SWIND={};
+function loadSiteWind(d){
+  const c=SWIND[d.id]; if(c&&Date.now()-c.at<15*60000) return Promise.resolve(c);
+  return getJSON(omUrl([d.c],'current=wind_speed_100m,wind_direction_100m'),12000).then(j=>{
+    const r=omRows(j)[0], cu=r&&r.current; if(!cu||cu.wind_speed_100m==null||cu.wind_direction_100m==null) throw new Error('empty');
+    return SWIND[d.id]={at:Date.now(),v:cu.wind_speed_100m,d:cu.wind_direction_100m};
+  });
+}
+const siteWindOK = d => (d.t==='ow'||d.t==='nw')&&d.c&&active(d)&&liveNow()&&S.replayIdx==null&&location.protocol.startsWith('http');
+const siteWindSlot = d => siteWindOK(d)?'<div id="sitewind"></div>':'';
+function siteWindHTML(r){ return `<div class="livebox" style="--c:var(--ow)"><b>${tr('wsp_now',{v:Math.round(MPH(r.v)),ms:r.v.toFixed(1).replace(/\.0$/,'')})}</b><span>${tr('wsp_from',{d:compassOf(r.d)})}. ${tr('wsp_model')}</span></div>`; }
+function wireSiteWind(d){
+  if(!siteWindOK(d)) return;
+  loadSiteWind(d).then(r=>{ if(S.sel!==d.key) return; const el=document.getElementById('sitewind'); if(el) el.innerHTML=siteWindHTML(r); }).catch(()=>{ /* optional: without it the panel just has no wind line */ });
+}
+
 function render(){
   const vis=ALL.filter(visible);
   const sel=S.sel?byId[S.sel]:null;
@@ -2421,6 +2512,7 @@ function render(){
   mg.sort((a,b)=>b.mw-a.mw);
   if(sel&&!sel.osm&&!sel.sub&&!sel.region) mg.filter(d=>d===sel).raise();
   gReg.raise();
+  drawWsp();
   drawQueue(); drawH2();
   // live flows for everything
   const lf=[];
@@ -2577,6 +2669,7 @@ function panel(){
       : `<div class="stats"><div><b>${fmtMW(d.mw)}</b><span>${tr('cap')}</span></div><div><b>${twh.toFixed(1)} TWh</b><span>${tr('peryear')}</span></div><div><b>${share(twh)}</b><span>${tr('shareuk')}</span></div></div>`;
   }
   h+=liveBlock(d,c);
+  h+=siteWindSlot(d);
   h+=histBlock(d);
   h+=`<h3>${tr('where')}</h3><ol class="route" style="--c:${c}">`;
   if(d.t==='ic'&&d.dir!=='export') h+=`<li>${tr('gen_in',{n:country(d.country)})}<small>${f.main[0].n}</small></li>`;
@@ -2600,6 +2693,7 @@ function panel(){
   h+=`<p class="fine">${tr('pool')}</p>`;
   h+=sourcesBlock(d, g);
   $p.innerHTML=h; { const bk=document.getElementById('back'), rk=S.fromReg&&byId[S.fromReg]; if(rk){ bk.textContent=tr('reg_back',{r:nm(rk)}); bk.onclick=()=>{ const k=S.fromReg; S.fromReg=null; select(k); }; } else bk.onclick=()=>select(null); }
+  wireSiteWind(d);
   const chh=document.getElementById('chhist'); if(chh){ drawHist(chh,d); makeZoomable(chh,'hist'); }
 }
 function sourcesBlock(d,g){
@@ -3193,7 +3287,7 @@ function wirePanel(){
   const ca=document.getElementById('curtall'); if(ca) ca.onclick=()=>{ S.curtAll=!S.curtAll; const y=$p.scrollTop; panel(); $p.scrollTop=y; };
   $p.querySelectorAll('.sitelist button').forEach(b=>b.onclick=()=>select(b.dataset.k));
   const go=document.getElementById('pcgo'); if(go){ const inp=document.getElementById('pcin'); go.onclick=()=>checkPostcode(inp.value); inp.onkeydown=e=>{if(e.key==='Enter') checkPostcode(inp.value);}; }
-  const rs=document.getElementById('rslider'); if(rs){ rs.oninput=()=>{ S.playing=false; clearInterval(S.timer); S.replayIdx=+rs.value; if(S.replayIdx===LIVE.hist.length-1) S.replayIdx=null; else loadRegHist(); render(); refreshReplayText(); }; }
+  const rs=document.getElementById('rslider'); if(rs){ rs.oninput=()=>{ S.playing=false; clearInterval(S.timer); S.replayIdx=+rs.value; if(S.replayIdx===LIVE.hist.length-1) S.replayIdx=null; else { loadRegHist(); loadWspHist(); } render(); refreshReplayText(); }; }
   const rp=document.getElementById('rplay'); if(rp) rp.onclick=togglePlay;
   const rn=document.getElementById('rnow'); if(rn) rn.onclick=()=>{S.playing=false;clearInterval(S.timer);S.replayIdx=null;render();panel();};
 }
@@ -3205,7 +3299,7 @@ function refreshReplayText(){ // light update without rebuilding the slider mid-
 }
 function togglePlay(){
   if(S.playing){ S.playing=false; clearInterval(S.timer); panel(); return; }
-  S.playing=true; if(S.replayIdx==null) S.replayIdx=0; loadRegHist();
+  S.playing=true; if(S.replayIdx==null) S.replayIdx=0; loadRegHist(); loadWspHist();
   S.timer=setInterval(()=>{ S.replayIdx++; if(S.replayIdx>=LIVE.hist.length-1){ S.replayIdx=null; S.playing=false; clearInterval(S.timer); render(); panel(); return; }
     render(); const rs=document.getElementById('rslider'); if(rs) rs.value=S.replayIdx; refreshReplayText(); if(S.sel&&byId[S.sel]&&byId[S.sel].region){ const y=$p.scrollTop; panel(); $p.scrollTop=y; } }, 450);
   panel();
@@ -3337,12 +3431,12 @@ function buildChrome(){
   yr.setAttribute('aria-label',tr('year')); svg.attr('aria-label',tr('maplabel'));
   const groups={ovl:document.getElementById('lg-ovl'),gen:document.getElementById('lg-gen'),net:document.getElementById('lg-net')};
   Object.values(groups).forEach(g=>g.innerHTML='');
-  const tog=[['live','c_live','livechip','ovl'],['future','c_future','ring','ovl'],['reg','c_reg','dots','ovl'],...Object.keys(T).map(t=>[t,'t_'+t,'type',t==='ic'?'net':'gen']),['grid','c_grid','line','net'],['pyl','c_pyl','pyl','net'],['infra','c_infra','pyl','net'],['osm','c_osm','dots','gen']];
+  const tog=[['live','c_live','livechip','ovl'],['future','c_future','ring','ovl'],['reg','c_reg','dots','ovl'],['wsp','c_wsp','windchip','ovl'],...Object.keys(T).map(t=>[t,'t_'+t,'type',t==='ic'?'net':'gen']),['grid','c_grid','line','net'],['pyl','c_pyl','pyl','net'],['infra','c_infra','pyl','net'],['osm','c_osm','dots','gen']];
   tog.forEach(([k,lab,cls,grpn])=>{
     const b=document.createElement('button'); b.className='chip '+(cls==='type'?'':cls); b.dataset.k=k;
     const on = cls==='type'? S.types.has(k) : S[k]; b.setAttribute('aria-pressed',on);
     if(cls==='type'){ b.style.setProperty('--c',col(k)); b.innerHTML=`<span class="ib">${icon(k)}</span>${tr(lab)}`; } else b.innerHTML=`<i></i>${tr(lab)}`;
-    b.onclick=()=>{ if(cls==='type'){ S.types.has(k)?S.types.delete(k):S.types.add(k); b.setAttribute('aria-pressed',S.types.has(k)); } else { S[k]=!S[k]; b.setAttribute('aria-pressed',S[k]); } render(); panel(); };
+    b.onclick=()=>{ if(cls==='type'){ S.types.has(k)?S.types.delete(k):S.types.add(k); b.setAttribute('aria-pressed',S.types.has(k)); } else { S[k]=!S[k]; b.setAttribute('aria-pressed',S[k]); if(k==='wsp'&&S.wsp){ loadWsp(true); if(S.replayIdx!=null) loadWspHist(); } } render(); panel(); };
     groups[grpn].appendChild(b);
   });
   document.getElementById('ilegend').innerHTML=`<b>${tr('lg_subs')}</b><div><i class="s" style="background:#4f5bd5"></i>400 kV</div><div><i class="s" style="background:#d9453b;border-radius:50%"></i>275 kV</div><div><i class="s" style="background:#39a7d8;border-radius:50%"></i>220 kV</div><b>${tr('lg_lines')}</b><div><i class="l" style="border-color:#4f5bd5"></i>400 kV</div><div><i class="l" style="border-color:#d9453b"></i>275 kV</div><div><i class="l" style="border-color:#39a7d8"></i>220 kV</div><div><i class="d"></i>HVDC</div><div><i class="a"></i>${tr('lg_wind')}</div>`;
