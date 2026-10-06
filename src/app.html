@@ -835,7 +835,7 @@ en:{sp_h:'Electricity supply',sp_t:'Generation on the transmission grid plus imp
  change:'Change since 2026',new_:'New: {l}',closed_:'Closed: {l}',nochange:'No change among mapped sites.',
  intro:'Tap any site, interconnector or grid link to follow where its power goes. Dashed rings are projects still being built or planned, such as Wylfa and Hinkley Point C. Drag the year to see what comes on and what closes; live flows show only for today.',
  fine:'Shows the larger UK sites in detail, with smaller sites and pylon routes from OpenStreetMap. Capacities are rounded; future dates are developer or government targets as of September 2026 and often slip. Northern Ireland runs a separate grid shared with Ireland.',
- replay:'Replay the last 24 hours',play:'Play',pause:'Pause',nowbtn:'Back to now',replay_at:'Showing {when}',
+ reg_h_load:'Loading regional history…',reg_h_err:'Regional history isn’t available right now, so the regions are blank during the replay.',replay:'Replay the last 24 hours',play:'Play',pause:'Pause',nowbtn:'Back to now',replay_at:'Showing {when}',
  pc_h:'Check your area',pc_ph:'Postcode, e.g. LL77',pc_btn:'Check',pc_need:'Postcode lookup needs the hosted version of this map.',pc_bad:'Couldn\'t find that postcode. Try the first half, such as LL77.',
  pc_res:'{r}: {g} gCO₂/kWh right now ({idx}).',pc_best:'Cleanest time in the next 24 hours: {t} (about {g} gCO₂/kWh).',pc_near:'Nearest mapped sites',
  feeds:'Data sources',f_ok:'working',f_fail:'not reachable',f_na:'not tried',snapshot_pill:'Snapshot · {when}',live_pill:'Live · updated {t}',
@@ -1033,7 +1033,7 @@ cy:{sp_h:'Cyflenwad trydan',sp_t:'Cynhyrchu ar y grid trawsyrru ynghyd â mewnfo
  change:'Newid ers 2026',new_:'Newydd: {l}',closed_:'Wedi cau: {l}',nochange:'Dim newid ymhlith y safleoedd ar y map.',
  intro:'Tapiwch unrhyw safle, rhyng-gysylltydd neu gysylltiad grid i ddilyn i ble mae’r pŵer yn mynd. Prosiectau sy’n dal i gael eu hadeiladu neu eu cynllunio yw’r cylchoedd toredig, fel Wylfa a Hinkley Point C. Llusgwch y flwyddyn i weld beth sy’n agor a beth sy’n cau; dim ond ar gyfer heddiw y dangosir y llif byw.',
  fine:'Yn dangos prif safleoedd y DU yn fanwl, gyda safleoedd llai a llwybrau peilonau o OpenStreetMap. Mae’r capasiti wedi’i dalgrynnu; targedau datblygwyr neu’r llywodraeth ym mis Medi 2026 yw’r dyddiadau i ddod, ac maen nhw’n aml yn llithro. Mae gan Ogledd Iwerddon grid ar wahân a rennir ag Iwerddon.',
- replay:'Ailchwarae’r 24 awr diwethaf',play:'Chwarae',pause:'Oedi',nowbtn:'Yn ôl i nawr',replay_at:'Yn dangos {when}',
+ reg_h_load:'Wrthi’n llwytho hanes rhanbarthol…',reg_h_err:'Dyw hanes rhanbarthol ddim ar gael ar hyn o bryd, felly mae’r rhanbarthau’n wag yn ystod yr ailchwarae.',replay:'Ailchwarae’r 24 awr diwethaf',play:'Chwarae',pause:'Oedi',nowbtn:'Yn ôl i nawr',replay_at:'Yn dangos {when}',
  pc_h:'Gwirio’ch ardal',pc_ph:'Cod post, e.e. LL77',pc_btn:'Gwirio',pc_need:'Mae angen fersiwn gwe’r map hwn i chwilio am god post.',pc_bad:'Methu dod o hyd i’r cod post hwnnw. Rhowch gynnig ar yr hanner cyntaf, fel LL77.',
  pc_res:'{r}: {g} gCO₂/kWh ar hyn o bryd ({idx}).',pc_best:'Yr amser glanaf yn y 24 awr nesaf: {t} (tua {g} gCO₂/kWh).',pc_near:'Y safleoedd agosaf ar y map',
  feeds:'Ffynonellau data',f_ok:'yn gweithio',f_fail:'dim cysylltiad',f_na:'heb ei drio',snapshot_pill:'Ciplun · {when}',live_pill:'Byw · diweddarwyd {t}',
@@ -1642,7 +1642,12 @@ function replayBlock(){
   const n=LIVE.hist.length, i=S.replayIdx==null?n-1:S.replayIdx;
   return `<h3>${tr('replay')}</h3><div class="row"><button class="pbtn ghost" id="rplay">${S.playing?tr('pause'):tr('play')}</button>
   <input type="range" id="rslider" min="0" max="${n-1}" value="${i}" style="flex:1" aria-label="${tr('replay')}"></div>
-  <div class="meta">${S.replayIdx!=null?tr('replay_at',{when:fmtWhen(LIVE.hist[i].from)})+' · <button class="back" id="rnow" style="display:inline">'+tr('nowbtn')+'</button>':''}</div>`;
+  <div class="meta" id="rmeta">${replayMeta()}</div>`;
+}
+function replayMeta(){
+  if(S.replayIdx==null||!LIVE.hist||!LIVE.hist[S.replayIdx]) return '';
+  const st=REGHIST_ST==='load'?`<br>${tr('reg_h_load')}`:REGHIST_ST==='err'?`<br>${tr('reg_h_err')}`:'';
+  return tr('replay_at',{when:fmtWhen(LIVE.hist[S.replayIdx].from)})+' · <button class="back" id="rnow" style="display:inline">'+tr('nowbtn')+'</button>'+st;
 }
 function pcBlock(){
   let h=`<h3>${tr('pc_h')}</h3><div class="row"><input type="text" id="pcin" placeholder="${tr('pc_ph')}" autocomplete="postal-code" value="${S.pc&&S.pc.q?S.pc.q:''}"><button id="pcgo">${tr('pc_btn')}</button></div>`;
@@ -1712,14 +1717,14 @@ function overview(){
   if(liveNow()){
     const when=fmtWhen(curWhen());
     h+=`<h2>${LIVE.mode==='live'&&S.replayIdx==null?tr('live'):tr('snap')}</h2><div class="meta">${tr('gbelec',{when})}</div>${mixBlock(curMix())}`;
-    if(S.replayIdx==null) h+=demandBlock()+supplyBlock();
     h+=replayBlock();
-    if(location.protocol.startsWith('http')) h+=wkButton();
+    if(S.replayIdx==null) h+=demandBlock()+supplyBlock();
+    h+=whyNow();
     const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
     if(tc>5&&S.replayIdx==null){ const tp=LIVE.curtPay?Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0):0;
       h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(tc*0.394)})}</b><span>${tr('curt_s_all')}</span>${curtList()}</div>`; }
     h+=todayBox();
-    h+=whyNow();
+    if(location.protocol.startsWith('http')) h+=wkButton();
     h+=`<p class="fine">${tr('flows_note')}${LIVE.mode==='live'?'':' '+tr('snap_note')}</p>`;
   }
   h+=`<h2 style="margin-top:${liveNow()?'18px':'0'}">${y===2026?tr('mapped_today'):tr('mapped_y',{y})}</h2>
@@ -1741,7 +1746,31 @@ function overview(){
   h+=`<p class="fine">${tr('fine')}</p>`;
   $p.innerHTML=h; wirePanel(); wireTabs();
 }
-function regVal(id){ const s=LIVE.reg||REG_SNAP; const v=s.v[id]; return v==null?null:v; }
+let REGHIST=null, REGHIST_ST='';   // NESO regional carbon for the replayed day, fetched the first time someone replays
+function regSrc(){   // the regional figures for the moment on screen: live, or the replayed half hour
+  if(S.replayIdx==null||!LIVE.hist) return LIVE.reg||REG_SNAP;
+  if(!REGHIST) return null;
+  const t=Date.parse(curWhen()); let best=null, bd=1e12;
+  for(const [k,v] of REGHIST){ const d=Math.abs(k-t); if(d<bd){ bd=d; best=v; } }
+  return bd<=20*60000?best:null;
+}
+function regVal(id){ const s=regSrc(); if(!s) return null; const v=s.v[id]; return v==null?null:v; }
+function loadRegHist(){
+  if(REGHIST||REGHIST_ST==='load'||!LIVE.hist||LIVE.hist.length<3) return;
+  REGHIST_ST='load';
+  getJSON(`${CI}/regional/intensity/${LIVE.hist[0].from}/${LIVE.hist[LIVE.hist.length-1].from}`,25000).then(x=>{
+    const m=new Map();
+    arr(x).forEach(p=>{ const v={}, mx={}; (p.regions||[]).forEach(r=>{ if(r.regionid<=14&&r.intensity&&r.intensity.forecast!=null){ v[r.regionid]=r.intensity.forecast; if(r.generationmix) mx[r.regionid]=mixObj(r.generationmix); } });
+      const gbr=(p.regions||[]).find(r=>r.regionid===18), t=Date.parse(p.from);
+      if(!isNaN(t)&&Object.keys(v).length) m.set(t,{from:p.from,v,mix:mx,gb:gbr&&gbr.intensity?gbr.intensity.forecast:null}); });
+    if(m.size<3) throw new Error('empty'); REGHIST=m; REGHIST_ST=''; regReplayRefresh();
+  }).catch(()=>{ REGHIST_ST='err'; regReplayRefresh(); });
+}
+function regReplayRefresh(){
+  if(S.replayIdx==null) return; render();
+  const rm=document.getElementById('rmeta'); if(rm) refreshReplayText();
+  if(S.sel&&byId[S.sel]&&byId[S.sel].region){ const y=$p.scrollTop; panel(); $p.scrollTop=y; }
+}
 const REGFC={};
 async function loadRegionFc(id){
   const c=REGFC[id]; if(c&&Date.now()-c.at<30*60000) return c.s;
@@ -1809,7 +1838,8 @@ function regionLive(d,here){
   return h+`<p class="fine">${tr('reg_now_note')}</p>`;
 }
 function regionPanel(d){
-  const v=regVal(d.rid), idx=ciIndex(v), src=LIVE.reg||REG_SNAP;
+  if(S.replayIdx!=null){ loadRegHist(); if(regVal(d.rid)==null){ $p.innerHTML=`<button class="back" id="back">${tr('back')}</button><h2>${nm(d)}</h2><p class="meta">${tr(REGHIST_ST==='err'?'reg_h_err':'reg_h_load')}</p>`; document.getElementById('back').onclick=()=>select(null); return; } }
+  const v=regVal(d.rid), idx=ciIndex(v), src=regSrc()||LIVE.reg||REG_SNAP;
   const ranked=REG.map(r=>[r[0],regVal(r[0])]).filter(r=>r[1]!=null).sort((a,b)=>a[1]-b[1]);
   const rank=ranked.findIndex(r=>r[0]===d.rid)+1, hasGB=src.gb!=null, gb=hasGB?src.gb:Math.round(d3.mean(ranked,r=>r[1])), diff=Math.round(v-gb), sfx=hasGB?'_gb':'';
   let h=`<button class="back" id="back">${tr('back')}</button><div class="pill" style="--c:${CI_IDX_COL[idx]}">${tr('s_region')}</div>
@@ -1818,7 +1848,7 @@ function regionPanel(d){
   <div><span style="margin-top:0;font-weight:500;display:block">${diff===0?tr('reg_same'+sfx,{g:gb}):diff<0?tr('reg_lower'+sfx,{n:-diff,g:gb}):tr('reg_higher'+sfx,{n:diff,g:gb})}</span><span style="font-weight:500;display:block">${tr('reg_rank',{r:rank,n:ranked.length})}</span></div></div>@@BAL@@`;
   const mix=src.mix&&src.mix[d.rid];
   if(mix){ h+=`<h3>${tr('reg_mix')}</h3>${mixBlock(mix)}`; h+=carbonTable(d.rid,mix,v); }
-  h+=`<h3>${tr('reg_fc')}</h3><div class="chart" id="regfc"><p class="meta">…</p></div><p id="regbest"></p>`;
+  if(S.replayIdx==null) h+=`<h3>${tr('reg_fc')}</h3><div class="chart" id="regfc"><p class="meta">…</p></div><p id="regbest"></p>`;
   // mapped sites connected in the region (offshore sites count where they connect)
   const home=s=>{ let r=regionOf(s.c); if(r==null&&s.r&&s.r.length) r=regionOf(pc(s.r[0]).c); if(r==null&&s.h) r=regionOf(pc(s.h).c); return r; };
   const here=SITES.filter(s=>active(s)&&home(s)===d.rid).sort((a,b)=>b.mw-a.mw);
@@ -1831,7 +1861,7 @@ function regionPanel(d){
   $p.innerHTML=h; document.getElementById('back').onclick=()=>select(null); wirePanel();
   $p.querySelectorAll('.sitelist.live button').forEach(b=>b.onclick=()=>{ S.fromReg=d.key; S._regGo=b.dataset.k; select(b.dataset.k); });
   const ra=document.getElementById('regall'); if(ra) ra.onclick=()=>{ S.regAll=!S.regAll; const y=$p.scrollTop; regionPanel(d); $p.scrollTop=y; };
-  loadRegionFc(d.rid).then(s=>{ if(S.sel!==d.key) return; const el=document.getElementById('regfc'); el.innerHTML=''; drawRegionFc(el,s); makeZoomable(el,'regfc');
+  if(S.replayIdx==null) loadRegionFc(d.rid).then(s=>{ if(S.sel!==d.key) return; const el=document.getElementById('regfc'); el.innerHTML=''; drawRegionFc(el,s); makeZoomable(el,'regfc');
       const b=s.reduce((a,x)=>x.f<a.f?x:a); document.getElementById('regbest').innerHTML=`<b>${tr('ci_best',{t:fmtWhen(new Date(b.t).toISOString()),g:b.f})}</b>`; })
     .catch(()=>{ const el=document.getElementById('regfc'); if(el&&S.sel===d.key) el.innerHTML=`<p class="meta">${tr('reg_fc_need')}</p>`; });
 }
@@ -1878,7 +1908,7 @@ function storiesPanel(){
   const mx=Math.max(...rs.map(r=>r.v),200);
   h+=`<h3 style="margin-top:18px;font-size:1.05rem">${tr('st_reg_h')}</h3><p>${tr('st_reg_t')}</p>
   <div class="hbar">${rs.map(r=>`<span>${r.n}</span><div class="b" style="width:${Math.max(2,r.v/mx*100)}%;--c:${CI_IDX_COL[ciIndex(r.v)]}"></div><b>${r.v}</b>`).join('')}</div>
-  <p class="meta">${tr('st_reg_when',{when:fmtWhen((LIVE.reg||REG_SNAP).from)})} gCO₂/kWh</p>
+  <p class="meta">${tr('st_reg_when',{when:fmtWhen((regSrc()||LIVE.reg||REG_SNAP).from)})} gCO₂/kWh</p>
   <button class="pbtn ghost" id="regbtn">${S.reg?tr('st_reg_hide'):tr('st_reg_btn')}</button>`;
   h+=`<div class="story"><h3>${tr('st_h_h')}</h3><p>${tr('st_h_t')}</p><div class="chart" id="ch4"></div><p class="fine">${tr('st_h_note',{y:CI_YTD.y,to:fmtDate(CI_YTD.to)})}</p></div>`;
   h+=`<div class="story"><h3>${tr('cs_h')}</h3><p>${tr('cu_tz_t')}</p><button class="pbtn ghost" data-go="curtail" data-cu="costs">${tr('cu_tz_btn')}</button></div>`;
@@ -2160,19 +2190,21 @@ function wirePanel(){
   const ca=document.getElementById('curtall'); if(ca) ca.onclick=()=>{ S.curtAll=!S.curtAll; const y=$p.scrollTop; panel(); $p.scrollTop=y; };
   $p.querySelectorAll('.sitelist button').forEach(b=>b.onclick=()=>select(b.dataset.k));
   const go=document.getElementById('pcgo'); if(go){ const inp=document.getElementById('pcin'); go.onclick=()=>checkPostcode(inp.value); inp.onkeydown=e=>{if(e.key==='Enter') checkPostcode(inp.value);}; }
-  const rs=document.getElementById('rslider'); if(rs){ rs.oninput=()=>{ S.playing=false; clearInterval(S.timer); S.replayIdx=+rs.value; if(S.replayIdx===LIVE.hist.length-1) S.replayIdx=null; render(); refreshReplayText(); }; }
+  const rs=document.getElementById('rslider'); if(rs){ rs.oninput=()=>{ S.playing=false; clearInterval(S.timer); S.replayIdx=+rs.value; if(S.replayIdx===LIVE.hist.length-1) S.replayIdx=null; else loadRegHist(); render(); refreshReplayText(); }; }
   const rp=document.getElementById('rplay'); if(rp) rp.onclick=togglePlay;
   const rn=document.getElementById('rnow'); if(rn) rn.onclick=()=>{S.playing=false;clearInterval(S.timer);S.replayIdx=null;render();panel();};
 }
 function refreshReplayText(){ // light update without rebuilding the slider mid-drag
   const m=$p.querySelector('.meta'); if(m) m.textContent=tr('gbelec',{when:fmtWhen(curWhen())});
+  const rm=document.getElementById('rmeta'); if(rm){ rm.innerHTML=replayMeta(); const rn=document.getElementById('rnow'); if(rn) rn.onclick=()=>{S.playing=false;clearInterval(S.timer);S.replayIdx=null;render();panel();}; }
+  const wy=$p.querySelector('.why'); if(wy){ const tmp=document.createElement('div'); tmp.innerHTML=whyNow(); if(tmp.firstElementChild) wy.replaceWith(tmp.firstElementChild); }
   const bar=$p.querySelector('.bar'), leg=$p.querySelector('.legend'); if(bar&&leg){ const tmp=document.createElement('div'); tmp.innerHTML=mixBlock(curMix()); bar.replaceWith(tmp.children[0]); leg.replaceWith(tmp.children[0]); }
 }
 function togglePlay(){
   if(S.playing){ S.playing=false; clearInterval(S.timer); panel(); return; }
-  S.playing=true; if(S.replayIdx==null) S.replayIdx=0;
+  S.playing=true; if(S.replayIdx==null) S.replayIdx=0; loadRegHist();
   S.timer=setInterval(()=>{ S.replayIdx++; if(S.replayIdx>=LIVE.hist.length-1){ S.replayIdx=null; S.playing=false; clearInterval(S.timer); render(); panel(); return; }
-    render(); const rs=document.getElementById('rslider'); if(rs) rs.value=S.replayIdx; refreshReplayText(); }, 450);
+    render(); const rs=document.getElementById('rslider'); if(rs) rs.value=S.replayIdx; refreshReplayText(); if(S.sel&&byId[S.sel]&&byId[S.sel].region){ const y=$p.scrollTop; panel(); $p.scrollTop=y; } }, 450);
   panel();
 }
 
@@ -2408,7 +2440,7 @@ function pickAt(e,d){
   if(c.length<=1){ hideChooser(); select(d.key); return; }
   const ch=document.getElementById('chooser');
   ch.innerHTML=`<div class="ch">${tr('choose')}</div>`+c.slice(0,6).map(o=>{ const colr=o.region?CI_IDX_COL[ciIndex(regVal(o.rid))]:col(o.t);
-      const ic=o.region?regVal(o.rid):icon(o.t); const sub=o.region?tr('s_region'):tr('t_'+o.t)+(o.mw?' · '+fmtMW(o.mw):'');
+      const ic=o.region?(regVal(o.rid)??'–'):icon(o.t); const sub=o.region?tr('s_region'):tr('t_'+o.t)+(o.mw?' · '+fmtMW(o.mw):'');
       return `<button role="menuitem" data-k="${o.key}"><span class="ri" style="--c:${colr}">${ic}</span>${nm(o)}<small>${sub}</small></button>`; }).join('');
   ch.hidden=false;
   const w=ch.offsetWidth, h=ch.offsetHeight;
@@ -3715,7 +3747,7 @@ sIn.addEventListener('keydown',e=>{
 /* ---------- hover previews (mouse and trackpad only) ---------- */
 const tip=document.getElementById('tip'); const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;
 function tipHTML(d){
-  if(d.region){ const v=regVal(d.rid); return `<b>${nm(d)}</b><span>${tr('s_region')}</span><em>${v} gCO₂/kWh · ${tIdx(ciIndex(v))}</em>`; }
+  if(d.region){ const v=regVal(d.rid); return `<b>${nm(d)}</b><span>${tr('s_region')}</span>${v==null?'':`<em>${v} gCO₂/kWh · ${tIdx(ciIndex(v))}</em>`}`; }
   let s=`<b>${nm(d)}</b><span>${d.sub?tr('sub_t')+' · '+d.kv+' kV':tr('t_'+d.t)+(d.mw?' · '+fmtMW(d.mw):'')}${!d.osm&&!d.sub&&!active(d)&&!(d.off&&S.year>=d.off)?' · '+(d.st==='con'?tr('con'):tr('dev'))+' '+d.on:''}</span>`;
   if(liveNow()&&FUEL[d.t]&&(d.osm?d.mw:active(d))&&!d.ps){ const r=d.osm?null:realMW(d), mw=r!=null?r:(d.osm?d.mw*fleet(d.t):liveMW(d)); s+=`<em>${r!=null?tr('tip_real',{v:fmtLive(mw)}):tr('tip_now',{v:fmtLive(mw)})}</em>`; }
   return s;
