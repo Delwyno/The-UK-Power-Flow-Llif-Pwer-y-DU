@@ -2,6 +2,8 @@
 
 An interactive, bilingual (English and Welsh) map of Britain's electricity system. It shows where power is generated, the grid it travels along, where it is used, what flows in and out through interconnectors, and what is coming next.
 
+https://github.com/user-attachments/assets/30adca33-9180-4891-b90c-dbc80408e7ed
+
 The map is a single self-contained web page (`index.html`). The `src/`, `data/` and `tools/` folders are what `index.html` is built from, plus the scripts that keep its data fresh.
 
 ## What it shows
