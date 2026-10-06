@@ -1190,7 +1190,7 @@ const QUEUE = {before:722, pipeline:283, needLo:204, needHi:231, demand:99, src:
 const ICCODE = {INTFR:'ifa',INTIFA2:'ifa2',INTELEC:'eleclink',INTNED:'britned',INTNEM:'nemo',INTNSL:'nsl',INTVKL:'viking',INTIRL:'moyle',INTEW:'ewic',INTGRNL:'greenlink'};
 
 const ALL = [...SITES, ...LINKS, ...GRID];
-ALL.forEach(d=>{ d.key=d.id+'|'+d.t; d.w=WELSH.has(d.id); d.bmu=BMU[d.id]; });
+ALL.forEach(d=>{ d.key=d.id+'|'+d.t; d.w=WELSH.has(d.id); d.bmu=(d.t==='ic'||d.t==='grid')?undefined:BMU[d.id]; });   // ids are only unique within a type: Viking Link and the Viking wind farm share one
 const byId = Object.fromEntries(ALL.map(d=>[d.key,d]));
 const osmObj = (a,i)=>({key:'osm'+i,t:a[1],c:[a[2],a[3]],mw:a[4],w:!!a[5],op:a[6],nen:a[0],ncy:a[7],oid:a[8],osm:1,on:0});
 const subObj = (s,i)=>({key:'sub'+i,sub:1,t:'sub',nen:s[0],kv:s[1],c:[s[2],s[3]],op:s[4],oid:s[5],mw:0,on:0,osm:0});
@@ -1412,7 +1412,7 @@ function render(){
     g.on('click',(e,d)=>pickAt(e,d))
      .on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(d.key);}});
     return g;});
-  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+((S.wk&&WK)?(wkCut(d)>5?' curtailed':''):(liveNow()&&S.replayIdx==null&&LIVE.curt&&LIVE.curt[d.id]>5?' curtailed':'')))
+  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+((S.wk&&WK)?(wkCut(d)>5?' curtailed':''):(liveNow()&&S.replayIdx==null&&LIVE.curt&&(d.t==='ow'||d.t==='nw')&&LIVE.curt[d.id]>5?' curtailed':'')))
     .attr('aria-label',d=>nm(d)+', '+tr('t_'+d.t)+', '+fmtMW(d.mw))
     .style('--c',d=>col(d.t));
   mg.select('.dot').attr('fill',d=>col(d.t));
@@ -1544,7 +1544,7 @@ function liveBlock(d,c){
     return `<div class="livebox" style="--c:${c}"><b>${tr('ic_net',{v:((curMix().imports||0)/100*LIVE.demandGW).toFixed(1)+' GW'})}</b><span>${tr('ic_net_s',{when})}</span></div>`;
   }
   let h='';
-  const curt=(S.replayIdx==null&&LIVE.curt)?LIVE.curt[d.id]:0;
+  const curt=(S.replayIdx==null&&LIVE.curt&&(d.t==='ow'||d.t==='nw'))?LIVE.curt[d.id]:0;
   if(curt>5){ const pay=LIVE.curtPay&&LIVE.curtPay[d.id];
     h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(curt)})}</b>${pay?`<b class="paid">${tr('curt_pay',{p:fmtGBP(pay),b:Math.round(LIVE.curtBid[d.id])})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(curt*0.394)})}</b><span>${tr('curt_s')}${pay?' '+tr('curt_est'):''}</span></div>`; }
   const r=realMW(d);
@@ -3042,8 +3042,8 @@ function wkBuild(){
     for(let i=0;i<total;i++){ if(!isNaN(s.pn[i])) out[i]+=Math.max(0,s.pn[i]-s.cu[i]); if(wind) cut[i]+=s.cu[i]; } }
   return {t,st,out,cut,n:Object.keys(st).length};
 }
-const wkMW = d => { const s=WK&&WK.st[d.id]; if(!s) return 0; const p=s.pn[S.wk.i]; return isNaN(p)?0:Math.max(0,p-s.cu[S.wk.i]); };
-const wkCut = d => { const s=WK&&WK.st[d.id]; return s?s.cu[S.wk.i]:0; };
+const wkMW = d => { const s=WK&&d.t!=='ic'&&d.t!=='grid'&&WK.st[d.id]; if(!s) return 0; const p=s.pn[S.wk.i]; return isNaN(p)?0:Math.max(0,p-s.cu[S.wk.i]); };
+const wkCut = d => { const s=WK&&d.t!=='ic'&&d.t!=='grid'&&WK.st[d.id]; return s?s.cu[S.wk.i]:0; };
 function wkStart(){
   gcEvent('replay-week','Replay the last 7 days');
   if(!need(['sta','cur'],wkStart)) { toast(tr('sh_loading')); return; }
