@@ -1720,9 +1720,7 @@ function overview(){
     h+=replayBlock();
     if(S.replayIdx==null) h+=demandBlock()+supplyBlock();
     h+=whyNow();
-    const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
-    if(tc>5&&S.replayIdx==null){ const tp=LIVE.curtPay?Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0):0;
-      h+=`<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(tc*0.394)})}</b><span>${tr('curt_s_all')}</span>${curtList()}</div>`; }
+    h+=liveCurtBox();
     h+=todayBox();
     if(location.protocol.startsWith('http')) h+=wkButton();
     h+=`<p class="fine">${tr('flows_note')}${LIVE.mode==='live'?'':' '+tr('snap_note')}</p>`;
@@ -1888,7 +1886,7 @@ function curtailPanel(){
   const liveLine=`<p><b>${tc==null?tr('st_c_need'):tc>5?tr('st_c_live',{v:fmtLive(tc)}):tr('st_c_none')}</b>${tc>5&&LIVE.curtPay&&Object.keys(LIVE.curtPay).length?' '+tr('curt_tot_pay',{p:fmtGBP(Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0))}):''}</p>`;
   let h=tabs()+`<h2>${tr('cu_h')}</h2><p>${tr('cu_t')}</p><div class="seg" role="tablist" aria-label="${tr('tab_cu')}" style="grid-template-columns:repeat(3,1fr)">${[['farms','cu_s_farms'],['costs','cu_s_costs'],['why','cu_s_why']].map(([k,l])=>`<button role="tab" data-cu="${k}" aria-selected="${S.cu===k}">${tr(l)}</button>`).join('')}</div>`;
   if(S.cu==='costs') h+=liveLine+costBlock();
-  else if(S.cu==='farms') h+=curtTrack()+(location.protocol.startsWith('http')?wkButton():'')+(haveCur?pricesBlock()+officialBlock():'');
+  else if(S.cu==='farms') h+=liveCurtBox()+todayBox()+(location.protocol.startsWith('http')?wkButton():'')+curtTrack()+(haveCur?pricesBlock()+officialBlock():'');
   else h+=`<div class="story"><h3>${tr('st_c_h')}</h3><p>${tr('st_c_t')}</p>
   <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>£380m</b><span>${tr('st_c_wind')}</span></div><div><b>£1.08bn</b><span>${tr('st_c_gas')}</span></div></div>
   <div class="cibig" style="grid-template-columns:1fr 1fr"><div><b>10.2 TWh</b><span>${tr('st_c_twh')}</span></div><div><b>≈4.0 Mt</b><span>${tr('st_c_co2')}</span></div></div>
@@ -2173,6 +2171,12 @@ function siteRegion(s){ if(s.id in SITE_REG) return SITE_REG[s.id];
   let r=regionOf(s.c); if(r==null&&s.r&&s.r.length) r=regionOf(pc(s.r[0]).c); if(r==null&&s.h) r=regionOf(pc(s.h).c);
   return SITE_REG[s.id]=r; }
 const regName = id => { const r=REG.find(x=>x[0]===id); return r?(LANG==='cy'?r[2]:r[1]):tr('curt_offsh'); };
+function liveCurtBox(){   // the red "being turned down right now" box, used on the map tab and in Curtailment > Wind farms
+  const tc=LIVE.curt?Object.values(LIVE.curt).reduce((a,b)=>a+(b>5?b:0),0):0;
+  if(!(tc>5&&S.replayIdx==null)) return '';
+  const tp=LIVE.curtPay?Object.values(LIVE.curtPay).reduce((a,b)=>a+b,0):0;
+  return `<div class="livebox warn"><b>${tr('curt_b',{v:fmtLive(tc)})}</b>${tp?`<b class="paid">${tr('curt_tot_pay',{p:fmtGBP(tp)})}</b>`:''}<b class="paid">${tr('curt_co2',{t:fmtN(tc*0.394)})}</b><span>${tr('curt_s_all')}</span>${curtList()}</div>`;
+}
 function curtList(){
   const rows=SITES.filter(s=>LIVE.curt[s.id]>5).map(s=>({s,mw:LIVE.curt[s.id],pay:(LIVE.curtPay&&LIVE.curtPay[s.id])||0,r:siteRegion(s)})).sort((a,b)=>b.mw-a.mw);
   if(!rows.length) return '';
@@ -3474,7 +3478,7 @@ function drawHist(el,d,o={}){
 /* ======================= curtailment tracker (Stories) ======================= */
 function curtTrack(){
   if(!need(['cur'],()=>{ if(S.tab==='curtail'&&!S.sel) rerender(); })) return `<p class="meta">${tr('sh_loading')}</p>`;
-  const J=HIST.cur; if(!J||!J.days||!J.days.length) return `<h4>${tr('ct_h',{n:7})}</h4><p class="meta">${tr(location.protocol.startsWith('http')?'ct_none':'sh_offline')}</p>`;
+  const J=HIST.cur; if(!J||!J.days||!J.days.length) return `<h3 class="cth">${tr('ct_h',{n:7})}</h3><p class="meta">${tr(location.protocol.startsWith('http')?'ct_none':'sh_offline')}</p>`;
   const last=J.days.slice(-30), mwh=d3.sum(last,x=>x.mwh), gbp=d3.sum(last,x=>x.gbp);
   const farms={}; last.forEach(x=>{ for(const k in (x.s||{})){ const f=farms[k]||(farms[k]=[0,0,0]); f[0]+=x.s[k][0]; f[1]+=x.s[k][1]; f[2]++; } });
   const top=Object.entries(farms).map(([k,v])=>({s:SITES.find(z=>z.id===k),v})).filter(e=>e.s).sort((a,b)=>b.v[0]-a.v[0]).slice(0,8);
