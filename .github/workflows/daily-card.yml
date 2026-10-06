@@ -1,0 +1,97 @@
+# Daily card: yesterday on Britain's grid, as ready-to-post images and text in English and Welsh.
+# Each morning it works out the whole of yesterday (wind turned down, gas turned up, carbon intensity, generation mix),
+# draws four cards (landscape and portrait, English and Welsh) and the words to post with them, then
+#   * publishes them to a separate branch called daily-card, which is overwritten every time, so the web
+#     addresses below never change and the main branch history stays clean:
+#       https://raw.githubusercontent.com/<owner>/<repo>/daily-card/card-en-landscape.png   (and -portrait, and -cy-)
+#       https://raw.githubusercontent.com/<owner>/<repo>/daily-card/post-en.txt             (and post-cy.txt)
+#   * keeps a dated copy as a downloadable artifact for 14 days
+#   * shows the cards and the post text in the run's summary page, ready to copy.
+# Nothing is posted anywhere automatically: you choose what to share.
+name: Daily card
+
+on:
+  schedule:
+    - cron: "47 5 * * *"      # about 06:47 UK time; GitHub can run scheduled jobs late, see "Reliable scheduling" in the README
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "UK date to make the card for (YYYY-MM-DD). Leave empty for yesterday."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-card
+  cancel-in-progress: false
+
+jobs:
+  card:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the browser tooling (uses the Chrome already on the runner)
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: |
+          pip install playwright
+          if ! command -v google-chrome >/dev/null 2>&1; then python -m playwright install --with-deps chromium; fi
+
+      - name: Make the cards
+        env:
+          CARD_DATE: ${{ inputs.date }}
+        run: |
+          set -e
+          ARGS=""
+          if [ -n "$CARD_DATE" ]; then
+            case "$CARD_DATE" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ARGS="--date $CARD_DATE";; *) echo "Date must look like 2026-10-05"; exit 1;; esac
+          fi
+          python3 tools/daily_card.py --out "$RUNNER_TEMP/card" $ARGS
+          if grep -q '"costs": null' "$RUNNER_TEMP/card/card-data.json"; then
+            echo "::warning::Elexon's cost figures were not available, so the cards show carbon and the generation mix only. Run it again later to include them."
+          fi
+
+      - name: Keep a dated copy (14 days)
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-card
+          path: ${{ runner.temp }}/card
+          retention-days: 14
+
+      - name: Publish to the daily-card branch
+        run: |
+          set -e
+          mkdir "$RUNNER_TEMP/pub"
+          cp "$RUNNER_TEMP"/card/card-*.png "$RUNNER_TEMP"/card/post-*.txt "$RUNNER_TEMP"/card/card-data.json "$RUNNER_TEMP/pub/"
+          cd "$RUNNER_TEMP/pub"
+          D=$(python3 -c "import json;print(json.load(open('card-data.json'))['date'])")
+          git init -q -b daily-card
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -q -m "Daily card for $D"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:daily-card
+
+      - name: Show the cards and the post text in the run summary
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          card = Path(os.environ["RUNNER_TEMP"]) / "card"
+          raw = "https://raw.githubusercontent.com/${{ github.repository }}/daily-card"
+          out = ["## Daily card\n", "Right-click an image to save it, or copy the text below. Nothing has been posted.\n"]
+          for lang, name in (("en", "English"), ("cy", "Cymraeg")):
+              out.append(f"### {name}\n")
+              out.append(f"![{name} card]({raw}/card-{lang}-landscape.png)\n")
+              out.append(f"Landscape: {raw}/card-{lang}-landscape.png  \nPortrait: {raw}/card-{lang}-portrait.png\n")
+              out.append("```text\n" + (card / f"post-{lang}.txt").read_text(encoding="utf-8").strip() + "\n```\n")
+          Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text("\n".join(out), encoding="utf-8")
+          PY
