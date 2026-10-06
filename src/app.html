@@ -214,7 +214,7 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .wlegend a{color:inherit}
 #windtint,#windcv{position:absolute;left:0;top:0;pointer-events:none;display:none}
 #windcv{width:100%;height:100%}
-#windtint{opacity:.5;transition:opacity .2s}
+#windtint{opacity:.42;transition:opacity .2s}
 .moving #windtint,.moving #windcv{opacity:0}
 .wlegend .wspbtn{margin-top:6px;font:600 .72rem "Barlow",sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:6px;padding:3px 8px;cursor:pointer}
 .wlegend .wspbtn:hover{background:var(--soft,rgba(0,0,0,.05))}
@@ -913,7 +913,7 @@ en:{sp_h:'Electricity supply',sp_t:'Generation on the transmission grid plus imp
  st_op:'Operating',st_con:'Under construction',st_dev:'In development',st_closed:'Closed',yes:'Yes',
  cm_h:'Compare two years',cm_from:'From',cm_to:'to',cm_hl:'Highlight changes on the map',cm_stop:'Stop highlighting',cm_new:'New by {y}',cm_gone:'Closed by {y}',cm_none:'None',cm_change:'Change',cm_total:'Total',
  cm_key:'On the map: green ring = new, grey dashed ring = closed.',cm_note:'Compares the mapped sites only, using developer and government target dates.',
- tip_now:'About {v} now',tip_real:'{v} now (reported)', c_infra:'Grid infrastructure',c_wsp:'Wind speed',wsp_h:'Wind speed',wsp_sub:'Modelled, at 100 m (turbine height)',wsp_u:'mph',wsp_under:'Under {v} mph',wsp_asof:'As of {t}. Arrows point where the wind is blowing to.',wsp_asof2:'As of {t}. The moving streaks show where the wind is blowing to.',wsp_pause:'Pause animation',wsp_play:'Play animation',wsp_load:'Loading wind…',wsp_err:'Wind data isn’t available right now.',wsp_credit:'Wind data:',wsp_tip:'{v} mph ({ms} m/s) from the {d}',wsp_now:'Wind at the site: {v} mph ({ms} m/s)',wsp_from:'From the {d}, at 100 m height',wsp_model:'Modelled, not measured. Source: Open-Meteo',c_reg:'Regional carbon',tab_st:'Stories',
+ tip_now:'About {v} now',tip_real:'{v} now (reported)', c_infra:'Grid infrastructure',c_wsp:'Wind speed',wsp_h:'Wind speed',wsp_sub:'Modelled, at 100 m (turbine height)',wsp_u:'mph',wsp_under:'Under {v} mph',wsp_asof:'As of {t}. Each label shows the speed (mph) and which way the wind is blowing. Shown at sea and on the coast.',wsp_asof2:'As of {t}. The streaks move the way the wind is blowing. Shown at sea and on the coast.',wsp_pause:'Stop animation',wsp_play:'Animate the wind',wsp_load:'Loading wind…',wsp_err:'Wind data isn’t available right now.',wsp_credit:'Wind data:',wsp_tip:'{v} mph ({ms} m/s) from the {d}',wsp_now:'Wind at the site: {v} mph ({ms} m/s)',wsp_from:'From the {d}, at 100 m height',wsp_model:'Modelled, not measured. Source: Open-Meteo',c_reg:'Regional carbon',tab_st:'Stories',
  lg_subs:'Substations',lg_lines:'Power lines',lg_wind:'Offshore wind areas',
  sub_t:'Substation',sub_meta:'{v} kV',sub_through:'Power from these mapped sites passes through here',sub_none:'None of the mapped routes pass through this substation.',sub_near:'Mapped sites within 15 km',
  src_h:'Sources and checks',src_curated:'Capacity and dates compiled for this map from public announcements; last checked September 2026.',
@@ -1111,7 +1111,7 @@ cy:{sp_h:'Cyflenwad trydan',sp_t:'Cynhyrchu ar y grid trawsyrru ynghyd â mewnfo
  st_op:'Yn gweithredu',st_con:'Wrthi’n cael ei adeiladu',st_dev:'Yn cael ei ddatblygu',st_closed:'Wedi cau',yes:'Ie',
  cm_h:'Cymharu dwy flynedd',cm_from:'O',cm_to:'i',cm_hl:'Amlygu newidiadau ar y map',cm_stop:'Peidio ag amlygu',cm_new:'Newydd erbyn {y}',cm_gone:'Wedi cau erbyn {y}',cm_none:'Dim',cm_change:'Newid',cm_total:'Cyfanswm',
  cm_key:'Ar y map: cylch gwyrdd = newydd, cylch llwyd toredig = wedi cau.',cm_note:'Yn cymharu’r safleoedd ar y map yn unig, gan ddefnyddio dyddiadau targed datblygwyr a’r llywodraeth.',
- tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i adrodd)', c_infra:'Seilwaith y grid',c_wsp:'Cyflymder y gwynt',wsp_h:'Cyflymder y gwynt',wsp_sub:'Wedi’i fodelu, ar 100 m (uchder tyrbin)',wsp_u:'mya',wsp_under:'Llai na {v} mya',wsp_asof:'Ar {t}. Mae’r saethau’n pwyntio i ble mae’r gwynt yn chwythu.',wsp_asof2:'Ar {t}. Mae’r llinellau symudol yn dangos i ble mae’r gwynt yn chwythu.',wsp_pause:'Oedi’r animeiddio',wsp_play:'Chwarae’r animeiddio',wsp_load:'Wrthi’n llwytho’r gwynt…',wsp_err:'Dyw data’r gwynt ddim ar gael ar hyn o bryd.',wsp_credit:'Data’r gwynt:',wsp_tip:'{v} mya ({ms} m/e) o’r {d}',wsp_now:'Gwynt ar y safle: {v} mya ({ms} m/e)',wsp_from:'O’r {d}, ar uchder o 100 m',wsp_model:'Wedi’i fodelu, heb ei fesur. Ffynhonnell: Open-Meteo',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
+ tip_now:'Tua {v} nawr',tip_real:'{v} nawr (wedi’i adrodd)', c_infra:'Seilwaith y grid',c_wsp:'Cyflymder y gwynt',wsp_h:'Cyflymder y gwynt',wsp_sub:'Wedi’i fodelu, ar 100 m (uchder tyrbin)',wsp_u:'mya',wsp_under:'Llai na {v} mya',wsp_asof:'Ar {t}. Mae pob label yn dangos y cyflymder (mya) a’r cyfeiriad y mae’r gwynt yn chwythu iddo. Dim ond ar y môr ac ar yr arfordir.',wsp_asof2:'Ar {t}. Mae’r llinellau’n symud i’r un cyfeiriad â’r gwynt. Dim ond ar y môr ac ar yr arfordir.',wsp_pause:'Stopio’r animeiddio',wsp_play:'Animeiddio’r gwynt',wsp_load:'Wrthi’n llwytho’r gwynt…',wsp_err:'Dyw data’r gwynt ddim ar gael ar hyn o bryd.',wsp_credit:'Data’r gwynt:',wsp_tip:'{v} mya ({ms} m/e) o’r {d}',wsp_now:'Gwynt ar y safle: {v} mya ({ms} m/e)',wsp_from:'O’r {d}, ar uchder o 100 m',wsp_model:'Wedi’i fodelu, heb ei fesur. Ffynhonnell: Open-Meteo',c_reg:'Carbon rhanbarthol',tab_st:'Straeon',
  lg_subs:'Is-orsafoedd',lg_lines:'Llinellau pŵer',lg_wind:'Ardaloedd gwynt ar y môr',
  sub_t:'Is-orsaf',sub_meta:'{v} kV',sub_through:'Mae pŵer o’r safleoedd hyn ar y map yn mynd drwy’r fan hon',sub_none:'Nid oes yr un o’r llwybrau ar y map yn mynd drwy’r is-orsaf hon.',sub_near:'Safleoedd ar y map o fewn 15 km',
  src_h:'Ffynonellau a gwiriadau',src_curated:'Capasiti a dyddiadau wedi’u casglu ar gyfer y map hwn o gyhoeddiadau cyhoeddus; gwiriwyd ddiwethaf ym mis Medi 2026.',
@@ -1339,7 +1339,7 @@ const zoom=d3.zoom().scaleExtent([.45,40])
   .on('zoom',e=>{ zt=e.transform; gLand.attr('transform',zt); gPyl.attr('transform',zt); gWind.attr('transform',zt); gRegA.attr('transform',zt); drawDots();
     const s=zt.k/zBase.k; gOver.attr('transform',`translate(${zt.x-s*zBase.x},${zt.y-s*zBase.y}) scale(${s})`); })
   .on('end',()=>{ document.querySelector('.mapwrap').classList.remove('moving'); settle(); });
-function settle(){ gOver.attr('transform',null); zBase=zt; if(zb(zt.k)!==zbNow){ zbNow=zb(zt.k); render(); } else position(); drawDots(); }
+function settle(){ gOver.attr('transform',null); zBase=zt; if(typeof S!=='undefined'&&S.wsp&&typeof drawWsp==='function') drawWsp(); if(zb(zt.k)!==zbNow){ zbNow=zb(zt.k); render(); } else position(); drawDots(); }
 svg.call(zoom).on('dblclick.zoom',null);
 svg.on('click',e=>{ if(e.target!==node) return;
   const [x,y]=d3.pointer(e,node); const h=dotQT&&dotQT.find(x,y,9);
@@ -1405,23 +1405,29 @@ const MPH = ms => ms*2.23694;
 const COMPASS={en:['north','north-east','east','south-east','south','south-west','west','north-west'],cy:['gogledd','gogledd-ddwyrain','dwyrain','de-ddwyrain','de','de-orllewin','gorllewin','gogledd-orllewin']};
 const compassOf = deg => COMPASS[LANG==='cy'?'cy':'en'][Math.round(((deg%360)+360)%360/45)%8];
 let WSP=null, WSP_AT=0, WSP_ST='', WSPH=null, WSPH_ST='';
+let WSP_FARMS=null;
+const wspFarms = () => WSP_FARMS||(WSP_FARMS=ALL.filter(d=>d.t==='ow'&&!d.osm&&d.c&&activeAt(d,2026)).sort((a,b)=>(b.mw||0)-(a.mw||0)));
+const wspAllPts = () => WSP_PTS.concat(wspFarms().map(d=>d.c));
 const omUrl=(pts,extra)=>`${OM_URL}?latitude=${pts.map(p=>p[0]).join(',')}&longitude=${pts.map(p=>p[1]).join(',')}&wind_speed_unit=ms&timezone=GMT&${extra}`;
 const omRows = j => Array.isArray(j)?j:(j&&typeof j==='object'?[j]:[]);
 function loadWsp(force){
   if(!S.wsp||!location.protocol.startsWith('http')) return;
   if(!force&&WSP&&Date.now()-WSP_AT<14*60000) return; WSP_AT=Date.now(); if(!WSP) WSP_ST='load';
-  getJSON(omUrl(WSP_PTS,'current=wind_speed_100m,wind_direction_100m'),15000).then(j=>{
-    const a=omRows(j); if(a.length!==WSP_PTS.length) throw new Error('rows');
-    const p=a.map((r,i)=>({c:WSP_PTS[i],v:r.current&&r.current.wind_speed_100m,d:r.current&&r.current.wind_direction_100m,t:r.current&&r.current.time})).filter(x=>x.v!=null&&x.d!=null&&isFinite(x.v)&&isFinite(x.d));
-    if(p.length<10) throw new Error('empty'); WSP={pts:p,at:Date.parse((p[0].t||'')+'Z')||Date.now()}; WSP_ST=''; render();
+  const AP=wspAllPts(), n0=WSP_PTS.length;
+  getJSON(omUrl(AP,'current=wind_speed_100m,wind_direction_100m'),15000).then(j=>{
+    const a=omRows(j); if(a.length!==AP.length) throw new Error('rows');
+    const all=a.map((r,i)=>({c:AP[i],v:r.current&&r.current.wind_speed_100m,d:r.current&&r.current.wind_direction_100m,t:r.current&&r.current.time,site:i>=n0?wspFarms()[i-n0]:null})).filter(x=>x.v!=null&&x.d!=null&&isFinite(x.v)&&isFinite(x.d));
+    const p=all.filter(x=>!x.site), f=all.filter(x=>x.site);
+    if(p.length<10) throw new Error('empty'); WSP={pts:p,farms:f,at:Date.parse((p[0].t||'')+'Z')||Date.now()}; WSP_ST=''; render();
   }).catch(()=>{ if(!WSP) WSP_ST='err'; render(); });
 }
 function loadWspHist(){
   if(!S.wsp||WSPH||WSPH_ST==='load'||!location.protocol.startsWith('http')) return; WSPH_ST='load';
-  getJSON(omUrl(WSP_PTS,'hourly=wind_speed_100m,wind_direction_100m&past_hours=26&forecast_hours=1'),25000).then(j=>{
-    const a=omRows(j); if(a.length!==WSP_PTS.length||!a[0].hourly) throw new Error('rows');
+  const AP=wspAllPts(), n0=WSP_PTS.length;
+  getJSON(omUrl(AP,'hourly=wind_speed_100m,wind_direction_100m&past_hours=26&forecast_hours=1'),25000).then(j=>{
+    const a=omRows(j); if(a.length!==AP.length||!a[0].hourly) throw new Error('rows');
     const times=a[0].hourly.time.map(t=>Date.parse(t+'Z'));
-    WSPH={times,pts:a.map((r,i)=>({c:WSP_PTS[i],v:r.hourly.wind_speed_100m,d:r.hourly.wind_direction_100m}))}; WSPH_ST=''; if(S.replayIdx!=null) render();
+    WSPH={times,pts:a.map((r,i)=>({c:AP[i],site:i>=n0?wspFarms()[i-n0]:null,v:r.hourly.wind_speed_100m,d:r.hourly.wind_direction_100m}))}; WSPH_ST=''; if(S.replayIdx!=null) render();
   }).catch(()=>{ WSPH_ST='err'; if(S.replayIdx!=null) render(); });
 }
 function wspNow(){   // {pts:[{c,v,d}], at, note} for the moment on screen, or null
@@ -1429,7 +1435,8 @@ function wspNow(){   // {pts:[{c,v,d}], at, note} for the moment on screen, or n
     if(!WSPH) return null;
     const t=Date.parse(curWhen()); let bi=-1, bd=1e12; WSPH.times.forEach((x,i)=>{ const d=Math.abs(x-t); if(d<bd){ bd=d; bi=i; } });
     if(bi<0||bd>90*60000) return null;
-    return {at:WSPH.times[bi],pts:WSPH.pts.map(p=>({c:p.c,v:p.v[bi],d:p.d[bi]})).filter(p=>p.v!=null&&p.d!=null)};
+    const all=WSPH.pts.map(p=>({c:p.c,site:p.site,v:p.v[bi],d:p.d[bi]})).filter(p=>p.v!=null&&p.d!=null);
+    return {at:WSPH.times[bi],pts:all.filter(p=>!p.site),farms:all.filter(p=>p.site)};
   }
   return WSP;
 }
@@ -1437,7 +1444,7 @@ function wspTitle(p){ return tr('wsp_tip',{v:Math.round(MPH(p.v)),ms:p.v.toFixed
 
 /* ---- animated wind: moving streaks over a soft colour field, built from the sample points ---- */
 const REDUCED = !!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
-const wspAnimOn = () => !!S.wsp && S.wspAnim!==false && !REDUCED;
+const wspAnimOn = () => !!S.wsp && S.wspAnim===true && !REDUCED;
 const WSPA_AN=[1.5,4.5,8,12.5,17];
 const WSPA_RGB=WSP_COL.map(h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)));
 function wspRGB(ms){
@@ -1450,10 +1457,26 @@ function wspAnimSync(w){
   WA.data=w||null;
   WA.cv=WA.cv||document.getElementById('windcv'); WA.tn=WA.tn||document.getElementById('windtint');
   if(!WA.cv||!WA.tn) return;
-  const on=wspAnimOn()&&!!w;
-  WA.cv.style.display=WA.tn.style.display=on?'block':'none';
+  const on=wspAnimOn()&&!!w, tint=!!S.wsp&&!!w;
+  WA.cv.style.display=on?'block':'none'; WA.tn.style.display=tint?'block':'none';
+  if(tint) wspRefresh(w);
   if(on){ if(!WA.raf){ WA.last=0; WA.raf=requestAnimationFrame(wspFrame); } }
-  else { if(WA.raf){ cancelAnimationFrame(WA.raf); WA.raf=0; } WA.key=''; }
+  else { if(WA.raf){ cancelAnimationFrame(WA.raf); WA.raf=0; } }
+}
+function wspRefresh(w){
+  if(!W||!w) return false;
+  const key=[W,H,zt.k.toFixed(4),zt.x.toFixed(1),zt.y.toFixed(1),w.at,w.pts.length,w.pts[0].v,S.view].join();
+  if(key===WA.key) return false;
+  WA.key=key; wspBuildField(w); WA.fresh=true; return true;
+}
+function wspLand(){   // 0 = sea, 1 = land, per grid cell, from the map's own land shapes
+  const gw=WA.gw, gh=WA.gh, cell=WA.cell, mk=document.createElement('canvas'); mk.width=gw; mk.height=gh;
+  const mc=mk.getContext('2d'); mc.setTransform(zt.k/cell,0,0,zt.k/cell,zt.x/cell,zt.y/cell); mc.fillStyle='#000'; mc.beginPath(); d3.geoPath(proj,mc)({type:'FeatureCollection',features:GEO.features}); mc.fill();
+  const px=mc.getImageData(0,0,gw,gh).data, L=new Uint8Array(gw*gh); for(let k=0;k<gw*gh;k++) L[k]=px[k*4+3]>127?1:0;
+  const D=new Float32Array(gw*gh).fill(1e3); for(let k=0;k<gw*gh;k++) if(!L[k]) D[k]=0;
+  for(let j=0;j<gh;j++) for(let i=0;i<gw;i++){ const k=j*gw+i; let d=D[k]; if(i>0) d=Math.min(d,D[k-1]+1); if(j>0){ d=Math.min(d,D[k-gw]+1); if(i>0) d=Math.min(d,D[k-gw-1]+1.414); if(i<gw-1) d=Math.min(d,D[k-gw+1]+1.414); } D[k]=d; }
+  for(let j=gh-1;j>=0;j--) for(let i=gw-1;i>=0;i--){ const k=j*gw+i; let d=D[k]; if(i<gw-1) d=Math.min(d,D[k+1]+1); if(j<gh-1){ d=Math.min(d,D[k+gw]+1); if(i<gw-1) d=Math.min(d,D[k+gw+1]+1.414); if(i>0) d=Math.min(d,D[k+gw-1]+1.414); } D[k]=d; }
+  return D;
 }
 function wspBuildField(w){
   const cell=phoneW()?20:16, gw=Math.ceil(W/cell)+1, gh=Math.ceil(H/cell)+1;
@@ -1462,10 +1485,11 @@ function wspBuildField(w){
   const a0=xy([51,0]), b0=xy([52,0]), ppd=Math.hypot(a0[0]-b0[0],a0[1]-b0[1])||40, eps=(ppd*.2)**2;
   const tn=WA.tn; tn.width=gw; tn.height=gh; tn.style.width=gw*cell+'px'; tn.style.height=gh*cell+'px';
   WA.tx=WA.tx||tn.getContext('2d'); const img=WA.tx.createImageData(gw,gh);
+  const LD=wspLand(), band=Math.max(28,ppd*.6)/cell; WA.land=new Float32Array(gw*gh);
   for(let j=0;j<gh;j++) for(let i=0;i<gw;i++){
     const cx=i*cell+cell/2, cy=j*cell+cell/2; let sw=0,su=0,sv=0,ss=0,dm=1e12;
     for(const p of P){ const dx=cx-p.x, dy=cy-p.y, d2=dx*dx+dy*dy; if(d2<dm) dm=d2; const wt=1/Math.pow(d2+eps,1.25); sw+=wt; su+=wt*p.u; sv+=wt*p.v; ss+=wt*p.s; }
-    const sp=ss/sw, h=Math.hypot(su,sv)||1, k=j*gw+i, al=Math.max(0,Math.min(1,(4.6-Math.sqrt(dm)/ppd)/1.6));
+    const sp=ss/sw, h=Math.hypot(su,sv)||1, k=j*gw+i, lf=Math.max(0,1-LD[k]/band); WA.land[k]=lf; const al=lf*Math.max(0,Math.min(1,(4.6-Math.sqrt(dm)/ppd)/1.6));
     WA.u[k]=su/h*sp; WA.v[k]=sv/h*sp; WA.a[k]=al;
     const c=wspRGB(sp); img.data[k*4]=c[0]; img.data[k*4+1]=c[1]; img.data[k*4+2]=c[2]; img.data[k*4+3]=al*255;
   }
@@ -1488,11 +1512,12 @@ function wspFrame(ts){
   const w=WA.data; if(!w||!wspAnimOn()||!W) return;
   if(document.querySelector('.mapwrap').classList.contains('moving')) return;
   const dpr=Math.min(DPR,2), cv=WA.cv;
-  if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(H*dpr)){ cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); WA.dpr=dpr; WA.key=''; }
-  const key=[W,H,zt.k.toFixed(4),zt.x.toFixed(1),zt.y.toFixed(1),w.at,w.pts.length,w.pts[0].v,S.view].join();
+  if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(H*dpr)){ cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); WA.dpr=dpr; WA.fresh=true; }
   WA.cx=WA.cx||cv.getContext('2d'); const cx=WA.cx;
-  if(key!==WA.key){
-    WA.key=key; wspBuildField(w); cx.setTransform(dpr,0,0,dpr,0,0); cx.clearRect(0,0,W,H);
+  if(WA.dpr!==dpr){ WA.dpr=dpr; WA.fresh=true; }
+  wspRefresh(w);
+  if(WA.fresh){
+    WA.fresh=false; cx.setTransform(dpr,0,0,dpr,0,0); cx.clearRect(0,0,W,H);
     const n=Math.min(2800,Math.round(W*H/(phoneW()?900:520)));
     WA.parts=Array.from({length:n},()=>{ const p={}; wspSpawn(p,true); return p; });
   }
@@ -1529,13 +1554,26 @@ function drawWsp(){
   if(lg) lg.innerHTML=`<b>${tr('wsp_h')}</b><small>${tr('wsp_sub')}</small>${rows}<small>${st}</small><small>${tr('wsp_credit')} <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a></small>${REDUCED?'':`<button type="button" class="wspbtn" id="wspanim">${tr(anim?'wsp_pause':'wsp_play')}</button>`}`;
   const pb=document.getElementById('wspanim'); if(pb) pb.onclick=()=>{ S.wspAnim=!anim; drawWsp(); const b=document.getElementById('wspanim'); if(b) b.focus(); };
   if(!w) return;
-  const lab=!(phoneW()&&zt.k<2);
-  w.pts.forEach(p=>{
-    const [x,y]=xy(p.c), c=WSP_COL[wspCls(p.v)], L=12+Math.min(p.v,20)*1.1, br=(p.d+180)%360;
-    const g=gWsp.append('g').attr('transform',`translate(${x},${y})`);
-    g.append('title').text(wspTitle(p));
-    if(!anim) g.append('path').attr('transform',`rotate(${br})`).attr('d',`M0,${L/2}L0,${-L/2}M-4.5,${-L/2+6.5}L0,${-L/2}L4.5,${-L/2+6.5}`).attr('fill','none').attr('stroke',c).attr('stroke-width',2.6).attr('stroke-linecap','round').attr('stroke-linejoin','round');
-    if(lab) g.append('text').attr('class','wspn').attr('y',anim?4:L/2+12).attr('text-anchor','middle').text(Math.round(MPH(p.v)));
+  wspRefresh(w);
+  const cand=[], fl=(w.farms||[]);
+  fl.forEach(p=>cand.push({p,site:p.site}));
+  const landAt=(x,y)=>{ if(!WA.land) return 1; const i=Math.max(0,Math.min(WA.gw-1,Math.round((x-WA.cell/2)/WA.cell))), j=Math.max(0,Math.min(WA.gh-1,Math.round((y-WA.cell/2)/WA.cell))); return WA.land[j*WA.gw+i]; };
+  w.pts.forEach(p=>cand.push({p,site:null}));
+  const kept=[], gap=phoneW()?58:50;
+  cand.forEach(o=>{
+    const [x,y]=xy(o.p.c); if(x<10||y<10||x>W-10||y>H-10) return;
+    if(!o.site&&landAt(x,y)<.45) return;                       // inland: leave bare
+    if(kept.some(k=>Math.abs(k.x-x)<gap&&Math.abs(k.y-y)<26)) return;
+    kept.push({x,y,o});
+  });
+  kept.forEach(({x,y,o})=>{
+    const p=o.p, c=WSP_COL[wspCls(p.v)], dark=wspCls(p.v)>=3, tc=dark?'#1b2a30':'#fff', br=(p.d+180)%360;
+    const g=gWsp.append('g').attr('transform',`translate(${x},${y})`).attr('role','img').attr('aria-label',(o.site?nm(o.site)+': ':'')+wspTitle(p));
+    g.append('title').text((o.site?nm(o.site)+' · ':'')+wspTitle(p));
+    g.append('rect').attr('x',-21).attr('y',-9.5).attr('width',42).attr('height',19).attr('rx',9.5).attr('fill',c).attr('stroke','#fff').attr('stroke-width',1.4).attr('opacity',.96);
+    g.append('text').attr('x',-6).attr('y',4).attr('text-anchor','middle').attr('fill',tc).attr('font-family','Barlow,sans-serif').attr('font-weight',700).attr('font-size',11.5).text(Math.round(MPH(p.v)));
+    g.append('path').attr('transform',`translate(12,0) rotate(${br})`).attr('d','M0,5.2L0,-5.2M-3.4,-1.8L0,-5.4L3.4,-1.8').attr('fill','none').attr('stroke',tc).attr('stroke-width',1.9).attr('stroke-linecap','round').attr('stroke-linejoin','round');
+    if(o.site) g.style('cursor','pointer').on('click',()=>select(o.site.key));
   });
 }
 setInterval(()=>{ if(S.wsp&&document.visibilityState==='visible') loadWsp(); },5*60*1000);
