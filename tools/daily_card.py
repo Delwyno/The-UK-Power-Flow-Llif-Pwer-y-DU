@@ -712,9 +712,9 @@ STAR = '<svg width="{n}" height="{n}" viewBox="0 0 24 24" fill="#e0a800" aria-hi
 def supply_svg(view, ci_series, day, w, h, T):
     """Generation by fuel (stacked), demand (dashed line) and a carbon-intensity ribbon underneath, all against UK clock time."""
     sup, dem = view["sup"], view["dem"]
-    ml, mr, mt, mb, rb = 40, 6, 22, 22, 16
+    ml, mr, mt, mb, rb = 46, 6, 22, 22, 16
     tot = [sum(r["g"].values()) for r in sup]
-    top = 10 * -(-max(max(tot), max(d["w"] for d in dem)) / 1000 * 1.06 // 10)
+    top = 5 * -(-max(max(tot), max(d["w"] for d in dem)) / 1000 * 1.02 // 5)
     iw, ih = w - ml - mr, h - mt - mb - rb - 8
     X = lambda x: ml + iw * x / 24
     Y = lambda gw: mt + ih - gw / top * ih
@@ -742,19 +742,22 @@ def supply_svg(view, ci_series, day, w, h, T):
             s.append(f'<rect x="{x0:.1f}" y="{Y(base + v):.1f}" width="{bw:.1f}" height="{max(0.0, Y(base) - Y(base + v)):.1f}" fill="{FUEL_COL[k]}"/>')
             base += v
     pts = " ".join(f"{X(d['x'] + .25):.1f},{Y(d['w'] / 1000):.1f}" for d in dem)
-    s.append(f'<polyline points="{pts}" fill="none" stroke="#fff" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>'
-             f'<polyline points="{pts}" fill="none" stroke="#1b282e" stroke-width="3.5" stroke-dasharray="8 5" stroke-linejoin="round"/>')
-    for pick, name, dy in ((max, T["dem_pk"], -14), (min, T["dem_lo"], -16)):
+    s.append(f'<polyline points="{pts}" fill="none" stroke="#1b282e" stroke-width="2.2" stroke-dasharray="7 4" stroke-linejoin="round"/>')
+    for pick, name in ((max, T["dem_pk"]), (min, T["dem_lo"])):
         d = pick(dem, key=lambda q: q["w"])
         px, py = X(d["x"] + .25), Y(d["w"] / 1000)
-        anchor = "start" if px < ml + iw * .18 else "end" if px > ml + iw * .82 else "middle"
-        s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="5.5" fill="#fff" stroke="#1b282e" stroke-width="3"/>'
-                 f'<text x="{px:.1f}" y="{py + dy:.1f}" text-anchor="{anchor}" font-size="15" font-weight="700" fill="#1b282e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">{html.escape(name)} {d["w"] / 1000:.1f} GW</text>')
+        if pick is max:
+            right = px < ml + iw * .35
+            tx, ty, anchor = (px + 12, py + 5, "start") if right else (px - 12, py + 5, "end")
+        else:
+            tx, ty, anchor = px, py - 30, "start" if px < ml + iw * .18 else "end" if px > ml + iw * .82 else "middle"
+        s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="4.5" fill="#fff" stroke="#1b282e" stroke-width="2.5"/>'
+                 f'<text x="{tx:.1f}" y="{ty:.1f}" text-anchor="{anchor}" font-size="15" font-weight="700" fill="#1b282e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">{html.escape(name)} {d["w"] / 1000:.1f} GW</text>')
     ry = mt + ih + 8
     for c in ci_series:
         x = uk_hours(c["from"], day)
         s.append(f'<rect x="{X(x):.1f}" y="{ry}" width="{iw / 48 + .4:.1f}" height="{rb}" fill="{IDX_COL[ci_index(c["v"])]}"/>')
-    s.append(f'<text x="0" y="{ry + rb - 3}" text-anchor="start" font-size="11" font-weight="600" fill="#5a6b71">{html.escape(T["carbon_lbl"])}</text>')
+    s.append(f'<text x="0" y="{ry + rb - 3}" text-anchor="start" font-size="10" font-weight="600" fill="#5a6b71">{html.escape(T["carbon_lbl"])}</text>')
     for hh in (0, 6, 12, 18, 24):
         s.append(f'<text x="{X(hh):.1f}" y="{h - 4}" text-anchor="{"start" if hh == 0 else "end" if hh == 24 else "middle"}" font-size="14" fill="#5a6b71">{hh:02d}:00</text>')
     s.append("</svg>")
