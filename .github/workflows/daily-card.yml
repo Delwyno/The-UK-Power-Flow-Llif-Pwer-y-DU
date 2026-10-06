@@ -7,16 +7,25 @@
 #       https://raw.githubusercontent.com/<owner>/<repo>/daily-card/post-en.txt             (and post-cy.txt)
 #   * keeps a dated copy as a downloadable artifact for 14 days
 #   * shows the cards and the post text in the run's summary page, ready to copy.
+# On Mondays it also makes a card for the whole of the previous week (Monday to Sunday), in the same four versions:
+#       .../card-week-en-landscape.png   (and -portrait, and -cy-)     .../post-week-en.txt   (and post-week-cy.txt)
+# The daily and weekly files sit side by side on the branch; each run only replaces its own.
 # Nothing is posted anywhere automatically: you choose what to share.
 name: Daily card
 
 on:
   schedule:
-    - cron: "47 5 * * *"      # about 06:47 UK time; GitHub can run scheduled jobs late, see "Reliable scheduling" in the README
+    - cron: "47 5 * * *"      # the daily card, about 06:47 UK time; GitHub can run scheduled jobs late
+    - cron: "17 6 * * 1"      # the weekly card, Mondays about 07:17 UK time
   workflow_dispatch:
     inputs:
+      kind:
+        description: "Which card to make"
+        type: choice
+        options: [day, week]
+        default: day
       date:
-        description: "UK date to make the card for (YYYY-MM-DD). Leave empty for yesterday."
+        description: "UK date to make the card for (YYYY-MM-DD); for a week card, the Sunday it ends on (any other date uses the Sunday before it). Leave empty for yesterday."
         required: false
         default: ""
 
@@ -48,37 +57,49 @@ jobs:
       - name: Make the cards
         env:
           CARD_DATE: ${{ inputs.date }}
+          CARD_KIND: ${{ inputs.kind }}
+          CARD_SCHEDULE: ${{ github.event.schedule }}
         run: |
           set -e
+          KIND=day
+          if [ "$CARD_KIND" = "week" ] || [ "$CARD_SCHEDULE" = "17 6 * * 1" ]; then KIND=week; fi
+          echo "KIND=$KIND" >> "$GITHUB_ENV"
           ARGS=""
+          if [ "$KIND" = "week" ]; then ARGS="--week"; fi
           if [ -n "$CARD_DATE" ]; then
-            case "$CARD_DATE" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ARGS="--date $CARD_DATE";; *) echo "Date must look like 2026-10-05"; exit 1;; esac
+            case "$CARD_DATE" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ARGS="$ARGS --date $CARD_DATE";; *) echo "Date must look like 2026-10-05"; exit 1;; esac
           fi
           python3 tools/daily_card.py --out "$RUNNER_TEMP/card" $ARGS
-          if grep -q '"costs": null' "$RUNNER_TEMP/card/card-data.json"; then
+          F=card-data.json; if [ "$KIND" = "week" ]; then F=week-data.json; fi
+          if grep -q '"costs": null' "$RUNNER_TEMP/card/$F"; then
             echo "::warning::Elexon's cost figures were not available, so the cards show carbon and the generation mix only. Run it again later to include them."
           fi
 
       - name: Keep a dated copy (14 days)
         uses: actions/upload-artifact@v4
         with:
-          name: daily-card
+          name: card-${{ env.KIND }}
           path: ${{ runner.temp }}/card
           retention-days: 14
 
       - name: Publish to the daily-card branch
         run: |
           set -e
+          URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
           mkdir "$RUNNER_TEMP/pub"
-          cp "$RUNNER_TEMP"/card/card-*.png "$RUNNER_TEMP"/card/post-*.txt "$RUNNER_TEMP"/card/card-data.json "$RUNNER_TEMP/pub/"
+          # keep the other kind of card (daily files stay when a weekly card is made, and the other way round)
+          if git clone -q --depth 1 -b daily-card "$URL" "$RUNNER_TEMP/old" 2>/dev/null; then
+            find "$RUNNER_TEMP/old" -maxdepth 1 -type f \( -name '*.png' -o -name '*.txt' -o -name '*.json' \) -exec cp {} "$RUNNER_TEMP/pub/" \;
+          fi
+          cp "$RUNNER_TEMP"/card/*.png "$RUNNER_TEMP"/card/*.txt "$RUNNER_TEMP"/card/*.json "$RUNNER_TEMP/pub/"
           cd "$RUNNER_TEMP/pub"
-          D=$(python3 -c "import json;print(json.load(open('card-data.json'))['date'])")
+          D=$(python3 -c "import json,os;f='week-data.json' if os.environ['KIND']=='week' else 'card-data.json';d=json.load(open(os.path.join(os.environ['RUNNER_TEMP'],'card',f)));print(d.get('last') or d['date'])")
           git init -q -b daily-card
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -q -m "Daily card for $D"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:daily-card
+          git commit -q -m "Card ($KIND) for $D"
+          git push -q -f "$URL" HEAD:daily-card
 
       - name: Show the cards and the post text in the run summary
         run: |
@@ -87,11 +108,13 @@ jobs:
           from pathlib import Path
           card = Path(os.environ["RUNNER_TEMP"]) / "card"
           raw = "https://raw.githubusercontent.com/${{ github.repository }}/daily-card"
-          out = ["## Daily card\n", "Right-click an image to save it, or copy the text below. Nothing has been posted.\n"]
+          wk = os.environ.get("KIND") == "week"
+          pre, post = ("card-week", "post-week") if wk else ("card", "post")
+          out = ["## " + ("Weekly card" if wk else "Daily card") + "\n", "Right-click an image to save it, or copy the text below. Nothing has been posted.\n"]
           for lang, name in (("en", "English"), ("cy", "Cymraeg")):
               out.append(f"### {name}\n")
-              out.append(f"![{name} card]({raw}/card-{lang}-landscape.png)\n")
-              out.append(f"Landscape: {raw}/card-{lang}-landscape.png  \nPortrait: {raw}/card-{lang}-portrait.png\n")
-              out.append("```text\n" + (card / f"post-{lang}.txt").read_text(encoding="utf-8").strip() + "\n```\n")
+              out.append(f"![{name} card]({raw}/{pre}-{lang}-landscape.png)\n")
+              out.append(f"Landscape: {raw}/{pre}-{lang}-landscape.png  \nPortrait: {raw}/{pre}-{lang}-portrait.png\n")
+              out.append("```text\n" + (card / f"{post}-{lang}.txt").read_text(encoding="utf-8").strip() + "\n```\n")
           Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text("\n".join(out), encoding="utf-8")
           PY
