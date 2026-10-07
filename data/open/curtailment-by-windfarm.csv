@@ -82,3 +82,7 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-05,Seagreen,seagreen,part,19789,268729,13.58
 2026-10-05,Whitelee,whitelee,ro,583,52453,89.97
 2026-10-05,Hornsea Two,hornsea2,cfd,1763,38786,22.0
+2026-10-06,Beatrice,beatrice,ic,10,53,5.3
+2026-10-06,Seagreen,seagreen,part,1,17,17.0
+2026-10-06,Moray East,morayeast,cfd,4144,0,0.0
+2026-10-06,Moray West,moraywest,part,2221,25203,11.35
