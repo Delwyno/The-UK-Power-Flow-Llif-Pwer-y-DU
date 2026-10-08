@@ -29,7 +29,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --sea:#cbdadf; --land:#e4e8e3; --land-uk:#fbfcfa; --coast:#98acb3;
+  --sea:#d5e1e5; --land:#eceee9; --land-uk:#fbfcfa; --coast:#aebfc5;
   --ink:#1b282e; --muted:#5a6b71; --panel:#ffffff; --rule:#d6dee1; --soft:#eef2f3;
   --grid:#52636a; --hub:#1b282e; --pyl:#8d9ba0; --warn:#d6333a;
   --ow:#0f8b8d; --nw:#5b9a2e; --nu:#7a4fd1; --gas:#d2692a; --bio:#9a7b2c; --hy:#2f6fd0; --so:#d9a100; --ti:#0aa4c4; --bat:#607482; --ic:#c23b77;
@@ -187,7 +187,7 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .lf.still{animation:none;stroke-dasharray:none;opacity:.45}
 .mk.compact .ico{display:none}
 #map:active{cursor:grabbing}
-.land path{fill:var(--land);stroke:var(--coast);stroke-width:.6;vector-effect:non-scaling-stroke}
+.land path{fill:var(--land);stroke:var(--coast);stroke-width:.5;vector-effect:non-scaling-stroke}
 .land path.uk{fill:var(--land-uk)}
 .pyl path{fill:none;stroke:var(--pyl);vector-effect:non-scaling-stroke;stroke-linejoin:round}
 .pyl path.v400{stroke-width:1.1}
@@ -215,7 +215,7 @@ table.sites .ti svg{width:14px;height:14px;color:var(--c)}
 .rg:focus-visible .regdot{stroke:var(--ic);stroke-width:3}
 .rega path.on{fill-opacity:.55;stroke:var(--ink);stroke-width:2}
 .rega path.off{fill-opacity:.12}
-.rega path{fill-opacity:.38;stroke:var(--panel);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.rega path{fill-opacity:.32;stroke:var(--panel);stroke-width:1.2;vector-effect:non-scaling-stroke}
 .regtxt{font:700 11px "Barlow Semi Condensed",sans-serif;fill:#fff;pointer-events:none;text-anchor:middle}
 .srcs{list-style:none;padding:0;margin:4px 0;font-size:.85rem}
 .srcs li{padding:3px 0;border-bottom:1px solid var(--rule);line-height:1.4}
@@ -499,6 +499,18 @@ h3{font-size:.95rem;font-weight:600;margin:16px 0 4px}
   .pills.insheet .cipill{flex:1;min-width:0;box-shadow:none;border-radius:12px}
   .sheet[data-state="peek"] .coach.insheet{display:none}
 }
+
+/* national-zoom calm: lighter lines, smaller regional bubbles, grouped small sites */
+.far .link.ic{opacity:.42;stroke-width:.9}
+.far .link.grid{opacity:.4;stroke-width:1.3}
+.far .link.fut{opacity:.28}
+.far .lf{opacity:.55}
+.far .rega path{fill-opacity:.27}
+.far .regdot{stroke-width:1.2}
+.far .rg{opacity:.92}
+.mk .cnt{font:700 10px "Barlow Semi Condensed",sans-serif;fill:#fff;text-anchor:middle;pointer-events:none;display:none}
+.mk.grp .cnt{display:block}
+.mk.grp .dot{stroke-width:2}
 @media (prefers-reduced-transparency:reduce){ .ctl button,.ctl .tbtn{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--panel)} }
 @media (min-width:900px), (min-width:700px) and (orientation:landscape){
   .stage{flex-direction:row}
@@ -1354,7 +1366,7 @@ const P0 = c => proj([c[1],c[0]]);
 const phoneW = () => W<600;
 const OSMK=4, SMALLK=1.8;
 const zb = k => [1.25,1.6,SMALLK,OSMK].filter(v=>k>=v).length;
-const discR = () => phoneW() ? (zt.k<1.6?6:12) : (zt.k<1.25?11:13);
+const discR = () => phoneW() ? (zt.k<1.6?6:12) : (zt.k<1.25?9:zt.k<SMALLK?10.5:13);
 let zbNow=0;
 const zoom=d3.zoom().scaleExtent([.45,40])
   .on('start',()=>{ document.querySelector('.mapwrap').classList.add('moving'); if(typeof hideTip==='function') hideTip(); })
@@ -1413,8 +1425,21 @@ function setup(){
   render();
 }
 function markerR(d){ return d.t==='ic'?8:Math.max(7.5,3.4+Math.sqrt(d.mw)/6); }
-const compact = d => zt.k<SMALLK && d.t!=='ic' && d.mw<(phoneW()?600:300) && S.sel!==d.key;
-const mR = d => compact(d) ? (phoneW()?3.5:4) : markerR(d)*(phoneW()&&zt.k<SMALLK?.85:1);
+const compact = d => zt.k<SMALLK && d.t!=='ic' && d.mw<(phoneW()?(zt.k<1.25?900:600):(zt.k<1.25?500:300)) && S.sel!==d.key;
+const mR = d => compact(d) ? (d._n>1 ? 8 : (phoneW()?3.5:4)) : (zt.k<SMALLK && d.t!=='ic' && d.mw ? Math.max(6.5,Math.min(12,5+Math.sqrt(d.mw)/9)) : markerR(d))*(phoneW()&&zt.k<SMALLK?.85:1);
+// group small neighbouring sites of the same kind into one marker while zoomed out
+function groupFar(list){
+  list.forEach(d=>{ d._n=0; });
+  if(zt.k>=SMALLK||S.cmp) return list;
+  const cell=[34,26,18][Math.min(zb(zt.k),2)], best=new Map(), cnt=new Map();
+  list.forEach(d=>{ if(!compact(d)||d.key===S.sel) return; const p=xy(d.c), k=d.t+'|'+Math.floor(p[0]/cell)+','+Math.floor(p[1]/cell);
+    cnt.set(k,(cnt.get(k)||0)+1); const b=best.get(k); if(!b||(d.mw||0)>(b.mw||0)) best.set(k,d); d._k=k; });
+  const keep=new Set(best.values());
+  best.forEach((d,k)=>{ d._n=cnt.get(k); });
+  return list.filter(d=>!compact(d)||d.key===S.sel||keep.has(d));
+}
+function zoomInto(c){ const q=P0(c), k=Math.min(zt.k*2.2,SMALLK+.35);
+  svg.transition().duration(450).call(zoom.transform,d3.zoomIdentity.translate(W/2,visH()/2).scale(k).translate(-q[0],-q[1])); }
 function osmR(d){ return d.mw? Math.max(2.6,Math.min(6,1.8+Math.sqrt(d.mw)/4)) : 2.6; }
 
 function render(){
@@ -1440,12 +1465,13 @@ function render(){
       return g; });
   rgs.classed('on',d=>d.id===selR).attr('aria-label',d=>`${d.n}: ${d.v} ${tr('ci_unit')}`);
   rgs.select('.regdot').attr('fill',d=>CI_IDX_COL[ciIndex(d.v)]).attr('r',d=>d.id===selR?Math.max(12,discR()):discR());
-  rgs.select('text').style('display',d=>(discR()<10&&d.id!==selR)?'none':null); rgs.select('text').text(d=>d.v).style('fill',d=>ciIndex(d.v)==='very high'?'#fff':'#1b282e');
+  rgs.select('text').style('display',d=>(discR()<9&&d.id!==selR)?'none':null).style('font-size',discR()<10?'9.5px':null); rgs.select('text').text(d=>d.v).style('fill',d=>ciIndex(d.v)==='very high'?'#fff':'#1b282e');
   gRegA.style('opacity', selR ? 1 : zt.k<SMALLK ? 1 : zt.k<OSMK ? .65 : .35);
   gRegA.style('display',(S.reg||selR)?null:'none').selectAll('path').attr('fill',f=>{ const v=regVal(f.properties.id); return v==null?'none':CI_IDX_COL[ciIndex(v)]; })
     .classed('on',f=>f.properties.id===selR).classed('off',f=>selR!=null&&f.properties.id!==selR);
   // markers
-  const mk=vis.filter(d=>d.t!=='grid');
+  const mk=groupFar(vis.filter(d=>d.t!=='grid'));
+  document.querySelector('.mapwrap').classList.toggle('far',zt.k<SMALLK&&!S.sel);
   const mg=gMarks.selectAll('g.mk').data(mk,d=>d.key).join(en=>{
     const g=en.append('g').attr('class','mk').attr('tabindex',0).attr('role','button');
     g.append('circle').attr('class','hitc').attr('fill','transparent');
@@ -1453,13 +1479,14 @@ function render(){
     g.append('circle').attr('class','ring');
     g.append('circle').attr('class','dot');
     g.append('use').attr('class','ico').attr('href',d=>'#i-'+d.t);
+    g.append('text').attr('class','cnt').attr('dy',3.5);
     g.on('click',(e,d)=>pickAt(e,d))
      .on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(d.key);}});
     return g;});
-  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+((S.wk&&WK)?(wkCut(d)>5?' curtailed':''):(liveNow()&&S.replayIdx==null&&LIVE.curt&&(d.t==='ow'||d.t==='nw')&&LIVE.curt[d.id]>5?' curtailed':'')))
-    .attr('aria-label',d=>nm(d)+', '+tr('t_'+d.t)+', '+fmtMW(d.mw))
+  mg.attr('class',d=>'mk'+(S.cmp?(!activeAt(d,S.cmpA)&&activeAt(d,S.cmpB)?' cmp-new':activeAt(d,S.cmpA)&&!activeAt(d,S.cmpB)?' cmp-gone':''):'')+(future(d)&&!S.cmp?' fut':'')+(sel===d?' on':'')+(compact(d)?' compact':'')+(d._n>1?' grp':'')+((S.wk&&WK)?(wkCut(d)>5?' curtailed':''):(liveNow()&&S.replayIdx==null&&LIVE.curt&&(d.t==='ow'||d.t==='nw')&&LIVE.curt[d.id]>5?' curtailed':'')))
+    .attr('aria-label',d=>nm(d)+', '+tr('t_'+d.t)+', '+fmtMW(d.mw)+(d._n>1?', +'+(d._n-1):''))
     .style('--c',d=>col(d.t));
-  mg.select('.dot').attr('fill',d=>col(d.t));
+  mg.select('.dot').attr('fill',d=>col(d.t)); mg.select('.cnt').text(d=>d._n>1?d._n:'');
   mg.each(function(d){const s=d3.select(this),r=mR(d),q=r*1.25;
     s.select('.hitc').attr('r',Math.max(r+4,13)); s.select('.ring').attr('r',r+4); s.select('.curt').attr('r',r+5);
     s.select('.dot').attr('r',r); s.select('.ico').attr('x',-q/2).attr('y',-q/2).attr('width',q).attr('height',q);});
@@ -2525,6 +2552,7 @@ function markersNear(x,y){
 }
 function pickAt(e,d){
   e.stopPropagation(); const [x,y]=d3.pointer(e,node);
+  if(d._n>1&&zt.k<SMALLK&&d.c){ hideChooser(); zoomInto(d.c); return; }
   const c=markersNear(x,y); if(!c.includes(d)) c.unshift(d);
   if(c.length<=1){ hideChooser(); select(d.key); return; }
   const ch=document.getElementById('chooser');
