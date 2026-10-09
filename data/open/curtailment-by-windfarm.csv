@@ -90,3 +90,10 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-07,Greater Gabbard,gabbard,ro,11,1752,159.27
 2026-10-07,Seagreen,seagreen,part,685,9114,13.31
 2026-10-07,Neart na Gaoithe,nng,cfd,4,258,64.5
+2026-10-08,Seagreen,seagreen,part,3494,46469,13.3
+2026-10-08,Moray East,morayeast,cfd,2923,5031,1.72
+2026-10-08,Neart na Gaoithe,nng,cfd,1340,82853,61.83
+2026-10-08,Hornsea One,hornsea1,ic,26,3070,118.08
+2026-10-08,Hornsea Two,hornsea2,cfd,1575,0,0.0
+2026-10-08,Triton Knoll,triton,cfd,7,460,65.71
+2026-10-08,Moray West,moraywest,part,2066,38836,18.8
