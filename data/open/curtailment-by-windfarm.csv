@@ -97,3 +97,9 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-08,Hornsea Two,hornsea2,cfd,1575,0,0.0
 2026-10-08,Triton Knoll,triton,cfd,7,460,65.71
 2026-10-08,Moray West,moraywest,part,2066,38836,18.8
+2026-10-09,Seagreen,seagreen,part,16798,223412,13.3
+2026-10-09,Hornsea Two,hornsea2,cfd,4125,128862,31.24
+2026-10-09,Moray East,morayeast,cfd,10588,442096,41.75
+2026-10-09,Moray West,moraywest,part,15136,404321,26.71
+2026-10-09,Neart na Gaoithe,nng,cfd,4357,468403,107.51
+2026-10-09,Beatrice,beatrice,ic,1480,188390,127.29
