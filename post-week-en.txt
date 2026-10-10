@@ -1,0 +1,15 @@
+Last week on the grid (Mon 28 Sep – Sun 4 Oct)
+Wind turned down: 509 GWh, £14.2 million paid to wind farms
+(net £10.6 million after £3.6 million paid back)
+Gas turned up for grid constraints: £23.7 million
+Average carbon: 132 gCO₂/kWh (moderate). Cleanest Tue (101), dirtiest Mon (180)
+About the same as the week before.
+Wind made 33% of Britain’s electricity, gas 27%.
+The wind turned down was enough to power about 9.8 million homes for a week.
+Demand on the transmission grid: lowest 18.9 GW (Sun 04:30), peak 35.2 GW (Thu 19:00).
+Cleanest region: North Scotland (0). Dirtiest: South Wales (294).
+Live map: https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/
+Data: NESO, Elexon BMRS
+
+Alt text for the image:
+Card showing the week Mon 28 Sep – Sun 4 Oct on Britain’s electricity grid: 509 GWh of wind turned down, average carbon intensity 132 gCO₂/kWh, a chart for each day, and the generation mix: wind 33%, gas 27%.
