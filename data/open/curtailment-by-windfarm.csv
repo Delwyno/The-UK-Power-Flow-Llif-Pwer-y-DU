@@ -103,3 +103,8 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-09,Moray West,moraywest,part,15136,404321,26.71
 2026-10-09,Neart na Gaoithe,nng,cfd,4357,468403,107.51
 2026-10-09,Beatrice,beatrice,ic,1480,188390,127.29
+2026-10-10,Seagreen,seagreen,part,19330,257091,13.3
+2026-10-10,Moray East,morayeast,cfd,9554,785732,82.24
+2026-10-10,Moray West,moraywest,part,14964,457082,30.55
+2026-10-10,Neart na Gaoithe,nng,cfd,7453,970585,130.23
+2026-10-10,Pen y Cymoedd,penycymoedd,ro,14,1357,96.93
