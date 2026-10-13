@@ -113,3 +113,11 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-11,Hornsea Two,hornsea2,cfd,1179,20592,17.47
 2026-10-11,Moray East,morayeast,cfd,408,0,0.0
 2026-10-11,Moray West,moraywest,part,99,1045,10.56
+2026-10-12,Moray East,morayeast,cfd,16270,17006,1.05
+2026-10-12,Moray West,moraywest,part,13745,246761,17.95
+2026-10-12,Neart na Gaoithe,nng,cfd,5374,161056,29.97
+2026-10-12,Seagreen,seagreen,part,16971,225715,13.3
+2026-10-12,Beatrice,beatrice,ic,4365,288821,66.17
+2026-10-12,Walney Extension,walneyx,ic,1748,165420,94.63
+2026-10-12,Clyde,clyde,ro,570,52275,91.71
+2026-10-12,Whitelee,whitelee,ro,627,56617,90.3
