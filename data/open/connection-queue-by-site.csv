@@ -62,7 +62,7 @@ Coddington 400kV Substation,,,NGET,2240,0,4,2033,2034,0,0,bat:2240
 Carrington 400KV Substation,53.433,-2.406,NGET,2130,0,3,2026,2027,0,0,bat:2130
 Willington 400kV Substation,52.8555,-1.5505,NGET,2125,0,4,2028,2028,0,0,bat:1100;dem:1025
 Cottam 400kV Substation,53.3008,-0.7816,NGET,2100,445,5,2028,2029,0,0,bat:2100
-Enderby 400kV Substation,52.598,-1.217,NGET,2082,57,3,2027,2028,0,0,bat:2025;so:57
+Enderby 400kV Substation,52.598,-1.217,NGET,2082,57,3,2028,2028,0,0,bat:2025;so:57
 West Anglia Connection Node C 400kV Substation,,,NGET,2050,0,3,2034,2034,0,0,bat:2050
 Derbyshire Connection Node G 400kV,,,NGET,2039,0,2,2037,2037,0,0,bat:2039
 Swansea North 400kV Substation,,,NGET,2021,21,9,2024,2028,0,12,bat:1621;dem:400
@@ -105,7 +105,7 @@ Fearna Pump Storage Hydro 2 400/15kV Substation,,,SHET,1495,0,1,2036,2036,0,0,hy
 Wymondley 400kV Substation,51.928,-0.247,NGET,1492,0,4,2027,2032,0,0,bat:1492
 Pembroke 400kV Substation,51.683,-4.99,NGET,1490,2199,7,2028,2029,1,0,ow:800;bat:690
 Trent Valley North Connection Node B 400kV Substation,,,NGET,1450,0,5,2029,2034,0,0,bat:1450
-Westfield 132/33kV,56.1641,-3.2997,SPT,1449,0,5,2028,2031,0,0,bat:1449
+Westfield 132/33kV,56.1641,-3.2997,SHET,1449,0,5,2028,2031,0,0,bat:1449
 Leeds North Connection Node B 400kV Substation,53.814,-1.5422,NGET,1442,0,5,2035,2035,0,0,bat:1130;nw:312
 Sussex and Romney Connection Node B 400kV Substation,,,NGET,1440,0,4,2031,2037,0,0,bat:940;dem:500
 Hams Hall 400kV Substation,52.5311,-1.7137,NGET,1425,0,4,2026,2030,0,0,dem:1025;bat:400
