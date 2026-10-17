@@ -148,3 +148,9 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-15,Pen y Cymoedd,penycymoedd,ro,128,12267,95.84
 2026-10-15,Hornsea Two,hornsea2,cfd,1641,0,0.0
 2026-10-15,Walney Extension,walneyx,ic,810,43791,54.06
+2026-10-16,Seagreen,seagreen,part,2938,47073,16.02
+2026-10-16,Moray East,morayeast,cfd,4171,0,0.0
+2026-10-16,Moray West,moraywest,part,2222,12976,5.84
+2026-10-16,Neart na Gaoithe,nng,cfd,1235,8858,7.17
+2026-10-16,Galloper,galloper,ro,5,810,162.0
+2026-10-16,Beatrice,beatrice,ic,363,3353,9.24
