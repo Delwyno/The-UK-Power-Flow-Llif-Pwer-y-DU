@@ -161,3 +161,7 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-10-17,Hornsea Two,hornsea2,cfd,5000,0,0.0
 2026-10-17,East Anglia ONE,ea1,cfd,935,68409,73.16
 2026-10-17,Triton Knoll,triton,cfd,2110,119660,56.71
+2026-10-18,Hornsea Two,hornsea2,cfd,15704,0,0.0
+2026-10-18,Greater Gabbard,gabbard,ro,16,2600,162.5
+2026-10-18,East Anglia ONE,ea1,cfd,73,3161,43.3
+2026-10-18,Moray East,morayeast,cfd,443,0,0.0
