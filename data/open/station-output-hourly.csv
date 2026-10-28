@@ -1,772 +1,4 @@
 hour_start_utc,station,site_id,notified_mw,turned_down_mw
-2026-10-12T23:00Z,Beatrice,beatrice,540,540
-2026-10-12T23:00Z,Burbo Bank Extension,burbo,110,0
-2026-10-12T23:00Z,Clyde,clyde,455,135
-2026-10-12T23:00Z,Cruachan,cruachan,240,0
-2026-10-12T23:00Z,Dogger Bank A,doggerA,625,0
-2026-10-12T23:00Z,Dogger Bank B,doggerB,505,0
-2026-10-12T23:00Z,Drax,drax,620,0
-2026-10-12T23:00Z,East Anglia ONE,ea1,640,0
-2026-10-12T23:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-12T23:00Z,Foyers,foyers,150,0
-2026-10-12T23:00Z,Galloper,galloper,270,0
-2026-10-12T23:00Z,Greater Gabbard,gabbard,345,0
-2026-10-12T23:00Z,Gwynt y Môr,gym,350,0
-2026-10-12T23:00Z,Hartlepool,hartlepool,890,0
-2026-10-12T23:00Z,Heysham 1,heysham1,395,0
-2026-10-12T23:00Z,Heysham 2,heysham2,545,0
-2026-10-12T23:00Z,Hornsea One,hornsea1,1120,0
-2026-10-12T23:00Z,Hornsea Two,hornsea2,1200,0
-2026-10-12T23:00Z,Moray East,morayeast,845,745
-2026-10-12T23:00Z,Moray West,moraywest,780,695
-2026-10-12T23:00Z,Neart na Gaoithe,nng,400,340
-2026-10-12T23:00Z,Pen y Cymoedd,penycymoedd,170,0
-2026-10-12T23:00Z,Race Bank,racebank,460,0
-2026-10-12T23:00Z,Rampion,rampion,210,0
-2026-10-12T23:00Z,Seagreen,seagreen,1050,1000
-2026-10-12T23:00Z,Sizewell B,sizewellb,1195,0
-2026-10-12T23:00Z,Torness,torness,1295,0
-2026-10-12T23:00Z,Triton Knoll,triton,655,0
-2026-10-12T23:00Z,Viking Link,viking,440,0
-2026-10-12T23:00Z,Walney 1 & 2,walney,250,0
-2026-10-12T23:00Z,Walney Extension,walneyx,595,50
-2026-10-12T23:00Z,Whitelee,whitelee,325,225
-2026-10-13T00:00Z,Beatrice,beatrice,540,540
-2026-10-13T00:00Z,Burbo Bank Extension,burbo,165,0
-2026-10-13T00:00Z,Clyde,clyde,455,0
-2026-10-13T00:00Z,Cruachan,cruachan,240,0
-2026-10-13T00:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T00:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T00:00Z,Drax,drax,620,0
-2026-10-13T00:00Z,East Anglia ONE,ea1,625,0
-2026-10-13T00:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T00:00Z,Foyers,foyers,150,0
-2026-10-13T00:00Z,Galloper,galloper,260,0
-2026-10-13T00:00Z,Greater Gabbard,gabbard,325,0
-2026-10-13T00:00Z,Gwynt y Môr,gym,410,0
-2026-10-13T00:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T00:00Z,Heysham 1,heysham1,395,0
-2026-10-13T00:00Z,Heysham 2,heysham2,545,0
-2026-10-13T00:00Z,Hornsea One,hornsea1,1110,0
-2026-10-13T00:00Z,Hornsea Two,hornsea2,1205,0
-2026-10-13T00:00Z,Moray East,morayeast,845,745
-2026-10-13T00:00Z,Moray West,moraywest,775,690
-2026-10-13T00:00Z,Neart na Gaoithe,nng,330,175
-2026-10-13T00:00Z,Pen y Cymoedd,penycymoedd,200,0
-2026-10-13T00:00Z,Race Bank,racebank,455,0
-2026-10-13T00:00Z,Rampion,rampion,210,0
-2026-10-13T00:00Z,Seagreen,seagreen,1050,1000
-2026-10-13T00:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T00:00Z,Torness,torness,1295,0
-2026-10-13T00:00Z,Triton Knoll,triton,660,0
-2026-10-13T00:00Z,Viking Link,viking,440,0
-2026-10-13T00:00Z,Walney 1 & 2,walney,280,0
-2026-10-13T00:00Z,Walney Extension,walneyx,625,0
-2026-10-13T00:00Z,Whitelee,whitelee,370,100
-2026-10-13T01:00Z,Beatrice,beatrice,540,540
-2026-10-13T01:00Z,Burbo Bank Extension,burbo,180,0
-2026-10-13T01:00Z,Clyde,clyde,470,0
-2026-10-13T01:00Z,Cruachan,cruachan,240,0
-2026-10-13T01:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T01:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T01:00Z,Drax,drax,620,0
-2026-10-13T01:00Z,East Anglia ONE,ea1,610,0
-2026-10-13T01:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T01:00Z,Foyers,foyers,150,0
-2026-10-13T01:00Z,Galloper,galloper,260,0
-2026-10-13T01:00Z,Greater Gabbard,gabbard,305,0
-2026-10-13T01:00Z,Gwynt y Môr,gym,460,0
-2026-10-13T01:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T01:00Z,Heysham 1,heysham1,395,0
-2026-10-13T01:00Z,Heysham 2,heysham2,545,0
-2026-10-13T01:00Z,Hornsea One,hornsea1,1110,0
-2026-10-13T01:00Z,Hornsea Two,hornsea2,1220,0
-2026-10-13T01:00Z,Moray East,morayeast,845,825
-2026-10-13T01:00Z,Moray West,moraywest,775,690
-2026-10-13T01:00Z,Neart na Gaoithe,nng,385,210
-2026-10-13T01:00Z,Pen y Cymoedd,penycymoedd,195,0
-2026-10-13T01:00Z,Race Bank,racebank,460,0
-2026-10-13T01:00Z,Rampion,rampion,240,0
-2026-10-13T01:00Z,Seagreen,seagreen,1055,1005
-2026-10-13T01:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T01:00Z,Torness,torness,1295,0
-2026-10-13T01:00Z,Triton Knoll,triton,660,0
-2026-10-13T01:00Z,Viking Link,viking,440,0
-2026-10-13T01:00Z,Walney 1 & 2,walney,310,0
-2026-10-13T01:00Z,Walney Extension,walneyx,625,0
-2026-10-13T01:00Z,Whitelee,whitelee,410,0
-2026-10-13T02:00Z,Beatrice,beatrice,540,510
-2026-10-13T02:00Z,Burbo Bank Extension,burbo,200,0
-2026-10-13T02:00Z,Clyde,clyde,480,0
-2026-10-13T02:00Z,Cruachan,cruachan,240,0
-2026-10-13T02:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T02:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T02:00Z,Drax,drax,620,0
-2026-10-13T02:00Z,East Anglia ONE,ea1,540,0
-2026-10-13T02:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T02:00Z,Foyers,foyers,0,0
-2026-10-13T02:00Z,Galloper,galloper,260,0
-2026-10-13T02:00Z,Greater Gabbard,gabbard,310,0
-2026-10-13T02:00Z,Gwynt y Môr,gym,490,0
-2026-10-13T02:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T02:00Z,Heysham 1,heysham1,395,0
-2026-10-13T02:00Z,Heysham 2,heysham2,545,0
-2026-10-13T02:00Z,Hornsea One,hornsea1,1115,0
-2026-10-13T02:00Z,Hornsea Two,hornsea2,1255,0
-2026-10-13T02:00Z,Moray East,morayeast,835,820
-2026-10-13T02:00Z,Moray West,moraywest,780,695
-2026-10-13T02:00Z,Neart na Gaoithe,nng,415,255
-2026-10-13T02:00Z,Pen y Cymoedd,penycymoedd,195,0
-2026-10-13T02:00Z,Race Bank,racebank,485,0
-2026-10-13T02:00Z,Rampion,rampion,270,0
-2026-10-13T02:00Z,Seagreen,seagreen,1060,1055
-2026-10-13T02:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T02:00Z,Torness,torness,1295,0
-2026-10-13T02:00Z,Triton Knoll,triton,680,0
-2026-10-13T02:00Z,Viking Link,viking,440,0
-2026-10-13T02:00Z,Walney 1 & 2,walney,310,0
-2026-10-13T02:00Z,Walney Extension,walneyx,620,0
-2026-10-13T02:00Z,Whitelee,whitelee,460,0
-2026-10-13T03:00Z,Beatrice,beatrice,540,330
-2026-10-13T03:00Z,Burbo Bank Extension,burbo,215,0
-2026-10-13T03:00Z,Clyde,clyde,480,0
-2026-10-13T03:00Z,Cruachan,cruachan,0,0
-2026-10-13T03:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T03:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T03:00Z,Drax,drax,620,0
-2026-10-13T03:00Z,East Anglia ONE,ea1,605,0
-2026-10-13T03:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T03:00Z,Foyers,foyers,0,0
-2026-10-13T03:00Z,Galloper,galloper,265,0
-2026-10-13T03:00Z,Greater Gabbard,gabbard,330,0
-2026-10-13T03:00Z,Gwynt y Môr,gym,505,0
-2026-10-13T03:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T03:00Z,Heysham 1,heysham1,395,0
-2026-10-13T03:00Z,Heysham 2,heysham2,545,0
-2026-10-13T03:00Z,Hornsea One,hornsea1,1135,0
-2026-10-13T03:00Z,Hornsea Two,hornsea2,1270,0
-2026-10-13T03:00Z,Moray East,morayeast,840,840
-2026-10-13T03:00Z,Moray West,moraywest,785,705
-2026-10-13T03:00Z,Neart na Gaoithe,nng,445,295
-2026-10-13T03:00Z,Pen y Cymoedd,penycymoedd,210,0
-2026-10-13T03:00Z,Race Bank,racebank,505,0
-2026-10-13T03:00Z,Rampion,rampion,325,0
-2026-10-13T03:00Z,Seagreen,seagreen,1045,1045
-2026-10-13T03:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T03:00Z,Torness,torness,1295,0
-2026-10-13T03:00Z,Triton Knoll,triton,695,0
-2026-10-13T03:00Z,Viking Link,viking,440,0
-2026-10-13T03:00Z,Walney 1 & 2,walney,320,0
-2026-10-13T03:00Z,Walney Extension,walneyx,630,0
-2026-10-13T03:00Z,Whitelee,whitelee,430,0
-2026-10-13T04:00Z,Beatrice,beatrice,535,130
-2026-10-13T04:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T04:00Z,Clyde,clyde,475,0
-2026-10-13T04:00Z,Cruachan,cruachan,0,0
-2026-10-13T04:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T04:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T04:00Z,Drax,drax,1360,0
-2026-10-13T04:00Z,East Anglia ONE,ea1,660,0
-2026-10-13T04:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T04:00Z,Foyers,foyers,0,0
-2026-10-13T04:00Z,Galloper,galloper,270,0
-2026-10-13T04:00Z,Greater Gabbard,gabbard,350,0
-2026-10-13T04:00Z,Gwynt y Môr,gym,515,0
-2026-10-13T04:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T04:00Z,Heysham 1,heysham1,395,0
-2026-10-13T04:00Z,Heysham 2,heysham2,545,0
-2026-10-13T04:00Z,Hornsea One,hornsea1,1145,0
-2026-10-13T04:00Z,Hornsea Two,hornsea2,1275,0
-2026-10-13T04:00Z,Moray East,morayeast,825,825
-2026-10-13T04:00Z,Moray West,moraywest,785,705
-2026-10-13T04:00Z,Neart na Gaoithe,nng,450,290
-2026-10-13T04:00Z,Pen y Cymoedd,penycymoedd,230,0
-2026-10-13T04:00Z,Race Bank,racebank,520,0
-2026-10-13T04:00Z,Rampion,rampion,370,0
-2026-10-13T04:00Z,Seagreen,seagreen,1040,1040
-2026-10-13T04:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T04:00Z,Torness,torness,1295,0
-2026-10-13T04:00Z,Triton Knoll,triton,715,0
-2026-10-13T04:00Z,Viking Link,viking,440,0
-2026-10-13T04:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T04:00Z,Walney Extension,walneyx,630,0
-2026-10-13T04:00Z,Whitelee,whitelee,400,0
-2026-10-13T05:00Z,Beatrice,beatrice,530,275
-2026-10-13T05:00Z,Burbo Bank Extension,burbo,225,0
-2026-10-13T05:00Z,Clyde,clyde,445,0
-2026-10-13T05:00Z,Cruachan,cruachan,0,0
-2026-10-13T05:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T05:00Z,Dogger Bank B,doggerB,510,0
-2026-10-13T05:00Z,Drax,drax,1910,0
-2026-10-13T05:00Z,East Anglia ONE,ea1,625,0
-2026-10-13T05:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T05:00Z,Foyers,foyers,0,0
-2026-10-13T05:00Z,Galloper,galloper,275,0
-2026-10-13T05:00Z,Greater Gabbard,gabbard,355,0
-2026-10-13T05:00Z,Gwynt y Môr,gym,530,0
-2026-10-13T05:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T05:00Z,Heysham 1,heysham1,395,0
-2026-10-13T05:00Z,Heysham 2,heysham2,545,0
-2026-10-13T05:00Z,Hornsea One,hornsea1,1170,0
-2026-10-13T05:00Z,Hornsea Two,hornsea2,1300,0
-2026-10-13T05:00Z,Moray East,morayeast,525,525
-2026-10-13T05:00Z,Moray West,moraywest,785,705
-2026-10-13T05:00Z,Neart na Gaoithe,nng,225,155
-2026-10-13T05:00Z,Pen y Cymoedd,penycymoedd,225,0
-2026-10-13T05:00Z,Race Bank,racebank,525,0
-2026-10-13T05:00Z,Rampion,rampion,380,0
-2026-10-13T05:00Z,Seagreen,seagreen,1045,1045
-2026-10-13T05:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T05:00Z,Torness,torness,1295,0
-2026-10-13T05:00Z,Triton Knoll,triton,735,0
-2026-10-13T05:00Z,Viking Link,viking,440,0
-2026-10-13T05:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T05:00Z,Walney Extension,walneyx,630,0
-2026-10-13T05:00Z,Whitelee,whitelee,340,0
-2026-10-13T06:00Z,Beatrice,beatrice,530,520
-2026-10-13T06:00Z,Burbo Bank Extension,burbo,225,0
-2026-10-13T06:00Z,Clyde,clyde,385,0
-2026-10-13T06:00Z,Cruachan,cruachan,240,0
-2026-10-13T06:00Z,Dogger Bank A,doggerA,615,0
-2026-10-13T06:00Z,Dogger Bank B,doggerB,510,0
-2026-10-13T06:00Z,Drax,drax,1910,0
-2026-10-13T06:00Z,East Anglia ONE,ea1,665,0
-2026-10-13T06:00Z,Ffestiniog,ffestiniog,90,0
-2026-10-13T06:00Z,Foyers,foyers,145,0
-2026-10-13T06:00Z,Galloper,galloper,290,0
-2026-10-13T06:00Z,Greater Gabbard,gabbard,360,0
-2026-10-13T06:00Z,Gwynt y Môr,gym,540,0
-2026-10-13T06:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T06:00Z,Heysham 1,heysham1,395,0
-2026-10-13T06:00Z,Heysham 2,heysham2,545,0
-2026-10-13T06:00Z,Hornsea One,hornsea1,1175,0
-2026-10-13T06:00Z,Hornsea Two,hornsea2,1305,0
-2026-10-13T06:00Z,Moray East,morayeast,540,540
-2026-10-13T06:00Z,Moray West,moraywest,790,725
-2026-10-13T06:00Z,Neart na Gaoithe,nng,0,0
-2026-10-13T06:00Z,Pen y Cymoedd,penycymoedd,220,0
-2026-10-13T06:00Z,Race Bank,racebank,545,0
-2026-10-13T06:00Z,Rampion,rampion,385,0
-2026-10-13T06:00Z,Seagreen,seagreen,1040,1040
-2026-10-13T06:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T06:00Z,Torness,torness,1295,0
-2026-10-13T06:00Z,Triton Knoll,triton,745,0
-2026-10-13T06:00Z,Viking Link,viking,440,0
-2026-10-13T06:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T06:00Z,Walney Extension,walneyx,625,0
-2026-10-13T06:00Z,Whitelee,whitelee,325,0
-2026-10-13T07:00Z,Beatrice,beatrice,540,540
-2026-10-13T07:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T07:00Z,Clyde,clyde,355,0
-2026-10-13T07:00Z,Cruachan,cruachan,240,0
-2026-10-13T07:00Z,Dogger Bank A,doggerA,615,0
-2026-10-13T07:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T07:00Z,Drax,drax,1910,0
-2026-10-13T07:00Z,East Anglia ONE,ea1,675,0
-2026-10-13T07:00Z,Ffestiniog,ffestiniog,90,0
-2026-10-13T07:00Z,Foyers,foyers,150,0
-2026-10-13T07:00Z,Galloper,galloper,290,0
-2026-10-13T07:00Z,Greater Gabbard,gabbard,400,0
-2026-10-13T07:00Z,Gwynt y Môr,gym,530,0
-2026-10-13T07:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T07:00Z,Heysham 1,heysham1,395,0
-2026-10-13T07:00Z,Heysham 2,heysham2,545,0
-2026-10-13T07:00Z,Hornsea One,hornsea1,1175,0
-2026-10-13T07:00Z,Hornsea Two,hornsea2,1305,0
-2026-10-13T07:00Z,Moray East,morayeast,520,520
-2026-10-13T07:00Z,Moray West,moraywest,800,800
-2026-10-13T07:00Z,Neart na Gaoithe,nng,225,55
-2026-10-13T07:00Z,Pen y Cymoedd,penycymoedd,205,0
-2026-10-13T07:00Z,Race Bank,racebank,530,0
-2026-10-13T07:00Z,Rampion,rampion,390,0
-2026-10-13T07:00Z,Seagreen,seagreen,1035,1035
-2026-10-13T07:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T07:00Z,Torness,torness,1295,0
-2026-10-13T07:00Z,Triton Knoll,triton,705,0
-2026-10-13T07:00Z,Viking Link,viking,440,0
-2026-10-13T07:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T07:00Z,Walney Extension,walneyx,625,0
-2026-10-13T07:00Z,Whitelee,whitelee,280,0
-2026-10-13T08:00Z,Beatrice,beatrice,540,540
-2026-10-13T08:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T08:00Z,Clyde,clyde,365,0
-2026-10-13T08:00Z,Cruachan,cruachan,240,0
-2026-10-13T08:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T08:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T08:00Z,Drax,drax,1610,0
-2026-10-13T08:00Z,East Anglia ONE,ea1,660,0
-2026-10-13T08:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T08:00Z,Foyers,foyers,220,0
-2026-10-13T08:00Z,Galloper,galloper,290,0
-2026-10-13T08:00Z,Greater Gabbard,gabbard,425,0
-2026-10-13T08:00Z,Gwynt y Môr,gym,540,0
-2026-10-13T08:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T08:00Z,Heysham 1,heysham1,395,0
-2026-10-13T08:00Z,Heysham 2,heysham2,545,0
-2026-10-13T08:00Z,Hornsea One,hornsea1,1180,0
-2026-10-13T08:00Z,Hornsea Two,hornsea2,1300,0
-2026-10-13T08:00Z,Moray East,morayeast,525,525
-2026-10-13T08:00Z,Moray West,moraywest,800,800
-2026-10-13T08:00Z,Neart na Gaoithe,nng,225,110
-2026-10-13T08:00Z,Pen y Cymoedd,penycymoedd,190,0
-2026-10-13T08:00Z,Race Bank,racebank,520,0
-2026-10-13T08:00Z,Rampion,rampion,390,0
-2026-10-13T08:00Z,Seagreen,seagreen,1035,1035
-2026-10-13T08:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T08:00Z,Torness,torness,1295,0
-2026-10-13T08:00Z,Triton Knoll,triton,680,0
-2026-10-13T08:00Z,Viking Link,viking,440,0
-2026-10-13T08:00Z,Walney 1 & 2,walney,320,0
-2026-10-13T08:00Z,Walney Extension,walneyx,620,0
-2026-10-13T08:00Z,Whitelee,whitelee,285,0
-2026-10-13T09:00Z,Beatrice,beatrice,540,540
-2026-10-13T09:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T09:00Z,Clyde,clyde,285,0
-2026-10-13T09:00Z,Cruachan,cruachan,240,0
-2026-10-13T09:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T09:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T09:00Z,Drax,drax,680,0
-2026-10-13T09:00Z,East Anglia ONE,ea1,670,0
-2026-10-13T09:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T09:00Z,Foyers,foyers,300,0
-2026-10-13T09:00Z,Galloper,galloper,295,0
-2026-10-13T09:00Z,Greater Gabbard,gabbard,445,0
-2026-10-13T09:00Z,Gwynt y Môr,gym,535,0
-2026-10-13T09:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T09:00Z,Heysham 1,heysham1,395,0
-2026-10-13T09:00Z,Heysham 2,heysham2,545,0
-2026-10-13T09:00Z,Hornsea One,hornsea1,1175,0
-2026-10-13T09:00Z,Hornsea Two,hornsea2,1300,0
-2026-10-13T09:00Z,Moray East,morayeast,535,535
-2026-10-13T09:00Z,Moray West,moraywest,800,800
-2026-10-13T09:00Z,Neart na Gaoithe,nng,225,225
-2026-10-13T09:00Z,Pen y Cymoedd,penycymoedd,190,0
-2026-10-13T09:00Z,Race Bank,racebank,510,0
-2026-10-13T09:00Z,Rampion,rampion,395,0
-2026-10-13T09:00Z,Seagreen,seagreen,1030,1030
-2026-10-13T09:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T09:00Z,Torness,torness,1295,0
-2026-10-13T09:00Z,Triton Knoll,triton,690,0
-2026-10-13T09:00Z,Viking Link,viking,440,0
-2026-10-13T09:00Z,Walney 1 & 2,walney,320,0
-2026-10-13T09:00Z,Walney Extension,walneyx,620,0
-2026-10-13T09:00Z,Whitelee,whitelee,330,0
-2026-10-13T10:00Z,Beatrice,beatrice,540,540
-2026-10-13T10:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T10:00Z,Clyde,clyde,365,0
-2026-10-13T10:00Z,Cruachan,cruachan,240,0
-2026-10-13T10:00Z,Dogger Bank A,doggerA,620,0
-2026-10-13T10:00Z,Dogger Bank B,doggerB,500,0
-2026-10-13T10:00Z,Drax,drax,575,0
-2026-10-13T10:00Z,East Anglia ONE,ea1,675,0
-2026-10-13T10:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T10:00Z,Foyers,foyers,225,0
-2026-10-13T10:00Z,Galloper,galloper,300,0
-2026-10-13T10:00Z,Greater Gabbard,gabbard,450,0
-2026-10-13T10:00Z,Gwynt y Môr,gym,530,0
-2026-10-13T10:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T10:00Z,Heysham 1,heysham1,395,0
-2026-10-13T10:00Z,Heysham 2,heysham2,545,0
-2026-10-13T10:00Z,Hornsea One,hornsea1,1170,0
-2026-10-13T10:00Z,Hornsea Two,hornsea2,1295,5
-2026-10-13T10:00Z,Moray East,morayeast,530,530
-2026-10-13T10:00Z,Moray West,moraywest,800,800
-2026-10-13T10:00Z,Neart na Gaoithe,nng,225,225
-2026-10-13T10:00Z,Pen y Cymoedd,penycymoedd,185,0
-2026-10-13T10:00Z,Race Bank,racebank,520,0
-2026-10-13T10:00Z,Rampion,rampion,395,0
-2026-10-13T10:00Z,Seagreen,seagreen,1030,1030
-2026-10-13T10:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T10:00Z,Torness,torness,1295,0
-2026-10-13T10:00Z,Triton Knoll,triton,670,0
-2026-10-13T10:00Z,Viking Link,viking,440,0
-2026-10-13T10:00Z,Walney 1 & 2,walney,320,0
-2026-10-13T10:00Z,Walney Extension,walneyx,620,0
-2026-10-13T10:00Z,Whitelee,whitelee,295,0
-2026-10-13T11:00Z,Beatrice,beatrice,535,535
-2026-10-13T11:00Z,Burbo Bank Extension,burbo,215,0
-2026-10-13T11:00Z,Clyde,clyde,370,0
-2026-10-13T11:00Z,Cruachan,cruachan,120,0
-2026-10-13T11:00Z,Dogger Bank A,doggerA,620,0
-2026-10-13T11:00Z,Dogger Bank B,doggerB,500,0
-2026-10-13T11:00Z,Drax,drax,220,0
-2026-10-13T11:00Z,East Anglia ONE,ea1,675,0
-2026-10-13T11:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T11:00Z,Foyers,foyers,0,0
-2026-10-13T11:00Z,Galloper,galloper,300,0
-2026-10-13T11:00Z,Greater Gabbard,gabbard,450,0
-2026-10-13T11:00Z,Gwynt y Môr,gym,520,0
-2026-10-13T11:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T11:00Z,Heysham 1,heysham1,395,0
-2026-10-13T11:00Z,Heysham 2,heysham2,545,0
-2026-10-13T11:00Z,Hornsea One,hornsea1,1160,0
-2026-10-13T11:00Z,Hornsea Two,hornsea2,1295,20
-2026-10-13T11:00Z,Moray East,morayeast,515,515
-2026-10-13T11:00Z,Moray West,moraywest,800,800
-2026-10-13T11:00Z,Neart na Gaoithe,nng,225,225
-2026-10-13T11:00Z,Pen y Cymoedd,penycymoedd,200,0
-2026-10-13T11:00Z,Race Bank,racebank,520,0
-2026-10-13T11:00Z,Rampion,rampion,385,0
-2026-10-13T11:00Z,Seagreen,seagreen,1015,1015
-2026-10-13T11:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T11:00Z,Torness,torness,1295,0
-2026-10-13T11:00Z,Triton Knoll,triton,545,0
-2026-10-13T11:00Z,Viking Link,viking,440,0
-2026-10-13T11:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T11:00Z,Walney Extension,walneyx,625,0
-2026-10-13T11:00Z,Whitelee,whitelee,305,0
-2026-10-13T12:00Z,Beatrice,beatrice,530,410
-2026-10-13T12:00Z,Burbo Bank Extension,burbo,215,0
-2026-10-13T12:00Z,Clyde,clyde,375,0
-2026-10-13T12:00Z,Cruachan,cruachan,0,0
-2026-10-13T12:00Z,Dogger Bank A,doggerA,620,0
-2026-10-13T12:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T12:00Z,Drax,drax,200,0
-2026-10-13T12:00Z,East Anglia ONE,ea1,675,0
-2026-10-13T12:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T12:00Z,Foyers,foyers,0,0
-2026-10-13T12:00Z,Galloper,galloper,295,0
-2026-10-13T12:00Z,Greater Gabbard,gabbard,460,0
-2026-10-13T12:00Z,Gwynt y Môr,gym,515,0
-2026-10-13T12:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T12:00Z,Heysham 1,heysham1,395,0
-2026-10-13T12:00Z,Heysham 2,heysham2,545,0
-2026-10-13T12:00Z,Hornsea One,hornsea1,1135,0
-2026-10-13T12:00Z,Hornsea Two,hornsea2,1280,0
-2026-10-13T12:00Z,Moray East,morayeast,500,500
-2026-10-13T12:00Z,Moray West,moraywest,795,795
-2026-10-13T12:00Z,Neart na Gaoithe,nng,225,190
-2026-10-13T12:00Z,Pen y Cymoedd,penycymoedd,210,0
-2026-10-13T12:00Z,Race Bank,racebank,510,0
-2026-10-13T12:00Z,Rampion,rampion,355,0
-2026-10-13T12:00Z,Seagreen,seagreen,1000,1000
-2026-10-13T12:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T12:00Z,Torness,torness,1295,0
-2026-10-13T12:00Z,Triton Knoll,triton,480,0
-2026-10-13T12:00Z,Viking Link,viking,440,0
-2026-10-13T12:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T12:00Z,Walney Extension,walneyx,620,0
-2026-10-13T12:00Z,Whitelee,whitelee,380,0
-2026-10-13T13:00Z,Beatrice,beatrice,510,10
-2026-10-13T13:00Z,Burbo Bank Extension,burbo,215,0
-2026-10-13T13:00Z,Clyde,clyde,400,0
-2026-10-13T13:00Z,Cruachan,cruachan,0,0
-2026-10-13T13:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T13:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T13:00Z,Drax,drax,200,0
-2026-10-13T13:00Z,East Anglia ONE,ea1,675,0
-2026-10-13T13:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T13:00Z,Foyers,foyers,0,0
-2026-10-13T13:00Z,Galloper,galloper,290,0
-2026-10-13T13:00Z,Greater Gabbard,gabbard,450,0
-2026-10-13T13:00Z,Gwynt y Môr,gym,530,0
-2026-10-13T13:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T13:00Z,Heysham 1,heysham1,395,0
-2026-10-13T13:00Z,Heysham 2,heysham2,545,0
-2026-10-13T13:00Z,Hornsea One,hornsea1,1105,0
-2026-10-13T13:00Z,Hornsea Two,hornsea2,1260,0
-2026-10-13T13:00Z,Moray East,morayeast,480,480
-2026-10-13T13:00Z,Moray West,moraywest,800,800
-2026-10-13T13:00Z,Neart na Gaoithe,nng,225,110
-2026-10-13T13:00Z,Pen y Cymoedd,penycymoedd,200,0
-2026-10-13T13:00Z,Race Bank,racebank,505,0
-2026-10-13T13:00Z,Rampion,rampion,345,0
-2026-10-13T13:00Z,Seagreen,seagreen,1015,1015
-2026-10-13T13:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T13:00Z,Torness,torness,1295,0
-2026-10-13T13:00Z,Triton Knoll,triton,490,0
-2026-10-13T13:00Z,Viking Link,viking,440,0
-2026-10-13T13:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T13:00Z,Walney Extension,walneyx,625,0
-2026-10-13T13:00Z,Whitelee,whitelee,435,0
-2026-10-13T14:00Z,Beatrice,beatrice,490,0
-2026-10-13T14:00Z,Burbo Bank Extension,burbo,215,0
-2026-10-13T14:00Z,Clyde,clyde,420,0
-2026-10-13T14:00Z,Cruachan,cruachan,120,0
-2026-10-13T14:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T14:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T14:00Z,Drax,drax,500,0
-2026-10-13T14:00Z,East Anglia ONE,ea1,630,0
-2026-10-13T14:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T14:00Z,Foyers,foyers,70,0
-2026-10-13T14:00Z,Galloper,galloper,280,0
-2026-10-13T14:00Z,Greater Gabbard,gabbard,410,0
-2026-10-13T14:00Z,Gwynt y Môr,gym,530,0
-2026-10-13T14:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T14:00Z,Heysham 1,heysham1,395,0
-2026-10-13T14:00Z,Heysham 2,heysham2,545,0
-2026-10-13T14:00Z,Hornsea One,hornsea1,1075,0
-2026-10-13T14:00Z,Hornsea Two,hornsea2,1250,0
-2026-10-13T14:00Z,Moray East,morayeast,495,495
-2026-10-13T14:00Z,Moray West,moraywest,800,800
-2026-10-13T14:00Z,Neart na Gaoithe,nng,225,75
-2026-10-13T14:00Z,Pen y Cymoedd,penycymoedd,195,0
-2026-10-13T14:00Z,Race Bank,racebank,500,0
-2026-10-13T14:00Z,Rampion,rampion,340,0
-2026-10-13T14:00Z,Seagreen,seagreen,1035,1035
-2026-10-13T14:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T14:00Z,Torness,torness,1295,0
-2026-10-13T14:00Z,Triton Knoll,triton,525,0
-2026-10-13T14:00Z,Viking Link,viking,440,0
-2026-10-13T14:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T14:00Z,Walney Extension,walneyx,620,0
-2026-10-13T14:00Z,Whitelee,whitelee,415,0
-2026-10-13T15:00Z,Beatrice,beatrice,520,170
-2026-10-13T15:00Z,Burbo Bank Extension,burbo,215,0
-2026-10-13T15:00Z,Clyde,clyde,450,0
-2026-10-13T15:00Z,Cruachan,cruachan,240,0
-2026-10-13T15:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T15:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T15:00Z,Drax,drax,1615,0
-2026-10-13T15:00Z,East Anglia ONE,ea1,615,0
-2026-10-13T15:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T15:00Z,Foyers,foyers,150,0
-2026-10-13T15:00Z,Galloper,galloper,255,0
-2026-10-13T15:00Z,Greater Gabbard,gabbard,370,0
-2026-10-13T15:00Z,Gwynt y Môr,gym,525,0
-2026-10-13T15:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T15:00Z,Heysham 1,heysham1,395,0
-2026-10-13T15:00Z,Heysham 2,heysham2,545,0
-2026-10-13T15:00Z,Hornsea One,hornsea1,1115,0
-2026-10-13T15:00Z,Hornsea Two,hornsea2,1275,0
-2026-10-13T15:00Z,Moray East,morayeast,525,525
-2026-10-13T15:00Z,Moray West,moraywest,800,800
-2026-10-13T15:00Z,Neart na Gaoithe,nng,225,75
-2026-10-13T15:00Z,Pen y Cymoedd,penycymoedd,175,0
-2026-10-13T15:00Z,Race Bank,racebank,490,0
-2026-10-13T15:00Z,Rampion,rampion,310,0
-2026-10-13T15:00Z,Seagreen,seagreen,1045,1045
-2026-10-13T15:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T15:00Z,Torness,torness,1295,0
-2026-10-13T15:00Z,Triton Knoll,triton,545,0
-2026-10-13T15:00Z,Viking Link,viking,440,0
-2026-10-13T15:00Z,Walney 1 & 2,walney,330,0
-2026-10-13T15:00Z,Walney Extension,walneyx,620,0
-2026-10-13T15:00Z,Whitelee,whitelee,405,0
-2026-10-13T16:00Z,Beatrice,beatrice,535,270
-2026-10-13T16:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T16:00Z,Clyde,clyde,460,0
-2026-10-13T16:00Z,Cruachan,cruachan,240,0
-2026-10-13T16:00Z,Dogger Bank A,doggerA,620,0
-2026-10-13T16:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T16:00Z,Drax,drax,2580,0
-2026-10-13T16:00Z,East Anglia ONE,ea1,610,0
-2026-10-13T16:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T16:00Z,Foyers,foyers,225,0
-2026-10-13T16:00Z,Galloper,galloper,225,0
-2026-10-13T16:00Z,Greater Gabbard,gabbard,320,0
-2026-10-13T16:00Z,Gwynt y Môr,gym,510,0
-2026-10-13T16:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T16:00Z,Heysham 1,heysham1,395,0
-2026-10-13T16:00Z,Heysham 2,heysham2,545,0
-2026-10-13T16:00Z,Hornsea One,hornsea1,1145,0
-2026-10-13T16:00Z,Hornsea Two,hornsea2,1290,0
-2026-10-13T16:00Z,Moray East,morayeast,540,540
-2026-10-13T16:00Z,Moray West,moraywest,800,800
-2026-10-13T16:00Z,Neart na Gaoithe,nng,225,165
-2026-10-13T16:00Z,Pen y Cymoedd,penycymoedd,135,0
-2026-10-13T16:00Z,Race Bank,racebank,490,0
-2026-10-13T16:00Z,Rampion,rampion,270,0
-2026-10-13T16:00Z,Seagreen,seagreen,1040,1040
-2026-10-13T16:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T16:00Z,Torness,torness,1295,0
-2026-10-13T16:00Z,Triton Knoll,triton,600,0
-2026-10-13T16:00Z,Viking Link,viking,440,0
-2026-10-13T16:00Z,Walney 1 & 2,walney,335,0
-2026-10-13T16:00Z,Walney Extension,walneyx,620,0
-2026-10-13T16:00Z,Whitelee,whitelee,300,0
-2026-10-13T17:00Z,Beatrice,beatrice,540,450
-2026-10-13T17:00Z,Burbo Bank Extension,burbo,220,0
-2026-10-13T17:00Z,Clyde,clyde,440,0
-2026-10-13T17:00Z,Cruachan,cruachan,240,0
-2026-10-13T17:00Z,Dogger Bank A,doggerA,615,0
-2026-10-13T17:00Z,Dogger Bank B,doggerB,510,0
-2026-10-13T17:00Z,Drax,drax,2540,0
-2026-10-13T17:00Z,East Anglia ONE,ea1,585,0
-2026-10-13T17:00Z,Ffestiniog,ffestiniog,45,0
-2026-10-13T17:00Z,Foyers,foyers,300,0
-2026-10-13T17:00Z,Galloper,galloper,225,0
-2026-10-13T17:00Z,Greater Gabbard,gabbard,290,0
-2026-10-13T17:00Z,Gwynt y Môr,gym,475,0
-2026-10-13T17:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T17:00Z,Heysham 1,heysham1,395,0
-2026-10-13T17:00Z,Heysham 2,heysham2,545,0
-2026-10-13T17:00Z,Hornsea One,hornsea1,1140,0
-2026-10-13T17:00Z,Hornsea Two,hornsea2,1295,0
-2026-10-13T17:00Z,Moray East,morayeast,530,530
-2026-10-13T17:00Z,Moray West,moraywest,800,800
-2026-10-13T17:00Z,Neart na Gaoithe,nng,225,220
-2026-10-13T17:00Z,Pen y Cymoedd,penycymoedd,110,0
-2026-10-13T17:00Z,Race Bank,racebank,490,0
-2026-10-13T17:00Z,Rampion,rampion,230,0
-2026-10-13T17:00Z,Seagreen,seagreen,1040,1040
-2026-10-13T17:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T17:00Z,Torness,torness,1295,0
-2026-10-13T17:00Z,Triton Knoll,triton,650,0
-2026-10-13T17:00Z,Viking Link,viking,440,0
-2026-10-13T17:00Z,Walney 1 & 2,walney,325,0
-2026-10-13T17:00Z,Walney Extension,walneyx,605,0
-2026-10-13T17:00Z,Whitelee,whitelee,305,0
-2026-10-13T18:00Z,Beatrice,beatrice,540,480
-2026-10-13T18:00Z,Burbo Bank Extension,burbo,210,0
-2026-10-13T18:00Z,Clyde,clyde,420,0
-2026-10-13T18:00Z,Cruachan,cruachan,240,0
-2026-10-13T18:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T18:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T18:00Z,Drax,drax,2535,0
-2026-10-13T18:00Z,East Anglia ONE,ea1,650,0
-2026-10-13T18:00Z,Ffestiniog,ffestiniog,90,0
-2026-10-13T18:00Z,Foyers,foyers,300,0
-2026-10-13T18:00Z,Galloper,galloper,230,0
-2026-10-13T18:00Z,Greater Gabbard,gabbard,250,0
-2026-10-13T18:00Z,Gwynt y Môr,gym,445,0
-2026-10-13T18:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T18:00Z,Heysham 1,heysham1,395,0
-2026-10-13T18:00Z,Heysham 2,heysham2,545,0
-2026-10-13T18:00Z,Hornsea One,hornsea1,1160,0
-2026-10-13T18:00Z,Hornsea Two,hornsea2,1300,0
-2026-10-13T18:00Z,Moray East,morayeast,540,540
-2026-10-13T18:00Z,Moray West,moraywest,800,800
-2026-10-13T18:00Z,Neart na Gaoithe,nng,225,220
-2026-10-13T18:00Z,Pen y Cymoedd,penycymoedd,100,0
-2026-10-13T18:00Z,Race Bank,racebank,465,0
-2026-10-13T18:00Z,Rampion,rampion,205,0
-2026-10-13T18:00Z,Seagreen,seagreen,1045,1045
-2026-10-13T18:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T18:00Z,Torness,torness,1295,0
-2026-10-13T18:00Z,Triton Knoll,triton,700,0
-2026-10-13T18:00Z,Viking Link,viking,435,0
-2026-10-13T18:00Z,Walney 1 & 2,walney,305,0
-2026-10-13T18:00Z,Walney Extension,walneyx,560,0
-2026-10-13T18:00Z,Whitelee,whitelee,335,0
-2026-10-13T19:00Z,Beatrice,beatrice,540,480
-2026-10-13T19:00Z,Burbo Bank Extension,burbo,200,0
-2026-10-13T19:00Z,Clyde,clyde,380,0
-2026-10-13T19:00Z,Cruachan,cruachan,240,0
-2026-10-13T19:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T19:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T19:00Z,Drax,drax,2555,0
-2026-10-13T19:00Z,East Anglia ONE,ea1,610,0
-2026-10-13T19:00Z,Ffestiniog,ffestiniog,90,0
-2026-10-13T19:00Z,Foyers,foyers,150,0
-2026-10-13T19:00Z,Galloper,galloper,240,0
-2026-10-13T19:00Z,Greater Gabbard,gabbard,270,0
-2026-10-13T19:00Z,Gwynt y Môr,gym,420,0
-2026-10-13T19:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T19:00Z,Heysham 1,heysham1,395,0
-2026-10-13T19:00Z,Heysham 2,heysham2,545,0
-2026-10-13T19:00Z,Hornsea One,hornsea1,1165,0
-2026-10-13T19:00Z,Hornsea Two,hornsea2,1295,0
-2026-10-13T19:00Z,Moray East,morayeast,540,540
-2026-10-13T19:00Z,Moray West,moraywest,800,800
-2026-10-13T19:00Z,Neart na Gaoithe,nng,225,220
-2026-10-13T19:00Z,Pen y Cymoedd,penycymoedd,85,0
-2026-10-13T19:00Z,Race Bank,racebank,425,0
-2026-10-13T19:00Z,Rampion,rampion,210,0
-2026-10-13T19:00Z,Seagreen,seagreen,1040,1040
-2026-10-13T19:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T19:00Z,Torness,torness,1295,0
-2026-10-13T19:00Z,Triton Knoll,triton,705,0
-2026-10-13T19:00Z,Viking Link,viking,435,0
-2026-10-13T19:00Z,Walney 1 & 2,walney,285,0
-2026-10-13T19:00Z,Walney Extension,walneyx,510,0
-2026-10-13T19:00Z,Whitelee,whitelee,265,0
-2026-10-13T20:00Z,Beatrice,beatrice,540,480
-2026-10-13T20:00Z,Burbo Bank Extension,burbo,185,0
-2026-10-13T20:00Z,Clyde,clyde,320,0
-2026-10-13T20:00Z,Cruachan,cruachan,240,0
-2026-10-13T20:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T20:00Z,Dogger Bank B,doggerB,510,0
-2026-10-13T20:00Z,Drax,drax,2540,0
-2026-10-13T20:00Z,East Anglia ONE,ea1,585,0
-2026-10-13T20:00Z,Ffestiniog,ffestiniog,45,0
-2026-10-13T20:00Z,Foyers,foyers,295,0
-2026-10-13T20:00Z,Galloper,galloper,250,0
-2026-10-13T20:00Z,Greater Gabbard,gabbard,305,0
-2026-10-13T20:00Z,Gwynt y Môr,gym,385,0
-2026-10-13T20:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T20:00Z,Heysham 1,heysham1,395,0
-2026-10-13T20:00Z,Heysham 2,heysham2,545,0
-2026-10-13T20:00Z,Hornsea One,hornsea1,1160,0
-2026-10-13T20:00Z,Hornsea Two,hornsea2,1295,0
-2026-10-13T20:00Z,Moray East,morayeast,540,540
-2026-10-13T20:00Z,Moray West,moraywest,800,800
-2026-10-13T20:00Z,Neart na Gaoithe,nng,225,220
-2026-10-13T20:00Z,Pen y Cymoedd,penycymoedd,55,0
-2026-10-13T20:00Z,Race Bank,racebank,435,0
-2026-10-13T20:00Z,Rampion,rampion,195,0
-2026-10-13T20:00Z,Seagreen,seagreen,1025,1025
-2026-10-13T20:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T20:00Z,Torness,torness,1295,0
-2026-10-13T20:00Z,Triton Knoll,triton,690,0
-2026-10-13T20:00Z,Viking Link,viking,435,0
-2026-10-13T20:00Z,Walney 1 & 2,walney,240,0
-2026-10-13T20:00Z,Walney Extension,walneyx,450,0
-2026-10-13T20:00Z,Whitelee,whitelee,215,0
-2026-10-13T21:00Z,Beatrice,beatrice,535,435
-2026-10-13T21:00Z,Burbo Bank Extension,burbo,140,0
-2026-10-13T21:00Z,Clyde,clyde,255,0
-2026-10-13T21:00Z,Cruachan,cruachan,240,0
-2026-10-13T21:00Z,Dogger Bank A,doggerA,620,0
-2026-10-13T21:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T21:00Z,Drax,drax,2495,0
-2026-10-13T21:00Z,East Anglia ONE,ea1,545,0
-2026-10-13T21:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T21:00Z,Foyers,foyers,75,0
-2026-10-13T21:00Z,Galloper,galloper,235,0
-2026-10-13T21:00Z,Greater Gabbard,gabbard,310,0
-2026-10-13T21:00Z,Gwynt y Môr,gym,325,0
-2026-10-13T21:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T21:00Z,Heysham 1,heysham1,395,0
-2026-10-13T21:00Z,Heysham 2,heysham2,545,0
-2026-10-13T21:00Z,Hornsea One,hornsea1,1150,0
-2026-10-13T21:00Z,Hornsea Two,hornsea2,1285,0
-2026-10-13T21:00Z,Moray East,morayeast,510,510
-2026-10-13T21:00Z,Moray West,moraywest,800,800
-2026-10-13T21:00Z,Neart na Gaoithe,nng,225,220
-2026-10-13T21:00Z,Pen y Cymoedd,penycymoedd,40,0
-2026-10-13T21:00Z,Race Bank,racebank,420,0
-2026-10-13T21:00Z,Rampion,rampion,160,0
-2026-10-13T21:00Z,Seagreen,seagreen,1000,1000
-2026-10-13T21:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T21:00Z,Torness,torness,1295,0
-2026-10-13T21:00Z,Triton Knoll,triton,600,0
-2026-10-13T21:00Z,Viking Link,viking,440,0
-2026-10-13T21:00Z,Walney 1 & 2,walney,160,0
-2026-10-13T21:00Z,Walney Extension,walneyx,385,120
-2026-10-13T21:00Z,Whitelee,whitelee,175,0
-2026-10-13T22:00Z,Beatrice,beatrice,520,170
-2026-10-13T22:00Z,Burbo Bank Extension,burbo,80,0
-2026-10-13T22:00Z,Clyde,clyde,205,0
-2026-10-13T22:00Z,Cruachan,cruachan,240,0
-2026-10-13T22:00Z,Dogger Bank A,doggerA,625,0
-2026-10-13T22:00Z,Dogger Bank B,doggerB,505,0
-2026-10-13T22:00Z,Drax,drax,2495,0
-2026-10-13T22:00Z,East Anglia ONE,ea1,450,0
-2026-10-13T22:00Z,Ffestiniog,ffestiniog,0,0
-2026-10-13T22:00Z,Foyers,foyers,0,0
-2026-10-13T22:00Z,Galloper,galloper,205,0
-2026-10-13T22:00Z,Greater Gabbard,gabbard,260,0
-2026-10-13T22:00Z,Gwynt y Môr,gym,225,0
-2026-10-13T22:00Z,Hartlepool,hartlepool,890,0
-2026-10-13T22:00Z,Heysham 1,heysham1,395,0
-2026-10-13T22:00Z,Heysham 2,heysham2,545,0
-2026-10-13T22:00Z,Hornsea One,hornsea1,1120,0
-2026-10-13T22:00Z,Hornsea Two,hornsea2,1270,0
-2026-10-13T22:00Z,Moray East,morayeast,490,490
-2026-10-13T22:00Z,Moray West,moraywest,790,790
-2026-10-13T22:00Z,Neart na Gaoithe,nng,225,220
-2026-10-13T22:00Z,Pen y Cymoedd,penycymoedd,35,0
-2026-10-13T22:00Z,Race Bank,racebank,380,0
-2026-10-13T22:00Z,Rampion,rampion,110,0
-2026-10-13T22:00Z,Seagreen,seagreen,955,955
-2026-10-13T22:00Z,Sizewell B,sizewellb,1195,0
-2026-10-13T22:00Z,Torness,torness,1295,0
-2026-10-13T22:00Z,Triton Knoll,triton,490,0
-2026-10-13T22:00Z,Viking Link,viking,440,0
-2026-10-13T22:00Z,Walney 1 & 2,walney,145,0
-2026-10-13T22:00Z,Walney Extension,walneyx,350,125
-2026-10-13T22:00Z,Whitelee,whitelee,170,0
 2026-10-13T23:00Z,Beatrice,beatrice,480,115
 2026-10-13T23:00Z,Burbo Bank Extension,burbo,50,0
 2026-10-13T23:00Z,Carrington,carrington,0,0
@@ -12632,3 +11864,843 @@ hour_start_utc,station,site_id,notified_mw,turned_down_mw
 2026-10-26T23:00Z,Walney Extension,walneyx,420,0
 2026-10-26T23:00Z,West Burton B,westburton,0,0
 2026-10-26T23:00Z,Whitelee,whitelee,440,80
+2026-10-27T00:00Z,Beatrice,beatrice,535,50
+2026-10-27T00:00Z,Burbo Bank Extension,burbo,215,0
+2026-10-27T00:00Z,Clyde,clyde,330,0
+2026-10-27T00:00Z,Cruachan,cruachan,240,0
+2026-10-27T00:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T00:00Z,Dogger Bank A,doggerA,500,0
+2026-10-27T00:00Z,Dogger Bank B,doggerB,540,0
+2026-10-27T00:00Z,Drax,drax,200,0
+2026-10-27T00:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T00:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T00:00Z,Foyers,foyers,0,0
+2026-10-27T00:00Z,Galloper,galloper,300,0
+2026-10-27T00:00Z,Greater Gabbard,gabbard,420,0
+2026-10-27T00:00Z,Gwynt y Môr,gym,535,0
+2026-10-27T00:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T00:00Z,Heysham 1,heysham1,900,0
+2026-10-27T00:00Z,Heysham 2,heysham2,550,0
+2026-10-27T00:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T00:00Z,Hornsea Two,hornsea2,1200,0
+2026-10-27T00:00Z,Keadby 2,keadby2,0,0
+2026-10-27T00:00Z,Moray East,morayeast,795,795
+2026-10-27T00:00Z,Moray West,moraywest,790,790
+2026-10-27T00:00Z,Neart na Gaoithe,nng,430,0
+2026-10-27T00:00Z,Pen y Cymoedd,penycymoedd,215,0
+2026-10-27T00:00Z,Race Bank,racebank,550,0
+2026-10-27T00:00Z,Rampion,rampion,395,0
+2026-10-27T00:00Z,Seagreen,seagreen,1040,1040
+2026-10-27T00:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T00:00Z,Torness,torness,1300,0
+2026-10-27T00:00Z,Triton Knoll,triton,755,0
+2026-10-27T00:00Z,Viking Link,viking,400,0
+2026-10-27T00:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T00:00Z,Walney Extension,walneyx,415,0
+2026-10-27T00:00Z,West Burton B,westburton,0,0
+2026-10-27T00:00Z,Whitelee,whitelee,400,125
+2026-10-27T01:00Z,Beatrice,beatrice,535,0
+2026-10-27T01:00Z,Burbo Bank Extension,burbo,210,0
+2026-10-27T01:00Z,Clyde,clyde,330,0
+2026-10-27T01:00Z,Cruachan,cruachan,240,0
+2026-10-27T01:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T01:00Z,Dogger Bank A,doggerA,500,0
+2026-10-27T01:00Z,Dogger Bank B,doggerB,530,0
+2026-10-27T01:00Z,Drax,drax,200,0
+2026-10-27T01:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T01:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T01:00Z,Foyers,foyers,0,0
+2026-10-27T01:00Z,Galloper,galloper,300,0
+2026-10-27T01:00Z,Greater Gabbard,gabbard,420,0
+2026-10-27T01:00Z,Gwynt y Môr,gym,525,0
+2026-10-27T01:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T01:00Z,Heysham 1,heysham1,900,0
+2026-10-27T01:00Z,Heysham 2,heysham2,550,0
+2026-10-27T01:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T01:00Z,Hornsea Two,hornsea2,1200,0
+2026-10-27T01:00Z,Keadby 2,keadby2,0,0
+2026-10-27T01:00Z,Moray East,morayeast,810,810
+2026-10-27T01:00Z,Moray West,moraywest,795,795
+2026-10-27T01:00Z,Neart na Gaoithe,nng,425,0
+2026-10-27T01:00Z,Pen y Cymoedd,penycymoedd,210,0
+2026-10-27T01:00Z,Race Bank,racebank,550,0
+2026-10-27T01:00Z,Rampion,rampion,395,0
+2026-10-27T01:00Z,Seagreen,seagreen,1040,1040
+2026-10-27T01:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T01:00Z,Torness,torness,1300,0
+2026-10-27T01:00Z,Triton Knoll,triton,755,0
+2026-10-27T01:00Z,Viking Link,viking,405,0
+2026-10-27T01:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T01:00Z,Walney Extension,walneyx,415,0
+2026-10-27T01:00Z,West Burton B,westburton,0,0
+2026-10-27T01:00Z,Whitelee,whitelee,400,120
+2026-10-27T02:00Z,Beatrice,beatrice,535,0
+2026-10-27T02:00Z,Burbo Bank Extension,burbo,210,0
+2026-10-27T02:00Z,Clyde,clyde,350,0
+2026-10-27T02:00Z,Cruachan,cruachan,240,0
+2026-10-27T02:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T02:00Z,Dogger Bank A,doggerA,480,0
+2026-10-27T02:00Z,Dogger Bank B,doggerB,450,0
+2026-10-27T02:00Z,Drax,drax,200,0
+2026-10-27T02:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T02:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T02:00Z,Foyers,foyers,0,0
+2026-10-27T02:00Z,Galloper,galloper,300,0
+2026-10-27T02:00Z,Greater Gabbard,gabbard,420,0
+2026-10-27T02:00Z,Gwynt y Môr,gym,525,0
+2026-10-27T02:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T02:00Z,Heysham 1,heysham1,900,0
+2026-10-27T02:00Z,Heysham 2,heysham2,550,0
+2026-10-27T02:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T02:00Z,Hornsea Two,hornsea2,1200,0
+2026-10-27T02:00Z,Keadby 2,keadby2,0,0
+2026-10-27T02:00Z,Moray East,morayeast,810,810
+2026-10-27T02:00Z,Moray West,moraywest,800,800
+2026-10-27T02:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T02:00Z,Pen y Cymoedd,penycymoedd,210,0
+2026-10-27T02:00Z,Race Bank,racebank,550,0
+2026-10-27T02:00Z,Rampion,rampion,395,0
+2026-10-27T02:00Z,Seagreen,seagreen,1040,1040
+2026-10-27T02:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T02:00Z,Torness,torness,1300,0
+2026-10-27T02:00Z,Triton Knoll,triton,755,0
+2026-10-27T02:00Z,Viking Link,viking,410,0
+2026-10-27T02:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T02:00Z,Walney Extension,walneyx,420,0
+2026-10-27T02:00Z,West Burton B,westburton,0,0
+2026-10-27T02:00Z,Whitelee,whitelee,400,120
+2026-10-27T03:00Z,Beatrice,beatrice,535,0
+2026-10-27T03:00Z,Burbo Bank Extension,burbo,210,0
+2026-10-27T03:00Z,Clyde,clyde,280,0
+2026-10-27T03:00Z,Cruachan,cruachan,240,0
+2026-10-27T03:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T03:00Z,Dogger Bank A,doggerA,410,0
+2026-10-27T03:00Z,Dogger Bank B,doggerB,350,0
+2026-10-27T03:00Z,Drax,drax,200,0
+2026-10-27T03:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T03:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T03:00Z,Foyers,foyers,0,0
+2026-10-27T03:00Z,Galloper,galloper,300,0
+2026-10-27T03:00Z,Greater Gabbard,gabbard,420,0
+2026-10-27T03:00Z,Gwynt y Môr,gym,535,0
+2026-10-27T03:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T03:00Z,Heysham 1,heysham1,900,0
+2026-10-27T03:00Z,Heysham 2,heysham2,550,0
+2026-10-27T03:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T03:00Z,Hornsea Two,hornsea2,1200,0
+2026-10-27T03:00Z,Keadby 2,keadby2,0,0
+2026-10-27T03:00Z,Moray East,morayeast,810,810
+2026-10-27T03:00Z,Moray West,moraywest,795,795
+2026-10-27T03:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T03:00Z,Pen y Cymoedd,penycymoedd,210,0
+2026-10-27T03:00Z,Race Bank,racebank,550,0
+2026-10-27T03:00Z,Rampion,rampion,390,0
+2026-10-27T03:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T03:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T03:00Z,Torness,torness,1300,0
+2026-10-27T03:00Z,Triton Knoll,triton,755,0
+2026-10-27T03:00Z,Viking Link,viking,410,0
+2026-10-27T03:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T03:00Z,Walney Extension,walneyx,420,0
+2026-10-27T03:00Z,West Burton B,westburton,0,0
+2026-10-27T03:00Z,Whitelee,whitelee,385,220
+2026-10-27T04:00Z,Beatrice,beatrice,535,10
+2026-10-27T04:00Z,Burbo Bank Extension,burbo,215,0
+2026-10-27T04:00Z,Clyde,clyde,305,0
+2026-10-27T04:00Z,Cruachan,cruachan,240,0
+2026-10-27T04:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T04:00Z,Dogger Bank A,doggerA,345,0
+2026-10-27T04:00Z,Dogger Bank B,doggerB,310,0
+2026-10-27T04:00Z,Drax,drax,200,0
+2026-10-27T04:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T04:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T04:00Z,Foyers,foyers,0,0
+2026-10-27T04:00Z,Galloper,galloper,300,0
+2026-10-27T04:00Z,Greater Gabbard,gabbard,445,0
+2026-10-27T04:00Z,Gwynt y Môr,gym,540,0
+2026-10-27T04:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T04:00Z,Heysham 1,heysham1,900,0
+2026-10-27T04:00Z,Heysham 2,heysham2,550,0
+2026-10-27T04:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T04:00Z,Hornsea Two,hornsea2,1195,0
+2026-10-27T04:00Z,Keadby 2,keadby2,0,0
+2026-10-27T04:00Z,Moray East,morayeast,810,810
+2026-10-27T04:00Z,Moray West,moraywest,795,795
+2026-10-27T04:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T04:00Z,Pen y Cymoedd,penycymoedd,210,0
+2026-10-27T04:00Z,Race Bank,racebank,550,0
+2026-10-27T04:00Z,Rampion,rampion,395,0
+2026-10-27T04:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T04:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T04:00Z,Torness,torness,1300,0
+2026-10-27T04:00Z,Triton Knoll,triton,760,0
+2026-10-27T04:00Z,Viking Link,viking,410,0
+2026-10-27T04:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T04:00Z,Walney Extension,walneyx,420,0
+2026-10-27T04:00Z,West Burton B,westburton,0,0
+2026-10-27T04:00Z,Whitelee,whitelee,390,310
+2026-10-27T05:00Z,Beatrice,beatrice,535,50
+2026-10-27T05:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T05:00Z,Clyde,clyde,420,0
+2026-10-27T05:00Z,Cruachan,cruachan,240,0
+2026-10-27T05:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T05:00Z,Dogger Bank A,doggerA,390,0
+2026-10-27T05:00Z,Dogger Bank B,doggerB,375,0
+2026-10-27T05:00Z,Drax,drax,200,0
+2026-10-27T05:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T05:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T05:00Z,Foyers,foyers,0,0
+2026-10-27T05:00Z,Galloper,galloper,300,0
+2026-10-27T05:00Z,Greater Gabbard,gabbard,445,0
+2026-10-27T05:00Z,Gwynt y Môr,gym,540,0
+2026-10-27T05:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T05:00Z,Heysham 1,heysham1,900,0
+2026-10-27T05:00Z,Heysham 2,heysham2,550,0
+2026-10-27T05:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T05:00Z,Hornsea Two,hornsea2,1195,0
+2026-10-27T05:00Z,Keadby 2,keadby2,0,0
+2026-10-27T05:00Z,Moray East,morayeast,800,800
+2026-10-27T05:00Z,Moray West,moraywest,795,795
+2026-10-27T05:00Z,Neart na Gaoithe,nng,410,0
+2026-10-27T05:00Z,Pen y Cymoedd,penycymoedd,200,0
+2026-10-27T05:00Z,Race Bank,racebank,550,0
+2026-10-27T05:00Z,Rampion,rampion,395,0
+2026-10-27T05:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T05:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T05:00Z,Torness,torness,1300,0
+2026-10-27T05:00Z,Triton Knoll,triton,765,0
+2026-10-27T05:00Z,Viking Link,viking,410,0
+2026-10-27T05:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T05:00Z,Walney Extension,walneyx,420,0
+2026-10-27T05:00Z,West Burton B,westburton,0,0
+2026-10-27T05:00Z,Whitelee,whitelee,390,310
+2026-10-27T06:00Z,Beatrice,beatrice,535,0
+2026-10-27T06:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T06:00Z,Clyde,clyde,455,40
+2026-10-27T06:00Z,Cruachan,cruachan,240,0
+2026-10-27T06:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T06:00Z,Dogger Bank A,doggerA,460,0
+2026-10-27T06:00Z,Dogger Bank B,doggerB,480,0
+2026-10-27T06:00Z,Drax,drax,500,0
+2026-10-27T06:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T06:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T06:00Z,Foyers,foyers,70,0
+2026-10-27T06:00Z,Galloper,galloper,295,0
+2026-10-27T06:00Z,Greater Gabbard,gabbard,445,0
+2026-10-27T06:00Z,Gwynt y Môr,gym,535,0
+2026-10-27T06:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T06:00Z,Heysham 1,heysham1,900,0
+2026-10-27T06:00Z,Heysham 2,heysham2,550,0
+2026-10-27T06:00Z,Hornsea One,hornsea1,1125,0
+2026-10-27T06:00Z,Hornsea Two,hornsea2,1195,0
+2026-10-27T06:00Z,Keadby 2,keadby2,0,0
+2026-10-27T06:00Z,Moray East,morayeast,810,810
+2026-10-27T06:00Z,Moray West,moraywest,795,795
+2026-10-27T06:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T06:00Z,Pen y Cymoedd,penycymoedd,195,0
+2026-10-27T06:00Z,Race Bank,racebank,550,0
+2026-10-27T06:00Z,Rampion,rampion,390,0
+2026-10-27T06:00Z,Seagreen,seagreen,1055,1055
+2026-10-27T06:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T06:00Z,Torness,torness,1300,0
+2026-10-27T06:00Z,Triton Knoll,triton,765,0
+2026-10-27T06:00Z,Viking Link,viking,410,0
+2026-10-27T06:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T06:00Z,Walney Extension,walneyx,420,0
+2026-10-27T06:00Z,West Burton B,westburton,0,0
+2026-10-27T06:00Z,Whitelee,whitelee,400,370
+2026-10-27T07:00Z,Beatrice,beatrice,535,0
+2026-10-27T07:00Z,Burbo Bank Extension,burbo,215,0
+2026-10-27T07:00Z,Clyde,clyde,455,0
+2026-10-27T07:00Z,Cruachan,cruachan,240,0
+2026-10-27T07:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T07:00Z,Dogger Bank A,doggerA,490,0
+2026-10-27T07:00Z,Dogger Bank B,doggerB,535,0
+2026-10-27T07:00Z,Drax,drax,645,0
+2026-10-27T07:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T07:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T07:00Z,Foyers,foyers,225,0
+2026-10-27T07:00Z,Galloper,galloper,300,0
+2026-10-27T07:00Z,Greater Gabbard,gabbard,445,0
+2026-10-27T07:00Z,Gwynt y Môr,gym,535,0
+2026-10-27T07:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T07:00Z,Heysham 1,heysham1,900,0
+2026-10-27T07:00Z,Heysham 2,heysham2,550,0
+2026-10-27T07:00Z,Hornsea One,hornsea1,1130,0
+2026-10-27T07:00Z,Hornsea Two,hornsea2,1185,0
+2026-10-27T07:00Z,Keadby 2,keadby2,0,0
+2026-10-27T07:00Z,Moray East,morayeast,810,810
+2026-10-27T07:00Z,Moray West,moraywest,790,790
+2026-10-27T07:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T07:00Z,Pen y Cymoedd,penycymoedd,190,0
+2026-10-27T07:00Z,Race Bank,racebank,550,0
+2026-10-27T07:00Z,Rampion,rampion,390,0
+2026-10-27T07:00Z,Seagreen,seagreen,1055,1055
+2026-10-27T07:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T07:00Z,Torness,torness,1300,0
+2026-10-27T07:00Z,Triton Knoll,triton,730,0
+2026-10-27T07:00Z,Viking Link,viking,410,0
+2026-10-27T07:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T07:00Z,Walney Extension,walneyx,420,0
+2026-10-27T07:00Z,West Burton B,westburton,0,0
+2026-10-27T07:00Z,Whitelee,whitelee,400,390
+2026-10-27T08:00Z,Beatrice,beatrice,480,0
+2026-10-27T08:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T08:00Z,Clyde,clyde,450,0
+2026-10-27T08:00Z,Cruachan,cruachan,240,0
+2026-10-27T08:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T08:00Z,Dogger Bank A,doggerA,485,0
+2026-10-27T08:00Z,Dogger Bank B,doggerB,540,0
+2026-10-27T08:00Z,Drax,drax,645,0
+2026-10-27T08:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T08:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T08:00Z,Foyers,foyers,295,0
+2026-10-27T08:00Z,Galloper,galloper,300,0
+2026-10-27T08:00Z,Greater Gabbard,gabbard,440,0
+2026-10-27T08:00Z,Gwynt y Môr,gym,535,0
+2026-10-27T08:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T08:00Z,Heysham 1,heysham1,900,0
+2026-10-27T08:00Z,Heysham 2,heysham2,550,0
+2026-10-27T08:00Z,Hornsea One,hornsea1,1130,0
+2026-10-27T08:00Z,Hornsea Two,hornsea2,1185,0
+2026-10-27T08:00Z,Keadby 2,keadby2,0,0
+2026-10-27T08:00Z,Moray East,morayeast,810,810
+2026-10-27T08:00Z,Moray West,moraywest,775,775
+2026-10-27T08:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T08:00Z,Pen y Cymoedd,penycymoedd,195,0
+2026-10-27T08:00Z,Race Bank,racebank,540,0
+2026-10-27T08:00Z,Rampion,rampion,380,0
+2026-10-27T08:00Z,Seagreen,seagreen,1055,1055
+2026-10-27T08:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T08:00Z,Torness,torness,1300,0
+2026-10-27T08:00Z,Triton Knoll,triton,705,0
+2026-10-27T08:00Z,Viking Link,viking,410,0
+2026-10-27T08:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T08:00Z,Walney Extension,walneyx,420,0
+2026-10-27T08:00Z,West Burton B,westburton,0,0
+2026-10-27T08:00Z,Whitelee,whitelee,400,390
+2026-10-27T09:00Z,Beatrice,beatrice,405,0
+2026-10-27T09:00Z,Burbo Bank Extension,burbo,215,0
+2026-10-27T09:00Z,Clyde,clyde,445,35
+2026-10-27T09:00Z,Cruachan,cruachan,240,0
+2026-10-27T09:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T09:00Z,Dogger Bank A,doggerA,485,0
+2026-10-27T09:00Z,Dogger Bank B,doggerB,545,0
+2026-10-27T09:00Z,Drax,drax,365,0
+2026-10-27T09:00Z,East Anglia ONE,ea1,655,25
+2026-10-27T09:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T09:00Z,Foyers,foyers,150,0
+2026-10-27T09:00Z,Galloper,galloper,300,0
+2026-10-27T09:00Z,Greater Gabbard,gabbard,430,0
+2026-10-27T09:00Z,Gwynt y Môr,gym,540,0
+2026-10-27T09:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T09:00Z,Heysham 1,heysham1,900,0
+2026-10-27T09:00Z,Heysham 2,heysham2,550,0
+2026-10-27T09:00Z,Hornsea One,hornsea1,1110,0
+2026-10-27T09:00Z,Hornsea Two,hornsea2,1185,0
+2026-10-27T09:00Z,Keadby 2,keadby2,0,0
+2026-10-27T09:00Z,Moray East,morayeast,800,800
+2026-10-27T09:00Z,Moray West,moraywest,750,750
+2026-10-27T09:00Z,Neart na Gaoithe,nng,410,0
+2026-10-27T09:00Z,Pen y Cymoedd,penycymoedd,190,0
+2026-10-27T09:00Z,Race Bank,racebank,525,0
+2026-10-27T09:00Z,Rampion,rampion,360,0
+2026-10-27T09:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T09:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T09:00Z,Torness,torness,1300,0
+2026-10-27T09:00Z,Triton Knoll,triton,690,0
+2026-10-27T09:00Z,Viking Link,viking,410,0
+2026-10-27T09:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T09:00Z,Walney Extension,walneyx,420,0
+2026-10-27T09:00Z,West Burton B,westburton,0,0
+2026-10-27T09:00Z,Whitelee,whitelee,395,380
+2026-10-27T10:00Z,Beatrice,beatrice,465,0
+2026-10-27T10:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T10:00Z,Clyde,clyde,440,0
+2026-10-27T10:00Z,Cruachan,cruachan,240,0
+2026-10-27T10:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T10:00Z,Dogger Bank A,doggerA,495,0
+2026-10-27T10:00Z,Dogger Bank B,doggerB,540,0
+2026-10-27T10:00Z,Drax,drax,200,0
+2026-10-27T10:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T10:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T10:00Z,Foyers,foyers,150,0
+2026-10-27T10:00Z,Galloper,galloper,295,0
+2026-10-27T10:00Z,Greater Gabbard,gabbard,430,0
+2026-10-27T10:00Z,Gwynt y Môr,gym,540,0
+2026-10-27T10:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T10:00Z,Heysham 1,heysham1,900,0
+2026-10-27T10:00Z,Heysham 2,heysham2,550,0
+2026-10-27T10:00Z,Hornsea One,hornsea1,1105,0
+2026-10-27T10:00Z,Hornsea Two,hornsea2,1180,0
+2026-10-27T10:00Z,Keadby 2,keadby2,0,0
+2026-10-27T10:00Z,Moray East,morayeast,800,800
+2026-10-27T10:00Z,Moray West,moraywest,735,735
+2026-10-27T10:00Z,Neart na Gaoithe,nng,415,0
+2026-10-27T10:00Z,Pen y Cymoedd,penycymoedd,195,0
+2026-10-27T10:00Z,Race Bank,racebank,525,0
+2026-10-27T10:00Z,Rampion,rampion,370,0
+2026-10-27T10:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T10:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T10:00Z,Torness,torness,1300,0
+2026-10-27T10:00Z,Triton Knoll,triton,660,0
+2026-10-27T10:00Z,Viking Link,viking,410,0
+2026-10-27T10:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T10:00Z,Walney Extension,walneyx,430,0
+2026-10-27T10:00Z,West Burton B,westburton,0,0
+2026-10-27T10:00Z,Whitelee,whitelee,395,385
+2026-10-27T11:00Z,Beatrice,beatrice,490,0
+2026-10-27T11:00Z,Burbo Bank Extension,burbo,225,0
+2026-10-27T11:00Z,Clyde,clyde,430,0
+2026-10-27T11:00Z,Cruachan,cruachan,240,0
+2026-10-27T11:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T11:00Z,Dogger Bank A,doggerA,495,0
+2026-10-27T11:00Z,Dogger Bank B,doggerB,530,0
+2026-10-27T11:00Z,Drax,drax,200,0
+2026-10-27T11:00Z,East Anglia ONE,ea1,655,0
+2026-10-27T11:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T11:00Z,Foyers,foyers,75,0
+2026-10-27T11:00Z,Galloper,galloper,280,0
+2026-10-27T11:00Z,Greater Gabbard,gabbard,375,0
+2026-10-27T11:00Z,Gwynt y Môr,gym,540,0
+2026-10-27T11:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T11:00Z,Heysham 1,heysham1,900,0
+2026-10-27T11:00Z,Heysham 2,heysham2,550,0
+2026-10-27T11:00Z,Hornsea One,hornsea1,1130,0
+2026-10-27T11:00Z,Hornsea Two,hornsea2,1205,0
+2026-10-27T11:00Z,Keadby 2,keadby2,0,0
+2026-10-27T11:00Z,Moray East,morayeast,820,820
+2026-10-27T11:00Z,Moray West,moraywest,750,750
+2026-10-27T11:00Z,Neart na Gaoithe,nng,420,0
+2026-10-27T11:00Z,Pen y Cymoedd,penycymoedd,185,0
+2026-10-27T11:00Z,Race Bank,racebank,530,0
+2026-10-27T11:00Z,Rampion,rampion,380,0
+2026-10-27T11:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T11:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T11:00Z,Torness,torness,1300,0
+2026-10-27T11:00Z,Triton Knoll,triton,640,0
+2026-10-27T11:00Z,Viking Link,viking,320,0
+2026-10-27T11:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T11:00Z,Walney Extension,walneyx,430,0
+2026-10-27T11:00Z,West Burton B,westburton,0,0
+2026-10-27T11:00Z,Whitelee,whitelee,400,125
+2026-10-27T12:00Z,Beatrice,beatrice,535,0
+2026-10-27T12:00Z,Burbo Bank Extension,burbo,225,0
+2026-10-27T12:00Z,Clyde,clyde,435,0
+2026-10-27T12:00Z,Cruachan,cruachan,0,0
+2026-10-27T12:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T12:00Z,Dogger Bank A,doggerA,500,0
+2026-10-27T12:00Z,Dogger Bank B,doggerB,525,0
+2026-10-27T12:00Z,Drax,drax,500,0
+2026-10-27T12:00Z,East Anglia ONE,ea1,650,0
+2026-10-27T12:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T12:00Z,Foyers,foyers,295,0
+2026-10-27T12:00Z,Galloper,galloper,270,0
+2026-10-27T12:00Z,Greater Gabbard,gabbard,305,0
+2026-10-27T12:00Z,Gwynt y Môr,gym,540,0
+2026-10-27T12:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T12:00Z,Heysham 1,heysham1,900,0
+2026-10-27T12:00Z,Heysham 2,heysham2,550,0
+2026-10-27T12:00Z,Hornsea One,hornsea1,1110,0
+2026-10-27T12:00Z,Hornsea Two,hornsea2,1210,0
+2026-10-27T12:00Z,Keadby 2,keadby2,0,0
+2026-10-27T12:00Z,Moray East,morayeast,835,835
+2026-10-27T12:00Z,Moray West,moraywest,795,795
+2026-10-27T12:00Z,Neart na Gaoithe,nng,430,0
+2026-10-27T12:00Z,Pen y Cymoedd,penycymoedd,165,0
+2026-10-27T12:00Z,Race Bank,racebank,530,0
+2026-10-27T12:00Z,Rampion,rampion,385,0
+2026-10-27T12:00Z,Seagreen,seagreen,1055,1055
+2026-10-27T12:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T12:00Z,Torness,torness,1300,0
+2026-10-27T12:00Z,Triton Knoll,triton,630,0
+2026-10-27T12:00Z,Viking Link,viking,380,0
+2026-10-27T12:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T12:00Z,Walney Extension,walneyx,430,0
+2026-10-27T12:00Z,West Burton B,westburton,15,0
+2026-10-27T12:00Z,Whitelee,whitelee,395,0
+2026-10-27T13:00Z,Beatrice,beatrice,535,0
+2026-10-27T13:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T13:00Z,Clyde,clyde,440,120
+2026-10-27T13:00Z,Cruachan,cruachan,0,0
+2026-10-27T13:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T13:00Z,Dogger Bank A,doggerA,505,0
+2026-10-27T13:00Z,Dogger Bank B,doggerB,525,0
+2026-10-27T13:00Z,Drax,drax,670,0
+2026-10-27T13:00Z,East Anglia ONE,ea1,620,0
+2026-10-27T13:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T13:00Z,Foyers,foyers,300,0
+2026-10-27T13:00Z,Galloper,galloper,265,0
+2026-10-27T13:00Z,Greater Gabbard,gabbard,310,0
+2026-10-27T13:00Z,Gwynt y Môr,gym,535,0
+2026-10-27T13:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T13:00Z,Heysham 1,heysham1,900,0
+2026-10-27T13:00Z,Heysham 2,heysham2,550,0
+2026-10-27T13:00Z,Hornsea One,hornsea1,1105,0
+2026-10-27T13:00Z,Hornsea Two,hornsea2,1220,0
+2026-10-27T13:00Z,Keadby 2,keadby2,0,0
+2026-10-27T13:00Z,Moray East,morayeast,825,825
+2026-10-27T13:00Z,Moray West,moraywest,805,805
+2026-10-27T13:00Z,Neart na Gaoithe,nng,425,0
+2026-10-27T13:00Z,Pen y Cymoedd,penycymoedd,175,0
+2026-10-27T13:00Z,Race Bank,racebank,535,0
+2026-10-27T13:00Z,Rampion,rampion,385,0
+2026-10-27T13:00Z,Seagreen,seagreen,1055,1055
+2026-10-27T13:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T13:00Z,Torness,torness,1300,0
+2026-10-27T13:00Z,Triton Knoll,triton,635,0
+2026-10-27T13:00Z,Viking Link,viking,390,0
+2026-10-27T13:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T13:00Z,Walney Extension,walneyx,425,0
+2026-10-27T13:00Z,West Burton B,westburton,130,0
+2026-10-27T13:00Z,Whitelee,whitelee,395,0
+2026-10-27T14:00Z,Beatrice,beatrice,535,0
+2026-10-27T14:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T14:00Z,Clyde,clyde,440,285
+2026-10-27T14:00Z,Cruachan,cruachan,0,0
+2026-10-27T14:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T14:00Z,Dogger Bank A,doggerA,505,0
+2026-10-27T14:00Z,Dogger Bank B,doggerB,525,0
+2026-10-27T14:00Z,Drax,drax,1765,0
+2026-10-27T14:00Z,East Anglia ONE,ea1,585,0
+2026-10-27T14:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T14:00Z,Foyers,foyers,300,0
+2026-10-27T14:00Z,Galloper,galloper,260,0
+2026-10-27T14:00Z,Greater Gabbard,gabbard,325,0
+2026-10-27T14:00Z,Gwynt y Môr,gym,530,0
+2026-10-27T14:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T14:00Z,Heysham 1,heysham1,900,0
+2026-10-27T14:00Z,Heysham 2,heysham2,550,0
+2026-10-27T14:00Z,Hornsea One,hornsea1,1110,0
+2026-10-27T14:00Z,Hornsea Two,hornsea2,1245,0
+2026-10-27T14:00Z,Keadby 2,keadby2,10,0
+2026-10-27T14:00Z,Moray East,morayeast,820,820
+2026-10-27T14:00Z,Moray West,moraywest,805,805
+2026-10-27T14:00Z,Neart na Gaoithe,nng,430,245
+2026-10-27T14:00Z,Pen y Cymoedd,penycymoedd,180,0
+2026-10-27T14:00Z,Race Bank,racebank,535,0
+2026-10-27T14:00Z,Rampion,rampion,390,0
+2026-10-27T14:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T14:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T14:00Z,Torness,torness,1300,0
+2026-10-27T14:00Z,Triton Knoll,triton,655,0
+2026-10-27T14:00Z,Viking Link,viking,390,0
+2026-10-27T14:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T14:00Z,Walney Extension,walneyx,425,0
+2026-10-27T14:00Z,West Burton B,westburton,390,0
+2026-10-27T14:00Z,Whitelee,whitelee,440,145
+2026-10-27T15:00Z,Beatrice,beatrice,535,165
+2026-10-27T15:00Z,Burbo Bank Extension,burbo,225,0
+2026-10-27T15:00Z,Clyde,clyde,440,80
+2026-10-27T15:00Z,Cruachan,cruachan,240,0
+2026-10-27T15:00Z,Dinorwig,dinorwig,30,0
+2026-10-27T15:00Z,Dogger Bank A,doggerA,515,0
+2026-10-27T15:00Z,Dogger Bank B,doggerB,525,0
+2026-10-27T15:00Z,Drax,drax,2485,0
+2026-10-27T15:00Z,East Anglia ONE,ea1,545,0
+2026-10-27T15:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T15:00Z,Foyers,foyers,300,0
+2026-10-27T15:00Z,Galloper,galloper,255,0
+2026-10-27T15:00Z,Greater Gabbard,gabbard,335,0
+2026-10-27T15:00Z,Gwynt y Môr,gym,520,0
+2026-10-27T15:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T15:00Z,Heysham 1,heysham1,900,0
+2026-10-27T15:00Z,Heysham 2,heysham2,550,0
+2026-10-27T15:00Z,Hornsea One,hornsea1,1110,0
+2026-10-27T15:00Z,Hornsea Two,hornsea2,1240,0
+2026-10-27T15:00Z,Keadby 2,keadby2,320,0
+2026-10-27T15:00Z,Moray East,morayeast,815,815
+2026-10-27T15:00Z,Moray West,moraywest,805,805
+2026-10-27T15:00Z,Neart na Gaoithe,nng,430,425
+2026-10-27T15:00Z,Pen y Cymoedd,penycymoedd,170,0
+2026-10-27T15:00Z,Race Bank,racebank,530,0
+2026-10-27T15:00Z,Rampion,rampion,375,0
+2026-10-27T15:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T15:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T15:00Z,Torness,torness,1300,0
+2026-10-27T15:00Z,Triton Knoll,triton,675,0
+2026-10-27T15:00Z,Viking Link,viking,390,0
+2026-10-27T15:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T15:00Z,Walney Extension,walneyx,435,0
+2026-10-27T15:00Z,West Burton B,westburton,465,0
+2026-10-27T15:00Z,Whitelee,whitelee,435,155
+2026-10-27T16:00Z,Beatrice,beatrice,535,495
+2026-10-27T16:00Z,Burbo Bank Extension,burbo,230,0
+2026-10-27T16:00Z,Clyde,clyde,430,0
+2026-10-27T16:00Z,Cruachan,cruachan,240,0
+2026-10-27T16:00Z,Dinorwig,dinorwig,600,0
+2026-10-27T16:00Z,Dogger Bank A,doggerA,520,0
+2026-10-27T16:00Z,Dogger Bank B,doggerB,530,0
+2026-10-27T16:00Z,Drax,drax,2535,0
+2026-10-27T16:00Z,East Anglia ONE,ea1,615,0
+2026-10-27T16:00Z,Ffestiniog,ffestiniog,180,0
+2026-10-27T16:00Z,Foyers,foyers,300,0
+2026-10-27T16:00Z,Galloper,galloper,260,0
+2026-10-27T16:00Z,Greater Gabbard,gabbard,325,0
+2026-10-27T16:00Z,Gwynt y Môr,gym,515,0
+2026-10-27T16:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T16:00Z,Heysham 1,heysham1,900,0
+2026-10-27T16:00Z,Heysham 2,heysham2,550,0
+2026-10-27T16:00Z,Hornsea One,hornsea1,1100,0
+2026-10-27T16:00Z,Hornsea Two,hornsea2,1235,0
+2026-10-27T16:00Z,Keadby 2,keadby2,820,0
+2026-10-27T16:00Z,Moray East,morayeast,820,820
+2026-10-27T16:00Z,Moray West,moraywest,805,805
+2026-10-27T16:00Z,Neart na Gaoithe,nng,440,440
+2026-10-27T16:00Z,Pen y Cymoedd,penycymoedd,155,0
+2026-10-27T16:00Z,Race Bank,racebank,525,0
+2026-10-27T16:00Z,Rampion,rampion,355,0
+2026-10-27T16:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T16:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T16:00Z,Torness,torness,1300,0
+2026-10-27T16:00Z,Triton Knoll,triton,670,0
+2026-10-27T16:00Z,Viking Link,viking,390,0
+2026-10-27T16:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T16:00Z,Walney Extension,walneyx,460,0
+2026-10-27T16:00Z,West Burton B,westburton,735,0
+2026-10-27T16:00Z,Whitelee,whitelee,430,85
+2026-10-27T17:00Z,Beatrice,beatrice,535,535
+2026-10-27T17:00Z,Burbo Bank Extension,burbo,230,0
+2026-10-27T17:00Z,Clyde,clyde,405,0
+2026-10-27T17:00Z,Cruachan,cruachan,240,0
+2026-10-27T17:00Z,Dinorwig,dinorwig,600,0
+2026-10-27T17:00Z,Dogger Bank A,doggerA,520,0
+2026-10-27T17:00Z,Dogger Bank B,doggerB,530,0
+2026-10-27T17:00Z,Drax,drax,2535,0
+2026-10-27T17:00Z,East Anglia ONE,ea1,670,0
+2026-10-27T17:00Z,Ffestiniog,ffestiniog,270,0
+2026-10-27T17:00Z,Foyers,foyers,300,0
+2026-10-27T17:00Z,Galloper,galloper,270,0
+2026-10-27T17:00Z,Greater Gabbard,gabbard,315,0
+2026-10-27T17:00Z,Gwynt y Môr,gym,515,0
+2026-10-27T17:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T17:00Z,Heysham 1,heysham1,900,0
+2026-10-27T17:00Z,Heysham 2,heysham2,550,0
+2026-10-27T17:00Z,Hornsea One,hornsea1,1085,0
+2026-10-27T17:00Z,Hornsea Two,hornsea2,1225,0
+2026-10-27T17:00Z,Keadby 2,keadby2,820,0
+2026-10-27T17:00Z,Moray East,morayeast,815,815
+2026-10-27T17:00Z,Moray West,moraywest,805,805
+2026-10-27T17:00Z,Neart na Gaoithe,nng,445,445
+2026-10-27T17:00Z,Pen y Cymoedd,penycymoedd,140,0
+2026-10-27T17:00Z,Race Bank,racebank,515,0
+2026-10-27T17:00Z,Rampion,rampion,290,0
+2026-10-27T17:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T17:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T17:00Z,Torness,torness,1300,0
+2026-10-27T17:00Z,Triton Knoll,triton,650,0
+2026-10-27T17:00Z,Viking Link,viking,390,0
+2026-10-27T17:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T17:00Z,Walney Extension,walneyx,485,0
+2026-10-27T17:00Z,West Burton B,westburton,1000,0
+2026-10-27T17:00Z,Whitelee,whitelee,405,0
+2026-10-27T18:00Z,Beatrice,beatrice,535,535
+2026-10-27T18:00Z,Burbo Bank Extension,burbo,225,0
+2026-10-27T18:00Z,Clyde,clyde,390,0
+2026-10-27T18:00Z,Cruachan,cruachan,240,0
+2026-10-27T18:00Z,Dinorwig,dinorwig,600,0
+2026-10-27T18:00Z,Dogger Bank A,doggerA,520,0
+2026-10-27T18:00Z,Dogger Bank B,doggerB,520,0
+2026-10-27T18:00Z,Drax,drax,2535,0
+2026-10-27T18:00Z,East Anglia ONE,ea1,640,0
+2026-10-27T18:00Z,Ffestiniog,ffestiniog,270,0
+2026-10-27T18:00Z,Foyers,foyers,300,0
+2026-10-27T18:00Z,Galloper,galloper,275,0
+2026-10-27T18:00Z,Greater Gabbard,gabbard,315,0
+2026-10-27T18:00Z,Gwynt y Môr,gym,520,0
+2026-10-27T18:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T18:00Z,Heysham 1,heysham1,895,0
+2026-10-27T18:00Z,Heysham 2,heysham2,550,0
+2026-10-27T18:00Z,Hornsea One,hornsea1,1065,0
+2026-10-27T18:00Z,Hornsea Two,hornsea2,1210,0
+2026-10-27T18:00Z,Keadby 2,keadby2,825,0
+2026-10-27T18:00Z,Moray East,morayeast,810,810
+2026-10-27T18:00Z,Moray West,moraywest,805,805
+2026-10-27T18:00Z,Neart na Gaoithe,nng,445,445
+2026-10-27T18:00Z,Pen y Cymoedd,penycymoedd,140,0
+2026-10-27T18:00Z,Race Bank,racebank,505,0
+2026-10-27T18:00Z,Rampion,rampion,265,0
+2026-10-27T18:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T18:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T18:00Z,Torness,torness,1300,0
+2026-10-27T18:00Z,Triton Knoll,triton,645,0
+2026-10-27T18:00Z,Viking Link,viking,390,0
+2026-10-27T18:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T18:00Z,Walney Extension,walneyx,515,0
+2026-10-27T18:00Z,West Burton B,westburton,1235,0
+2026-10-27T18:00Z,Whitelee,whitelee,410,0
+2026-10-27T19:00Z,Beatrice,beatrice,535,535
+2026-10-27T19:00Z,Burbo Bank Extension,burbo,225,0
+2026-10-27T19:00Z,Clyde,clyde,380,0
+2026-10-27T19:00Z,Cruachan,cruachan,240,0
+2026-10-27T19:00Z,Dinorwig,dinorwig,600,0
+2026-10-27T19:00Z,Dogger Bank A,doggerA,505,0
+2026-10-27T19:00Z,Dogger Bank B,doggerB,520,0
+2026-10-27T19:00Z,Drax,drax,2535,0
+2026-10-27T19:00Z,East Anglia ONE,ea1,645,0
+2026-10-27T19:00Z,Ffestiniog,ffestiniog,75,0
+2026-10-27T19:00Z,Foyers,foyers,300,0
+2026-10-27T19:00Z,Galloper,galloper,275,0
+2026-10-27T19:00Z,Greater Gabbard,gabbard,310,0
+2026-10-27T19:00Z,Gwynt y Môr,gym,520,0
+2026-10-27T19:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T19:00Z,Heysham 1,heysham1,895,0
+2026-10-27T19:00Z,Heysham 2,heysham2,550,0
+2026-10-27T19:00Z,Hornsea One,hornsea1,1045,0
+2026-10-27T19:00Z,Hornsea Two,hornsea2,1195,0
+2026-10-27T19:00Z,Keadby 2,keadby2,830,0
+2026-10-27T19:00Z,Moray East,morayeast,805,805
+2026-10-27T19:00Z,Moray West,moraywest,805,805
+2026-10-27T19:00Z,Neart na Gaoithe,nng,440,440
+2026-10-27T19:00Z,Pen y Cymoedd,penycymoedd,135,0
+2026-10-27T19:00Z,Race Bank,racebank,500,0
+2026-10-27T19:00Z,Rampion,rampion,260,0
+2026-10-27T19:00Z,Seagreen,seagreen,1050,1050
+2026-10-27T19:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T19:00Z,Torness,torness,1300,0
+2026-10-27T19:00Z,Triton Knoll,triton,635,0
+2026-10-27T19:00Z,Viking Link,viking,400,0
+2026-10-27T19:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T19:00Z,Walney Extension,walneyx,510,0
+2026-10-27T19:00Z,West Burton B,westburton,1235,0
+2026-10-27T19:00Z,Whitelee,whitelee,370,0
+2026-10-27T20:00Z,Beatrice,beatrice,535,535
+2026-10-27T20:00Z,Burbo Bank Extension,burbo,220,0
+2026-10-27T20:00Z,Clyde,clyde,370,0
+2026-10-27T20:00Z,Cruachan,cruachan,240,0
+2026-10-27T20:00Z,Dinorwig,dinorwig,190,0
+2026-10-27T20:00Z,Dogger Bank A,doggerA,500,0
+2026-10-27T20:00Z,Dogger Bank B,doggerB,520,0
+2026-10-27T20:00Z,Drax,drax,2535,0
+2026-10-27T20:00Z,East Anglia ONE,ea1,600,0
+2026-10-27T20:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T20:00Z,Foyers,foyers,300,0
+2026-10-27T20:00Z,Galloper,galloper,265,0
+2026-10-27T20:00Z,Greater Gabbard,gabbard,350,0
+2026-10-27T20:00Z,Gwynt y Môr,gym,515,0
+2026-10-27T20:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T20:00Z,Heysham 1,heysham1,895,0
+2026-10-27T20:00Z,Heysham 2,heysham2,550,0
+2026-10-27T20:00Z,Hornsea One,hornsea1,955,0
+2026-10-27T20:00Z,Hornsea Two,hornsea2,1140,0
+2026-10-27T20:00Z,Keadby 2,keadby2,830,0
+2026-10-27T20:00Z,Moray East,morayeast,795,795
+2026-10-27T20:00Z,Moray West,moraywest,805,805
+2026-10-27T20:00Z,Neart na Gaoithe,nng,440,440
+2026-10-27T20:00Z,Pen y Cymoedd,penycymoedd,135,0
+2026-10-27T20:00Z,Race Bank,racebank,485,0
+2026-10-27T20:00Z,Rampion,rampion,255,0
+2026-10-27T20:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T20:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T20:00Z,Torness,torness,1300,0
+2026-10-27T20:00Z,Triton Knoll,triton,655,0
+2026-10-27T20:00Z,Viking Link,viking,410,0
+2026-10-27T20:00Z,Walney 1 & 2,walney,355,0
+2026-10-27T20:00Z,Walney Extension,walneyx,440,240
+2026-10-27T20:00Z,West Burton B,westburton,1240,0
+2026-10-27T20:00Z,Whitelee,whitelee,400,0
+2026-10-27T21:00Z,Beatrice,beatrice,535,535
+2026-10-27T21:00Z,Burbo Bank Extension,burbo,215,0
+2026-10-27T21:00Z,Clyde,clyde,350,25
+2026-10-27T21:00Z,Cruachan,cruachan,240,0
+2026-10-27T21:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T21:00Z,Dogger Bank A,doggerA,495,0
+2026-10-27T21:00Z,Dogger Bank B,doggerB,520,0
+2026-10-27T21:00Z,Drax,drax,2535,0
+2026-10-27T21:00Z,East Anglia ONE,ea1,575,0
+2026-10-27T21:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T21:00Z,Foyers,foyers,300,0
+2026-10-27T21:00Z,Galloper,galloper,260,0
+2026-10-27T21:00Z,Greater Gabbard,gabbard,325,0
+2026-10-27T21:00Z,Gwynt y Môr,gym,510,0
+2026-10-27T21:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T21:00Z,Heysham 1,heysham1,895,0
+2026-10-27T21:00Z,Heysham 2,heysham2,550,0
+2026-10-27T21:00Z,Hornsea One,hornsea1,1045,0
+2026-10-27T21:00Z,Hornsea Two,hornsea2,1185,0
+2026-10-27T21:00Z,Keadby 2,keadby2,190,0
+2026-10-27T21:00Z,Moray East,morayeast,790,790
+2026-10-27T21:00Z,Moray West,moraywest,805,805
+2026-10-27T21:00Z,Neart na Gaoithe,nng,440,440
+2026-10-27T21:00Z,Pen y Cymoedd,penycymoedd,130,0
+2026-10-27T21:00Z,Race Bank,racebank,515,0
+2026-10-27T21:00Z,Rampion,rampion,255,0
+2026-10-27T21:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T21:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T21:00Z,Torness,torness,1300,0
+2026-10-27T21:00Z,Triton Knoll,triton,685,0
+2026-10-27T21:00Z,Viking Link,viking,410,0
+2026-10-27T21:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T21:00Z,Walney Extension,walneyx,440,0
+2026-10-27T21:00Z,West Burton B,westburton,815,0
+2026-10-27T21:00Z,Whitelee,whitelee,390,0
+2026-10-27T22:00Z,Beatrice,beatrice,535,535
+2026-10-27T22:00Z,Burbo Bank Extension,burbo,210,0
+2026-10-27T22:00Z,Clyde,clyde,340,130
+2026-10-27T22:00Z,Cruachan,cruachan,240,0
+2026-10-27T22:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T22:00Z,Dogger Bank A,doggerA,495,0
+2026-10-27T22:00Z,Dogger Bank B,doggerB,520,0
+2026-10-27T22:00Z,Drax,drax,2535,0
+2026-10-27T22:00Z,East Anglia ONE,ea1,550,0
+2026-10-27T22:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T22:00Z,Foyers,foyers,300,0
+2026-10-27T22:00Z,Galloper,galloper,255,0
+2026-10-27T22:00Z,Greater Gabbard,gabbard,320,0
+2026-10-27T22:00Z,Gwynt y Môr,gym,500,0
+2026-10-27T22:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T22:00Z,Heysham 1,heysham1,895,0
+2026-10-27T22:00Z,Heysham 2,heysham2,550,0
+2026-10-27T22:00Z,Hornsea One,hornsea1,1055,0
+2026-10-27T22:00Z,Hornsea Two,hornsea2,1205,0
+2026-10-27T22:00Z,Keadby 2,keadby2,0,0
+2026-10-27T22:00Z,Moray East,morayeast,775,775
+2026-10-27T22:00Z,Moray West,moraywest,805,805
+2026-10-27T22:00Z,Neart na Gaoithe,nng,440,440
+2026-10-27T22:00Z,Pen y Cymoedd,penycymoedd,125,0
+2026-10-27T22:00Z,Race Bank,racebank,510,0
+2026-10-27T22:00Z,Rampion,rampion,255,0
+2026-10-27T22:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T22:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T22:00Z,Torness,torness,1300,0
+2026-10-27T22:00Z,Triton Knoll,triton,685,0
+2026-10-27T22:00Z,Viking Link,viking,410,0
+2026-10-27T22:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T22:00Z,Walney Extension,walneyx,460,0
+2026-10-27T22:00Z,West Burton B,westburton,65,0
+2026-10-27T22:00Z,Whitelee,whitelee,380,0
+2026-10-27T23:00Z,Beatrice,beatrice,535,535
+2026-10-27T23:00Z,Burbo Bank Extension,burbo,205,0
+2026-10-27T23:00Z,Clyde,clyde,345,125
+2026-10-27T23:00Z,Cruachan,cruachan,240,0
+2026-10-27T23:00Z,Dinorwig,dinorwig,0,0
+2026-10-27T23:00Z,Dogger Bank A,doggerA,505,0
+2026-10-27T23:00Z,Dogger Bank B,doggerB,520,0
+2026-10-27T23:00Z,Drax,drax,2535,0
+2026-10-27T23:00Z,East Anglia ONE,ea1,520,0
+2026-10-27T23:00Z,Ffestiniog,ffestiniog,0,0
+2026-10-27T23:00Z,Foyers,foyers,225,0
+2026-10-27T23:00Z,Galloper,galloper,250,0
+2026-10-27T23:00Z,Greater Gabbard,gabbard,315,0
+2026-10-27T23:00Z,Gwynt y Môr,gym,490,0
+2026-10-27T23:00Z,Hartlepool,hartlepool,1160,0
+2026-10-27T23:00Z,Heysham 1,heysham1,895,0
+2026-10-27T23:00Z,Heysham 2,heysham2,550,0
+2026-10-27T23:00Z,Hornsea One,hornsea1,1025,0
+2026-10-27T23:00Z,Hornsea Two,hornsea2,1180,0
+2026-10-27T23:00Z,Keadby 2,keadby2,0,0
+2026-10-27T23:00Z,Moray East,morayeast,770,770
+2026-10-27T23:00Z,Moray West,moraywest,805,805
+2026-10-27T23:00Z,Neart na Gaoithe,nng,440,440
+2026-10-27T23:00Z,Pen y Cymoedd,penycymoedd,115,0
+2026-10-27T23:00Z,Race Bank,racebank,495,0
+2026-10-27T23:00Z,Rampion,rampion,255,0
+2026-10-27T23:00Z,Seagreen,seagreen,1045,1045
+2026-10-27T23:00Z,Sizewell B,sizewellb,1200,0
+2026-10-27T23:00Z,Torness,torness,1300,0
+2026-10-27T23:00Z,Triton Knoll,triton,665,0
+2026-10-27T23:00Z,Viking Link,viking,410,0
+2026-10-27T23:00Z,Walney 1 & 2,walney,350,0
+2026-10-27T23:00Z,Walney Extension,walneyx,455,0
+2026-10-27T23:00Z,West Burton B,westburton,0,0
+2026-10-27T23:00Z,Whitelee,whitelee,375,140
