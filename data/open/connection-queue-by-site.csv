@@ -304,8 +304,8 @@ Moffat 400kV Substation,55.3012,-3.4289,SPT,500,0,1,2031,2031,0,0,bat:500
 Thurso South 400kV Substation,58.5641,-3.5122,SHET,500,0,1,2034,2034,0,0,bat:500
 NatPower Green Energy Park 400kV Substation,,,SPT,500,0,1,2036,2036,0,0,bat:500
 NATPOWER KINTORE 2 GREEN ENERGY PARK 275KV SUBSTATION,,,SHET,500,0,1,2033,2033,0,0,bat:500
-Coalburn 400kV GIS Substation,55.6155,-3.8674,SPT,500,0,1,2027,2027,0,0,bat:500
 Redshaw Energy Park 132kV substation,,,SPT,500,0,1,2031,2031,0,0,bat:500
+Coalburn 400kV GIS Substation,55.6155,-3.8674,SPT,500,0,1,2027,2027,0,0,bat:500
 Rothienorman 400kV Substation,57.4094,-2.5155,SHET,500,0,1,2029,2029,0,0,bat:500
 Scoop Hill Wind Farm 132kV Substation,,,SPT,500,0,1,2027,2027,0,0,nw:500
 Gravity 400kV Substation,,,NGET,500,0,1,2037,2037,0,0,bat:500
@@ -890,8 +890,8 @@ Ayr GSP,55.4572,-4.588,SPT,60,0,1,2028,2028,0,0,dem:60
 Dunfermline 132/33kV,,,SPT,60,0,1,2028,2028,0,0,bat:60
 Penninghame Substation,,,SPT,60,0,1,2031,2031,0,0,nw:60
 Scaw Law 132kV substation,,,SPT,60,0,1,2036,2036,0,0,bat:60
-Finnieston GSP,55.8634,-4.2862,SPT,60,0,1,2031,2031,0,0,bat:60
 Jonhstone 132/33kV Substation,,,SPT,60,0,1,2028,2028,0,0,bat:60
+Finnieston GSP,55.8634,-4.2862,SPT,60,0,1,2031,2031,0,0,bat:60
 Paisley GSP,55.8404,-4.413,SPT,60,0,1,2028,2028,0,0,bat:60
 Stirling 132/33kV,56.1175,-3.9194,SPT,60,0,1,2029,2029,0,0,bat:60
 Drumchapel 275/33kV,55.9156,-4.3491,SPT,60,0,1,2028,2028,0,0,bat:60
