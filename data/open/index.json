@@ -2,7 +2,7 @@
  "title": "The UK Power Flow: open data",
  "author": "Daniel Elwyn Thomas",
  "site": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/",
- "updated": "2026-11-02T10:23Z",
+ "updated": "2026-11-02T13:35Z",
  "licence": {
   "default": "CC BY 4.0",
   "default_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -113,7 +113,7 @@
    "url": "https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/data/open/forecast-accuracy.csv",
    "title": "Forecast accuracy",
    "description": "How NESO's 24-hour national carbon intensity forecast, saved each morning, compared with the measured figures: mean absolute error, bias, share within 20 g, and how far the forecast's cleanest 3-hour window was from the true cleanest.",
-   "rows": 32,
+   "rows": 33,
    "columns": [
     "date",
     "mean_abs_error_g",
