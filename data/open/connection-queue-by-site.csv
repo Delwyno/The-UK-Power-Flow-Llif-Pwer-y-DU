@@ -219,6 +219,7 @@ North Anglia Connection Node A 132kV Substation,,,NGET,813,0,4,2034,2034,0,0,bat
 Teviot 400/132kV Substation,,,SPT,808,0,3,2033,2033,0,0,nw:523;bat:285
 Botley 400kV Substation,50.8847,-1.2323,NGET,800,0,1,2033,2033,0,0,bat:800
 Lincolnshire Coastal Node B 400kV Substation,,,NGET,800,0,1,2035,2035,0,0,bat:800
+Dalry 400kV Substation,,,SPT,800,0,1,2033,2033,0,0,bat:800
 Cheshire Connection Node B 400kV Substation,,,NGET,800,0,2,2037,2037,0,0,bat:800
 NatPower Harburn Green Energy Park 400kV Substation,,,SPT,800,0,1,2033,2033,0,0,bat:800
 West Anglia Connection Node E 400kV Substation,,,NGET,800,0,2,2034,2034,0,0,bat:800
@@ -484,7 +485,7 @@ Stracathro BESS 275kV Substation,,,SHET,249,0,1,2032,2032,0,0,dem:249
 South Wales East Connection Node B 400kV,,,NGET,249,0,1,2037,2037,0,0,bat:249
 Whitehouse 275kV Substation,55.9313,-3.2016,SHET,249,0,1,2034,2034,0,0,dem:249
 Aberthaw B 275/132kV Substation,,,NGET,240,0,1,2037,2037,0,0,bat:240
-BEARSDEN BESS 275KV SUBSTATION,,,SPT,240,100,2,2029,2031,0,0,bat:240
+BEARSDEN BESS 275KV SUBSTATION,,,SPT,240,0,2,2029,2031,0,0,bat:240
 SHAWFAIR 400KV SUBSTATION,,,SPT,240,0,1,2034,2034,0,0,bat:240
 SOUTH HUMBER CONNECTION NODE A 132kV,,,NGET,240,0,1,2035,2035,0,0,bat:240
 Chessington 132kV,51.3438,-0.3227,NGET,240,0,1,2037,2037,0,0,bat:240
@@ -739,8 +740,8 @@ Coylton 275/132kV,55.4471,-4.432,SPT,100,0,1,2027,2027,0,0,bat:100
 ECOKILWINNING 132KV SUBSTATION,,,SPT,100,0,1,2031,2031,0,0,bat:100
 Warwickshire Connection Node B 132kV Substation,,,NGET,100,0,1,2037,2037,0,0,bat:100
 Fife Energy Centre 132kV substation,,,SPT,100,0,1,2028,2028,0,0,bat:100
-Garlogie Production C 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
 Garlogie Production B 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
+Garlogie Production C 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
 Garlogie Production A 275/33kV GSP,,,SHET,100,0,2,2033,2033,0,0,bat:100
 Creyke Beck 132kV,53.8008,-0.4158,NGET,100,0,1,2034,2034,0,0,so:100
 Kirkcaldy BESS 132kV Substation,,,SPT,100,0,1,2032,2032,0,0,bat:100
