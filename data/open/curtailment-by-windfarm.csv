@@ -256,3 +256,10 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-11-01,Seagreen,seagreen,part,91,1421,15.62
 2026-11-01,Moray East,morayeast,cfd,372,0,0.0
 2026-11-01,Neart na Gaoithe,nng,cfd,71,0,0.0
+2026-11-05,Neart na Gaoithe,nng,cfd,1356,1553,1.15
+2026-11-05,Seagreen,seagreen,part,998,15085,15.12
+2026-11-05,Walney Extension,walneyx,ic,843,49157,58.31
+2026-11-05,Clyde,clyde,ro,110,10586,96.24
+2026-11-05,Whitelee,whitelee,ro,50,4479,89.58
+2026-11-05,Walney 1 & 2,walney,ro,6,1109,184.83
+2026-11-05,Moray East,morayeast,cfd,343,0,0.0
