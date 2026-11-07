@@ -146,6 +146,7 @@ Chiltern Connection Node D 400kV,,,NGET,1200,0,3,2037,2037,0,0,bat:1200
 West Country Connection Node C 400kV Substation,,,NGET,1200,0,1,2037,2037,0,0,bat:1200
 Yaxley 400kV Substation,52.332,1.1053,NGET,1198,0,4,2024,2030,0,299,bat:899;gas:299
 Exeter 400kV Substation,50.7679,-3.4046,NGET,1194,0,6,2024,2030,0,57,bat:1137;oth:57
+Pelham 400kV Substation,51.9356,0.1178,NGET,1180,0,2,2032,2033,0,0,bat:1180
 Branxton 400/132kV,55.9509,-2.4199,SPT,1167,0,2,2028,2029,0,0,bat:1167
 Bramford 400kV Substation,52.0711,1.0618,NGET,1163,98,6,2026,2029,0,50,bat:1163
 Cowley 400kV Substation,51.7108,-1.1902,NGET,1157,50,4,2025,2033,0,57,bat:1157
@@ -323,7 +324,6 @@ West Country Connection Node E 400kV Substation,,,NGET,480,0,1,2037,2037,0,0,bat
 Derbyshire Connection Node D 400kV Substation,,,NGET,480,0,2,2037,2037,0,0,bat:480
 Chickerell B 400kV Substation,50.6237,-2.4881,NGET,480,0,1,2037,2037,0,0,bat:480
 Bramley,51.3368,-1.0769,NGET,480,0,1,2037,2037,0,0,bat:480
-Pelham 400kV Substation,51.9356,0.1178,NGET,480,0,1,2035,2035,0,0,bat:480
 Warley 132kV Substation,51.5529,0.3003,NGET,480,99,2,2036,2036,0,0,bat:480
 Wakeleys 400kV,,,NGET,480,0,1,2033,2033,0,0,bat:480
 North Anglia Connection Node D 132kV Substation,,,NGET,478,0,2,2034,2034,0,0,bat:478
@@ -840,7 +840,6 @@ Oykel Wind Farm 132kV Substation,,,SHET,79,0,1,2032,2032,0,0,nw:79
 Creachan Wind Farm 132/33kV Substation,,,SHET,79,0,1,2030,2030,0,0,nw:79
 Grimshader Wind Farm Substation132 KV,,,SHET,79,0,1,2033,2033,0,0,nw:79
 Kilbraur Wind Farm Substation,58.0429,-4.055,SHET,79,67,1,2031,2031,0,0,nw:79
-Alness GSP,57.7082,-4.2748,SHET,79,59,2,2024,2028,0,36,nw:79
 Olivers Forest Wind Farm 132kV Substation,,,SPT,79,0,1,2031,2031,0,0,nw:79
 Bankend Rig III 132kV Collector Substation,,,SPT,78,0,1,2030,2030,0,0,nw:78
 Stella South GSP,54.9739,-1.7331,NGET,78,0,1,2026,2026,0,0,bat:78
@@ -852,7 +851,6 @@ ELVANFOOT ENERGY STORAGE 132/33KV COLLECTOR SUBSTATION,55.4374,-3.6721,SPT,75,0,
 Braco West GSP,56.262,-3.9471,SHET,75,74,1,2035,2035,0,0,bat:75
 Devonside 132kV Substation,56.1371,-3.7797,SPT,75,0,1,2034,2034,0,0,bat:75
 Stornoway GSP,58.2032,-6.4232,SHET,75,0,2,2027,2028,0,0,nw:50;bat:25
-Tomchrasky Wind Farm 132kV Substation,,,SHET,74,0,1,2029,2029,0,0,nw:74
 CRAIG WATCH WIND FARM 132KV SUBSTATION,55.1653,-3.0685,SHET,73,0,1,2031,2031,0,0,nw:73
 Newton Stewart GSP,54.9534,-4.4988,SPT,73,0,1,2036,2036,0,0,nw:73
 Galashiels 132/33kV,55.6103,-2.7713,SPT,73,0,1,2030,2030,0,0,bat:73
@@ -880,6 +878,7 @@ Strathy Wood 132/33kV Substation,,,SHET,64,0,1,2029,2029,0,0,nw:64
 Divot Hill 132/33 kV Substation,,,SPT,63,0,1,2036,2036,0,0,bat:63
 Cockenzie 275/33kV Substation,55.9668,-2.9681,SPT,63,0,1,2028,2028,0,0,bat:63
 Partrick GSP,,,SPT,63,0,1,2031,2031,0,0,bat:63
+Tomchrasky Wind Farm 132/33kV Substation,,,SHET,63,0,1,2032,2032,0,0,nw:63
 Limekilns 132/33kV substation,,,SHET,61,106,1,2030,2030,0,0,bat:61
 Coatbridge GSP,55.8512,-4.0131,SPT,60,0,1,2033,2033,0,0,bat:60
 Glenglass 132/33kV,55.3371,-4.0179,SPT,60,65,2,2030,2033,0,0,bat:60
@@ -986,6 +985,7 @@ Elvanfoot substation,55.4374,-3.6721,SPT,44,0,1,2026,2026,0,0,nw:44
 Dumfries North 400/132kV substation,55.0676,-3.5908,NGET,43,0,1,2037,2037,0,0,bat:43
 Chickerell-Mannington 400kV Substation,50.6237,-2.4881,NGET,43,0,1,2039,2039,0,0,dem:43
 Dounreay 2 275/33kV GSP Substation,,,SHET,43,0,1,2033,2033,0,0,bat:43
+Alness GSP,57.7082,-4.2748,SHET,43,95,1,2032,2032,0,0,nw:43
 Bainsford 132/33kV,56.0137,-3.7679,SPT,43,0,1,2025,2025,0,43,bat:43
 Killin GSP,56.4769,-4.3296,SHET,43,4,1,2031,2031,0,0,bat:43
 Killermont GSP,55.9033,-4.31,SPT,43,0,1,2031,2031,0,0,bat:43
