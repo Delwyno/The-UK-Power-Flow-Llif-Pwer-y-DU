@@ -265,3 +265,8 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-11-05,Moray East,morayeast,cfd,343,0,0.0
 2026-11-10,Greater Gabbard,gabbard,ro,7,1089,155.57
 2026-11-10,Moray East,morayeast,cfd,228,0,0.0
+2026-11-11,Moray East,morayeast,cfd,10564,0,0.0
+2026-11-11,Beatrice,beatrice,ic,6715,59433,8.85
+2026-11-11,Moray West,moraywest,part,7195,43671,6.07
+2026-11-11,Seagreen,seagreen,part,4020,62352,15.51
+2026-11-11,Neart na Gaoithe,nng,cfd,269,0,0.0
