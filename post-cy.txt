@@ -1,0 +1,16 @@
+Ddoe ar y grid (Gwener 13 Tac)
+Gwynt wedi’i droi i lawr: 44.5 GWh, £289,100 wedi’i dalu i ffermydd gwynt
+(net −£994,400 ar ôl i £1.3 miliwn gael ei dalu’n ôl)
+Nwy wedi’i droi i fyny oherwydd cyfyngiadau’r grid: £2.6 miliwn
+Carbon cyfartalog: 144 gCO₂/kWh (cymedrol). Glanaf: 03:00 (85), mwyaf budr: 17:30 (202)
+Gwynt a gynhyrchodd 26% o drydan Prydain, nwy 27%. 45% o wynt, solar, niwclear a dŵr.
+37% yn lanach na’r 7 diwrnod blaenorol.
+Digon i bweru tua 6.0 miliwn o gartrefi am ddiwrnod: dyna’r gwynt a droddwyd i lawr.
+Galw ar y grid trawsyrru: isaf 28.4 GW (04:30), uchaf 43.3 GW (17:30).
+Rhanbarth glanaf: Gogledd yr Alban (0). Mwyaf budr: De Cymru (361).
+Rhagolwg Dydd Sadwrn: glanaf 20:00–24:00 (tua 82 gCO₂/kWh).
+Map byw: https://delwyno.github.io/The-UK-Power-Flow-Llif-Pwer-y-DU/
+Data: NESO, Elexon BMRS
+
+Testun amgen ar gyfer y ddelwedd:
+Cerdyn yn dangos Dydd Gwener 13 Tachwedd ar grid trydan Prydain: 44.5 GWh o wynt wedi’i droi i lawr, dwysedd carbon cyfartalog o 144 gCO₂/kWh, siart bob hanner awr a chymysgedd cynhyrchu: gwynt 26%, nwy 27%.
