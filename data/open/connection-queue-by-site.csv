@@ -580,7 +580,7 @@ Womblehill BESS Farm 132kV,,,SHET,200,0,1,2029,2029,0,0,bat:200
 GARTCLASH COLLECTOR 275KV SUBSTATION,,,SPT,200,0,1,2029,2029,0,0,bat:200
 Coalburn North 400kV Substation,55.6155,-3.8674,SPT,200,0,1,2027,2027,0,0,bat:200
 London West Connection Node A 400kV Substation,,,NGET,200,0,1,2038,2038,0,0,bat:200
-Fleet 400kV Substation,51.2511,-0.8809,NGET,200,0,4,2027,2028,0,0,so:104;bat:48;oth:48
+Fleet 400kV Substation,51.2511,-0.8809,NGET,200,0,4,2027,2028,0,0,so:104;oth:48;bat:48
 Arresgill 132kV Substation,,,SPT,199,0,2,2031,2031,0,0,nw:150;bat:49
 Dalmarnock Storage BESS 132kV Substation,55.8355,-4.2041,SPT,192,0,2,2028,2029,0,0,bat:192
 Inveroykel Wind Farm 132kV,,,SHET,191,0,1,2031,2031,0,0,nw:191
@@ -1002,7 +1002,6 @@ ROWANCRAIG WIND FARM 33KV SUBSTATION,,,SPT,40,0,1,2030,2030,0,0,nw:40
 Helensburgh 132/33kV,56.0233,-4.7087,SPT,40,0,1,2027,2027,0,0,bat:40
 Mybster 4 132/33kV GSP Substation,58.447,-3.4237,SHET,40,0,1,2034,2034,0,0,nw:40
 Keith 1 132/33kV GSP Substation,57.5402,-2.9385,SHET,39,0,1,2026,2026,0,39,bat:39
-Clachan 2 132/33kV GSP Substation,56.2775,-4.922,SHET,38,0,1,2030,2030,0,0,nw:38
 Dorenell BESS 132KV substation,,,SHET,38,0,1,2023,2023,0,38,nw:38
 Thurso South GSP,58.5641,-3.5122,SHET,36,0,1,2028,2028,0,0,nw:36
 Loch Luichart Extension II Substation,,,SHET,36,0,1,2024,2024,0,36,nw:36
@@ -1014,8 +1013,10 @@ Pencloe 132/33kV Substation,55.3295,-4.2023,SPT,34,81,1,2028,2028,0,0,bat:34
 Glenmuckloch 132/33kV,,,SPT,34,0,1,2029,2029,0,0,nw:34
 Lorg Extension Wind Farm 132/33kV Substation,,,SPT,33,0,1,2029,2029,0,0,nw:33
 Harker 132kV Substation,,,NGET,30,0,1,2037,2037,0,0,bat:30
+Dyce 132/33kV Substation,57.2158,-2.19,SHET,30,0,1,2026,2026,0,30,bat:30
 Elgin GSP,57.6648,-3.3214,SHET,30,0,1,2028,2028,0,0,bat:30
 Burwell 132kV Substation,52.2802,0.3133,NGET,30,50,1,2028,2028,0,0,bat:30
+Clachan 2 132/33kV GSP Substation,56.2775,-4.922,SHET,27,0,1,2032,2032,0,0,nw:27
 Dunvegan 132/33kV Grid Supply Point Substation,57.4327,-6.5398,SHET,25,0,1,2029,2029,0,0,nw:25
 Strichen GSP,57.5862,-2.0702,SHET,25,0,1,2033,2033,0,0,bat:25
 Sandyknowe 132/33kV,,,SPT,22,86,1,2027,2027,0,0,nw:22
