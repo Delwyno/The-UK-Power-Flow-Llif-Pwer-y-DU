@@ -312,3 +312,5 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-11-18,Seagreen,seagreen,part,175,2701,15.43
 2026-11-18,Moray East,morayeast,cfd,5361,0,0.0
 2026-11-18,Moray West,moraywest,part,3842,45032,11.72
+2026-11-19,Moray East,morayeast,cfd,1087,0,0.0
+2026-11-19,Moray West,moraywest,part,159,1570,9.87
