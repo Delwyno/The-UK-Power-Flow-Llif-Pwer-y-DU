@@ -319,3 +319,7 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-11-21,Neart na Gaoithe,nng,cfd,84,0,0.0
 2026-11-21,Seagreen,seagreen,part,7,113,16.14
 2026-11-21,Moray West,moraywest,part,56,949,16.95
+2026-11-22,Seagreen,seagreen,part,2077,32138,15.47
+2026-11-22,Moray East,morayeast,cfd,4967,0,0.0
+2026-11-22,Moray West,moraywest,part,1100,11906,10.82
+2026-11-22,Neart na Gaoithe,nng,cfd,1425,12805,8.99
