@@ -472,8 +472,8 @@ Penn 275kV Substation,52.5565,-2.2096,NGET,249,0,1,2033,2033,0,0,bat:249
 Warwickshire Connection Node F 400kV Substation,,,NGET,249,0,1,2037,2037,0,0,bat:249
 Richborough 400kV Substation,51.3113,1.3443,NGET,249,100,1,2025,2025,0,249,bat:249
 Stracathro BESS 275kV Substation,,,SHET,249,0,1,2032,2032,0,0,dem:249
-South Wales East Connection Node B 400kV,,,NGET,249,0,1,2037,2037,0,0,bat:249
 Whitehouse 275kV Substation,55.9313,-3.2016,SHET,249,0,1,2034,2034,0,0,dem:249
+South Wales East Connection Node B 400kV,,,NGET,249,0,1,2037,2037,0,0,bat:249
 Aberthaw B 275/132kV Substation,,,NGET,240,0,1,2037,2037,0,0,bat:240
 SHAWFAIR 400KV SUBSTATION,,,SPT,240,0,1,2034,2034,0,0,bat:240
 SOUTH HUMBER CONNECTION NODE A 132kV,,,NGET,240,0,1,2035,2035,0,0,bat:240
@@ -692,7 +692,8 @@ West Burton 132kV Substation,53.3593,-0.8089,NGET,120,0,1,2027,2027,0,0,bat:120
 Wylfa 132kV Substation,53.416,-4.482,NGET,120,0,1,2029,2029,1,0,bat:120
 Harestanes West Wind Farm 132/33kV,,,SPT,119,125,3,2028,2029,0,0,nw:81;bat:38
 Newlands Hill 132/33kV,,,SPT,119,0,1,2030,2030,0,0,bat:119
-Mybster 3 132/33kV Substation,58.447,-3.4237,SHET,117,0,2,2028,2029,0,0,bat:117
+South Humber Bank 400kV Substation,53.602,-0.1455,NGET,118,1365,2,2029,2034,0,0,bio:83;gas:35
+Mybster 3 132/33kV Substation,58.447,-3.4237,SHET,117,0,2,2028,2028,0,0,bat:117
 Fort Augustus 2 400kV Substation,57.1355,-4.7176,SHET,115,0,1,2037,2037,0,0,bat:115
 Bramley 400kV Substation,51.3368,-1.0769,NGET,114,47,3,2027,2027,0,0,bat:114
 Hare Hill Repowering 132/33kV Substation,54.7629,-1.4165,SPT,114,0,1,2031,2031,0,0,nw:114
@@ -794,7 +795,6 @@ Breackerie 132kV Substation,,,SHET,91,0,1,2037,2037,0,0,bat:91
 Rowan 275/33kV Substation,,,SHET,91,0,1,2034,2034,0,0,bat:91
 Bonnybridge 132/33kV,,,SPT,90,0,2,2026,2028,0,30,bat:60;nw:30
 Fairburn Extension 132/33kV Substation,57.5321,-4.6473,SHET,90,0,1,2031,2031,0,0,nw:90
-Greenburn Mixed Technology 132kV Substation,,,SPT,90,0,1,2028,2028,0,0,nw:90
 Kellas Wind Farm 132kV Substation,,,SHET,90,0,1,2030,2030,0,0,nw:90
 Dumfries 132/33kV,55.0676,-3.5908,SPT,90,30,2,2029,2029,0,0,bat:90
 Laleham 132kV Substation,51.424,-0.4702,NGET,90,0,2,2028,2029,0,0,dem:90
@@ -822,7 +822,6 @@ Hopsrig Collector Substation,,,SPT,84,0,2,2027,2027,0,0,nw:84
 Lynemore Windfarm 132kV Substation,,,SHET,84,0,1,2031,2031,0,0,nw:84
 Minnygryle Burn Energy Park 132kV substation,,,SPT,84,0,1,2036,2036,0,0,bat:84
 Sheirdrim 132kV Substation,,,SHET,84,0,1,2032,2032,0,0,nw:84
-South Humber Bank 400kV Substation,53.602,-0.1455,NGET,83,1365,1,2029,2029,0,0,bio:83
 Corriemoillie 2 400/132kV Substation,57.6344,-4.7692,SHET,82,0,1,2033,2033,0,0,bat:82
 ACHANY EXTENSION WIND FARM 132/33KV Substation,,,SHET,81,0,1,2029,2029,0,0,nw:81
 Caorach 132 KV Substation,,,SHET,81,0,1,2033,2033,0,0,bat:81
@@ -875,6 +874,7 @@ Rothienorman 2 400/33kV GSP,57.4094,-2.5155,SHET,65,0,2,2024,2028,0,50,bat:50;nw
 Strathy Wood 132/33kV Substation,,,SHET,64,0,1,2029,2029,0,0,nw:64
 Divot Hill 132/33 kV Substation,,,SPT,63,0,1,2036,2036,0,0,bat:63
 Cockenzie 275/33kV Substation,55.9668,-2.9681,SPT,63,0,1,2028,2028,0,0,bat:63
+Greenburn Mixed Technology 132kV Substation,,,SPT,63,0,1,2028,2028,0,0,nw:63
 Partrick GSP,,,SPT,63,0,1,2031,2031,0,0,bat:63
 Tomchrasky Wind Farm 132/33kV Substation,,,SHET,63,0,1,2032,2032,0,0,nw:63
 Coatbridge GSP,55.8512,-4.0131,SPT,60,0,1,2033,2033,0,0,bat:60
@@ -946,7 +946,7 @@ Fetteresso GSP,56.9648,-2.3471,SHET,50,0,1,2028,2028,0,0,bat:50
 Bridge of Dun GSP,56.7204,-2.5569,SHET,50,17,1,2032,2032,0,0,bat:50
 Arbroath 2 132/33kV GSP Substation,56.564,-2.6198,SHET,50,0,1,2032,2032,0,0,so:50
 FIFE 2 BESS 132KV SUBSTATION,,,SPT,50,0,1,2028,2028,0,0,bat:50
-Glen Ullinish 132/33kV Substation,,,SHET,50,0,1,2028,2028,0,0,nw:50
+Glen Ullinish 132/33kV Substation,,,SHET,50,0,1,2031,2031,0,0,nw:50
 Coupar Angus 2 GSP,56.5382,-3.2733,SHET,50,0,1,2031,2031,0,0,bat:50
 Govan 132/33kV,55.855,-4.3161,SPT,50,0,1,2028,2028,0,0,bat:50
 Iver 275kV Substation,51.5435,-0.4979,NGET,50,0,1,2027,2027,0,0,bat:50
@@ -965,7 +965,6 @@ Lyndhurst GSP,56.4811,-3.0173,SHET,50,0,1,2028,2028,0,0,bat:50
 Dell 132kV Substation,,,SHET,50,0,1,2030,2030,0,0,nw:50
 OCHILL BESS 132KV SUBSTATION,,,SPT,50,0,1,2028,2028,0,0,bat:50
 Hollandmey Renewable Energy Development132/33kV Substation,,,SHET,50,0,1,2030,2030,0,0,nw:50
-Ochill 132kV Substation,,,SPT,50,0,1,2028,2028,0,0,bat:50
 Cassley GSP,58.1876,-4.7292,SHET,50,0,1,2028,2028,0,0,nw:50
 DEVOL MOOR 132/33KV GRID SUPPLY POINT SUBSTATION,55.9159,-4.709,SPT,49,0,1,2026,2026,0,49,bat:49
 Baillie 275KV Substation,58.5658,-3.6736,SHET,48,0,1,2030,2030,0,0,bat:48

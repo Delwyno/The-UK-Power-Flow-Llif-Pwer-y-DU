@@ -327,3 +327,9 @@ date,wind_farm,site_id,scheme,turned_down_mwh,payments_gbp,gbp_per_mwh
 2026-11-23,Beatrice,beatrice,ic,3112,80847,25.98
 2026-11-23,Moray West,moraywest,part,2950,46962,15.92
 2026-11-23,Seagreen,seagreen,part,1057,16351,15.47
+2026-11-24,Beatrice,beatrice,ic,12436,345672,27.8
+2026-11-24,Seagreen,seagreen,part,14523,223652,15.4
+2026-11-24,Moray East,morayeast,cfd,20205,0,0.0
+2026-11-24,Moray West,moraywest,part,18642,262883,14.1
+2026-11-24,Neart na Gaoithe,nng,cfd,3252,3778,1.16
+2026-11-24,Walney Extension,walneyx,ic,742,12641,17.04
